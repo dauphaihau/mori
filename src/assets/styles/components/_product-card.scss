@@ -1,0 +1,67 @@
+.product-card {
+  @apply laptop:mb-0 bg-product p-4 laptop:p-6 h-full ;
+
+  &__images {
+    //width: 15rem;
+    //height: 8rem;
+    @apply relative bg-transparent bg-cover ;
+    border-radius: 5.3rem;
+    //backdrop-filter: gray;
+
+    @media only screen and (max-width: 57em) {
+      order: 1;
+      border-radius: 5rem;
+      height: 40rem;
+    }
+    @media only screen and (max-width: 30em) {
+      width: 30rem;
+      border-radius: 3rem;
+    }
+
+    canvas {
+      @apply absolute z-0;
+      // border-radius: inherit !important;
+      //background-color: #f4f4f4;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .img-effect {
+      @apply hidden laptop:block w-full  bg-gray-custom-50;
+
+      &:hover {
+        &:nth-child(2) {
+          opacity: 1;
+        }
+      }
+
+      &:nth-child(1) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      &:nth-child(2) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+    }
+  }
+
+  &__content {
+    @apply mt-0  flex flex-col justify-between desktop:flex-row;
+
+    .title {
+      @apply text-xl lg:text-lg font-bold mb-1;
+    }
+
+    .describe {
+      @apply text-sm mb-1 text-primary-gray;
+    }
+  }
+}

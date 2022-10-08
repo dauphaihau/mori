@@ -1,0 +1,52 @@
+.stepper {
+  @apply w-full  ;
+
+  &__steps {
+    @apply ipad:max-w-[60%] flex ipad:ml-24 mb-4;
+
+    .step {
+      @apply w-full flex border-none relative;
+      &-border {
+        @apply w-2/5 ipad:w-[96%] rounded-lg border border-[#e5e8eb] ipad:border-[1.5px]
+
+        absolute left-16 top-[28%]
+        ipad:left-[3rem] ipad:top-[35%];
+      }
+
+      &-content {
+        @apply border-none text-center rounded-[5px] w-[57%] ipad:w-auto cursor-pointer border border-[#e5e8eb];
+        padding: 0.5rem 0.5rem;
+
+        &__icon {
+          @apply text-[10px] text-black pt-3 mb-3;
+        }
+
+        &__icon--gray {
+          @apply text-[10px] text-gray-300 pt-3 mb-3;
+        }
+
+        &__text {
+          @apply text-sm animate hover:text-gray-600 text-gray-custom-503;
+        }
+
+        p {
+          @apply my-auto mx-auto text-center;
+        }
+      }
+    }
+
+    .step:nth-child(2) {
+      @apply ipad:mr-20;
+      div:first-child {
+        left: 5.5rem;
+      }
+    }
+
+    .step:nth-child(3) {
+      div:first-child {
+        @apply hidden;
+      }
+    }
+  }
+}
+

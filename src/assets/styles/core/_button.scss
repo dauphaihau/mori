@@ -1,0 +1,68 @@
+.btn {
+  @apply
+  px-6 py-3
+  text-[14px]
+  w-auto text-center
+  border-0 border-transparent rounded-lg
+  bg-primary-black text-white dark:text-white dark:hover:text-white
+  transition ease-in-out duration-300
+
+  items-center justify-center
+  hover:text-white hover:opacity-80
+
+  leading-4
+  placeholder-white focus-visible:outline-none
+  focus:outline-none
+  ;
+  &__icon {
+    @apply mr-2;
+    //@apply absolute right-auto top-1/2 flex-center;
+  }
+}
+
+.btn-group {
+  @apply flex items-center text-[13px] ipad:text-sm;
+  button:first-child {
+    @apply w-8 h-8 md:w-8 md:h-8 laptop:w-10 laptop:h-10
+    desktop:w-9 desktop:h-9
+    block text-center border
+    rounded-tl-lg rounded-bl-lg
+    animate focus:outline-none flex-center;
+  }
+
+  p {
+    @apply w-8 h-8 laptop:w-10 laptop:h-10
+    md:w-8 md:h-8 pt-[4px]
+    desktop:w-9 desktop:h-9
+    m-0 border-t border-b text-center flex-center;
+  }
+
+  button:last-child {
+    @apply block w-8 h-8 laptop:w-10 laptop:h-10
+    md:w-8 md:h-8
+    desktop:w-9 desktop:h-9
+    rounded-br-lg rounded-tr-lg
+    flex-center animate
+    text-center border
+    focus:outline-none;
+  }
+}
+
+.btn-icon {
+  //text-gray-400
+  @apply w-[30px] h-[30px]
+  text-primary-gray
+  bg-transparent hover:bg-gray-custom-hover
+  transition-all duration-300 ease-in-out
+  hover:text-primary-black rounded-lg text-sm p-1.5 ml-auto
+  inline-flex items-center cursor-pointer;
+}
+
+//.btn-icon {
+//  @apply w-[30px] h-[30px]
+//  text-gray-400 bg-transparent hover:bg-gray-200
+//  transition-all duration-300 ease-in-out
+//  hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto
+//  inline-flex items-center cursor-pointer
+//  dark:hover:bg-gray-800 dark:hover:text-white ;
+//}

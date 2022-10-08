@@ -1,0 +1,105 @@
+.header {
+  @apply sticky top-0 left-0 w-full z-30
+  h-[50px] laptop:h-[59px]
+  px-4 laptop:px-8 bg-transparent
+  border-b border-transparent border-gray-custom-52
+  ;
+  //@apply sticky top-0 left-0 w-full z-30 h-[64px] tablet:h-20 laptop:h-[59px] px-4 bg-white
+  //border-b border-transparent border-gray-custom-52
+  //;
+
+  .navbar {
+    @apply tablet:px-4 desktop:px-0 h-full
+    flex flex-row laptop:flex-row items-center justify-between ;
+
+    &__leftSide {
+      .menu-mobile {
+        @apply cursor-pointer w-[30px] h-[30px] laptop:hidden;
+      }
+
+      .logo {
+        @apply max-w-48 sm:max-w-none mr-4  hidden laptop:block;
+      }
+
+      .single-link {
+        //border-b-2 border-transparent;
+        @apply mr-4 pt-3 pb-4 text-primary-gray hover:text-primary-black
+        border-b-2 ;
+
+        &__title {
+          //@apply py-2 px-4 rounded-[4px];
+          @apply py-2 px-4 hover:text-primary-black hover:bg-gray-custom-52 rounded-[4px];
+          //@apply py-2 px-4 hover:bg-gray-custom-52 rounded-[4px];
+        }
+
+        &__title.default {
+          @apply text-primary-gray hover:text-primary-black;
+        }
+
+        &__title.active {
+          @apply text-primary-black;
+        }
+
+        &__title.non-scroll {
+          @apply text-white hover:text-primary-black;
+        }
+
+        &__title.scrolling {
+          @apply text-primary-gray hover:text-primary-black;
+        }
+
+      }
+
+      .single-link.active {
+        @apply border-black;
+      }
+
+      .single-link.active--white {
+        @apply border-white;
+      }
+
+      .single-link.default {
+        @apply border-transparent;
+      }
+
+
+      .multi-link {
+        @apply mr-4 relative;
+
+        .trigger {
+          @apply pt-3 pb-4 text-primary-gray hover:text-primary-black
+          mb-0 text-left ;
+
+          &__title {
+            @apply py-2 px-3 hover:text-primary-black hover:bg-gray-custom-52 rounded-[4px]
+          }
+
+          &__content {
+            @apply hidden absolute bg-white w-52 shadow-2xl rounded-lg peer-hover:flex hover:flex;
+            transition: all .3s ease-in-out;
+
+            .title {
+              @apply text-gray-custom-907 hover:text-black p-4
+            }
+          }
+
+
+          //&__content {
+          //  .title {
+          //    @apply animate
+          //    py-4 px-4
+          //    mb-0 text-left text-smaller;
+          //  }
+          //}
+
+          //}
+        }
+      }
+    }
+  }
+}
+
+.header.scrolling {
+  @apply bg-white animate
+  border-b border-transparent border-gray-custom-52;
+}

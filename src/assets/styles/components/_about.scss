@@ -1,0 +1,69 @@
+.about-page {
+
+  &__banner {
+    @apply relative
+    before:absolute before:inset-0 before:z-20
+    before:w-full before:h-[10%]
+    before:bg-gradient-to-b from-[#2d2c2c] before:opacity-[0.35]
+    ;
+
+    .image-banner-frame {
+      @apply
+      bg-[url('/images/about/banner.webp')]
+      laptop:bg-fixed bg-no-repeat bg-cover
+      relative z-10
+      w-full h-screen
+      max-h-[300px] laptop:max-h-[700px]
+      mt-[-4rem]
+      pt-48 p-6 tablet:p-10 desktop:p-8
+      ;
+      background-position: top center;
+
+      @apply
+      before:absolute before:inset-0 before:z-10
+      before:w-full before:h-full
+      before:bg-[#2d2c2c] before:opacity-20
+      ;
+    }
+
+    .image-banner-frame::after {
+      @apply
+      bg-[url('/images/about/image-frame-bottom.png')]
+      bg-repeat-x
+      absolute content-['']  bottom-0 left-0 z-10 p-0 m-0
+      w-full h-[200px];
+      background-position: bottom center;
+    }
+
+    .slogan {
+      //font-[Quattrocento]
+      @apply absolute z-10
+      top-1/2 left-1/2
+      -translate-y-1/2 -translate-x-1/2
+      w-full text-center;
+    }
+  }
+
+  &__content {
+
+    max-width: 120rem;
+    @apply mx-auto w-10/12 mt-20 flex-1 mb-32;
+
+    .image-frame {
+      @apply float-left z-10 relative p-0 m-0 w-full ;
+    }
+
+    .image-frame::before {
+      @apply absolute content-[''] p-0 m-0 inset-0 w-full h-full bg-no-repeat ;
+      background-size: 100% 100%;
+      background-position: center center;
+    }
+
+    .image-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+  }
+}

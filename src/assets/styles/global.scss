@@ -1,0 +1,186 @@
+@tailwind base;
+
+@import "src/assets/styles/core/input";
+@import "src/assets/styles/core/table";
+@import "src/assets/styles/core/dropdown";
+@import "src/assets/styles/core/dialog";
+@import "src/assets/styles/core/button";
+@import "src/assets/styles/core/drawer";
+@import "src/assets/styles/core/stepper";
+@import "src/assets/styles/core/badge";
+
+@import "src/assets/styles/components/header";
+@import "src/assets/styles/components/footer";
+@import "src/assets/styles/components/chatbox";
+@import "src/assets/styles/components/product-card";
+@import "src/assets/styles/components/filters";
+@import "src/assets/styles/components/carousel";
+@import "src/assets/styles/components/about";
+@tailwind components;
+
+@tailwind utilities;
+
+@layer base {
+
+  @font-face {
+    font-family: "Eina";
+    src: url("/fonts/Eina.otf");
+  }
+
+  @font-face {
+    font-family: "Eina Light";
+    src: url("/fonts/Eina-Light.otf");
+  }
+
+  @font-face {
+    font-family: "Eina SemiBold";
+    src: url("/fonts/Eina-SemiBold.otf");
+  }
+
+  @font-face {
+    font-family: "Eina Bold";
+    src: url("/fonts/Eina04-Bold.otf");
+  }
+
+
+  p, h1, h2, h3, h4, h5, label, span, a {
+    @apply text-primary-black;
+    //@apply text-black-primary;
+    //color: rgba(0, 0, 0, .8);
+    //color: #1c1b1b;
+    font-family: Eina;
+  }
+
+  .layout {
+    max-width: 120rem;
+    @apply mx-auto w-11/12;
+    //@apply mx-auto w-11/12 px-4 tablet:px-8 desktop:px-16;
+  }
+
+  .bg-product {
+    @apply bg-gray-custom-50 hover:bg-light-200 rounded-lg;
+  }
+
+  .cursor-newTab {
+    cursor: url('/images/new-tab.png') 10 10, pointer;
+  }
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .animate {
+    @apply transition-all duration-500 ease-in-out;
+  }
+}
+
+/* #region  /**=========== Fade In =========== */
+.fade-in-page {
+  animation: fadeInAnimation ease-in-out .3s;
+  //animation: fadeInAnimation ease-in-out 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* #endregion  /**======== Fade In =========== */
+
+
+/* #region  /**=========== Fade In =========== */
+//[data-fade] {
+//  @apply opacity-100 transition duration-[400ms] ease-out
+//}
+//
+//.fade-in-start [data-fade] {
+//  @apply scale-75 opacity-0;
+//}
+//
+//.fade-in-start [data-fade='1'] {
+//  transition-delay: 100ms;
+//}
+//
+//.fade-in-start [data-fade='2'] {
+//  transition-delay: 200ms;
+//}
+//
+//.fade-in-start [data-fade='3'] {
+//  transition-delay: 300ms;
+//}
+//
+//.fade-in-start [data-fade='4'] {
+//  transition-delay: 400ms;
+//}
+//
+//.fade-in-start [data-fade='5'] {
+//  transition-delay: 500ms;
+//}
+//
+//.fade-in-start [data-fade='6'] {
+//  transition-delay: 600ms;
+//}
+//
+//.fade-in-start [data-fade='7'] {
+//  transition-delay: 700ms;
+//}
+//
+//.fade-in-start [data-fade='8'] {
+//  transition-delay: 800ms;
+//}
+
+[data-fade] {
+  @apply translate-y-10 opacity-0 transition duration-[400ms] ease-out
+  motion-reduce:translate-y-0 motion-reduce:opacity-100;
+}
+
+.fade-in-start [data-fade] {
+  @apply translate-y-0 opacity-100;
+}
+
+.fade-in-start [data-fade='1'] {
+  transition-delay: 100ms;
+}
+
+.fade-in-start [data-fade='2'] {
+  transition-delay: 200ms;
+}
+
+.fade-in-start [data-fade='3'] {
+  transition-delay: 300ms;
+}
+
+.fade-in-start [data-fade='4'] {
+  transition-delay: 400ms;
+}
+
+.fade-in-start [data-fade='5'] {
+  transition-delay: 500ms;
+}
+
+.fade-in-start [data-fade='6'] {
+  transition-delay: 600ms;
+}
+
+.fade-in-start [data-fade='7'] {
+  transition-delay: 700ms;
+}
+
+.fade-in-start [data-fade='8'] {
+  transition-delay: 800ms;
+}
+
+
+.animate-2 {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+

@@ -1,0 +1,18 @@
+{
+  "title": "navbar",
+  "homepageList": [
+    {
+      "title": "Products",
+      "link": "/products"
+    },
+    {
+      "title": "Categories",
+      "link": "/categories",
+      "isSubNav": true
+    },
+    {
+      "title": "News",
+      "link": "/news"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+.carousel-viewport:global(.is-draggable) {
+  cursor: move;
+  cursor: grab;
+}
+
+.carousel-viewport:global(.is-dragging) {
+  cursor: grabbing;
+}
+
+.carousel-container {
+  user-select: none;
+}
+
+.slide {
+  flex: 0 0 auto;
+  max-width: min(70% , 620px);
+  opacity: 0.4;
+  transition: opacity 0.4s;
+}
+
+.slide:global(.active) {
+  opacity: 1;
+}
+
+.slide2 {
+  flex: 0 0 auto;
+  //width: auto;
+  //max-width: 1200px;
+  //max-width: min(70% , 1200px);
+  //opacity: 0.4;
+  transition: opacity 0.4s;
+}
+
+.slide2:global(.active) {
+  opacity: 1;
+}
+

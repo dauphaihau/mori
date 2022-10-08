@@ -1,0 +1,23 @@
+.dialog-title {
+  @apply text-xl font-medium leading-6 text-gray-900 dark:text-white;
+}
+
+.dialog-content {
+  //max-w-md
+  @apply
+  max-w-[700px]
+  transform overflow-hidden rounded-2xl
+  dark:bg-gray-custom-902
+  bg-white
+  text-left align-middle shadow-xl transition-all;
+}
+
+.dialog-content--nonDarkMode {
+  //max-w-md
+  @apply
+
+  max-w-[700px]
+  transform overflow-hidden rounded-2xl
+  dark:bg-white
+  text-left align-middle shadow-xl transition-all;
+}
