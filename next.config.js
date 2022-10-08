@@ -9,6 +9,18 @@ const nextConfig = {
   images: {
     domains: ['i.pravatar.cc', 'coffins-direct.co.uk']
   },
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Note: we provide webpack above so you should not `require` it
+    // Perform customizations to webpack config
+    config.plugins.push(
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery",
+      })
+    );
+    return config;
+  },
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
