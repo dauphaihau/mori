@@ -57,12 +57,13 @@ const Drawer = ({
 }
 
 interface HeadProps {
-  title?: string,
-  children?: ReactNode,
-  onClose?: () => void
+  title: string,
+  classes: string,
+  children: ReactNode,
+  onClose: () => void
 }
 
-const Head = ({ title, children, classes, onClose }: HeadProps) => {
+const Head = ({ title, children, classes, onClose }: Partial<HeadProps>) => {
   if (children) return <>{children}</>;
   return (
     <>

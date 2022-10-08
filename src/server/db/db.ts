@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import getConfig from 'next/config';
 
-const {publicRuntimeConfig} = getConfig();
+const { publicRuntimeConfig } = getConfig();
 
 type ConnectProps = {
   isConnected?: number | boolean
@@ -51,5 +51,5 @@ function convertDocToObj(doc) {
   return doc;
 }
 
-const db = {connect, disconnect, convertDocToObj};
+const db = { connect, disconnect, convertDocToObj };
 export default db;

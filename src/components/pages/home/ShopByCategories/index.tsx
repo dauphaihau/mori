@@ -15,12 +15,7 @@ const ShopByCategories = ({ categoriesData = [] }) => {
   return (
     <>
       <Box classes='my-20 layout laptop:w-9/12 text-center'>
-        <Text
-          h3
-          weight='bold'
-          classes='text-lg tablet:text-3xl mb-8'
-        >Shop By Categories</Text>
-
+        <Text h2 classes='mb-8'>Shop By Categories</Text>
         <Grid sx={1} md={2} lg={3} gap={4}>
           {
             categoriesData.map((category, index) => (

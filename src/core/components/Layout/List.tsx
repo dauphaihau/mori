@@ -1,11 +1,11 @@
-import { ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 
-interface ListProps {
+type ListType = {
   classes?: string
   children: ReactNode
-}
+} & ComponentPropsWithoutRef<'ul'> & ComponentPropsWithoutRef<'li'>
 
-const List = ({ children, classes = '', ...others }: ListProps) => {
+const List = ({ children, classes = '', ...others }: ListType) => {
   return (
     <ul className={classes} {...others}>
       {children}
@@ -13,7 +13,7 @@ const List = ({ children, classes = '', ...others }: ListProps) => {
   )
 }
 
-const Item = ({ children, classes, ...others }: ListProps) => <li {...others} className={classes}>{children}</li>;
+const Item = ({ children, classes, ...others }: ListType) => <li {...others} className={classes}>{children}</li>;
 
 List.Item = Item;
 

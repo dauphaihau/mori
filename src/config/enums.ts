@@ -23,6 +23,7 @@ const PATH = {
   ACCOUNT: {
     _: '/account',
     ADDRESS: '/account/address',
+    LOGIN: '/account/login',
     FORGOT_PASSWORD: '/account/forgot-password',
     RESET_PASSWORD: '/account/reset-password',
   },

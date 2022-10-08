@@ -1,6 +1,6 @@
-import banner from '/public/images/banners/banner-homepage.png';
-import { Box, Divider, NextImage, Text } from 'core/components';
+import { Box, Divider, Text } from 'core/components';
 import { FC } from 'react';
+import { clns } from "core/helpers";
 
 const BannerSlogan: FC = () => {
   return (
@@ -8,16 +8,15 @@ const BannerSlogan: FC = () => {
       classes='
         relative
         before:absolute before:top-0 before:left-0 before:z-10
-        before:w-full before:h-[25%]
+        before:w-full before:h-1/4
         before:bg-gradient-to-b from-[#2d2c2c]
-        {/*before:bg-gradient-to-b from-black*/}
     '
     >
       <Box
-        classes='
-        tablet:bg-fixed
+        classes={clns(
+          "bg-[url('/images/banners/banner-homepage.png')]",
+          `tablet:bg-fixed
           relative mt-[-4rem]
-          {/*hidden tablet:block*/}
           pt-48
           flex-center
           p-6 h-[26rem] tablet:h-56 tablet:p-10 desktop:p-8
@@ -25,12 +24,9 @@ const BannerSlogan: FC = () => {
           before:absolute before:top-0 before:left-0 before:z-10
           before:w-full before:h-full
           before:bg-black before:opacity-40
-          tablet:h-[50vh]
-          laptop:h-[75vh]
-      '
-        style={{
-          backgroundImage: `url(${banner.src})`,
-        }}
+          tablet:min-h-[35vh]
+          laptop:min-h-[75vh]
+      `)}
       >
         <Box
           classes='absolute w-full z-10
@@ -42,17 +38,17 @@ const BannerSlogan: FC = () => {
         >
           <Text
             transforms='uppercase'
-            classes='text-white text-xl'
+            classes='text-white text-[15px] tablet:text-[20px] laptop:text-xl tracking-widest'
             weight='light'
           >
             Décor & Lifestyle
           </Text>
 
-          <Box classes='flex-center my-4'>
+          <Box classes='flex-center my-1 tablet:my-2 laptop:my-4'>
             <Divider classes='w-1/5'/>
           </Box>
 
-          <Text classes='text-white pb-4 text-base laptop:text-5xl'>
+          <Text classes='text-white pb-4 text-base tablet:text-xl laptop:text-5xl'>
             Dignity and compassion guaranteed
           </Text>
         </Box>

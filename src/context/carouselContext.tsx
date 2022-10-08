@@ -32,9 +32,9 @@ const Carousel: FC<Props> = ({ children, className }) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [viewportRef, emblaApi] = useEmblaCarousel(
     {
-      // loop: true,
-      align: 'start',
-      // align: 'center',
+      loop: true,
+      // align: 'start',
+      align: 'center',
       skipSnaps: false
     },
     [ClassNameEmbla()]

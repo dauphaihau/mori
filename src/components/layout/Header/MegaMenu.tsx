@@ -46,7 +46,6 @@ const MegaMenu = ({ categories, pageHasBanner, path, title }) => {
         </Link>
       </Box>
 
-
       <Box
         hideIf={!showDropdown}
         classes={clns(

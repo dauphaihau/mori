@@ -1,22 +1,28 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Box, NextImage, Text } from 'core/components';
-import { clns } from "core/helpers";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
-import useEmblaCarousel from "embla-carousel-react";
+import { clns } from 'core/helpers';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import useEmblaCarousel from 'embla-carousel-react';
+import { useMediaQuery } from 'core/hooks';
 
 const RealLifeImages = ({ categoriesData = [] }) => {
 
   const [viewportRef, embla] = useEmblaCarousel({
-    align: "start",
-    // align: "center",
+    align: 'start',
     skipSnaps: false
   });
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [mount, setMount] = useState(false)
+  const matches = useMediaQuery('(min-width: 768px)')
 
   const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
   const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
+
+  useEffect(() => {
+    setMount(true)
+  }, [])
 
   const onSelect = useCallback(() => {
     if (!embla) return;
@@ -28,48 +34,42 @@ const RealLifeImages = ({ categoriesData = [] }) => {
 
   useEffect(() => {
     if (!embla) return;
-    embla.on("select", onSelect);
+    embla.on('select', onSelect);
     onSelect();
   }, [embla, onSelect]);
 
   const PrevBtn = () => {
+    if (!mount) return null
+    if (!matches) return null
     if (!prevBtnEnabled) return null
     return (
       <button
         onClick={scrollPrev}
         // disabled={!prevBtnEnabled}
-        className={clns('!hidden tablet:block text-primary-black rounded-full p-4 flex-center absolute z-10 top-[35%] left-0 animate hover:-translate-x-2')}
+        className={clns(' text-primary-black rounded-full p-4 flex-center absolute z-10 top-[35%] left-0 animate hover:-translate-x-2')}
       >
         <ChevronLeftIcon className='w-10 h-10 p-2 text-base rounded-full bg-white shadow text-black'/>
       </button>
     )
   }
 
-  const NextBtn = () => (
-    <button
+  const NextBtn = () => {
+    if (!mount) return null
+    if (!matches) return null
+    return <button
       onClick={scrollNext}
-      disabled={selectedIndex === 10}
+      disabled={selectedIndex === 4}
       // disabled={!nextBtnEnabled}
-      className='!hidden tablet:block text-primary-black rounded-full p-4 flex-center absolute z-10 top-[35%] right-0 animate hover:translate-x-2'
+      className=' text-primary-black rounded-full p-4 flex-center absolute z-10 top-[35%] right-0 animate hover:translate-x-2'
     >
-      <ChevronRightIcon className={'w-10 h-10 p-2 text-base rounded-full bg-white shadow text-black'}/>
+      <ChevronRightIcon className='w-10 h-10 p-2 text-base rounded-full bg-white shadow text-black'/>
     </button>
-  )
+  }
 
   return (
     <>
-      <Box
-        // justify='center'
-        // align='center'
-        // classes='my-20'
-        classes='my-20 layout'
-      >
-        <Text
-          h3
-          weight='bold'
-          classes='text-lg tablet:text-3xl dark:text-black mb-4'
-        >Shop these real-life spaces</Text>
-
+      <Box classes='my-20 layout'>
+        <Text h2 classes='mb-4'>Shop these real-life spaces</Text>
         <Box
           ref={viewportRef}
           classes='w-full relative overflow-hidden'

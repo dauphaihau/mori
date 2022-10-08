@@ -3,7 +3,6 @@ import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { clns, filterRows, sortRows } from '../../helpers';
 import { Checkbox, Input } from '../Input';
 import TableRow from './TableRow';
-import { Text } from '../../index';
 
 interface PropsTable {
   fitContent?: boolean,
@@ -99,14 +98,14 @@ const Table = (props: PropsTable) => {
     }))
   }
 
-  const handleCheckAllBox = (values) => {
-    const status = values.target.checked
-    const currentIds = rows.map(o => o._id)
-    if (!status) {
-      const a = rowsChecked.filter(id1 => !rows.some(({ _id: id2 }) => id2 !== id1));
-      setRowsChecked(a)
-    } else setRowsChecked([...rowsChecked, ...currentIds])
-  }
+  // const handleCheckAllBox = (values) => {
+  //   const status = values.target.checked
+  //   const currentIds = rows.map(o => o._id)
+  //   if (!status) {
+  //     const a = rowsChecked.filter(id1 => !rows.some(({ _id: id2 }) => id2 !== id1));
+  //     setRowsChecked(a)
+  //   } else setRowsChecked([...rowsChecked, ...currentIds])
+  // }
 
   const TableColumn = () => {
     return (
@@ -118,7 +117,7 @@ const Table = (props: PropsTable) => {
                     classes='checked:bg-none'
                     name='idsRow'
                     defaultChecked={rowsChecked.length > 0}
-                    onChange={handleCheckAllBox}
+                    // onChange={handleCheckAllBox}
                   />
                 </th>
               }
@@ -140,9 +139,8 @@ const Table = (props: PropsTable) => {
                     {
                       column.id === 'actions' ?
                         rowsChecked.length > 0 ?
-                          <Text
-                            i
-                            classes='fa-solid fa-trash-can text-xs'
+                          <i
+                            className='fa-solid fa-trash-can text-xs'
                             onClick={() => onChangeCheckbox(rowsChecked)}
                           />
                           : ''
@@ -157,8 +155,6 @@ const Table = (props: PropsTable) => {
       </thead>
     )
   }
-
-
 
   return (
     <div className='table-container'>

@@ -4,16 +4,17 @@
     @apply relative w-full;
 
     &__contentLeft {
-      @apply absolute inset-y-0 left-[12px] flex items-center text-gray-600;
+      @apply flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none;
     }
 
     &__contentRight {
-      @apply absolute inset-y-0 right-[12px] flex items-center text-gray-600;
+      @apply flex absolute inset-y-0 right-0 items-center pr-3 pointer-events-none;
 
       .clear-icon {
-        @apply h-6 w-6 animate text-gray-custom-500
-        hover:text-gray-custom-900 dark:text-gray-custom-900
-        dark:hover:text-white;
+        @apply h-6 w-6 text-[#939393]
+        hover:text-[#111111] dark:text-gray-custom-900
+        dark:hover:text-white
+        transition-all duration-500 ease-in-out;
       }
     }
 
@@ -30,7 +31,7 @@
       transition duration-200 ease-in-out
       border-gray-300 h-[42px] placeholder-gray-500
       bg-white
-      dark:bg-gray-custom-898
+      dark:bg-[#16161a]
       dark:border-0 dark:text-white;
     }
   }

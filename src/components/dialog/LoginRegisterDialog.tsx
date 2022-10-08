@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { XIcon } from '@heroicons/react/solid';
+import { LockClosedIcon, XIcon } from '@heroicons/react/solid';
 
 import { useAuth } from 'context/authContext';
 import { Dialog, Button, Text, Link, Checkbox, Input, Box, Row } from 'core/components';
@@ -43,7 +43,7 @@ const formOptions = {
   resolver: yupResolver(validationSchema),
   defaultValues: {
     email: 'customer@mail.com',
-    password: '111111'
+    password: '111111121'
   }
 };
 
@@ -133,15 +133,17 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
           {currentForm === 'register' && <Input
             name='name'
             label='Name'
-            register={register}
-            errors={errors}
+            // register={register}
+            helperText={errors['name']?.message}
           />}
           <Input
+            clearable
             name='email'
             type='email'
             label='Email'
             register={register}
-            errors={errors}
+            // contentRight={<LockClosedIcon height={20} width={20}/>}
+            helperText={errors['email']?.message}
             ref={emailInputRef}
           />
           {
@@ -150,7 +152,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
               name='password'
               label='Password'
               register={register}
-              errors={errors}
+              helperText={errors['password']?.message}
             />
           }
           {
@@ -205,6 +207,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             </Row>
           }
         </Box>
+
       </Dialog.Content>
     </Dialog>
   );

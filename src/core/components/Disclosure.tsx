@@ -9,14 +9,14 @@ interface DisclosureProps {
   }[]
 }
 
-export default function DisclosureCustom(props: DisclosureProps) {
-  const { data } = props;
+export default function DisclosureCustom({ data }: DisclosureProps) {
+  // const { data } = props;
 
   return (
     <div className='w-full px-4'>
       <div className='mx-auto w-full max-w-4xl mx-auto rounded-2xl bg-white p-2'>
         {
-          data?.map(( obj, index ) => {
+          data?.map((obj, index) => {
             return <Disclosure
               key={index}
               as='div'

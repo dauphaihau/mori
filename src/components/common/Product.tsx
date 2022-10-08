@@ -52,7 +52,7 @@ const Product = ({ data, dataFade }) => {
         <Text classes='m-4 text-center text-sm laptop:text-lg mb-1'>{data?.name}</Text>
         <Row
           gap={4}
-          justify={'center'}
+          justify='center'
         >
           <Text
             classes={clns(' text-sm laptop:text-lg text-center text-primary-gray mb-4',

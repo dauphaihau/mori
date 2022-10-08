@@ -24,7 +24,7 @@ const Intro: FC = () => {
           weight='light'
           classes='mb-6 leading-7 pr-26 desktop:pr-32'
         >
-          Musgrove Willows provide
+          Mori Willows provide
 
           <Link href='/' classes='underline decoration-black mx-1 ' openNewTab>
             willow,

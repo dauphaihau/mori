@@ -20,9 +20,9 @@ const HomePage = ({ inventoryData = [], categoriesData , categories}) => {
       <SpecialProduct data={inventoryData[13]}/>
       <FlashSaleProducts inventoryData={inventoryData}/>
       <ShopByCategories
-        inventoryData={inventoryData}
+        // inventoryData={inventoryData}
         categoriesData={categoriesData}
-        categories={categories}
+        // categories={categories}
       />
       <RealLifeImages categoriesData={categoriesData}/>
 

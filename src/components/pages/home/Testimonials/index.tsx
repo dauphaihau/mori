@@ -12,11 +12,7 @@ const Testimonials: React.FC = () => {
         align='center'
         classes='pt-20'
       >
-        <Text
-          h3
-          weight='bold'
-          classes='text-lg tablet:text-3xl dark:text-black'
-        >Testimonials</Text>
+        <Text h2>Testimonials</Text>
       </Col>
       <Carousel className='text-primary-gray py-10 lg:py-20'>
         <CarouselItem index={0}>

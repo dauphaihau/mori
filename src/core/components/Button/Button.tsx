@@ -4,6 +4,7 @@ import { clns } from "core/helpers";
 
 type ButtonProps = {
   classes: string,
+
   shadow: boolean,
   size: 'sx' | 'sm' | 'md' | 'lg' | 'xl',
   light: boolean,

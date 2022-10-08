@@ -1,13 +1,10 @@
-interface Divider {
+interface DividerType {
   classes?: string,
 }
 
-const Divider = (props: Divider) => {
-  const {classes} = props;
+const Divider = ({ classes }: DividerType) => {
   return (
-    <div className={`border-b border-gray-100 
-    ${classes}
-    `}/>
+    <div className={`border-b  ${classes} `}/>
   );
 }
 

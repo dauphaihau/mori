@@ -1,8 +1,36 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import React from "react";
+import '../assets/styles/global.scss'
+import Index from "components/layout";
+import { data as footerHomePageData } from '../assets/data/FooterData';
+import fetchCategories from 'assets/data/InventoryData/provider/categoryProvider';
+import { AuthProvider } from "context/authContext";
+import { UIControllerProvider } from "context/UIControllerContext";
+import FilterProvider from "context/filterContext";
+import SizeObserver from "context/sliderContext";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+function EcommerceApp({ categories, Component, pageProps }) {
+  return (
+    <AuthProvider>
+      <UIControllerProvider>
+        <FilterProvider>
+          <SizeObserver>
+            <Index categories={categories}>
+              <Component {...pageProps} />
+            </Index>
+          </SizeObserver>
+        </FilterProvider>
+      </UIControllerProvider>
+    </AuthProvider>
+  )
 }
 
-export default MyApp
+EcommerceApp.getInitialProps = async () => {
+
+  const categories = await fetchCategories()
+  return {
+    categories,
+    footerData: footerHomePageData
+  }
+}
+
+export default EcommerceApp

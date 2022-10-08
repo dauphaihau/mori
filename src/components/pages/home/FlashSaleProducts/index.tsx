@@ -7,7 +7,7 @@ const FlashSaleProducts = ({ inventoryData }) => {
   return (
     <Box section classes='my-12 mb-24 layout'>
       <Row justify='between' align='center' classes='mb-4'>
-        <Text h1 classes='text-lg tablet:text-3xl'>Flash Sale</Text>
+        <Text h2>Flash Sale</Text>
         <CountdownTimer/>
       </Row>
       <Grid sx={1} lg={2} gap={8} classes=''>
@@ -20,8 +20,8 @@ const FlashSaleProducts = ({ inventoryData }) => {
             <ProductCard data={inventoryData[25]}/>
           </Grid>
           <Grid md={2} gap={8} classes='mt-4'>
-            <ProductCard data={inventoryData[27]}/>
-            <ProductCard data={inventoryData[29]}/>
+            <ProductCard data={inventoryData[26]}/>
+            <ProductCard data={inventoryData[28]}/>
           </Grid>
         </Grid>
       </Grid>

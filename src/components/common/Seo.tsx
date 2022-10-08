@@ -6,7 +6,6 @@ const defaultMeta = {
   siteName: 'coffin-ecommerce.vercel.app',
   description: 'Each one of our wicker coffins has been intricately handwoven by skilled basket makers making each coffin unique and special.',
   url: 'https://coffin-ecommerce.vercel.app',
-  // image: 'https://theodorusclarence.com/favicon/large-og.jpg',
   type: 'website',
   robots: 'follow, index',
 };

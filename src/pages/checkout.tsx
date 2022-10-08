@@ -7,7 +7,7 @@ import {
 } from '@stripe/react-stripe-js'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
 import * as Yup from 'yup';
 
 import { useAuth } from '../context/authContext';
@@ -101,7 +101,7 @@ const CheckoutPage = ({ context }) => {
       address: state, // should this be {street, city, postal_code, state} ?
       payment_method_id: paymentMethod.id,
       receipt_email: 'customer@example.com',
-      id: uuid(),
+      // id: uuid(),
     }
     // TODO call API
     setOrderCompleted(true)

@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 function createWrapperAndAppendToBody(wrapperId) {
@@ -6,6 +6,10 @@ function createWrapperAndAppendToBody(wrapperId) {
   wrapperElement.setAttribute('id', wrapperId);
   document.body.appendChild(wrapperElement);
   return wrapperElement;
+}
+
+if (typeof document === 'undefined') {
+  React.useLayoutEffect = React.useEffect;
 }
 
 const Portal = ({ children, wrapperId = 'react-portal-wrapper' }) => {

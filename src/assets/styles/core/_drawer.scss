@@ -1,13 +1,5 @@
-.backdrop {
-  @apply w-full h-full fixed inset-0 z-30
-  overflow-y-auto overflow-y-hidden
-  backdrop-filter backdrop-blur-sm
-  ;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
 .drawer {
-  @apply h-full bg-white fixed top-0 right-0 z-30
+  @apply h-full bg-white fixed top-0 right-0 z-[32]
   w-screen md:w-[450px];
   box-shadow: 1px 0 7px rgba(0, 0, 0, 0.5);
   transform: translateX(110%);
@@ -39,39 +31,39 @@
     @apply flex flex-col w-full py-2 px-5 lg:py-0 max-h-[12%];
   }
 
-  &__links {
-    @apply flex flex-col mt-8 ;
-  }
+  //&__links {
+  //  @apply flex flex-col mt-8 ;
+  //}
 
-  &__dropdown {
-    @apply flex justify-between cursor-pointer;
-    animation: growDown 300ms ease-in-out forwards;
-    transform-origin: top center;
-  }
+  //&__dropdown {
+  //  @apply flex justify-between cursor-pointer;
+  //  animation: growDown 300ms ease-in-out forwards;
+  //  transform-origin: top center;
+  //}
 
-  &__suvlink {
-    //@apply hidden w-4/5 border-l h-auto ml-[13%] mt-[5%] z-40  ;
-    @apply block w-4/5 border-l h-auto ml-[13%] mt-[5%] z-40  overflow-hidden duration-300 ease-linear;
-    ul {
-      li {
-        p {
-          @apply text-[#ffffff80] px-4 mb-4;
-        }
-      }
-    }
-  }
+  //&__suvlink {
+  //  //@apply hidden w-4/5 border-l h-auto ml-[13%] mt-[5%] z-40  ;
+  //  @apply block w-4/5 border-l h-auto ml-[13%] mt-[5%] z-40  overflow-hidden duration-300 ease-linear;
+  //  ul {
+  //    li {
+  //      p {
+  //        @apply text-[#ffffff80] px-4 mb-4;
+  //      }
+  //    }
+  //  }
+  //}
 }
 
-@keyframes growDown {
-  0% {
-    transform: scaleY(0)
-  }
-  80% {
-    transform: scaleY(1.1)
-  }
-  100% {
-    transform: scaleY(1)
-  }
-}
+//@keyframes growDown {
+//  0% {
+//    transform: scaleY(0)
+//  }
+//  80% {
+//    transform: scaleY(1.1)
+//  }
+//  100% {
+//    transform: scaleY(1)
+//  }
+//}
 
 

@@ -4,7 +4,7 @@ interface TextareaProps {
   name: string,
   classes?: string,
   label?: string,
-  register?: (name: string) => void,
+  register?: (name: string) => void | object  ,
   placeholder?: string,
   classNameLabel?: string,
   errors?: FieldErrors,

@@ -1,5 +1,107 @@
 {
   "title": "FooterData",
+  "links": [
+    {
+      "title": "Social",
+      "data": [
+        {
+          "title": "Twitter",
+          "icon": "fa-twitter"
+        },
+        {
+          "title": "Instagram",
+          "icon": "fa-instagram"
+        },
+        {
+          "title": "Facebook",
+          "icon": "fa-facebook-square"
+        },
+        {
+          "title": "Youtube",
+          "icon": "fa-youtube"
+        }
+      ]
+    },
+    {
+      "title": "Contact",
+      "data": [
+        {
+          "title": "Contact Us"
+        },
+        {
+          "title": "Deck 5, ISS, LEO 51.603."
+        },
+        {
+          "title": "dauphaihau@outlook.com"
+        },
+        {
+          "title": "Call us: 84901111921"
+        }
+      ]
+    },
+    {
+      "title": "About",
+      "data": [
+        {
+          "title": "Support center"
+        },
+        {
+          "title": "Customer Support"
+        },
+        {
+          "title": "Intro Us"
+        },
+        {
+          "title": "Copyright"
+        }
+      ]
+    },
+    {
+      "title": "Customer Care",
+      "data": [
+        {
+          "title": "FAQ & Helps"
+        },
+        {
+          "title": "Shipping & Delivery"
+        },
+        {
+          "title": "Return & Exchanges"
+        }
+      ]
+    },
+    {
+      "title": "Our Information",
+      "data": [
+        {
+          "title": "Privacy policy"
+        },
+        {
+          "title": "Terms & conditions"
+        },
+        {
+          "title": "Return Policy"
+        },
+        {
+          "title": "Site Map"
+        }
+      ]
+    },
+    {
+      "title": "Top Categories",
+      "data": [
+        {
+          "title": "Natural material coffin"
+        },
+        {
+          "title": "Traditional coffin"
+        },
+        {
+          "title": "American caskets"
+        }
+      ]
+    }
+  ],
   "listSocial": [
     {
       "name": "Twitter",

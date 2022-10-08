@@ -3,15 +3,16 @@ import { XIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 
 import { NextImage, Input, Button, Text, Dialog, Box, Col, Grid } from 'core/components';
-import bg from '/public/images/newsletter-bg.png';
+import Enums from "config/enums";
+import { clns } from "core/helpers";
 
 const SubscribeDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter();
 
   useEffect(() => {
-    if (router.pathname === '/') {
-      setTimeout(() => setIsOpen(true), 5000)
+    if (router.pathname === Enums.PATH.HOME) {
+      setTimeout(() => setIsOpen(true), 100)
     }
   }, [])
 
@@ -19,11 +20,9 @@ const SubscribeDialog = () => {
     <Dialog
       isOpen={isOpen}
       closeDialog={async () => setIsOpen(false)}
-      // width={700} height={365}
-      classes='w-[700px] h-[365px] hidden ipad:block'
-      style={{
-        backgroundImage: `url(${bg.src})`,
-      }}
+      classes={clns('w-[700px] h-[365px] hidden tablet:block',
+        "bg-[url('/images/newsletter-bg.png')]"
+      )}
     >
       <Dialog.Content>
         <Box classes='relative'>
@@ -49,11 +48,9 @@ const SubscribeDialog = () => {
               <Text
                 h1
                 weight='bold'
-                sx='lg'
                 classes='mx-auto text-[22px]'
               >Subscribe Newsletter</Text>
               <Text
-                sx='sm'
                 weight='light'
                 classes='my-3'
               >Subscribe the Drop store to get in touch and get the future update. </Text>

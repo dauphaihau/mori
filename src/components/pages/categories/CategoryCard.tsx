@@ -1,9 +1,10 @@
 import { Text, Link, NextImage, Box } from 'core/components';
-import Enums from "../../../config/enums";
+import Enums from "config/enums";
 
-const CategoryCard = ({ imageSrc, title, count, link  }) => {
+const CategoryCard = ({ imageSrc, title, count,  onClick  }) => {
   return (
-    <Box classes='mb-4 laptop:mb-0 bg-product p-8 relative' >
+    <Box classes='mb-4 laptop:mb-0 bg-product p-6 relative' >
+    {/*<Box classes='mb-4 laptop:mb-0 bg-product p-8 relative' >*/}
       <Link href={Enums.PATH.PRODUCT._}>
       {/*<Link href={link}>*/}
         <NextImage

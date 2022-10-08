@@ -6,11 +6,11 @@ export { default as Disclosure} from './Disclosure'
 export { default as Dialog} from './Dialog'
 export { default as Portal} from './Portal'
 export { default as Drawer} from './Drawer'
-export { default as Table} from './Table'
 export { default as Badge} from './Badge'
 
 
 export * from './Layout'
+export * from './Table'
 export * from './Next'
 export * from './Button'
 export * from './Input'

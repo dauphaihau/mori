@@ -39,28 +39,21 @@ const Layout = ({ children, categories }: LayoutType) => {
     } else setAccountLayout(false)
   }, [router.asPath])
 
-  let navItemLength = 5;
-  // if (categories.length > navItemLength) {
-  //   categories = categories.slice(0, navItemLength)
-  // }
-
-  // const {} = useUIController();
-
   return (
     <>
       <Toaster
         position={isMobileScreen ? 'top-center' : 'bottom-right'}
         reverseOrder={false}
       />
+
       {/*<SubscribeDialog/>*/}
       <AddressDialog/>
       {/*<ChatBox/>*/}
 
-      <FreeShip/>
+      {/*<FreeShip/>*/}
       <Header categories={categories}/>
 
       <Box>
-        {/*<Box classes='mx-auto max-w-[1920px] px-4 md:px-8 2xl:px-16'>*/}
         <Box
           main
           classes={accountLayout ? 'flex items-center h-screen' : ''}

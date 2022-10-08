@@ -5,17 +5,17 @@ import { clns } from 'core/helpers';
 type LinkType = {
   href: string,
   classes?: string,
-  className?: string,
-  children: ReactNode,
+  children?: ReactNode,
   openNewTab?: boolean;
   disabled?: boolean,
   underline?: boolean,
   hideIf?: boolean,
+  text?: string | number | ReactNode,
 } & ComponentPropsWithoutRef<'a'> & LinkProps
 
 const Link = (props: LinkType) => {
   const {
-    href, children, underline, scroll, openNewTab, hideIf,
+    href, children, underline, scroll, openNewTab, hideIf, text,
     target, classes, className, disabled, ...others
   } = props;
 
@@ -40,7 +40,8 @@ const Link = (props: LinkType) => {
         )}
         {...others}
       >
-        {children}
+
+        {children || text}
       </a>
     );
   }
@@ -58,7 +59,8 @@ const Link = (props: LinkType) => {
            classes || className
          )}
       >
-        {children}
+
+        {children || text}
       </a>
     </NextLink>
   );

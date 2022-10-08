@@ -219,20 +219,20 @@ let inventory = [
     createdAt: '2022-03-11T14:55:06.641+00:00',
     bestSelling: false
   },
-  {
-    id: '17',
-    categories: ['natural material coffin', 'pine coffin'],
-    name: 'Child’s Curved Buff Willow Coffin',
-    price: '520',
-    colors: ['#f3eed7'],
-    images: ['/images/products/coffin13.png'],
-    description: 'Our Child’s Curved Buff Willow Coffin features tapered round ends, beautifully plaited edging and natural hand-woven willow handles. We make each Child’s coffins with sensitivity in mind, each one made in our workshops in Somerset using natural willow and using completely natural processes. Every wicker coffin is made with the same care and dedication that has driven our family business for over four generations.',
-    brand: 'Aurora',
-    quantity: 4,
-    rating: 4,
-    createdAt: '2022-05-01T14:55:06.641+00:00',
-    bestSelling: false
-  },
+  // {
+  //   id: '17',
+  //   categories: ['natural material coffin', 'pine coffin'],
+  //   name: 'Child’s Curved Buff Willow Coffin',
+  //   price: '520',
+  //   colors: ['#f3eed7'],
+  //   images: ['/images/products/coffin13.png'],
+  //   description: 'Our Child’s Curved Buff Willow Coffin features tapered round ends, beautifully plaited edging and natural hand-woven willow handles. We make each Child’s coffins with sensitivity in mind, each one made in our workshops in Somerset using natural willow and using completely natural processes. Every wicker coffin is made with the same care and dedication that has driven our family business for over four generations.',
+  //   brand: 'Aurora',
+  //   quantity: 4,
+  //   rating: 4,
+  //   createdAt: '2022-05-01T14:55:06.641+00:00',
+  //   bestSelling: false
+  // },
   {
     id: '18',
     categories: ['cremation urns'],

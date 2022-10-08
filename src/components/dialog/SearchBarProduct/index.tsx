@@ -49,33 +49,27 @@ const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog 
     } else {
       setFilteredResults(inventory);
     }
-  },[searchValue])
+  }, [searchValue])
 
   const handleSearch = (searchValue) => {
     debounceSearch(searchValue);
   };
 
-  // if (!showSearchProductDialog) return null;
-
   return (
     <Portal>
       <Box
+        hideIf={!showSearchProductDialog}
         onClick={() => setShowSearchProductDialog(false)}
         classes={clns('backdrop overflow-y-auto overflow-y-hidden',
-          !showSearchProductDialog && 'hidden'
         )}
       />
       <Box
-        classes={clns('fixed inset-0 z-30 mx-auto h-12 bg-white laptop:w-1/2 laptop:mt-6 laptop:rounded-lg',
-          // !showSearchProductDialog && 'hidden'
-          'transition duration-200 ease-out',
-          !showSearchProductDialog ? 'opacity-0': 'opacity-100',
+        classes={clns('fixed inset-0 ',
+          'mx-auto h-12 bg-white laptop:w-1/2 laptop:mt-6 laptop:rounded-lg',
+          'transition duration-300 ease-out',
+          !showSearchProductDialog ? 'opacity-0 z-20' : 'opacity-100 z-40',
         )}
       >
-        {/*<div className={clns(*/}
-        {/*  'transition duration-500 ease-out',*/}
-        {/*  showSearchProductDialog ? 'opacity-0': 'opacity-100',*/}
-        {/*)}>*/}
         <SearchInput
           setShowSearchProductDialog={setShowSearchProductDialog}
           showSearchProductDialog={showSearchProductDialog}

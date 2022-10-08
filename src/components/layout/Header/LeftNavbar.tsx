@@ -16,7 +16,6 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
   const scrollPositionY = useScrollPosition();
   const router = useRouter();
 
-
   return (
     <>
       <NavMobileDrawer
@@ -33,16 +32,12 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
             pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
           )}
           onClick={() => setShowNavMobileDrawer(true)}
+          width={35}
+          height={25}
         />
 
         <Box classes='hidden laptop:block'>
-          {/*<button onClick={() => setSearch(true)}>search</button>*/}
-          <Row
-            // classes='mt-1'
-            classes={clns('mt-1',
-              // showSearchBar && 'fade-in-start'
-            )}
-          >
+          <Row classes='mt-1'>
             {
               navbarData.map(({ path, title }, index) => {
                 if (path === Enums.PATH.PRODUCT._) {
@@ -56,7 +51,6 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
                 }
                 return (
                   <Box
-                    // data-fade={index}
                     key={index}
                     classes={clns('single-link',
                       router.route === path ? pageHasBanner && scrollPositionY < 15 ? 'active--white' : 'active' : 'default',

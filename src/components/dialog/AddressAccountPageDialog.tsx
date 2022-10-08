@@ -80,7 +80,7 @@ const AddressAccountPageDialog = ({ showAddressDialog, setShowAddressDialog }) =
             <Input
               label='Full Name *'
               name='name'
-              onChange={handleOnchange}
+              // onChange={handleOnchange}
               register={register}
               defaultValue={address.name}
               errors={errors}

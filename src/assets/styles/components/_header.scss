@@ -14,11 +14,11 @@
 
     &__leftSide {
       .menu-mobile {
-        @apply cursor-pointer w-[30px] h-[30px] laptop:hidden;
+        @apply cursor-pointer laptop:hidden;
       }
 
       .logo {
-        @apply max-w-48 sm:max-w-none mr-4  hidden laptop:block;
+        //@apply max-w-48 sm:max-w-none mr-4  hidden laptop:block;
       }
 
       .single-link {
@@ -61,7 +61,6 @@
       .single-link.default {
         @apply border-transparent;
       }
-
 
       .multi-link {
         @apply mr-4 relative;

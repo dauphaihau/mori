@@ -9,6 +9,7 @@ import { LoginRegisterDialog, SearchProductDialog } from 'components/dialog';
 import { clns } from 'core/helpers';
 import Enums from 'config/enums';
 import { useScrollPosition } from "core/hooks";
+import useMediaQuery from 'core/hooks/useMediaQuery';
 
 function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
   const [showLoginDialog, setShowLoginDialog] = useState(false)

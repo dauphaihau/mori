@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router';
 import { slugify } from 'core/helpers';
 import { NextImage, Col, Text, Button, Box, Row } from 'core/components';
-import Enums from "config/enums";
+import Enums from 'config/enums';
 
 const SpecialProduct = ({ data }) => {
   const router = useRouter()
 
   return (
-    <div className="layout">
+    <div className='layout'>
       <Box classes='w-full mt-12 '>
-        <Box classes='bg-gray-custom-50 p-6 pb-16 laptop:pb-6 flex laptop:flex-row flex-col rounded-lg'>
+        <Box classes='bg-gray-custom-50 p-6 pb-16 laptop:pb-6 flex flex-col laptop:flex-row rounded-lg'>
           {/*<Box classes='bg-gray-custom-50 p-6 pb-16 laptop:pb-6 flex laptop:flex-row flex-col rounded-lg'>*/}
           <Box classes='pt-4 pl-2 pt-12 tablet:pl-12 flex flex-col'>
             <Box classes='border-l border-gray-900 px-3 pt-1 mb-10'>
@@ -47,7 +47,7 @@ const SpecialProduct = ({ data }) => {
                 // layout='intrinsic'
               />
             </Box>
-            <Box classes='absolute w-48 h-48 tablet:h-60 tablet:h-60 laptop:w-64 laptop:w-64 bg-white z-0 rounded-full'/>
+            <Box classes='absolute w-48 h-48 tablet:w-56 tablet:h-60 laptop:w-60  bg-white z-0 rounded-full'/>
           </Row>
         </Box>
       </Box>
