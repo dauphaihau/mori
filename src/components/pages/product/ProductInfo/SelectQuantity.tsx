@@ -3,6 +3,22 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { clns } from 'core/helpers';
 
+
+enum QUANTIY_PRODUCT {
+  ONE = '1',
+  TWO = '2',
+  THREE = '3',
+  FOUR = '4',
+  FIVE = '5',
+  SIX = '6',
+  SEVENT = '7',
+  EIGHT = '8',
+  NINE = '8',
+  TEN = '8',
+  ELEVENT = '8',
+  TWELTE = '8',
+}
+
 type OptionValue = number | string;
 
 type Option<T extends OptionValue> = {
@@ -25,7 +41,7 @@ interface SelectType<O extends OptionValue> {
   classesBtn?: string,
 }
 
-function Select<Type extends OptionValue>(props: SelectType<Type>) {
+function SelectQuantity<Type extends OptionValue>(props: SelectType<Type>) {
   const {
     options = [{ label: '', value: '' }],
     onChange = (opt) => {},
@@ -142,8 +158,7 @@ function Select<Type extends OptionValue>(props: SelectType<Type>) {
         </div>
       )}
     </Listbox>
-
   )
 }
 
-export default Select
+export default SelectQuantity

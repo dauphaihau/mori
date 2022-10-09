@@ -7,7 +7,10 @@ import { fetchInventory } from 'assets/data/InventoryData/provider/inventoryProv
 import { slugify } from 'core/helpers';
 import { CartProvider, CartContext } from 'context/cartContext';
 import { CustomerReview, ProductFaq, ProductInfo, ProductRelated } from 'components/pages/product';
+import { useLocalStorage } from "../../core/hooks/useLocalStorage";
+import { STORAGE_KEY } from "../../config/enums";
 import { Box } from 'core/components';
+import { quantityProductOpts } from "../../assets/data/options";
 
 const ProductPage = ({ product, context, imageProps }) => {
   const router = useRouter();
@@ -31,83 +34,60 @@ const ProductPage = ({ product, context, imageProps }) => {
     // handleValidQuantity()
   }, [numberAllOfItemsInCart])
 
-  /*
-  1. initial load page -> check
-  2. onSelect -> check
-  3. after add -> check
-   */
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const storageState = window.localStorage.getItem(STORAGE_KEY)
+  //     if (storageState) {
+  //       const state = JSON.parse(storageState)
+  //       console.log('dauphaihau debug: state', state)
+  //     }
+  //   }
+  //   console.log('dauphaihau debug: cart', cart)
+  // },[cart])
+  //
 
-  const handleValidCheckInCart = (value) => {
+
+  const handleValidCheckInCart = (valueSelected) => {
     try {
-      console.log('dauphaihau debug: product-quantity', product.quantity)
-      console.log('dauphaihau debug: quantity-item', value)
-      const productInCart = cart.find(o => product.id === o.id)
-      if (productInCart) {
-        if (productInCart.quantity <= value) {
-          console.log('dauphaihau debug: run case 2')
-          return false
+      if (cart.length) {
+        const productInCart = cart.find(o => product.id === o.id)
+        console.log('dauphaihau debug: product-in-cart', productInCart)
+        if (productInCart) {
+          const resQuantityProd = product.quantity - productInCart.quantity
+          return resQuantityProd >= valueSelected
         }
-        return true
-      }
-      return true
-    } catch (error) {
-      console.log('dauphaihau debug: error', error)
-    }
-  }
-
-  const handleValidQuantity = (value) => {
-    try {
-      // console.log('dauphaihau debug: product-quantity', product.quantity)
-      // console.log('dauphaihau debug: value', value)
-
-      if (product.quantity < value) {
-        // console.log('dauphaihau debug: run case 1')
         return false
       }
-
-      // const productInCart = cart.find(o => product.id === o.id)
-      // if (productInCart) {
-      //   if (productInCart.quantity < value) {
-      //     console.log('dauphaihau debug: run case 2')
-      //     return false
-      //   }
-      // }
-
+      console.log('dauphaihau debug: empty-cart')
       return true
+
     } catch (error) {
       console.log('dauphaihau debug: error', error)
     }
   }
 
-  const handleSelectQuantityItem = (quantityVal) => {
+  const handleSelectQuantityItem = (quantitySelected) => {
+    console.log('dauphaihau debug: quantity-val', quantitySelected)
 
-    const status1 = handleValidQuantity(quantityVal)
-    // const status2 = handleValidQuantity(quantityVal)
-    const status2 = handleValidCheckInCart(quantityVal)
-    // console.log('dauphaihau debug: status', status)
-    // console.log('dauphaihau debug: status-2', status2)
+    const status1 = product.quantity >= quantitySelected
+    const status2 = handleValidCheckInCart(quantitySelected)
 
-    if (status1) {
-      // if (!status1 && !status2) {
-      setQuantityItem(quantityVal)
+    if (status1 && status2) {
+      setQuantityItem(quantitySelected)
+      setDisableAddItem(false)
+    } else {
+      setDisableAddItem(true)
     }
-    setDisableAddItem(!status1)
-    // setDisableAddItem(!status1 && !status2)
-
-    // const status2 = handleValidCheckInCart()
-    // setDisableAddItem(status2)
   }
 
   const addItemToCart = (product) => {
     addToCart({ ...product, quantity: quantityItem });
-    // const status = handleValidCheckInCart(quantityItem)
-    // setDisableAddItem(!status)
   }
 
   return (
-    <Box classes='layout'>
+    <Box classes='layout !w-[95%]'>
       <ProductInfo
-        imageProps={imageProps}
+        // imageProps={imageProps}
         product={product}
         quantityItem={quantityItem}
         addItemToCart={addItemToCart}
@@ -115,13 +95,12 @@ const ProductPage = ({ product, context, imageProps }) => {
         handleSelectQuantityItem={handleSelectQuantityItem}
         disableAddItem={disableAddItem}
       />
-      <ProductFaq/>
-      <CustomerReview/>
+      {/*<CustomerReview/>*/}
 
-      <ProductRelated
-        relatedProducts={relatedProducts}
-        currentProduct={product}
-      />
+      {/*<ProductRelated*/}
+      {/*  relatedProducts={relatedProducts}*/}
+      {/*  currentProduct={product}*/}
+      {/*/>*/}
     </Box>
   )
 }

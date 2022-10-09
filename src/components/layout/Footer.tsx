@@ -11,7 +11,7 @@ const Footer = () => {
         classes='footer layout'
       >
         <Box classes='footer__links'>
-          <Grid sx={2} md={3} lg={6} classes='wrapper-topics'>
+          <Grid sx={2} md={3} lg={6} classes='wrapper-topics gap-x-12'>
             {
               footerData.links.map((link, index) => (
                 <Box
@@ -32,8 +32,8 @@ const Footer = () => {
                             classes='topic__link'
                           >
                             <Text
-                              hideIf={!item.hasOwnProperty('icon')}
                               i
+                              hideIf={!item.hasOwnProperty('icon')}
                               classes={clns('fa-brands topic__item--logo', item.icon)}
                             />
                             {item.title}
@@ -45,91 +45,9 @@ const Footer = () => {
                 </Box>
               ))
             }
-
-            {/*<Box classes='topic'>*/}
-            {/*  <Text classes='topic__title'>Social</Text>*/}
-            {/*  <List classes='topic__content'>*/}
-            {/*    {*/}
-            {/*      footerData.listSocial.map((item, index) => (*/}
-            {/*        <List.Item classes='topic__item' key={index}>*/}
-            {/*          <Link underline href={Enums.PATH.DEFAULT} classes='topic__link'>*/}
-            {/*            <Text i classes={clns('fa-brands topic__item--logo', item.icon)}/>{item.name}*/}
-            {/*          </Link>*/}
-            {/*        </List.Item>*/}
-            {/*      ))*/}
-            {/*    }*/}
-            {/*  </List>*/}
-            {/*</Box>*/}
-            {/*<Box classes='topic'>*/}
-            {/*  <Text classes='topic__title'>Contact</Text>*/}
-            {/*  <List classes='topic__content footer-links'>*/}
-            {/*    {['Contact Us', 'Deck 5, ISS, LEO 51.603.', 'dauphaihau@outlook.com', 'Call us: 84901111921'].map((nameLink, id) => (*/}
-            {/*      <List.Item*/}
-            {/*        classes='topic__item'*/}
-            {/*        key={id}*/}
-            {/*      >*/}
-            {/*        <Link*/}
-            {/*          underline*/}
-            {/*          href={Enums.PATH.DEFAULT}*/}
-            {/*          classes='topic__link'*/}
-            {/*        >*/}
-            {/*          {nameLink}*/}
-            {/*        </Link>*/}
-            {/*      </List.Item>*/}
-            {/*    ))}*/}
-            {/*  </List>*/}
-            {/*</Box>*/}
-            {/*<Box classes='topic'>*/}
-            {/*  <Text classes='topic__title'>About</Text>*/}
-            {/*  <List classes='topic__content footer-links'>*/}
-            {/*    {['Support center', 'Customer Support', 'Intro Us', 'Copyright'].map((nameLink, id) => (*/}
-            {/*      <List.Item classes='topic__item' key={id}>*/}
-            {/*        <Link underline href={Enums.PATH.DEFAULT} classes='topic__link'>*/}
-            {/*          {nameLink}*/}
-            {/*        </Link>*/}
-            {/*      </List.Item>*/}
-            {/*    ))}*/}
-            {/*  </List>*/}
-            {/*</Box>*/}
-            {/*<Box classes='topic'>*/}
-            {/*  <Text classes='topic__title'>Customer Care</Text>*/}
-            {/*  <List classes='topic__content footer-links'>*/}
-            {/*    {['FAQ & Helps', 'Shipping & Delivery', 'Return & Exchanges'].map((nameLink, id) => (*/}
-            {/*      <List.Item classes='topic__item' key={id}>*/}
-            {/*        <Link underline href={Enums.PATH.DEFAULT} classes='topic__link'>*/}
-            {/*          {nameLink}*/}
-            {/*        </Link>*/}
-            {/*      </List.Item>*/}
-            {/*    ))}*/}
-            {/*  </List>*/}
-            {/*</Box>*/}
-            {/*<Box classes='topic mt-8'>*/}
-            {/*  <Text classes='topic__title'>Our Information</Text>*/}
-            {/*  <List classes='topic__content footer-links'>*/}
-            {/*    {['Privacy policy', 'Terms & conditions', 'Return Policy', 'Site Map'].map((nameLink, id) => (*/}
-            {/*      <List.Item classes='topic__item' key={id}>*/}
-            {/*        <Link underline href={Enums.PATH.DEFAULT} classes='topic__link'>*/}
-            {/*          {nameLink}*/}
-            {/*        </Link>*/}
-            {/*      </List.Item>*/}
-            {/*    ))}*/}
-            {/*  </List>*/}
-            {/*</Box>*/}
-            {/*<Box classes='topic mt-8'>*/}
-            {/*  <Text classes='topic__title'>Top Categories</Text>*/}
-            {/*  <List classes='topic__content footer-links'>*/}
-            {/*    {['Natural material coffin', 'Traditional coffin', 'American caskets'].map((nameLink, id) => (*/}
-            {/*      <List.Item classes='topic__item' key={id}>*/}
-            {/*        <Link underline href={Enums.PATH.DEFAULT} classes='topic__link'>*/}
-            {/*          {nameLink}*/}
-            {/*        </Link>*/}
-            {/*      </List.Item>*/}
-            {/*    ))}*/}
-            {/*  </List>*/}
-            {/*</Box>*/}
-
           </Grid>
         </Box>
+
         <Col
           align='center'
           justify='around'

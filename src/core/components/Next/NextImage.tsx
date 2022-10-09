@@ -23,7 +23,6 @@ const NextImage = ({
   className,
   imgClassName,
   blurClassName,
-  objectFit,
   layout = 'responsive',
   ...others
 }: NextImageType) => {
@@ -34,7 +33,7 @@ const NextImage = ({
     <figure
       style={!widthIsSet ? { width: `${width}px` } : undefined}
       className={clns(className,
-        'overflow-hidden rounded  relative'
+        'overflow-hidden rounded relative'
       )}
     >
       <Image
@@ -49,7 +48,6 @@ const NextImage = ({
         alt={alt}
         onLoadingComplete={() => setStatus('complete')}
         layout={layout}
-        objectFit={objectFit}
         {...others}
       />
     </figure>

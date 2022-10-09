@@ -4,3 +4,4 @@ export * from './useAutoFocus';
 export * from './usePagination';
 export * from './useAnimationFrame';
 export * from './useMediaQuery';
+export * from './useFadeIn';

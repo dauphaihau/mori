@@ -3,7 +3,7 @@ import { Box, NextImage, Text } from 'core/components';
 import { clns } from 'core/helpers';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import useEmblaCarousel from 'embla-carousel-react';
-import { useMediaQuery } from 'core/hooks';
+import { useFadeIn, useMediaQuery } from 'core/hooks';
 
 const RealLifeImages = ({ categoriesData = [] }) => {
 
@@ -16,6 +16,7 @@ const RealLifeImages = ({ categoriesData = [] }) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [mount, setMount] = useState(false)
   const matches = useMediaQuery('(min-width: 768px)')
+  const [ref, isVisible] = useFadeIn()
 
   const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
   const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
@@ -68,7 +69,14 @@ const RealLifeImages = ({ categoriesData = [] }) => {
 
   return (
     <>
-      <Box classes='my-20 layout'>
+      <Box
+        ref={ref}
+        section
+        classes={clns('my-20 layout',
+          'fade-in-section',
+          isVisible ? 'is-visible' : ''
+        )}
+      >
         <Text h2 classes='mb-4'>Shop these real-life spaces</Text>
         <Box
           ref={viewportRef}
@@ -93,6 +101,7 @@ const RealLifeImages = ({ categoriesData = [] }) => {
                       className='
                       w-[280px] h-auto
                       tablet:h-[300px] tablet:w-[400px]
+                      laptop:h-[400px] laptop:w-[480px]
 
                       '
                       // objectFit={'contain'}

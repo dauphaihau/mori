@@ -2,10 +2,23 @@ import { Box, Grid, Row, Text } from 'core/components';
 import { ProductCard } from '../index';
 import CountdownTimer from '../CountdownTimer';
 import BigProductCard from './BigProductCard';
+import { useEffect, useRef, useState } from "react";
+import { dom } from "@typescript-eslint/scope-manager/dist/lib/dom";
+import { clns } from 'core/helpers';
+import { useFadeIn } from "core/hooks";
 
 const FlashSaleProducts = ({ inventoryData }) => {
+  const [ref, isVisible] = useFadeIn()
+
   return (
-    <Box section classes='my-12 mb-24 layout'>
+    <Box
+      ref={ref}
+      section
+      classes={clns('my-12 mb-24 layout',
+        'fade-in-section',
+        isVisible ? 'is-visible' : ''
+      )}
+    >
       <Row justify='between' align='center' classes='mb-4'>
         <Text h2>Flash Sale</Text>
         <CountdownTimer/>

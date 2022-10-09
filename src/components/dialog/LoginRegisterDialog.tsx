@@ -119,7 +119,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
           classes='p-2 mb-[-44px]'
         >
           <XIcon
-            className='btn-icon'
+            className='btn-icon--noBg'
             onClick={() => setShowLoginDialog(false)}
           />
         </Row>
@@ -128,7 +128,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
           onSubmit={handleSubmit(onSubmit)}
           classes='px-6 pb-4 space-y-6 pt-4 lg:px-8 pb-6 xl:pb-8 subscribe-letter-bg'
         >
-          <Text h1 weight='medium'>{formType[currentForm].title}</Text>
+          <Text h4 weight='medium'>{formType[currentForm].title}</Text>
           <Text>{formType[currentForm].message}</Text>
           {currentForm === 'register' && <Input
             name='name'

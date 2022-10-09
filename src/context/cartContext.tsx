@@ -118,6 +118,7 @@ export class CartProvider extends Component<{}, {step: number, showAddressDialog
       numberOfItemsInCart: cart.length,
       total: calculateTotal(cart)
     }))
+    console.log('dauphaihau debug: initial-state', initialState)
     this.forceUpdate()
   }
 
@@ -136,6 +137,7 @@ export class CartProvider extends Component<{}, {step: number, showAddressDialog
 
   render() {
     let state = initialState
+    console.log('dauphaihau debug: run render')
     if (typeof window !== 'undefined') {
       const storageState = window.localStorage.getItem(STORAGE_KEY)
       if (storageState) {

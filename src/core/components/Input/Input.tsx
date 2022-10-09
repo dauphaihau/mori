@@ -42,7 +42,6 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
     } = props;
 
     const [value, setValue] = useState<string | null>('')
-    // const [value, setValue] = useState<string | Dispatch<SetStateAction<string>>>('')
 
     useEffect(() => setValue(defaultValue), [defaultValue]);
 

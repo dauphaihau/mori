@@ -7,6 +7,45 @@ import Enums from "config/enums";
 //   value: SORT_PRODUCT[key]
 // }))
 
+
+export enum QUANTITY_PRODUCT {
+  ONE = 1,
+  TWO
+  // PRICE_HIGHEST = 'price-highest',
+  // DATE_OLD = 'date-old',
+  // DATE_NEW = 'date-new',
+  // NAME_A = 'name-a',
+  // NAME_Z = 'name-z',
+}
+
+export const quantityProductOpts = [
+  // {
+  //   label: 'Default',
+  //   // label: 'Sort Options',
+  //   value: '',
+  // },
+  {
+    label: 'cak',
+    value: QUANTITY_PRODUCT.ONE
+  },
+  {
+    label: 'twooo',
+    value: QUANTITY_PRODUCT.TWO
+  },
+  {
+    label: 'ca3ca',
+    value: 'three'
+  },
+  {
+    label: 'ca4ca',
+    value: 'four'
+  },
+  {
+    label: 'ca5ca',
+    value: 'five'
+  },
+]
+
 export const sortOpts = [
   {
     label: 'Default',

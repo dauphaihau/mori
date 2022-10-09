@@ -2,6 +2,85 @@
   "title": "FooterData",
   "links": [
     {
+      "title": "Coffins",
+      "data": [
+        {
+          "title": "Natural coffin"
+        },
+        {
+          "title": "Traditional coffin"
+        },
+        {
+          "title": "American caskets"
+        },
+        {
+          "title": "Child coffin"
+        }
+      ]
+    },
+    {
+      "title": "About",
+      "data": [
+        {
+          "title": "Company"
+        },
+        {
+          "title": "Blog"
+        },
+        {
+          "title": "Awards"
+        },
+        {
+          "title": "Investors"
+        }
+      ]
+    },
+    {
+      "title": "Resources",
+      "data": [
+        {
+          "title": "FAQ & Helps"
+        },
+        {
+          "title": "Shipping & Delivery"
+        },
+        {
+          "title": "Return & Exchanges"
+        }
+      ]
+    },
+    {
+      "title": "Information",
+      "data": [
+        {
+          "title": "Privacy policy"
+        },
+        {
+          "title": "Terms & conditions"
+        },
+        {
+          "title": "FAQs"
+        },
+        {
+          "title": "Site Map"
+        }
+      ]
+    },
+    {
+      "title": "Contact",
+      "data": [
+        {
+          "title": "Deck 5, ISS, LEO 51.603."
+        },
+        {
+          "title": "dauphaihau@outlook.com"
+        },
+        {
+          "title": "1 (900) 909-1010 "
+        }
+      ]
+    },
+    {
       "title": "Social",
       "data": [
         {
@@ -21,103 +100,6 @@
           "icon": "fa-youtube"
         }
       ]
-    },
-    {
-      "title": "Contact",
-      "data": [
-        {
-          "title": "Contact Us"
-        },
-        {
-          "title": "Deck 5, ISS, LEO 51.603."
-        },
-        {
-          "title": "dauphaihau@outlook.com"
-        },
-        {
-          "title": "Call us: 84901111921"
-        }
-      ]
-    },
-    {
-      "title": "About",
-      "data": [
-        {
-          "title": "Support center"
-        },
-        {
-          "title": "Customer Support"
-        },
-        {
-          "title": "Intro Us"
-        },
-        {
-          "title": "Copyright"
-        }
-      ]
-    },
-    {
-      "title": "Customer Care",
-      "data": [
-        {
-          "title": "FAQ & Helps"
-        },
-        {
-          "title": "Shipping & Delivery"
-        },
-        {
-          "title": "Return & Exchanges"
-        }
-      ]
-    },
-    {
-      "title": "Our Information",
-      "data": [
-        {
-          "title": "Privacy policy"
-        },
-        {
-          "title": "Terms & conditions"
-        },
-        {
-          "title": "Return Policy"
-        },
-        {
-          "title": "Site Map"
-        }
-      ]
-    },
-    {
-      "title": "Top Categories",
-      "data": [
-        {
-          "title": "Natural material coffin"
-        },
-        {
-          "title": "Traditional coffin"
-        },
-        {
-          "title": "American caskets"
-        }
-      ]
-    }
-  ],
-  "listSocial": [
-    {
-      "name": "Twitter",
-      "icon": "fa-twitter"
-    },
-    {
-      "name": "Instagram",
-      "icon": "fa-instagram"
-    },
-    {
-      "name": "Facebook",
-      "icon": "fa-facebook-square"
-    },
-    {
-      "name": "Youtube",
-      "icon": "fa-youtube"
     }
   ],
   "listPayment": [

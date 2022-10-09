@@ -4,7 +4,7 @@ import { clns, filterRows, sortRows } from '../../helpers';
 import { Checkbox, Input } from '../Input';
 import TableRow from './TableRow';
 
-interface PropsTable {
+interface TableType {
   fitContent?: boolean,
   checkboxSelection?: boolean,
   onChangeCheckbox?: (selected) => object[],
@@ -31,7 +31,7 @@ const isEmpty = (obj = {}) => {
   return Object.keys(obj).length === 0
 }
 
-const Table = (props: PropsTable) => {
+const Table = (props: TableType) => {
   const {
     columns = [], rows = [],
     rowsPerPageOptions = [],

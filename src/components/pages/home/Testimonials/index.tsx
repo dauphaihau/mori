@@ -2,15 +2,24 @@ import React from 'react';
 import Carousel from "context/carouselContext";
 import CarouselItem from "./CarouselItem";
 import Review from "./Review";
-import { Col, Text } from 'core/components';
+import { Box, Col, Text } from "core/components";
+import { useFadeIn } from "core/hooks";
+import { clns } from "core/helpers";
 
 const Testimonials: React.FC = () => {
+  const [ref, isVisible] = useFadeIn()
   return (
-    <>
+    <Box
+      ref={ref}
+      section
+      classes={clns('pt-20',
+        'fade-in-section',
+        isVisible ? 'is-visible' : ''
+      )}
+    >
       <Col
         justify='center'
         align='center'
-        classes='pt-20'
       >
         <Text h2>Testimonials</Text>
       </Col>
@@ -90,7 +99,7 @@ const Testimonials: React.FC = () => {
           </Review>
         </CarouselItem>
       </Carousel>
-    </>
+    </Box>
   );
 }
 

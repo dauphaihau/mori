@@ -253,7 +253,9 @@ module.exports = {
       lineHeight: {
         'large': '54px'
       },
-
+      transitionProperty: {
+        'height': 'height',
+      }
     },
 
     screens: {

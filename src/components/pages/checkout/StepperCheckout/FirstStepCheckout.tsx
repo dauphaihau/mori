@@ -94,10 +94,11 @@ const FirstStepCheckout = (props) => {
     setStep(step)
   }
 
-  console.log('dauphaihau debug: cart', cart)
-
   return (
-    <Grid lg={6} gapx={8}>
+    <Grid
+      lg={6}
+      gapx={8}
+    >
       <Box classes='tablet:col-span-4'>
         {/*<Text weight='bold' lg='xl' classes='mb-1'>Your Order ({user.numberAllOfItemsInCart} item)</Text>*/}
         <Table

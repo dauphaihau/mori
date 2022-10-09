@@ -8,7 +8,7 @@ const CardNews = ({ title, content = '', imgSrc }) => {
       <Link href={Enums.PATH.DEFAULT}>
         <NextImage
           alt={title}
-          useSkeleton
+          // useSkeleton
           className='rounded-lg w-full'
           width={300}
           height={180}

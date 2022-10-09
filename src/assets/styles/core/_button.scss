@@ -52,17 +52,17 @@
   //text-gray-400
   @apply w-[30px] h-[30px]
   text-primary-gray
+
   bg-transparent hover:bg-gray-custom-hover
   transition-all duration-300 ease-in-out
   hover:text-primary-black rounded-lg text-sm p-1.5 ml-auto
   inline-flex items-center cursor-pointer;
 }
+.btn-icon--noBg {
+  @apply w-[30px] h-[30px]
+  text-primary-gray
 
-//.btn-icon {
-//  @apply w-[30px] h-[30px]
-//  text-gray-400 bg-transparent hover:bg-gray-200
-//  transition-all duration-300 ease-in-out
-//  hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto
-//  inline-flex items-center cursor-pointer
-//  dark:hover:bg-gray-800 dark:hover:text-white ;
-//}
+  transition-all duration-300 ease-in-out
+  hover:text-primary-black rounded-lg text-sm p-1.5 ml-auto
+  inline-flex items-center cursor-pointer;
+}

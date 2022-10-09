@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import {
   NextImage,
   Text,
@@ -10,9 +10,14 @@ import {
 } from 'core/components';
 import { CartDrawer } from 'components/drawer';
 import RatingStars from './RatingStars';
-import { formatDollarUS } from 'core/helpers';
-import Enums from "config/enums";
+import { clns, formatDollarUS } from 'core/helpers';
+import Enums, { STORAGE_KEY } from "config/enums";
 import { ProductType } from "types/product";
+import { CustomerReview, ProductFaq } from "../index";
+import ProductLongInfo from "../ProductLongInfo";
+import { quantityProductOpts, sortOpts } from "../../../../assets/data/options";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 
 interface ProductInfo {
   product: ProductType
@@ -23,15 +28,31 @@ interface ProductInfo {
   disableAddItem: boolean
 }
 
+const quantityOptions = new Array(10).fill('').map((_, i) => ({
+  label: i + 1,
+  value: i + 1
+}));
+
 const ProductInfo = (props: ProductInfo) => {
   const { product, addItemToCart, quantityItem, setQuantityItem, disableAddItem, handleSelectQuantityItem } = props;
   const { name, description, salePrice, price, images } = product;
   const [showCartDrawer, setShowCartDrawer] = useState(false)
   const [main, setMain] = useState<string>(images[0]);
+  const [selected, setSelected] = useState(quantityOptions[0])
 
   useEffect(() => {
     setMain(images[0])
   }, [images])
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storageState = window.localStorage.getItem(STORAGE_KEY)
+      if (storageState) {
+        const state = JSON.parse(storageState)
+        console.log('dauphaihau debug: state', state)
+      }
+    }
+  }, [showCartDrawer])
 
   const dataBreadcrumb = [
     { path: Enums.PATH.DEFAULT, name: 'Home' },
@@ -39,14 +60,73 @@ const ProductInfo = (props: ProductInfo) => {
     { name: product.name },
   ];
 
-  const quantityOptions = new Array(10).fill('').map((_, i) => ({
-    label: i + 1,
-    value: i + 1
-  }));
+  useEffect(() => {
+    handleSelectQuantityItem(selected.value)
+  }, [selected])
+
+  console.log('dauphaihau debug: quantity-options', quantityOptions)
+  // console.log('dauphaihau debug: quantity-product-opts', quantityProductOpts)
+
+  const SelectQuantity = () => {
+    return (
+      <Listbox
+        value={selected}
+        onChange={(option) => setSelected(option)}
+      >
+        {({ open }) => (
+          <div className='form-select-input m-0'>
+            <Listbox.Button className='form-select-input__btn w-20 py-2'>
+                  <span className='flex items-center'>
+                                                       <span className='block truncate'>{selected.label}</span>
+                                                       </span>
+              <span className='ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
+                    <SelectorIcon
+                      className='h-5 w-5 text-gray-400'
+                      aria-hidden='true'
+                    />
+                  </span>
+            </Listbox.Button>
+            <Transition
+              show={open}
+              as={Fragment}
+              leave='transition ease-in duration-100'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'
+            >
+              <Listbox.Options className='form-select-input__options'>
+                {
+                  quantityOptions.map((option, index) => (
+                    <Listbox.Option
+                      key={index}
+                      value={option}
+                      className={({ active }) => clns(
+                        active ? 'text-gray-700 bg-light-200 dark:hover:bg-gray-custom-502 dark:text-white' : 'text-black dark:text-white',
+                        'cursor-default select-none relative py-2 rounded-[5px] pl-3 pr-0'
+                      )}
+                    >
+                      {({ selected, active }) => (
+                        <>
+                          <div className='flex items-center'>
+                                <span className={clns(selected ? 'font-semibold' : 'font-normal', ' block truncate')}>
+                                  {option.label}
+                                </span>
+                          </div>
+                        </>
+                      )}
+                    </Listbox.Option>
+                  ))
+                }
+              </Listbox.Options>
+            </Transition>
+          </div>
+        )}
+      </Listbox>
+    )
+  }
 
   const Left = () => {
     return (
-      <Box classes='w-full laptop:w-1/2 h-120 pt-2 pb-8 flex-1'>
+      <Box classes='w-full laptop:w-8/12 h-120 pt-2 pb-8'>
         <Breadcrumb data={dataBreadcrumb}/>
         <NextImage
           src={main}
@@ -75,8 +155,8 @@ const ProductInfo = (props: ProductInfo) => {
                           alt={product.name}
                           src={o}
                           className='w-3/5'
-                          width={150}
-                          height={150}
+                          width={90}
+                          height={90}
                           onMouseMove={() => setMain(images[index])}
                           objectFit='contain'
                           layout='intrinsic'
@@ -111,14 +191,14 @@ const ProductInfo = (props: ProductInfo) => {
           )
         }
         {/*</Box>*/}
+        <CustomerReview/>
       </Box>
     )
   }
 
   const Right = () => {
     return (
-      <Col classes='pt-2 pb-8 px-0 w-full laptop:w-1/2'>
-        {/*<Col classes='pt-2 pb-8 px-0 tablet:pl-10 w-full laptop:w-1/2'>*/}
+      <Col classes='pt-2 pb-8 px-0 w-full laptop:w-4/12'>
         <Text
           h1
           weight='light'
@@ -151,25 +231,37 @@ const ProductInfo = (props: ProductInfo) => {
           </Text>
         </Text>
 
-        {/*<Text classes='my-3'>Only {product.quantity} piece in stock!</Text>*/}
         <Text classes='mb-5'>Available: {product.quantity}</Text>
         <Row
           align='center'
           gap={4}
           classes='mb-5'
         >
-          {
-            product.quantity !== 0 &&
-            <Select
-              name='sort'
-              classesSpace='m-0'
-              classesBtn='w-20'
-              options={quantityOptions}
-              onChange={(option) => handleSelectQuantityItem(option.value)}
-            />
-          }
+          {/*{*/}
+          {/*  product.quantity !== 0 &&*/}
+          {/*  <Select*/}
+          {/*    name='sort'*/}
+          {/*    classesSpace='m-0'*/}
+          {/*    classesBtn='w-20'*/}
+          {/*    options={quantityOptions}*/}
+          {/*    onChange={({ value }) => handleSelectQuantityItem(value)}*/}
+          {/*  />*/}
+          {/*}*/}
+
+          {/*<Select*/}
+          {/*  name='sort'*/}
+          {/*  classesSpace='m-0'*/}
+          {/*  classesBtn='w-28'*/}
+          {/*  options={quantityProductOpts}*/}
+          {/*  onChange={handleSelectQuantityItem}*/}
+          {/*  onChange={({ value }) => handleSelectQuantityItem(value)}*/}
+          {/*/>*/}
+
+          <SelectQuantity/>
+
           <Button
             size='md'
+            width='full'
             onClick={() => {
               addItemToCart(product)
               setShowCartDrawer(true)
@@ -180,12 +272,36 @@ const ProductInfo = (props: ProductInfo) => {
           />
         </Row>
 
-        <ShowMoreTextToggler
-          limit={400}
-          classes='text-primary-gray laptop:hidden text-sm leading-7 pb-6 '
-          text={description}
-        />
-        <Text classes='text-primary-gray my-6 leading-7 hidden laptop:block'>{description}</Text>
+        {/*<ShowMoreTextToggler*/}
+        {/*  limit={400}*/}
+        {/*  classes='text-primary-gray laptop:hidden text-sm leading-7 pb-6 '*/}
+        {/*  text={description}*/}
+        {/*/>*/}
+        {/*<Text classes='text-primary-gray my-6 leading-7 hidden laptop:block'>{description}</Text>*/}
+
+        <Col gap={2}>
+          <Row gap={4} align='center'>
+            <NextImage src='/images/product/cart.png' height={52} width={55} objectFit='contain'/>
+            <p className='w-full text-sm'>
+              <b>Other people want this.</b> 6 people have this in their carts right now.
+            </p>
+          </Row>
+          <Row gap={4} align='center'>
+            <NextImage src='/images/product/star.png' height={52} width={55} objectFit='contain'/>
+            <p className='w-full text-sm'>
+              Star Seller. This seller consistently earned 5-star reviews, shipped on time, and replied quickly to any
+              messages they received.
+            </p>
+          </Row>
+          <Row gap={4} align='center'>
+            <NextImage src='/images/product/car.png' height={52} width={55} objectFit='contain'/>
+            <p className='w-full text-sm'>
+              Arrives by Oct 13-18
+              if you order today.
+            </p>
+          </Row>
+        </Col>
+        <ProductLongInfo description={description}/>
       </Col>
     )
   }
@@ -196,7 +312,7 @@ const ProductInfo = (props: ProductInfo) => {
         showCartDrawer={showCartDrawer}
         setShowCartDrawer={setShowCartDrawer}
       />
-      <Box classes='flex flex-col laptop:flex-row gap-x-8 pt-12 mb-48 laptop:w-10/12  mx-auto'>
+      <Box classes='flex flex-col laptop:flex-row gap-x-8 pt-12 mb-48 desktop:w-10/12 mx-auto'>
         <Left/>
         <Right/>
       </Box>

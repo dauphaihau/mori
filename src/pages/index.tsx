@@ -10,12 +10,12 @@ import inventoryForCategory from "../assets/data/InventoryData/inventoryForCateg
 import inventoryCategories from "../assets/data/InventoryData/inventoryCategories";
 import RealLifeImages from "../components/pages/home/RealLifeImages";
 import fetchCategories from "../assets/data/InventoryData/provider/categoryProvider";
+import { Transition } from '@headlessui/react';
 
 const HomePage = ({ inventoryData = [], categoriesData , categories}) => {
   return (
     <>
       <Seo/>
-
       <BannerSlogan/>
       <SpecialProduct data={inventoryData[13]}/>
       <FlashSaleProducts inventoryData={inventoryData}/>
