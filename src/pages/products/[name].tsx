@@ -46,7 +46,6 @@ const ProductPage = ({ product, context, imageProps }) => {
   // },[cart])
   //
 
-
   const handleValidCheckInCart = (valueSelected) => {
     try {
       if (cart.length) {
@@ -85,7 +84,7 @@ const ProductPage = ({ product, context, imageProps }) => {
   }
 
   return (
-    <Box classes='layout !w-[95%]'>
+    <Box classes='mx-auto max-w-[120rem] w-full laptop:w-[95%] px-2 tablet:px-6 laptop:px-0 '>
       <ProductInfo
         // imageProps={imageProps}
         product={product}
@@ -97,10 +96,12 @@ const ProductPage = ({ product, context, imageProps }) => {
       />
       {/*<CustomerReview/>*/}
 
-      {/*<ProductRelated*/}
-      {/*  relatedProducts={relatedProducts}*/}
-      {/*  currentProduct={product}*/}
-      {/*/>*/}
+      <Box classes='flex flex-col laptop:flex-row gap-x-8 desktop:w-10/12 mx-auto'>
+        <ProductRelated
+          relatedProducts={relatedProducts}
+          currentProduct={product}
+        />
+      </Box>
     </Box>
   )
 }

@@ -247,20 +247,20 @@ let inventory = [
     createdAt: '2022-05-01T14:55:06.641+00:00',
     bestSelling: false
   },
-  {
-    id: '19',
-    categories: ['cremation urns'],
-    name: 'Square Pandanus',
-    price: '65',
-    colors: ['#f3eed7'],
-    images: ['/images/products/cremation-urn2.png'],
-    description: 'Exclusive to Compare the Coffin. This cremation urn is beautifully made with natural Pandanus grassesPandanus or wild pineapple is an environmentally friendly alternative to seagrass, a plant which grows in the coastal waters of East Africa, Southeast Asia and the Caribbean. Pandanus, it grows rapidly on land even in adverse conditions. When woven it is almost indistinguishable from seagrass. Produced in a Fair Trade company in Bali, Indonesia. Made from 100% natural materials. Includes natural cotton liner',
-    brand: 'Aurora',
-    quantity: 3,
-    rating: 4,
-    createdAt: '2022-05-01T14:55:06.641+00:00',
-    bestSelling: false
-  },
+  // {
+  //   id: '19',
+  //   categories: ['cremation urns'],
+  //   name: 'Square Pandanus',
+  //   price: '65',
+  //   colors: ['#f3eed7'],
+  //   images: ['/images/products/cremation-urn2.png'],
+  //   description: 'Exclusive to Compare the Coffin. This cremation urn is beautifully made with natural Pandanus grassesPandanus or wild pineapple is an environmentally friendly alternative to seagrass, a plant which grows in the coastal waters of East Africa, Southeast Asia and the Caribbean. Pandanus, it grows rapidly on land even in adverse conditions. When woven it is almost indistinguishable from seagrass. Produced in a Fair Trade company in Bali, Indonesia. Made from 100% natural materials. Includes natural cotton liner',
+  //   brand: 'Aurora',
+  //   quantity: 3,
+  //   rating: 4,
+  //   createdAt: '2022-05-01T14:55:06.641+00:00',
+  //   bestSelling: false
+  // },
   {
     id: '20',
     categories: ['cremation urns'],
@@ -538,6 +538,23 @@ let inventory = [
     rating: 4,
     createdAt: '2022-04-11T14:55:06.641+00:00',
     bestSelling: false
+  },
+  {
+    id: '37',
+    categories: ['cremation urns'],
+    name: 'Pure Black Modern Urn',
+    price: '199',
+    colors: ['#B99374'],
+    images: ['/images/products/cremation-urn7.png',
+      '/images/products/cremation-urn7a.png',
+      '/images/products/cremation-urn7b.webp',
+    ],
+    description: 'Bold yet understated, our Pure Black Modern Cremation Urn for Ashes has been professionally and individually glazed with black pigment creating a contemporary feel to this urn. The shape of this urn is minimalistic, spherical with a tapered edge towards the top and bottom. Despite the black pigmentation of this urn the gloss glaze finish is smooth to the touch and creates a delicate undertone to the design.\n\nBlack is a strong colour symbolising power and elegance. Moreover, this urn makes a stylish statement which could also be seen as a sentiment to your loved one in life. The boldness of this piece ensures it stands out in the home, looking chic in any space. Creating a heartfelt memorial to your loved one, mirroring their individual personality.\n\nThe glaze on the Pure Black Modern urn is done by hand meaning each piece is one of a kind. This means whilst each urn is similar no two urns are the same. A beautiful tribute made especially for your loved one. This urn is suitable for both home and garden as it has been fired at over 1000°. Meaning it is completely resistant to any outdoor weathering. The bold aesthetic of this urn would make it a great addition to any garden or patio. It will stand out against your flowers and create a beautiful memorial and statement feature in your garden.',
+    brand: 'Aurora',
+    quantity: 11,
+    rating: 4,
+    createdAt: '2022-10-10T14:55:06.641+00:00',
+    bestSelling: true
   },
 ]
 

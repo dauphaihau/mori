@@ -1,13 +1,20 @@
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon, GiftIcon } from '@heroicons/react/solid'
-import { Col, NextImage, Row, Tooltip } from 'core/components';
+import { Col, NextImage, Row } from 'core/components';
+// import { Col, NextImage, Row, Tooltip } from 'core/components';
 import { clns } from 'core/helpers';
+
+import {
+  Tooltip,
+} from 'react-tippy';
 import TooltipCustom from "../../../../core/components/TooltipCustom";
+import * as React from "react";
 
 export default function DisclosureShipping() {
+
   return (
-    <div className='w-[110%]'>
-      <div className='mx-auto w-full max-w-4xl mx-auto rounded-2xl bg-white p-2'>
+    <div className='w-full laptop:w-[110%]'>
+      <div className='mx-auto w-full max-w-4xl mx-auto rounded-2xl bg-white laptop:p-2'>
         <Disclosure
           as='div'
           className='mt-3'
@@ -17,7 +24,7 @@ export default function DisclosureShipping() {
               <Disclosure.Button
                 className='flex w-full justify-between rounded-lg
                      hover:bg-gray-custom-50
-                     px-4 py-2 font-medium
+                     laptop:px-4 py-2 font-medium
                      '
               >
                 <span className='text-base font-bold md:text-[18px] tracking-wide'>Shipping and return policies</span>
@@ -63,10 +70,30 @@ export default function DisclosureShipping() {
                           {/*<li className='text-xl text-gray-700 dark:text-gray-200'>*/}
                           {/*  <current.icon />*/}
                           {/*</li>*/}
-                          <p className={'underline decoration-dashed underline-offset-4'}>Order placed</p>
-                          {/*</TooltipCustom>*/}
 
-                          {/*</Tooltip>*/}
+                          <Tooltip
+                            // title="Welcome to React"
+                            position="top"
+                            arrow={true}
+                            arrowSize='big'
+
+                            html={
+
+                              <div
+                                className={clns(
+                                  'inline-block rounded-md bg-black p-2 text-white shadow-md',
+                                  'border '
+                                )}
+                              >
+                                Welcome to React
+                              </div>
+                            }
+                            // trigger="click"
+                          >
+                            <p className={'underline decoration-dashed underline-offset-4'}>Order placed</p>
+                            {/*</TooltipCustom>*/}
+
+                          </Tooltip>
                         </div>
                       </Col>
                       {/*<div className='w-44 h-1/2 pb-4 border-0 border-b-2 border-white mx-4'></div>*/}

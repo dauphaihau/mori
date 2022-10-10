@@ -18,6 +18,7 @@ import ProductLongInfo from "../ProductLongInfo";
 import { quantityProductOpts, sortOpts } from "../../../../assets/data/options";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+import CustomerReview2 from "../CustomerReview2";
 
 interface ProductInfo {
   product: ProductType
@@ -64,9 +65,6 @@ const ProductInfo = (props: ProductInfo) => {
     handleSelectQuantityItem(selected.value)
   }, [selected])
 
-  console.log('dauphaihau debug: quantity-options', quantityOptions)
-  // console.log('dauphaihau debug: quantity-product-opts', quantityProductOpts)
-
   const SelectQuantity = () => {
     return (
       <Listbox
@@ -106,11 +104,21 @@ const ProductInfo = (props: ProductInfo) => {
                     >
                       {({ selected, active }) => (
                         <>
-                          <div className='flex items-center'>
-                                <span className={clns(selected ? 'font-semibold' : 'font-normal', ' block truncate')}>
-                                  {option.label}
-                                </span>
-                          </div>
+                          <Row
+                            justify='between'
+                            align='center'
+                          >
+                            <span className={clns(' block truncate')}>
+                            {/*<span className={clns(selected ? 'font-semibold' : 'font-normal', ' block truncate')}>*/}
+                              {option.label}
+                            </span>
+                            {selected ? (
+                              <CheckIcon
+                                className='mr-2 h-5 w-5 text-black'
+                                aria-hidden='true'
+                              />
+                            ) : null}
+                          </Row>
                         </>
                       )}
                     </Listbox.Option>
@@ -190,19 +198,21 @@ const ProductInfo = (props: ProductInfo) => {
             </Row>
           )
         }
-        {/*</Box>*/}
-        <CustomerReview/>
+
+        <Box classes='hidden laptop:block'>
+          <CustomerReview2/>
+        </Box>
       </Box>
     )
   }
 
   const Right = () => {
     return (
-      <Col classes='pt-2 pb-8 px-0 w-full laptop:w-4/12'>
+      <Col classes='pt-2 pb-8 px-2 laptop:px-0 w-full laptop:w-4/12'>
         <Text
           h1
           weight='light'
-          classes='text-2xl tablet:text-2xl laptop:text-4xl mt-2 mb-5'
+          classes='text-xl tablet:text-2xl laptop:text-4xl mt-2 mb-5'
           text={name}
         />
         <Row
@@ -280,28 +290,57 @@ const ProductInfo = (props: ProductInfo) => {
         {/*<Text classes='text-primary-gray my-6 leading-7 hidden laptop:block'>{description}</Text>*/}
 
         <Col gap={2}>
-          <Row gap={4} align='center'>
-            <NextImage src='/images/product/cart.png' height={52} width={55} objectFit='contain'/>
+          <Row
+            gap={4}
+            align='center'
+          >
+            <NextImage
+              src='/images/product/cart.png'
+              height={52}
+              width={55}
+              objectFit='contain'
+            />
             <p className='w-full text-sm'>
               <b>Other people want this.</b> 6 people have this in their carts right now.
             </p>
           </Row>
-          <Row gap={4} align='center'>
-            <NextImage src='/images/product/star.png' height={52} width={55} objectFit='contain'/>
+          <Row
+            gap={4}
+            align='center'
+          >
+            <NextImage
+              src='/images/product/star.png'
+              height={52}
+              width={55}
+              objectFit='contain'
+            />
             <p className='w-full text-sm'>
               Star Seller. This seller consistently earned 5-star reviews, shipped on time, and replied quickly to any
               messages they received.
             </p>
           </Row>
-          <Row gap={4} align='center'>
-            <NextImage src='/images/product/car.png' height={52} width={55} objectFit='contain'/>
+          <Row
+            gap={4}
+            align='center'
+          >
+            <NextImage
+              src='/images/product/car.png'
+              height={52}
+              width={55}
+              objectFit='contain'
+            />
             <p className='w-full text-sm'>
               Arrives by Oct 13-18
               if you order today.
             </p>
           </Row>
         </Col>
+
         <ProductLongInfo description={description}/>
+
+        <Box classes='laptop:hidden'>
+          <CustomerReview2/>
+        </Box>
       </Col>
     )
   }
@@ -312,7 +351,8 @@ const ProductInfo = (props: ProductInfo) => {
         showCartDrawer={showCartDrawer}
         setShowCartDrawer={setShowCartDrawer}
       />
-      <Box classes='flex flex-col laptop:flex-row gap-x-8 pt-12 mb-48 desktop:w-10/12 mx-auto'>
+      <Box classes='flex flex-col laptop:flex-row gap-x-8 pt-12 laptop:mb-[350px] desktop:w-10/12 mx-auto'>
+        {/*<Box classes='flex flex-col laptop:flex-row gap-x-8 pt-12 mb-48 desktop:w-10/12 mx-auto'>*/}
         <Left/>
         <Right/>
       </Box>

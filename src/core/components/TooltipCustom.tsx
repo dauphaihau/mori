@@ -21,9 +21,9 @@ export default function TooltipCustom({
 }: TooltipTextProps) {
   return (
     <TippyTooltip
-      trigger='mouseenter'
-      interactive
-      arrow={true}
+      // trigger='mouseenter'
+      // interactive
+      // arrow={true}
       html={
         <div
           className={clns(

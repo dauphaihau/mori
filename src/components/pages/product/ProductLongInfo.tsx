@@ -7,7 +7,7 @@ import DisclosureHighlights from "./ProductInfo/DisclosureHighlights";
 const ProductLongInfo = ({ description }) => {
   return (
     <Col
-      classes='mt-6 mb-36'
+      classes='mt-6 mb-4 laptop:mb-36'
       align='center'
     >
       <DisclosureHighlights/>
