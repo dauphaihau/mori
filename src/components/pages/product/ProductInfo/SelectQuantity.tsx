@@ -65,8 +65,6 @@ function SelectQuantity<Type extends OptionValue>(props: SelectType<Type>) {
 
   // useEffect(() => setSelected(initialValue), [initialValue]);
 
-  console.log('dauphaihau debug: selected', selected)
-
   return (
     <Listbox
       name={name}

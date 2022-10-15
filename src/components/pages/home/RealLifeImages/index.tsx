@@ -4,6 +4,7 @@ import { clns } from 'core/helpers';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useFadeIn, useMediaQuery } from 'core/hooks';
+import FadeInSection from "components/common/FadeInSection";
 
 const RealLifeImages = ({ categoriesData = [] }) => {
 
@@ -11,6 +12,7 @@ const RealLifeImages = ({ categoriesData = [] }) => {
     align: 'start',
     skipSnaps: false
   });
+
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -27,7 +29,6 @@ const RealLifeImages = ({ categoriesData = [] }) => {
 
   const onSelect = useCallback(() => {
     if (!embla) return;
-    console.log('dauphaihau debug: embla-api-selected-scroll-snap-', embla.selectedScrollSnap())
     setSelectedIndex(embla.selectedScrollSnap())
     setPrevBtnEnabled(embla.canScrollPrev());
     setNextBtnEnabled(embla.canScrollNext());
@@ -68,56 +69,47 @@ const RealLifeImages = ({ categoriesData = [] }) => {
   }
 
   return (
-    <>
+    <FadeInSection classes='my-20 layout'>
+      <Text h2 classes='mb-4'>Shop these real-life spaces</Text>
       <Box
-        ref={ref}
-        section
-        classes={clns('my-20 layout',
-          'fade-in-section',
-          isVisible ? 'is-visible' : ''
-        )}
+        ref={viewportRef}
+        classes='w-full relative overflow-hidden'
       >
-        <Text h2 classes='mb-4'>Shop these real-life spaces</Text>
-        <Box
-          ref={viewportRef}
-          classes='w-full relative overflow-hidden'
-        >
-          <Box classes='select-none flex gap-4'>
-            {
-              data.map((o, idx) => {
-                return <div
-                  className='w-auto'
-                  key={idx}
-                  // onClick={handleClick}
-                >
-                  <div className='relative'>
-                    <NextImage
-                      src={o.srcImg}
-                      // height={284}
-                      // width={284}
-                      height={350}
-                      width={400}
-                      layout='responsive'
-                      className='
+        <Box classes='select-none flex gap-4'>
+          {
+            data.map((o, idx) => {
+              return <div
+                className='w-auto'
+                key={idx}
+                // onClick={handleClick}
+              >
+                <div className='relative'>
+                  <NextImage
+                    src={o.srcImg}
+                    // height={284}
+                    // width={284}
+                    height={350}
+                    width={400}
+                    layout='responsive'
+                    className='
                       w-[280px] h-auto
                       tablet:h-[300px] tablet:w-[400px]
                       laptop:h-[400px] laptop:w-[480px]
 
                       '
-                      // objectFit={'contain'}
-                    />
-                    <p className='absolute  bottom-1 right-2 text-white'>{o.author}</p>
-                  </div>
-                  <p className='text-sm tablet:text-xl mt-2'>{o.productName}</p>
+                    // objectFit={'contain'}
+                  />
+                  <p className='absolute  bottom-1 right-2 text-white'>{o.author}</p>
                 </div>
-              })
-            }
-          </Box>
-          <PrevBtn/>
-          <NextBtn/>
+                <p className='text-sm tablet:text-xl mt-2'>{o.productName}</p>
+              </div>
+            })
+          }
         </Box>
+        <PrevBtn/>
+        <NextBtn/>
       </Box>
-    </>
+    </FadeInSection>
   );
 }
 

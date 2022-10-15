@@ -50,15 +50,10 @@ export const toLower = (value) => {
 
 export function isEmpty(value) {
   try {
-    if (
-      typeof value === "undefined" ||
+    return typeof value === "undefined" ||
       value === null ||
       value === "" ||
-      value.length === 0
-    ) {
-      return true;
-    }
-    return false;
+      value.length === 0;
   } catch (e) {
     return true;
   }

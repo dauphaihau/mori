@@ -12,34 +12,7 @@
       "address": "/api/account/address",
       "me": "/api/account/me",
       "logout": "/user/backoffice/logout",
-      "refreshToken": "/user/token",
-      "account": {
-        "backOffice": {
-          "_": "/user/backoffice/account",
-          "detail": "/user/backoffice/account/detail",
-          "update": "/user/backoffice/account",
-          "profile": "/user/backoffice/account/profile",
-          "history": "/user/backoffice/history"
-        },
-        "customer": {
-          "_": "/user/user/account"
-        }
-      }
-    },
-    "business": {
-      "contract": {
-        "_": "/sale/backoffice/contract",
-        "detail": {
-          "_": "/sale/backoffice/contract",
-          "staff": "/employee/sale",
-          "update": "/sale/backoffice"
-        }
-      }
-    },
-    "setting": {
-      "company": {
-        "_": "/user/company"
-      }
+      "refreshToken": "/user/token"
     }
   },
   "cookies": {

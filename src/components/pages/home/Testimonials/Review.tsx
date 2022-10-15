@@ -7,7 +7,7 @@ interface Props {
 
 const Review: React.FC<Props> = ({ children, by }) => {
   return (
-    <div className={`flex flex-col justify-center items-center text-center px-5`}>
+    <div className='flex flex-col justify-center items-center text-center px-5'>
       <div className='text-xl md:text-2xl leading-6 lg:leading-[3rem]'>
         &ldquo;{children}&rdquo;
       </div>

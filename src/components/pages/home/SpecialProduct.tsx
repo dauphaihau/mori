@@ -2,12 +2,12 @@ import { useRouter } from 'next/router';
 import { slugify } from 'core/helpers';
 import { NextImage, Col, Text, Button, Box, Row } from 'core/components';
 import Enums from 'config/enums';
+import FadeInSection from "../../common/FadeInSection";
 
 const SpecialProduct = ({ data }) => {
   const router = useRouter()
-
   return (
-    <div className='layout'>
+    <FadeInSection classes='layout'>
       <Box classes='w-full mt-12 '>
         <Box classes='bg-gray-custom-50 p-6 pb-16 laptop:pb-6 flex flex-col laptop:flex-row rounded-lg'>
           {/*<Box classes='bg-gray-custom-50 p-6 pb-16 laptop:pb-6 flex laptop:flex-row flex-col rounded-lg'>*/}
@@ -43,7 +43,7 @@ const SpecialProduct = ({ data }) => {
                 alt={data.name}
                 width={300}
                 height={300}
-                objectFit={'contain'}
+                objectFit='contain'
                 // layout='intrinsic'
               />
             </Box>
@@ -51,7 +51,7 @@ const SpecialProduct = ({ data }) => {
           </Row>
         </Box>
       </Box>
-    </div>
+    </FadeInSection>
   );
 }
 

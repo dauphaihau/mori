@@ -1,22 +1,13 @@
 import React from 'react';
 import Image from "next/image";
 import SliderContainer, { SliderItem } from "./SliderItem";
-import { Box, Col, Text } from "core/components";
-import { useFadeIn } from "core/hooks";
-import { clns } from "core/helpers";
+import { Col, Text } from "core/components";
+import FadeInSection from 'components/common/FadeInSection';
 
 const ClientLogo: React.FC = () => {
-  const [ref, isVisible] = useFadeIn()
 
   return (
-    <Box
-      ref={ref}
-      section
-      classes={clns('py-16 tablet:py-24 mb-12 bg-gray-custom-50',
-        'fade-in-section',
-        isVisible ? 'is-visible' : ''
-      )}
-    >
+    <FadeInSection classes='py-16 tablet:py-24 mb-12 bg-gray-custom-50'>
       <Col justify='center' align='center'>
         <Text h2 classes='mb-10'>As Recognized By</Text>
         <SliderContainer
@@ -25,6 +16,7 @@ const ClientLogo: React.FC = () => {
         >
           <SliderItem width={150}>
             <Image
+              // src='https://www.musgrovewillowscoffins.co.uk/wp-content/uploads/2022/06/FFMA-coffin-logo.png'
               src='/images/logos/audubon.png'
               width={150}
               height={50}
@@ -249,7 +241,7 @@ const ClientLogo: React.FC = () => {
           </SliderItem>
         </SliderContainer>
       </Col>
-    </Box>
+    </FadeInSection>
   );
 
 }

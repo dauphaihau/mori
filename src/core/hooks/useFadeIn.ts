@@ -5,12 +5,20 @@ export function useFadeIn<T>(): [MutableRefObject<T>, boolean] {
 
   const ref: any = useRef<T | null>(null);
 
+
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => setVisible(entry.isIntersecting));
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setVisible(entry.isIntersecting)
+        }
+      });
     });
+    if (!ref.current) return;
     observer.observe(ref.current);
-    // return () => observer.unobserve(ref.current)
+    // if (ref.current) {
+    //   return () => observer.unobserve(ref.current)
+    // }
   }, []);
 
   return [ref, isVisible];

@@ -3,7 +3,7 @@ import { clns, formatDollarUS, slugify } from "core/helpers";
 import Enums from "config/enums";
 import NextImageLoading from "../../core/components/Next/NextImageLoading";
 
-const Product = ({ data, dataFade }) => {
+const Product = ({ data, dataFade }:any) => {
   if (!data) return null
   return (
     <Box

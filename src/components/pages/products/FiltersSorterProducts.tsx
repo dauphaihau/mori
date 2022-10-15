@@ -16,10 +16,6 @@ const FiltersSortMobile = ({ categories }) => {
     setTimeout(() => {
       setIsLoaded(true);
     }, 300);
-
-    // return () => {
-    //   setIsLoaded(false)
-    // }
     setEndSlice(9)
   }, [products]);
 
@@ -80,7 +76,7 @@ const FiltersSortMobile = ({ categories }) => {
       classes='min-h-full'
     >
       <Filters
-        categories={categories}
+        // categories={categories}
         quantityProd={products.length}
         launchSticky={true}
       />

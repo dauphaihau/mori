@@ -10,16 +10,19 @@ interface ContextValue {
   selectedIndex: number,
   scrollPrev: () => void,
   scrollNext: () => void,
+  scrollSnaps: number[]
 }
 
 interface Props {
   className?: string,
   children: ReactNode
+  dots: ReactNode
 }
 
 export const CarouselContext = createContext<ContextValue>({
   embla: undefined,
   selectedIndex: -1,
+  scrollSnaps: [],
   scrollPrev: () => {},
   scrollNext: () => {},
 })
@@ -28,8 +31,9 @@ export function useCarousel() {
   return useContext(CarouselContext);
 }
 
-const Carousel: FC<Props> = ({ children, className }) => {
+const Carousel: FC<Props> = ({ children, className, dots }) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [scrollSnaps, setScrollSnaps] = useState([]);
   const [viewportRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
@@ -40,20 +44,9 @@ const Carousel: FC<Props> = ({ children, className }) => {
     [ClassNameEmbla()]
     // [ClassNameEmbla(), Autoplay()]
   )
+
   const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-  // const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi.canScrollNext) {
-      console.log('dauphaihau debug: embla-api-can-scroll-next', emblaApi.canScrollNext())
-      emblaApi.scrollNext()
-    }
-  }, [emblaApi])
-
-  // const scrollNext = useCallback(() => {
-  //   if (!emblaApi) return;
-  //   emblaApi.scrollNext()
-  // }, [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -64,29 +57,29 @@ const Carousel: FC<Props> = ({ children, className }) => {
 
   useEffect(() => {
     if (!emblaApi) return
-    emblaApi.on('select', onSelect)
     onSelect();
-  }, [emblaApi, onSelect])
-
-  // const setScrollNext = () => {
-  //   if (!emblaApi) return
-  //   scrollNext()
-  // }
-
-  // const onSelect = useCallback(() => {
-  //   if (!embla) return;
-  //   setPrevBtnEnabled(embla.canScrollPrev());
-  //   setNextBtnEnabled(embla.canScrollNext());
-  // }, [embla]);
+    setScrollSnaps(emblaApi.scrollSnapList());
+    emblaApi.on('select', onSelect)
+  }, [emblaApi, setScrollSnaps, onSelect])
 
   return (
-    <CarouselContext.Provider value={{ embla: emblaApi, selectedIndex, scrollPrev, scrollNext }}>
+    <CarouselContext.Provider
+      value={{
+        embla: emblaApi, selectedIndex, scrollPrev, scrollNext, scrollSnaps
+      }}
+    >
+      {/*view port*/}
       <Box
         ref={viewportRef}
         classes={`carousel-viewport w-full overflow-hidden ${className}`}
       >
+
+        {/*container */}
         <Box classes='carousel-container flex'>
           {children}
+        </Box>
+        <Box>
+          {dots}
         </Box>
       </Box>
     </CarouselContext.Provider>

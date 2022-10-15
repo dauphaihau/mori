@@ -2,7 +2,9 @@ import { Box, Divider, Text } from 'core/components';
 import { FC } from 'react';
 import { clns } from "core/helpers";
 
+
 const BannerSlogan: FC = () => {
+
   return (
     <Box
       classes='
@@ -58,3 +60,11 @@ const BannerSlogan: FC = () => {
 }
 
 export default BannerSlogan;
+
+export const DotButton = ({ selected, onClick }) => (
+  <button
+    className={`embla__dot ${selected ? "is-selected" : ""}`}
+    type="button"
+    onClick={onClick}
+  />
+);

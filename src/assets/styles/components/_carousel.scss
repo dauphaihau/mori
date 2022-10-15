@@ -13,7 +13,7 @@
 
 .slide {
   flex: 0 0 auto;
-  max-width: min(70% , 620px);
+  max-width: min(70%, 620px);
   opacity: 0.4;
   transition: opacity 0.4s;
 }
@@ -35,3 +35,45 @@
   opacity: 1;
 }
 
+
+.carousel__button {
+  outline: 0;
+  cursor: pointer;
+  background-color: transparent;
+  touch-action: manipulation;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  fill: #1bcacd;
+  padding: 0;
+}
+
+.carousel__dots {
+  @apply flex list-none justify-center pt-[10px];
+}
+
+.carousel__dot {
+  @apply bg-transparent cursor-pointer relative p-0 outline-0 border-0 w-[30px] h-[30px]
+  mx-[7.5px] flex items-center
+  ;
+}
+
+.carousel__dot:after {
+  @apply bg-[#efefef] w-full h-[4px] rounded-[2px] content-[''];
+  //background-color: black;
+  //background-color: #efefef;
+  //width: 100%;
+  //height: 4px;
+  //border-radius: 2px;
+  //content: "";
+}
+
+.carousel__dot.active:after {
+  @apply bg-black opacity-100;
+}

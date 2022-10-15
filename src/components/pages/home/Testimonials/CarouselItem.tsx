@@ -1,5 +1,5 @@
-import React, { useCallback, useContext } from 'react';
-import { CarouselContext } from "context/carouselContext";
+import React, { useCallback } from 'react';
+import { useCarousel } from "context/carouselContext";
 
 interface Props {
   index: number,
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const CarouselItem: React.FC<Props> = ({ children, index }) => {
-  const { embla: emblaApi, selectedIndex } = useContext(CarouselContext);
+  const { embla: emblaApi, selectedIndex } = useCarousel();
   const isActive = selectedIndex === index
 
   const handleClick = useCallback(() => {
@@ -17,6 +17,7 @@ const CarouselItem: React.FC<Props> = ({ children, index }) => {
 
   return (
     <div
+      // className={` relative ${isActive ? 'active' : ''}`}
       className={`slide relative ${isActive ? 'active' : ''}`}
       onClick={handleClick}
     >

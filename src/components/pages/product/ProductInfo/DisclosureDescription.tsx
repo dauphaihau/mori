@@ -32,15 +32,13 @@ back to the same height within a year. Willow has been known to grow up to 3 met
 and
 has the ability to degrade much more quickly than conventional hardwood.`
 
-export default function DisclosureDescription({ description, limit = 500 }) {
-// export default function DisclosureDescription({ limit = 500 }) {
+// export default function DisclosureDescription({ description, limit = 500 }) {
+export default function DisclosureDescription({ limit = 500 }) {
 
   const [showMore, setShowMore] = useState(false)
   const contentRef = useRef(null)
   const longDescription = description.length > limit
 
-  // console.log('dauphaihau debug: description', description.length)
-  // console.log('dauphaihau debug: long-description', longDescription)
 
   return (
     <div className='w-full laptop:w-[110%]'>

@@ -7,7 +7,7 @@ const nextConfig = {
     NEXT_PUBLIC_JWT_SECRET: process.env.NEXT_PUBLIC_JWT_SECRET,
   },
   images: {
-    domains: ['i.pravatar.cc', 'coffins-direct.co.uk']
+    domains: ['i.pravatar.cc', 'coffins-direct.co.uk' ]
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Note: we provide webpack above so you should not `require` it
@@ -27,7 +27,7 @@ const nextConfig = {
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: true,
-  },
+  }
 }
 
 const withTM = require("next-transpile-modules")([

@@ -1,6 +1,6 @@
 import React from "react";
 import '../assets/styles/global.scss'
-import Index from "components/layout";
+import Layout from "components/layout";
 import { data as footerHomePageData } from '../assets/data/FooterData';
 import fetchCategories from 'assets/data/InventoryData/provider/categoryProvider';
 import { AuthProvider } from "context/authContext";
@@ -14,9 +14,9 @@ function EcommerceApp({ categories, Component, pageProps }) {
       <UIControllerProvider>
         <FilterProvider>
           <SizeObserver>
-            <Index categories={categories}>
+            <Layout categories={categories}>
               <Component {...pageProps} />
-            </Index>
+            </Layout>
           </SizeObserver>
         </FilterProvider>
       </UIControllerProvider>

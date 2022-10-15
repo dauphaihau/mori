@@ -32,7 +32,6 @@ const Button = forwardRef((props: Partial<ButtonProps>, ref: any) => {
 
   return (
     <button
-      // type={type}
       disabled={disabled}
       className={clns('btn',
         shadow ? 'drop-shadow-xl' : '',

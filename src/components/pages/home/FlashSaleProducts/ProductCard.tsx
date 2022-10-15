@@ -84,13 +84,12 @@ const ProductCard = ({ data }) => {
   const Images = () => {
     return (
       <>
+        {/*<Box classes=''>*/}
         <Box classes='hidden'>
-          {/*<Box classes='hidden laptop:block'>*/}
           <Col
             align='center'
             justify='center'
             classes='h-[14rem] desktop:h-[16rem]'
-            // classes='h-[14rem] desktop:h-[16rem] hidden laptop:block'
           >
             <Box
               data-displacement='/images/hover-effect/distortion.jpeg'
@@ -99,18 +98,19 @@ const ProductCard = ({ data }) => {
               )}
             >
               <img
-                className='img-effect'
+                className='img-effect object-contain'
                 src={images[0]}
-                alt={name}
+                // alt={name}
               />
               <img
-                className='img-effect'
+                className='img-effect object-contain'
                 src={images[1]}
                 alt={name}
               />
             </Box>
           </Col>
         </Box>
+
         <NextImage
           src={images[0]}
           alt={name}

@@ -5,7 +5,10 @@ import Enums from "config/enums";
 const ProductListView = ({ data, dataFade }) => {
 
   return (
-    <Row data-fade={dataFade} classes='w-full tablet:w-1/2 mb-8 laptop:w-full'>
+    <Row
+      data-fade={dataFade}
+      classes='w-full tablet:w-1/2 mb-8 laptop:w-full'
+    >
       <Link href={`${Enums.PATH.PRODUCT._}/${slugify(data?.name)}`}>
         <Col
           justify='center'
@@ -17,6 +20,7 @@ const ProductListView = ({ data, dataFade }) => {
             width={200}
             height={200}
             src={data.images[0]}
+            objectFit='contain'
           />
         </Col>
       </Link>

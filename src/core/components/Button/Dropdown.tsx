@@ -20,7 +20,6 @@ const Trigger = ({ children }) => {
 }
 
 const Item = ({ children }) => {
-
   return <Transition
     as={Fragment}
     enter='transition ease-out duration-100'
