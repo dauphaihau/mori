@@ -6,9 +6,6 @@ const nextConfig = {
     NEXT_PUBLIC_MONGODB_URI: process.env.NEXT_PUBLIC_MONGODB_URI,
     NEXT_PUBLIC_JWT_SECRET: process.env.NEXT_PUBLIC_JWT_SECRET,
   },
-  images: {
-    domains: ['i.pravatar.cc', 'coffins-direct.co.uk' ]
-  },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Note: we provide webpack above so you should not `require` it
     // Perform customizations to webpack config
@@ -27,6 +24,12 @@ const nextConfig = {
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: true,
+  },
+
+  images: {
+    domains: ['i.pravatar.cc', 'coffins-direct.co.uk', 'bellacouche.com',
+      'milanomonuments.com'
+    ]
   }
 }
 

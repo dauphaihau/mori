@@ -55,3 +55,20 @@
   transform: none;
   visibility: visible;
 }
+
+/* #region  /**=========== Fade In page =========== */
+.fade-in-page {
+  animation: fadeInAnimation ease-in-out .3s;
+  //animation: fadeInAnimation ease-in-out 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

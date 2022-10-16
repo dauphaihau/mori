@@ -1,5 +1,5 @@
 import { Box, Divider, Row, Text } from 'core/components';
-import {  useCallback } from 'react';
+import { useCallback } from 'react';
 import { clns } from "core/helpers";
 import Carousel, { useCarousel } from 'context/carouselContext';
 
@@ -7,7 +7,10 @@ const Dots = () => {
   const { embla: emblaApi, selectedIndex, scrollSnaps } = useCarousel();
   const scrollTo = useCallback((index) => emblaApi && emblaApi.scrollTo(index), [emblaApi]);
 
-  return <Row justify='center' classes="mt-[-2rem]">
+  return <Row
+    justify='center'
+    classes="mt-[-2rem]"
+  >
     {
       scrollSnaps.map((_, index) => (
         <button
@@ -30,7 +33,10 @@ export default function BannerSlogan() {
       <Carousel dots={<Dots/>}>
         {
           data.map((item, index) => (
-            <div className='relative min-w-full' key={index}>
+            <div
+              key={index}
+              className='relative min-w-full'
+            >
               {/*<CarouselItem index={index} key={index}>*/}
               <Box
                 classes='
@@ -93,6 +99,11 @@ export default function BannerSlogan() {
 
 const data = [
   {
+    bannerImg: "bg-[url('/images/banners/weaver-memorials-columbarium-2.png')]",
+    slogan: 'Immortalize Your Loved One',
+    subSlogan: 'Dignity and compassion guaranteed'
+  },
+  {
     bannerImg: "bg-[url('/images/banners/banner-homepage.png')]",
     slogan: 'Décor & Lifestyle',
     subSlogan: 'Dignity and compassion guaranteed'
@@ -100,11 +111,6 @@ const data = [
   {
     bannerImg: "bg-[url('/images/banners/contemporary-banner.png')]",
     slogan: 'Preserving memories beyond imagination.',
-    subSlogan: 'Dignity and compassion guaranteed'
-  },
-  {
-    bannerImg: '/images/banners/banner-homepage.png',
-    slogan: 'Immortalize Your Loved One',
     subSlogan: 'Dignity and compassion guaranteed'
   },
   {

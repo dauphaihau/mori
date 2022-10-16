@@ -35,7 +35,6 @@
   opacity: 1;
 }
 
-
 .carousel__button {
   outline: 0;
   cursor: pointer;
@@ -55,25 +54,18 @@
 }
 
 .carousel__dots {
-  @apply flex list-none justify-center pt-[10px];
+  @apply flex list-none justify-center pt-2.5;
 }
 
 .carousel__dot {
-  @apply bg-transparent cursor-pointer relative p-0 outline-0 border-0 w-[30px] h-[30px]
-  mx-[7.5px] flex items-center
-  ;
+  @apply bg-transparent cursor-pointer relative p-0 outline-0 border-0 w-8 h-8
+  mx-2 flex items-center;
 }
 
 .carousel__dot:after {
-  @apply bg-[#efefef] w-full h-[4px] rounded-[2px] content-[''];
-  //background-color: black;
-  //background-color: #efefef;
-  //width: 100%;
-  //height: 4px;
-  //border-radius: 2px;
-  //content: "";
+  @apply bg-[#6f6a65] w-full h-[4px] rounded-[2px] content-[''];
 }
 
 .carousel__dot.active:after {
-  @apply bg-black opacity-100;
+  @apply bg-white opacity-100;
 }

@@ -200,7 +200,9 @@ let inventory = [
     price: '220',
     colors: ['#cfcdcb'],
     images: ['/images/products/coffin-child2.png'],
-    description: 'Our Child’s Curved Painted Willow Coffin features tapered round ends, beautifully plaited edging and natural hand-woven willow handles. We make each Child’s coffins with sensitivity in mind, each one made in our workshops in Somerset using natural willow and using completely natural processes. Every wicker coffin is made with the same care and dedication that has driven our family business for over four generations.',
+    description: `Our Child’s Curved Painted Willow Coffin features tapered round ends, beautifully plaited edging and natural hand-woven willow handles. We make each Child’s coffins with sensitivity in mind, each one made in our workshops in Somerset using natural willow and using completely natural processes. 
+    
+   Every wicker coffin is made with the same care and dedication that has driven our family business for over four generations.`,
     brand: 'Aurora',
     quantity: 10,
     rating: 2,

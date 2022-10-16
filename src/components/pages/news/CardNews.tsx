@@ -4,7 +4,7 @@ import { sliceText } from "core/helpers";
 
 const CardNews = ({ title, content = '', imgSrc }) => {
   return (
-    <Box classes='max-w-sm animate-pulse'>
+    <Box classes='max-w-sm'>
       <Link href={Enums.PATH.DEFAULT}>
         <NextImage
           alt={title}

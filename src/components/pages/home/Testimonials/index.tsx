@@ -29,19 +29,19 @@ export default Testimonials;
 const data = [
   {
     author: 'Vanessa Bird',
-    feedback: 'Although the web site and all tools and information was Excellent, I, personally needed to talk to someone, i didnt feel confident with to order a product so very personal over the inter-net, but i do think in time things will change.'
+    feedback: 'Although the web site and all tools and information was Excellent 🔥, I, personally needed to talk to someone, i didnt feel confident with to order a product so very personal over the inter-net, but i do think in time things will change.'
   },
   {
     author: 'Vivienne M',
-    feedback: `When we first found Pastlives they seemed too good to be true. Professional, fast and ridiculously talented; the 3D AR Filter component they have developed for our React Native app is super smooth and responsive.`
+    feedback: `When we first found Pastlives they seemed too good to be true. 😍 Professional, fast and ridiculously talented; the 3D AR Filter component they have developed for our React Native app is super smooth and responsive.`
   },
   {
-    author: 'Charles R. Cheltenham',
+    author: 'Charles ',
     feedback: `We would like to extend our appreciation and thank you for the detail and care that you put into your work, the casket that was provided for our father was elegant and beatiful. We appreciate very much your kindness and generosity during these difficult times. `
   },
   {
-    author: 'Jason P. Heidelberg, Victoria',
-    feedback: `Thank you Steve, not just for arranging the coffin but for all the advice and help over the phone. Made a difficult task much easier than expected. Best wishes, Carron PS. `
+    author: 'Jason P. Heidelberg',
+    feedback: `Thank you Steve ❣️, not just for arranging the coffin but for all the advice and help over the phone. Made a difficult task much easier than expected. Best wishes, Carron PS. `
   },
   {
     author: 'Sylvia Wearing',
@@ -49,14 +49,14 @@ const data = [
   },
   {
     author: 'Peter',
-    feedback: ` Dear Steven, I am delighted with the help you have given at this unusual time. The coffin is beautiful and both my sister and niece agree. Everything you promised happened, and all those things made this time easier. Thank you. Kind regards, `
+    feedback: `Dear Steven, I am delighted with the help you have given at this unusual time 🤯. The coffin is beautiful and both my sister and niece agree. Everything you promised happened, and all those things made this time easier. Thank you. Kind regards,✨ `
   },
   {
     author: 'Sarah Carroll',
-    feedback: ` I found the website through Google and was very glad I did. More people should be aware that you can actually buy your own coffin rather than just accepting those on offer from the funeral director. `
+    feedback: `🚀  I found the website through Google and was very glad I did. More people should be aware that you can actually buy your own coffin rather than just accepting those on offer from the funeral director. `
   },
   {
     author: 'Margaret Graham',
-    feedback: ` Dear Steven, Hope you are very well. Just writing to let you know that the funeral went very well and everyone was extremely pleased and happy with the coffin you chose. Thanks again for your kindness, thoughtfulness and advise. Best wishes `
+    feedback: ` Dear Steven, Hope you are very well. Just writing to let you know that the funeral went very well and everyone was extremely pleased and happy with the coffin you chose. Thanks again for your kindness, thoughtfulness and advise. Best wishes 🙏🏻`
   },
 ]

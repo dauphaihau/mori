@@ -10,13 +10,13 @@ interface ContextValue {
   selectedIndex: number,
   scrollPrev: () => void,
   scrollNext: () => void,
-  scrollSnaps: number[]
+  scrollSnaps: number[],
 }
 
 interface Props {
   className?: string,
   children: ReactNode
-  dots: ReactNode
+  dots?: ReactNode
 }
 
 export const CarouselContext = createContext<ContextValue>({
@@ -41,7 +41,6 @@ const Carousel: FC<Props> = ({ children, className, dots }) => {
       align: 'center',
       skipSnaps: false
     },
-    [ClassNameEmbla()]
     // [ClassNameEmbla(), Autoplay()]
   )
 
@@ -60,6 +59,7 @@ const Carousel: FC<Props> = ({ children, className, dots }) => {
     onSelect();
     setScrollSnaps(emblaApi.scrollSnapList());
     emblaApi.on('select', onSelect)
+
   }, [emblaApi, setScrollSnaps, onSelect])
 
   return (
@@ -68,13 +68,10 @@ const Carousel: FC<Props> = ({ children, className, dots }) => {
         embla: emblaApi, selectedIndex, scrollPrev, scrollNext, scrollSnaps
       }}
     >
-      {/*view port*/}
       <Box
         ref={viewportRef}
         classes={`carousel-viewport w-full overflow-hidden ${className}`}
       >
-
-        {/*container */}
         <Box classes='carousel-container flex'>
           {children}
         </Box>
