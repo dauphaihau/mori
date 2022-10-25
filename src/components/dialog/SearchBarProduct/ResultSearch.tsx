@@ -3,17 +3,17 @@ import { NextImage, Box, Col, Link, Row, Text } from 'core/components';
 import { formatDollarUS, slugify } from 'core/helpers';
 import Enums from "../../../config/enums";
 
-const ResultSearch = ({ searchValue, filteredResults }) => {
+const ResultSearch = ({ searchValue, products }) => {
 
   const renderResult = () => {
     if (!searchValue) return null;
-    if (filteredResults && filteredResults.length > 0) {
+    if (products && products.length > 0) {
       return (
         <Box classes='relative'>
-          <Text classes='pb-2 border-b sticky top-0 py-4 bg-white z-10'>{filteredResults.length} result</Text>
+          <Text classes='pb-2 border-b sticky top-0 py-4 bg-white z-10'>{products.length} result</Text>
           <Box>
             {
-              filteredResults.map((item, index) => {
+              products.map((item, index) => {
                 return (
                   <Box
                     classes='py-4'
@@ -46,13 +46,15 @@ const ResultSearch = ({ searchValue, filteredResults }) => {
                         <Row>
                           {item.salePrice ?
                             <>
-                              <Text weight='bold' size={12} lg='2xl' md='base'>{formatDollarUS(item.salePrice)}</Text>
+                              <Text
+                                weight='bold'
+                                size={12}
+                              >{formatDollarUS(item.salePrice)}</Text>
                               {
                                 item.price
                                 &&
                                 <Text
                                   size={12}
-                                  md='base'
                                   classes='ml-2 line-through text-gray-400'
                                 >
                                   {formatDollarUS(item.price)}</Text>
@@ -60,7 +62,6 @@ const ResultSearch = ({ searchValue, filteredResults }) => {
                             </>
                             : <Text
                               size={12}
-                              lg='2xl'
                               classes='tracking-wide'
                             >{formatDollarUS(item.price)}</Text>
                           }

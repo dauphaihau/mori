@@ -1,52 +1,56 @@
-import { useEffect, useState } from 'react';
-import { useUIController } from 'context/UIControllerContext';
 import { Box, Breadcrumb } from 'core/components';
 import { FilterDrawer } from 'components/drawer';
 import Seo from 'components/common/Seo';
-import inventoryCategories from "assets/data/InventoryData/inventoryCategories";
 import Enums from "config/enums";
 import FiltersSortMobile from "../../components/pages/products/FiltersSortMobile";
-import FiltersSorter from "../../components/pages/products/FiltersSorterProducts";
+import Products from "../../components/pages/products/Products";
+import db from "../../server/db/db";
+import { getProducts } from "../../services/products";
 
 const dataBreadcrumb = [
   { path: Enums.PATH.DEFAULT, name: 'Home' },
   { path: Enums.PATH.PRODUCT._, name: 'Products' },
 ];
 
-const ProductsPage = ({ categories = [] }) => {
-  const [showFiltersDrawer, setShowFiltersDrawer] = useState(false)
-  const { setCategories } = useUIController();
-
-  useEffect(() => {
-    setCategories(categories)
-  }, [])
+const ProductsPage = ({ products }) => {
 
   return (
     <>
-      <Seo description='Coffin ECommerce - All categories'/>
+      <Seo description='Mori ECommerce - All products'/>
 
-      <FilterDrawer
-        showFiltersDrawer={showFiltersDrawer}
-        setShowFiltersDrawer={setShowFiltersDrawer}
-      />
+      <FilterDrawer/>
       <Box classes='hidden laptop:block layout pt-16'>
         <Breadcrumb classes='mb-6' data={dataBreadcrumb}/>
-        <FiltersSorter categories={categories}/>
+        <Products products={products}/>
       </Box>
 
       {/*Mobile - Tablet version*/}
-      <FiltersSortMobile setShowFiltersDrawer={setShowFiltersDrawer}/>
+      <FiltersSortMobile/>
     </>
   );
 }
 
-export async function getStaticProps() {
-  const categoriesData = await inventoryCategories()
+export async function getServerSideProps({ query }) {
+  const page = query.page || 1
+  const category = query.category || 'all'
+  const brand = query.brand || 'all'
+  const color = query.color || 'all'
+  const sort = query.sort || ''
+  const price = query.price || ''
+
+  await db.connect();
+  const { products } = await getProducts(
+    `?limit=${page * 6}&category=${category}&brand=${brand}&color=${color}&price=${price}&sort=${sort}`
+    // `?limit=${page * 6}&category=${category}&brand=${brand}&color=${color}&sort=${sort}`
+  )
+
   return {
     props: {
-      categories: categoriesData
-    }
-  }
+      products,
+      // products: products.map(db.convertDocToObj),
+      // categories: categoriesData
+    },
+  };
 }
 
 export default ProductsPage;

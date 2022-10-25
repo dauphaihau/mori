@@ -1,10 +1,47 @@
 import moment from 'moment';
-import Enums from "config/enums";
+import Enums, { PRODUCT_COLORS } from "config/enums";
 
 // export const sortProductOptions = Object.keys(SORT_PRODUCT).map(key => ({
 //   label: capitalize(SORT_PRODUCT[key]),
 //   value: SORT_PRODUCT[key]
 // }))
+
+
+export const sortOptsTest = [
+  {
+    label: 'Default',
+    // label: 'Sort Options',
+    value: '',
+  },
+  {
+    label: 'Best Selling',
+    value: Enums.SORT_PRODUCT_TEST.BEST_SELLING
+  },
+  {
+    label: 'Price: low-high',
+    value: Enums.SORT_PRODUCT_TEST.PRICE_LOWEST
+  },
+  {
+    label: 'Price: high-low',
+    value: Enums.SORT_PRODUCT_TEST.PRICE_HIGHEST
+  },
+  {
+    label: 'Date: new-old',
+    value: Enums.SORT_PRODUCT_TEST.DATE_NEW
+  },
+  {
+    label: 'Date: old-new',
+    value: Enums.SORT_PRODUCT_TEST.DATE_OLD
+  },
+  {
+    label: 'Name: a-z',
+    value: Enums.SORT_PRODUCT_TEST.NAME_A
+  },
+  {
+    label: 'Name: z-a',
+    value: Enums.SORT_PRODUCT_TEST.NAME_Z
+  },
+]
 
 export const sortOpts = [
   {
@@ -41,7 +78,6 @@ export const sortOpts = [
     value: Enums.SORT_PRODUCT.NAME_Z
   },
 ]
-
 
 export const deliveryOpts = [
   {

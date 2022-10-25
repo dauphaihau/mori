@@ -1,25 +1,27 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { fetchInventory } from 'assets/data/InventoryData/provider/inventoryProvider';
 import { clns, debounce } from 'core/helpers';
 import { Box, Portal } from 'core/components';
 import SearchInput from './SearchInput';
 import ResultSearch from './ResultSearch';
+import { getProductByName } from "../../../services/products";
+import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable'
+import axios from "axios";
 
 const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog }) => {
   const router = useRouter();
-  const [inventory, setInventory] = useState([]);
-  const [filteredResults, setFilteredResults] = useState([]);
+  const [products, setProducts] = useState([])
   const [searchValue, setSearchValue] = useState('');
 
-  useEffect(() => {
-    const loadInit = async () => {
-      const inventory = await fetchInventory()
-      setInventory(inventory)
-    }
-    loadInit();
-  }, []);
+  // const fetcher = async (url) => await axios.get(url, {
+  // params: {searchValue, limit: 6}
+  // }).then((res) => res.data.products);
+  // }).then((res) => console.log({ res }));
+
+  // const { data } = useSWR("/api/product/search", fetcher)
+  // const res = useSWRImmutable([searchValue], fetcher("/api/product/search"))
 
   useEffect(() => {
     setShowSearchProductDialog(false)
@@ -27,7 +29,7 @@ const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog 
   }, [router.asPath])
 
   useEffect(() => {
-    setFilteredResults([])
+    setProducts([])
   }, [showSearchProductDialog])
 
   const debounceSearch = useCallback(
@@ -38,17 +40,14 @@ const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog 
   );
 
   useEffect(() => {
-    if (searchValue !== '') {
-      const filteredData = inventory.filter((item) => {
-        return Object.values(item.name)
-        .join('')
-        .toLowerCase()
-        .includes(searchValue.toLowerCase());
-      });
-      setFilteredResults(filteredData);
-    } else {
-      setFilteredResults(inventory);
+    if (!searchValue) return;
+
+    async function handleSearch() {
+      const data = await getProductByName({ search: searchValue, limit: 6 })
+      setProducts(data.products)
     }
+
+    handleSearch()
   }, [searchValue])
 
   const handleSearch = (searchValue) => {
@@ -77,7 +76,7 @@ const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog 
         />
         <ResultSearch
           searchValue={searchValue}
-          filteredResults={filteredResults}
+          products={products}
         />
       </Box>
     </Portal>

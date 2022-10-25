@@ -81,6 +81,8 @@ const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
                     classes='relative group bg-light rounded-lg p-1 cursor-pointer '
                     onClick={() => removeFromCart(item)}
                   >
+                    {
+                      item?.images &&
                     <NextImage
                       width={96}
                       height={96}
@@ -89,6 +91,7 @@ const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
                       className={'h-24 w-24 tablet:h-28 tablet:w-28 m-0'}
                       objectFit={'contain'}
                     />
+                    }
                     <Box
                       classes='
                        transform duration-200 ease-in-out

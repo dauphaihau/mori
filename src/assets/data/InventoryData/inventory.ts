@@ -1,7 +1,7 @@
 let inventory = [
   {
     id: '1',
-    categories: ['american caskets'],
+    categories: ['caskets'],
     name: 'Autumn Oak Hardwood',
     price: '2500',
     colors: ['#7A6255'],
@@ -15,7 +15,7 @@ let inventory = [
   },
   {
     id: '2',
-    categories: ['american caskets'],
+    categories: ['caskets'],
     name: 'Trinity Oak',
     price: '2100',
     salePrice: '2000',
@@ -30,7 +30,7 @@ let inventory = [
   },
   {
     id: '3',
-    categories: ['american caskets'],
+    categories: ['caskets'],
     name: 'White Chased Solid Wood',
     price: '2845',
     salePrice: '2600',
@@ -45,7 +45,7 @@ let inventory = [
   },
   {
     id: '4',
-    categories: ['american caskets'],
+    categories: ['caskets'],
     name: 'Last Supper Hardwood',
     price: '2245',
     salePrice: '2100',
@@ -592,23 +592,68 @@ let inventory = [
     createdAt: '2022-05-01T14:55:06.641+00:00',
     bestSelling: false
   },
-  // {
-  //   id: '40',
-  //   categories: ['natural material coffin', 'shrouds'],
-  //   name: 'Willow Carrier',
-  //   price: '349',
-  //   colors: ['#f3eed7'],
-  //   images: ['/images/products/shroud-bamboo.png',
-  //     '/images/products/shroud-bamboo-a.png',
-  //     '/images/products/shroud-bamboo-b.png',
-  //   ],
-  //   description: 'Passages shrouds are suitable for burial or cremation, and are 100% biodegradable. They can be used as an eco-friendly and unique alternative to clothing for use in a Wicker Casket or Willow Carrier. To simplify the movement and transport of a shrouded body, we recommend using our Willow Carrier with all shrouded burials or cremations.',
-  //   brand: 'Aurora',
-  //   quantity: 19,
-  //   rating: 5,
-  //   createdAt: '2022-10-10T14:55:06.641+00:00',
-  //   bestSelling: true
-  // },
+  {
+    id: '40',
+    categories: ['memorials'],
+    name: 'Lawn Memorial',
+    price: '1500',
+    colors: ['#f3eed7'],
+    images: ['/images/products/memorials-1.png',],
+    description: ` The understated beauty and elegance of this camber top headstone in polished black granite makes a truly dignified memorial for your loved one. The high quality stone with a natural flecking makes every headstone unique. Simple in design, it is guaranteed to meet the standards of any cemetery.
+    
+    Dark grey granite 2'6 half round lawn memorial with rustic edge and matching margin.
+    
+    HS 27"x21"x3" upon base 3"x24"x12".
+    `,
+    brand: 'Aurora',
+    quantity: 19,
+    rating: 5,
+    createdAt: '2022-10-10T14:55:06.641+00:00',
+    bestSelling: false
+  },
+  {
+    id: '41',
+    categories: ['memorials'],
+    name: 'Memorial with mother and child ',
+    price: '4940',
+    colors: ['#f3eed7'],
+    images: ['/images/products/memorials-2.png',],
+    description: `Dense black granite 3'8 lawn memorial with mother and child carved figure. 
+    HS 38"x28"x6" upon base 6"x36"x12".`,
+    brand: 'Aurora',
+    quantity: 2,
+    rating: 5,
+    createdAt: '2022-12-01T14:55:06.641+00:00',
+    bestSelling: true
+  },
+  {
+    id: '42',
+    categories: ['memorials'],
+    name: 'Headstone with Cross',
+    price: '1610',
+    colors: ['#f3eed7'],
+    images: ['/images/products/memorials-3.png',],
+    description: `Also known as Roman stone, Nabresina is suitable for most churchyards and has a highly distinctive appearance thanks to its pale grey flecks and fine grain. This elegant headstone has an ogee top with checks at each end, rebated sides and features an incised cross. The centrally located vase container can as an optional modification, be replaced with two containers, one at each end of the base.`,
+    brand: 'Aurora',
+    quantity: 2,
+    rating: 5,
+    createdAt: '2022-12-01T14:55:06.641+00:00',
+    bestSelling: true
+  },
+  {
+    id: '43',
+    categories: ['memorials'],
+    name: 'Sacred Heart and Gates Kerbed Memorial',
+    price: '5752',
+    colors: ['#f3eed7'],
+    images: ['/images/products/memorials-full.png',],
+    description: `The Sacred Heart of Jesus waits in front of the Gates of Heaven on this meaningful memorial which also features a shaped book for your inscription. Shown here with optional coloured chippings, the memorial can also be made in black granite.`,
+    brand: 'Aurora',
+    quantity: 2,
+    rating: 5,
+    createdAt: '2022-12-01T14:55:06.641+00:00',
+    bestSelling: true
+  },
 ]
 
 export default inventory

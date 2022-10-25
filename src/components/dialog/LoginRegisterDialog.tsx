@@ -43,7 +43,7 @@ const formOptions = {
   resolver: yupResolver(validationSchema),
   defaultValues: {
     email: 'customer@mail.com',
-    password: '111111121'
+    password: '111111'
   }
 };
 
@@ -82,19 +82,19 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
   const onSubmit = async (values) => {
     setIsBtnLoading(true)
     const {
-      isSuccess,
       isLoading,
       data,
       message
     } = currentForm === 'register' ? await accountService.register(values) : await accountService.login(values)
     setIsBtnLoading(isLoading)
 
-    if (isSuccess) {
-      router.push(currentForm === 'login' && Enums.PATH.ACCOUNT._)
-      // setUser({ ...user, ...data.profile })
-      setShowLoginDialog(false);
+    if (data) {
+      if (currentForm === 'login') {
+        router.push(Enums.PATH.ACCOUNT._)
+        setShowLoginDialog(false);
+      }
+      setCurrentForm('login')
     } else {
-      console.log('dauphaihau debug: message', message)
       if (errors) {
         setError('email', {
           type: 'server',
@@ -128,12 +128,15 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
           onSubmit={handleSubmit(onSubmit)}
           classes='px-6 pb-4 space-y-6 pt-4 lg:px-8 pb-6 xl:pb-8 subscribe-letter-bg'
         >
-          <Text h4 weight='medium'>{formType[currentForm].title}</Text>
+          <Text
+            h4
+            weight='medium'
+          >{formType[currentForm].title}</Text>
           <Text>{formType[currentForm].message}</Text>
           {currentForm === 'register' && <Input
             name='name'
             label='Name'
-            // register={register}
+            register={register}
             helperText={errors['name']?.message}
           />}
           <Input
@@ -142,7 +145,6 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             type='email'
             label='Email'
             register={register}
-            // contentRight={<LockClosedIcon height={20} width={20}/>}
             helperText={errors['email']?.message}
             ref={emailInputRef}
           />

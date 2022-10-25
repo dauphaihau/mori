@@ -2,17 +2,17 @@ import { NextImage, Box, Link, Text } from 'core/components';
 import Enums from 'config/enums';
 import { sliceText } from "core/helpers";
 
-const CardNews = ({ title, content = '', imgSrc }) => {
+const CardNews = ({ data }) => {
   return (
     <Box classes='max-w-sm'>
       <Link href={Enums.PATH.DEFAULT}>
         <NextImage
-          alt={title}
+          alt={data.title}
           // useSkeleton
           className='rounded-lg w-full'
           width={300}
           height={180}
-          src={imgSrc}
+          src={data.srcUrl}
         />
       </Link>
       <Box classes='mt-6'>
@@ -23,13 +23,13 @@ const CardNews = ({ title, content = '', imgSrc }) => {
             classes='text-[18px] tablet:text-xl font-bold'
             // classes='text-[18px] tablet:text-xl font-bold text-gray-900 dark:text-white'
           >
-            {title}
+            {data.title}
           </Text>
         </Link>
         <Text classes='mb-3 mt-2 font-normal text-sm laptop:text-base'>
-        {/*<Text classes='mb-3 mt-2 font-normal text-sm laptop:text-base text-primary-gray'>*/}
-        {/*<Text classes='mb-3 mt-2 font-normal text-sm laptop:text-base text-gray-700'>*/}
-          {sliceText(content, 170)}
+          {/*<Text classes='mb-3 mt-2 font-normal text-sm laptop:text-base text-primary-gray'>*/}
+          {/*<Text classes='mb-3 mt-2 font-normal text-sm laptop:text-base text-gray-700'>*/}
+          {sliceText(data.content, 170)}
         </Text>
         <div className='no-underline'></div>
         <Link

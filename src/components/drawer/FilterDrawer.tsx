@@ -3,9 +3,10 @@ import Filters from "../pages/products/Filters";
 import { useFilterContext } from "context/filterContext";
 import { Drawer, Button, Col } from "core/components";
 
-const FiltersDrawer = ({ showFiltersDrawer, setShowFiltersDrawer }) => {
+const FiltersDrawer = ({}) => {
+// const FiltersDrawer = ({ showFiltersDrawer, setShowFiltersDrawer }) => {
   const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
-  const { clearFilters } = useFilterContext()
+  const { clearFilters, showFiltersDrawer, setShowFiltersDrawer } = useFilterContext()
 
   useEffect(() => {
     setRenderClientSideComponent(true)
@@ -29,10 +30,10 @@ const FiltersDrawer = ({ showFiltersDrawer, setShowFiltersDrawer }) => {
           </Col>
         </Drawer.Body>
         <Drawer.Footer>
-            <Button
-              classes='w-fit'
-              onClick={() => clearFilters()}
-            >clear all</Button>
+          <Button
+            classes='w-fit'
+            onClick={() => clearFilters()}
+          >clear all</Button>
         </Drawer.Footer>
       </Drawer>
     </>

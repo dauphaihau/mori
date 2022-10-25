@@ -5,3 +5,4 @@ export * from './usePagination';
 export * from './useAnimationFrame';
 export * from './useMediaQuery';
 export * from './useFadeIn';
+export * from './useSafeContext';

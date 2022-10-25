@@ -1,82 +1,41 @@
 import axios from "axios";
-import { omitFieldNullish } from "core/helpers";
-import { getHeaders } from "lib/getHeaders";
+import config from "config/config.json";
 
-export const productService = {
-  getAll: async (params) => {
-    try {
-      const res = await axios.get("/api/admin/products", {
-        // ...getHeaders(), params,
-        ...getHeaders(), params: omitFieldNullish(params),
-      })
-      return { data: res.data, isLoading: false, isSuccess: true };
-    } catch ({ response }) {
-      return {
-        isSuccess: false,
-        isLoading: false,
-        message: response?.data.message,
-      };
-    }
-  },
-  detail: async (id) => {
-    try {
-      const res = await axios.get(`/api/admin/products/${id}`, getHeaders())
-      return { data: res.data, isLoading: false, isSuccess: true };
-    } catch ({ response }) {
-      return {
-        isSuccess: false,
-        isLoading: false,
-        message: response?.data.message,
-      };
-    }
-  },
-  create: async (data) => {
-    try {
-      await axios.post("/api/admin/products", data, getHeaders())
-      return { isLoading: false, isSuccess: true };
-    } catch ({ response }) {
-      return {
-        isSuccess: false,
-        isLoading: false,
-        message: response?.data.message,
-      };
-    }
-  },
-  update: async (values) => {
-    const { _id } = values
-    try {
-      await axios.put(`/api/admin/products/${_id}`, values, getHeaders())
-      return { isLoading: false, isSuccess: true };
-    } catch ({ response }) {
-      return {
-        isSuccess: false,
-        isLoading: false,
-        message: response?.data.message,
-      };
-    }
-  },
-  delete: async (_id) => {
-    try {
-      await axios.delete(`/api/admin/products/${_id}`, getHeaders())
-      return { isLoading: false, isSuccess: true };
-    } catch ({ response }) {
-      return {
-        isSuccess: false,
-        isLoading: false,
-        message: response?.data.message,
-      };
-    }
-  },
-  multiDelete: async (idsArray) => {
-    try {
-      await axios.post(`/api/admin/products/multiDelete`, idsArray, getHeaders())
-      return { isLoading: false, isSuccess: true };
-    } catch ({ response }) {
-      return {
-        isSuccess: false,
-        isLoading: false,
-        message: response?.data.message,
-      };
-    }
-  },
+const baseUrl = process.env.BASE_URL
+
+export const getProducts = async (params) => {
+  try {
+    const res = await fetch(`${baseUrl}${config.api.product}${params}`, {
+      method: 'GET',
+    })
+    return await res.json()
+  } catch (err) {
+    console.log('err', err)
+  }
+}
+
+export const getProductByName = async (params) => {
+  try {
+    const res = await axios.delete(config.api.product, {
+      params,
+    })
+    return await res.data
+  } catch (err) {
+    console.log('err', err)
+  }
+}
+
+export const getCategories = async () => {
+  try {
+    const res = await axios.get('/api/product/categories')
+    console.log('dauphaihau debug: res', res)
+    return await res.data
+
+    // const res = await fetch(`${baseUrl}/api/product/categories`, {
+    //   method: 'GET',
+    // })
+    // return await res.json()
+  } catch (err) {
+    console.log('err', err)
+  }
 }

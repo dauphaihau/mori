@@ -8,6 +8,7 @@ import { UserType } from 'types/user';
 import Enums from "config/enums";
 import { useRouter } from "next/router";
 import { signToken, verifyToken } from "lib/jwt";
+import useSafeContext from "../core/hooks/useSafeContext";
 
 export interface AuthState {
   user: UserType
@@ -24,11 +25,13 @@ const initialState = {
   },
 };
 
-const AuthContext = createContext<Partial<AuthState>>(initialState);
+export const [useAuth, Provider] = useSafeContext<AuthState>(initialState)
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
+// const AuthContext = createContext<Partial<AuthState>>(initialState);
+//
+// export function useAuth() {
+//   return useContext(AuthContext);
+// }
 
 export const AuthProvider: FC = ({ children }) => {
   const [user, setUser] = useState<UserType | null>();
@@ -82,7 +85,7 @@ export const AuthProvider: FC = ({ children }) => {
     // setUser({ numberAllOfItemsInCart: user.numberAllOfItemsInCart })
     // router.push(Enums.PATH.DEFAULT);
     setRole(Enums.ROLE.BASIC);
-    setUser({...user, role: Enums.ROLE.BASIC});
+    setUser({ ...user, role: Enums.ROLE.BASIC });
     // setUser({...user, role: Enums.ROLE.BASIC});
   }
 
@@ -132,11 +135,12 @@ export const AuthProvider: FC = ({ children }) => {
     return null
   }
 
+  const providerValues: AuthState = {
+    user, handleLogout, setUser, role
+  };
+
   return (
-    <AuthContext.Provider
-      value={{ user, handleLogout, setUser, role }}
-    >
-      {children}
-    </AuthContext.Provider>
+    <Provider value={providerValues}>{children}</Provider>
+    // <AuthContext.Provider value={providerValues}>{children}</AuthContext.Provider>
   );
 }

@@ -12,10 +12,9 @@ export const accountService = {
       const { data: { data } } = await axios.post(config.api.account.register, modifiedValues);
       handleSetCookie(config.cookies.auth, data.auth)
       handleSetCookie(config.cookies.profile, data.profile)
-      return { data, isLoading: false, isSuccess: true };
+      return { data, isLoading: !data  };
     } catch ({ response }) {
       return {
-        isSuccess: false,
         isLoading: false,
         message: response?.data.message,
       };
@@ -26,16 +25,13 @@ export const accountService = {
     const modifiedValues = { ...values, password: encryptPassword(password, config.cryptoKey) }
     try {
       const { data: { data } } = await axios.post(config.api.account.login, modifiedValues);
-      // const res = await axios.post('/api/account/login', modifiedValues);
       handleSetCookie(config.cookies.auth, data.auth)
       handleSetCookie(config.cookies.profile, data.profile)
-      console.log('dauphaihau debug: right')
-      return { data, isLoading: false, isSuccess: true, };
+      return { data, isLoading: !data  };
     } catch ({ response }) {
       return {
-        isSuccess: false,
         isLoading: false,
-        message: response.data.message,
+        message: response?.data.message,
       };
     }
   },

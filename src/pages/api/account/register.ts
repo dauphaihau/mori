@@ -28,6 +28,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     await sendResultRegister({ email });
     const token = signToken(user);
     const tomorrow: any = new Date(Date.now() + (3600 * 1000 * 24))
+
     res.send(
       {
         code: '200',
@@ -37,8 +38,8 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
             token,
             expireAt: Date.parse(tomorrow),
           },
-            name: user.name,
           profile: {
+            name: user.name,
             email: user.email,
             role: user.role,
             status: user.status

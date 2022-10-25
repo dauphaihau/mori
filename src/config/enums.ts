@@ -17,6 +17,16 @@ export enum SORT_PRODUCT {
   NAME_Z = 'name-z',
 }
 
+export enum SORT_PRODUCT_TEST {
+  BEST_SELLING = '-sold',
+  PRICE_LOWEST = 'price',
+  PRICE_HIGHEST = '-price',
+  DATE_OLD = 'oldest',
+  DATE_NEW = '-createdAt',
+  NAME_A = 'name-a',
+  NAME_Z = 'name-z',
+}
+
 const PATH = {
   DEFAULT: '/',
   HOME: '/',
@@ -24,6 +34,7 @@ const PATH = {
     _: '/account',
     ADDRESS: '/account/address',
     LOGIN: '/account/login',
+    REGISTER: '/account/register',
     FORGOT_PASSWORD: '/account/forgot-password',
     RESET_PASSWORD: '/account/reset-password',
   },
@@ -73,6 +84,14 @@ enum PRODUCT_COLOR {
   CREAM = 'cream',
 }
 
+export enum PRODUCT_COLORS {
+  SILVER = '#cfcdcb',
+  GREYISH_BROWN = '#7a6255',
+  PALE_BROWN = '#b99374',
+  PALE = '#f3eed7',
+}
+
+
 enum PRODUCT_CATEGORIES {
   NATURAL_MATERIAL_COFFIN = 'natural material coffin',
   AMERICAN_CASKETS = 'american caskets',
@@ -114,6 +133,9 @@ class Enums {
   }
   static get SORT_PRODUCT() {
     return SORT_PRODUCT;
+  }
+  static get SORT_PRODUCT_TEST() {
+    return SORT_PRODUCT_TEST;
   }
 }
 

@@ -31,7 +31,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     const token = await signToken(user, process.env.NEXT_PUBLIC_JWT_SECRET, config.token.tokenLife);
     const refreshToken = await signToken(user, process.env.NEXT_PUBLIC_JWT_SECRET, config.token.refreshTokenLife);
 
-    res.status(200).json(
+    res.json(
       {
         code: '200',
         message: 'OK',

@@ -1,4 +1,4 @@
-import { ProductType } from 'types/product';
+import { ProductProps } from 'types/product';
 import Enums from "config/enums";
 
 export enum filterType {
@@ -9,17 +9,17 @@ export enum filterType {
   UPDATE_SORT = 'UPDATE_SORT',
   SORT_PRODUCTS = 'SORT_PRODUCTS',
   SET_GRIDVIEW = 'SET_GRIDVIEW',
-  SET_LISTVIEW = 'SET_LISTVIEW',
+  SET_SHOW_FILTER_DRAWER = 'SET_SHOW_FILTER_DRAWER',
 }
 
-export interface filterActions {
+export interface FilterActions {
   type: filterType;
   payload?: any,
 }
 
-export interface filterState {
-  filtered_products: ProductType[]
-  all_products: ProductType[]
+export interface FilterState {
+  filtered_products: ProductProps[]
+  all_products: ProductProps[]
   gridView: boolean,
   sort: string,
   filters: {
@@ -34,38 +34,41 @@ export interface filterState {
     lastPiece: boolean
   },
   clearFilters: () => void
-  setGridView: () => void
-  setListView: () => void
+  showFiltersDrawer: boolean,
+  setGridView: (status) => void
   updateFilters: (event) => void,
   updateSort: (event) => void,
+  dispatch?: (p: {type: string, payload: any}) => void
 }
 
-const filterReducer = (state: filterState, action: filterActions): filterState => {
+const filterReducer = (state: FilterState, action: FilterActions): FilterState => {
+  const { type, payload } = action
 
-  if (action.type === filterType.LOAD_PRODUCTS) {
-    let maxPrice = action.payload?.map(p => p.price);
+  if (type === filterType.LOAD_PRODUCTS) {
+    let maxPrice = payload?.map(p => p.price);
     maxPrice = Math.max(...maxPrice);
 
     return {
       ...state,
-      all_products: [...action.payload],
-      filtered_products: [...action.payload],
+      all_products: [...payload],
+      filtered_products: [...payload],
       filters: { ...state.filters, maxPrice, price: maxPrice }
     }
   }
 
-  if (action.type === filterType.SET_GRIDVIEW) {
-    return { ...state, gridView: true };
-  }
-  if (action.type === filterType.SET_LISTVIEW) {
-    return { ...state, gridView: false };
+  if (type === filterType.SET_GRIDVIEW) {
+    return { ...state, gridView: payload };
   }
 
-  if (action.type === filterType.UPDATE_SORT) {
-    return { ...state, sort: action.payload }
+  if (type === filterType.SET_SHOW_FILTER_DRAWER) {
+    return { ...state, showFiltersDrawer: payload };
   }
 
-  if (action.type === filterType.SORT_PRODUCTS) {
+  if (type === filterType.UPDATE_SORT) {
+    return { ...state, sort: payload }
+  }
+
+  if (type === filterType.SORT_PRODUCTS) {
     const { sort, filtered_products } = state;
     let tempProducts = [...filtered_products];
 
@@ -74,14 +77,14 @@ const filterReducer = (state: filterState, action: filterActions): filterState =
     }
     if (sort === Enums.SORT_PRODUCT.DATE_NEW) {
       tempProducts = tempProducts.sort((a, b) => {
-        return new Date(b.createdAt) - new Date(a.createdAt)
+        return new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
       });
     }
     if (sort === Enums.SORT_PRODUCT.PRICE_LOWEST) {
-      tempProducts = tempProducts.sort((a, b) => a.price - b.price);
+      tempProducts = tempProducts.sort((a, b) => Number(a.price) - Number(b.price));
     }
     if (sort === Enums.SORT_PRODUCT.PRICE_HIGHEST) {
-      tempProducts = tempProducts.sort((a, b) => b.price - a.price);
+      tempProducts = tempProducts.sort((a, b) => Number(b.price) - Number(a.price));
     }
     if (sort === Enums.SORT_PRODUCT.NAME_A) {
       tempProducts = tempProducts.sort((a, b) => {
@@ -96,12 +99,12 @@ const filterReducer = (state: filterState, action: filterActions): filterState =
     return { ...state, filtered_products: tempProducts };
   }
 
-  if (action.type === filterType.UPDATE_FILTERS) {
-    const { name, value } = action.payload;
+  if (type === filterType.UPDATE_FILTERS) {
+    const { name, value } = payload;
     return { ...state, filters: { ...state.filters, [name]: value } }
   }
 
-  if (action.type === filterType.FILTER_PRODUCTS) {
+  if (type === filterType.FILTER_PRODUCTS) {
     const { all_products } = state;
     const { lastPiece, category, price, brand, color } = state.filters;
 
@@ -132,7 +135,7 @@ const filterReducer = (state: filterState, action: filterActions): filterState =
     return { ...state, filtered_products: tempProducts }
   }
 
-  if (action.type === filterType.CLEAR_FILTERS) {
+  if (type === filterType.CLEAR_FILTERS) {
     return {
       ...state,
       filters: {
@@ -148,7 +151,7 @@ const filterReducer = (state: filterState, action: filterActions): filterState =
     };
   }
 
-  throw new Error(`No Matching '${action.type}' - action type`);
+  throw new Error(`No Matching '${type}' - action type`);
 }
 
 export default filterReducer

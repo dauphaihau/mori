@@ -1,5 +1,4 @@
-import {forwardRef, InputHTMLAttributes, ReactNode, useEffect, useState} from "react";
-import {FieldErrors} from "react-hook-form";
+import {forwardRef, InputHTMLAttributes, useEffect, useState} from "react";
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string,
@@ -7,7 +6,6 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   classes?: string,
   classesForm?: string,
   register?: (name: string) => void,
-  errors?: FieldErrors,
   checked?: boolean,
   value?: string | number,
 }

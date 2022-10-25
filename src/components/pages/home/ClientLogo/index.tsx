@@ -285,18 +285,54 @@ const data = [
     name: 'Fibreshed',
     srcUrl: 'https://bellacouche.com/wp-content/uploads/South-West-England-dark-302px.png'
   },
-  // {
-  //   name: 'Good Funeral Guild Member',
-  //   srcUrl: 'https://bellacouche.com/wp-content/uploads/Good-Funeral-Guild-Member.jpg'
-  // },
-  // {
-  //   name: '3-Monument-Builders-of-NA-Logo',
-  //   srcUrl: 'https://www.milanomonuments.com/hs-fs/hubfs/logo%202018/3-Monument-Builders-of-NA-Logo.png?width=164&name=3-Monument-Builders-of-NA-Logo.png'
-  // },
-  // {
-  //   name: '6-NOIA-Foundation-Logo-1',
-  //   srcUrl: 'https://www.milanomonuments.com/hs-fs/hubfs/logo%202018/6-NOIA-Foundation-Logo-1.png?width=200&name=6-NOIA-Foundation-Logo-1.png'
-  // },
+  {
+    name: 'RBA',
+    srcUrl: 'https://www.musgrovewillowscoffins.co.uk/wp-content/uploads/2021/02/RBA-National-WINNER-2020.png.webp'
+  },
+  {
+    name: 'NAFD',
+    srcUrl: 'https://www.musgrovewillowscoffins.co.uk/wp-content/uploads/2020/02/Logo-NAFD.png.webp'
+  },
+  {
+    name: 'perfectmemorials',
+    srcUrl: 'https://perfectmemorials.com/media/logo/footer-logo.png'
+  },
+  {
+    name: 'GFG-Recommended-2022-TRANSPARENT-BACKGROUND',
+    srcUrl: 'https://ffma.co.uk/wp-content/themes/ffma/dist/images/ffma-logo.png'
+  },
+  {
+    name: 'ICCM',
+    srcUrl: 'https://iccm-mosaics.org/wp-content/uploads/2019/10/ICCM_new-logo-TRANS-1.png'
+  },
+  {
+    name: 'Fibreshed',
+    srcUrl: 'https://bellacouche.com/wp-content/uploads/South-West-England-dark-302px.png'
+  },
+  {
+    name: 'Fibreshed',
+    srcUrl: 'https://bellacouche.com/wp-content/uploads/South-West-England-dark-302px.png'
+  },
+  {
+    name: 'Fibreshed',
+    srcUrl: 'https://bellacouche.com/wp-content/uploads/South-West-England-dark-302px.png'
+  },
+  {
+    name: 'Fibreshed',
+    srcUrl: 'https://bellacouche.com/wp-content/uploads/South-West-England-dark-302px.png'
+  },
+  {
+    name: 'Fibreshed',
+    srcUrl: 'https://bellacouche.com/wp-content/uploads/South-West-England-dark-302px.png'
+  },
+  {
+    name: 'Fibreshed',
+    srcUrl: 'https://bellacouche.com/wp-content/uploads/South-West-England-dark-302px.png'
+  },
+  {
+    name: 'Fibreshed',
+    srcUrl: 'https://bellacouche.com/wp-content/uploads/South-West-England-dark-302px.png'
+  },
   {
     name: 'Fibreshed',
     srcUrl: 'https://bellacouche.com/wp-content/uploads/South-West-England-dark-302px.png'

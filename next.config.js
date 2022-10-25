@@ -28,7 +28,11 @@ const nextConfig = {
 
   images: {
     domains: ['i.pravatar.cc', 'coffins-direct.co.uk', 'bellacouche.com',
-      'milanomonuments.com'
+      'milanomonuments.com',
+      'www.musgrovewillowscoffins.co.uk',
+      'ffma.co.uk',
+      'perfectmemorials.com',
+      'iccm-mosaics.org',
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "cryptoKey": "dauphaihau",
   "api": {
-    "host": "https://api.drop.dev.intelin.com",
+    "host": "https://api.mori.dev.intelin.com",
     "host2": "https://coffin-ecommerce.vercel.app",
     "account": {
       "login": "/api/account/login",
@@ -13,7 +13,8 @@
       "me": "/api/account/me",
       "logout": "/user/backoffice/logout",
       "refreshToken": "/user/token"
-    }
+    },
+    "product": "/api/product"
   },
   "cookies": {
     "expiredAt": "a8302fcfb5dd1a1506ab3555277110e6",

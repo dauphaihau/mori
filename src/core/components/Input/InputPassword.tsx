@@ -13,7 +13,7 @@ const InputPassword = forwardRef<HTMLInputElement, InputType>((props: InputType)
     label, name = '',
     register = () => {},
     onChange = (name, value) => {},
-    errors, clearable,
+    helperText, clearable,
     className, classes, placeholder,
     classesSpace, contentLeft,
 
@@ -37,56 +37,23 @@ const InputPassword = forwardRef<HTMLInputElement, InputType>((props: InputType)
 
   return (
     <div className='form-input'>
+      {label && <label htmlFor={name}>{label}</label>}
       <div className={clns('input group', classesSpace)}>
-        {label && <label htmlFor={name}>{label}</label>}
-        {
-          <span
-            className={`input__contentLeft ${isEmpty(errors) ? 'top-[18px]' : 'top-[-5px]'} `}
-          >
-            {contentLeft}
-          </span> ?? ''
-        }
-        {
-          clearable ?
-            <button
-              type='button'
-              onClick={() => {
-              }}
-              className={clns('input__contentRight', isEmpty(errors) ? 'top-[18px]' : 'top-[-5px]')}
-            >
-              <XCircleIcon
-                className='clear-icon'
-                onClick={() => setValue('')}
-              />
-            </button> : ''
-        }
-        {
-          <span className={clns('input__contentRight', isEmpty(errors) ? 'top-[18px]' : 'top-[-5px]')}>
-            {
-              !showPassword ? (
-                <EyeIcon
-                  onClick={() => setShowPassword(true)}
-                  className='h-6 w-6 mt-[25px] cursor-pointer'
-                />
-              ) : (
-                <EyeOffIcon
-                  onClick={() => setShowPassword(false)}
-                  className='h-6 w-6 mt-[25px] cursor-pointer'
-                />
-              )
-            }
-          </span> ?? ''
-        }
+        <div className='input__contentLeft'>{contentLeft}</div>
         <input
-          autoFocus={false}
           type={showPassword ? '' : 'password'}
           // onChange={handleOnChange}
           className={clns('peer p-4', className, classes,
             contentLeft && '!pl-7'
           )}
+
+          {...register(name, {
+            onChange: (e) => handleOnChange(e),
+            // onBlur: (e) => {},
+          })}
           {...others}
         />
-        {errors && <p className='text-red-500 text-[0.9rem] mt-2'>{errors[name]?.message}</p>}
+        {helperText && <p className='text-red-500 text-sm mt-2'>{helperText}</p>}
       </div>
     </div>
   );

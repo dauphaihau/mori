@@ -19,8 +19,6 @@ const initialState = {
 
 const UIControllerContext = createContext<Partial<uiControllerState>>({});
 
-const keyStore = 'recentlyViewedProduct'
-
 export function useUIController() {
   return useContext(UIControllerContext);
 }

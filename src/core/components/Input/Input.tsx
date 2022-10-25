@@ -9,6 +9,7 @@ import { XCircleIcon } from '@heroicons/react/outline';
 
 import { clns } from 'core/helpers';
 import Password from './InputPassword';
+import { FieldError } from "react-hook-form";
 
 export interface InputType extends InputHTMLAttributes<HTMLInputElement> {
   name: string,
@@ -34,7 +35,7 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
       label, name = '',
       register = () => {},
       onChange = (n, v) => {},
-      helperText, clearable,
+      helperText = '', clearable,
       defaultValue,
       className, classes,
       classesSpace, contentLeft, contentRight,
@@ -76,7 +77,7 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
           <div className='input__contentRight'>{contentRight}</div>
           <Clear/>
           <input
-            autoFocus={false}
+            // autoFocus={false}
             ref={ref}
             type={type}
             value={value}

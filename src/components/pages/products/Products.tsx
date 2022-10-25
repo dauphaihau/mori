@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
 
-import { Box, Grid, Row, Text, Button  } from 'core/components';
+import { Box, Grid, Row, Text, Button } from 'core/components';
 import { clns } from "core/helpers";
 import { Filters, ProductListView, Sorter } from "./index";
 import Product from 'components/common/Product';
 import { useFilterContext } from "context/filterContext";
+import { useRouter } from "next/router";
+import { filterSearch } from "./Filters";
 
-const FiltersSortMobile = ({ categories }) => {
-
-  const { gridView, filtered_products: products } = useFilterContext()
+const Products = ({ products }) => {
+  const { gridView } = useFilterContext()
+  // const { gridView, filtered_products: products } = useFilterContext()
   const [endSlice, setEndSlice] = useState(9)
   const [isLoaded, setIsLoaded] = useState(false);
+  const [page, setPage] = useState(1)
+  const router = useRouter();
+
+  useEffect(() => {
+    if (Object.keys(router.query).length === 0) setPage(1)
+  }, [router.query])
 
   useEffect(() => {
     setTimeout(() => {
@@ -19,11 +27,19 @@ const FiltersSortMobile = ({ categories }) => {
     setEndSlice(9)
   }, [products]);
 
+  const handleLoadMore = () => {
+    setPage(page + 1)
+    filterSearch({ router, page: page + 1 })
+  }
+
   const ProductList = () => {
     if (gridView) {
       return (
         <Grid
-          gap={4} sx={1} md={2} lg={3}
+          gap={4}
+          sx={1}
+          md={2}
+          lg={3}
           classes={clns(isLoaded && 'fade-in-start')}
         >
           {
@@ -33,7 +49,8 @@ const FiltersSortMobile = ({ categories }) => {
                 data={item}
                 key={index}
               />
-            )).slice(0, endSlice)
+            ))
+            // )).slice(0, endSlice)
           }
         </Grid>
       )
@@ -58,13 +75,14 @@ const FiltersSortMobile = ({ categories }) => {
 
   const ButtonLoadMore = () => {
     return <Row
-      hideIf={products.length < 9 || products.length < endSlice}
+      // hideIf={products.length < 9 || products.length < endSlice}
       justify='center'
       classes='mt-8'
     >
       <Button
         variant='gray'
-        onClick={() => setEndSlice(endSlice + 6)}
+        onClick={handleLoadMore}
+        // onClick={() => setEndSlice(endSlice + 6)}
         text='Load more'
       />
     </Row>
@@ -76,9 +94,8 @@ const FiltersSortMobile = ({ categories }) => {
       classes='min-h-full'
     >
       <Filters
-        // categories={categories}
-        quantityProd={products.length}
-        launchSticky={true}
+        // quantityProd={products.length}
+        // launchSticky={true}
       />
       <Box classes='w-full col-span-4'>
         <Row
@@ -106,4 +123,4 @@ const FiltersSortMobile = ({ categories }) => {
   );
 }
 
-export default FiltersSortMobile;
+export default Products;

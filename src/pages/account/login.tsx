@@ -9,6 +9,7 @@ import { Button, Text, Link, Checkbox, Input, Box, Row } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
 import { accountService } from 'services/account';
 import Enums from "config/enums";
+import { isEmptyObject } from "../../core";
 
 const contentForm = {
   title: 'Login',
@@ -32,15 +33,9 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
 
   const router = useRouter();
-  const [currentForm, setCurrentForm] = useState('login')
   const [isBtnLoading, setIsBtnLoading] = useState(false)
   const { setUser, user } = useAuth();
   const emailInputRef = useAutoFocus();
-
-  // useEffect(() => {
-  //   reset();
-  //   setCurrentForm('login')
-  // }, [showLoginDialog])
 
   const {
     register, handleSubmit,
@@ -49,21 +44,19 @@ const Login = () => {
   } = useForm();
 
   // useEffect(() => {
-  //     setValue('email', 'customerrr@mail.com')
+  //     setValue('email', 'customer@mail.com')
   //     setValue('password', '111111')
   // }, [])
 
   const onSubmit = async (values) => {
-    console.log('dauphaihau debug: values', values)
     setIsBtnLoading(true)
-    const { isSuccess, isLoading, data, message } = await accountService.login(values)
+    const { data, isLoading, message } = await accountService.login(values)
     setIsBtnLoading(isLoading)
 
-    if (isSuccess) {
+    if (data) {
       router.push(Enums.PATH.ACCOUNT._)
       // setUser({ ...user, ...data.profile })
     } else {
-      console.log('dauphaihau debug: message', message)
       if (errors) {
         setError('email', {
           type: 'server',
@@ -93,27 +86,21 @@ const Login = () => {
           classes='text-sm'
         >{contentForm.subTitle}</Text>
       </Box>
-
       {/*<Text>{contentForm.message}</Text>*/}
       {/*<div className={`-mt-4`}>*/}
       <Input
         name='email'
         type='email'
         label='Email'
-
-        onch
-        // register={register}
-        {...register('email')}
-        helperText={errors}
+        register={register}
+        helperText={isEmptyObject(errors?.email) ? '' : errors.email.message}
         ref={emailInputRef}
       />
-      {/*</div>*/}
-
       <Input.Password
         name='password'
         label='Password'
-        {...register('password')}
-        helperText={errors}
+        register={register}
+        helperText={isEmptyObject(errors?.password) ? '' : errors.password.message}
       />
       <Row
         justify='between'
@@ -124,7 +111,7 @@ const Login = () => {
           name='rememberMe'
           label='Remember me'
         />
-        <Link href='/account/forgot-password'>
+        <Link href={Enums.PATH.ACCOUNT.FORGOT_PASSWORD}>
           <Text
             as='button'
             classes='text-sm text-black hover:underline pt-[2px]'
@@ -145,22 +132,14 @@ const Login = () => {
       >
         <Text
           span
-          classes='mr-2'
+          classes='mr-1 text-primary-gray'
         >{contentForm.textFooter}</Text>
 
-        <Text
-          as='button'
-          span
-          color='black'
-          weight='medium'
-          classes='hover:underline'
-          onClick={() => {
-            setCurrentForm(currentForm === 'register' ? 'login' : 'register');
-            reset();
-          }}
-        >
-          {contentForm.linkTextFooter}
-        </Text>
+        <Link
+          href={Enums.PATH.ACCOUNT.REGISTER}
+          classes='hover:underline hover:decoration-black'
+          text={contentForm.linkTextFooter}
+        />
       </Row>
     </Box>
 

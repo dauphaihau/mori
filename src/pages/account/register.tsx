@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { useAuth } from 'context/authContext';
 import { Button, Text, Link, Checkbox, Input, Box, Row } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
 import { accountService } from 'services/account';
 import Enums from "config/enums";
-import InputComp from "../../core/components/Input/InputTest";
+import { isEmptyObject } from "core/helpers";
 
 const contentForm = {
   title: 'Register',
@@ -30,35 +29,22 @@ const validationSchema = Yup.object().shape({
   .min(6, 'Password must be at least 6 characters'),
 });
 
-const formOptions = {
-  resolver: yupResolver(validationSchema),
-};
-
 const Register = () => {
   const [isBtnLoading, setIsBtnLoading] = useState(false)
-  const { setUser, user } = useAuth();
   const emailInputRef = useAutoFocus();
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   reset();
-  //   setCurrentForm('login')
-  // }, [showLoginDialog])
-
-  const {
-    register, handleSubmit,
-    reset, setError, setValue,
-    formState: { errors },
-  } = useForm(formOptions);
+  const { register, handleSubmit, setError, formState: { errors } } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
 
   const onSubmit = async (values) => {
     setIsBtnLoading(true)
-    const { isSuccess, isLoading, data, message } = await accountService.register(values)
-
+    const { isLoading, data, message } = await accountService.register(values)
     setIsBtnLoading(isLoading)
 
-    if (isSuccess) {
-      // router.push(currentForm === 'login' && Enums.PATH.ACCOUNT._)
-      // setUser({ ...user, ...data.profile })
+    if (data) {
+      router.push(Enums.PATH.ACCOUNT.LOGIN)
     } else {
       if (errors) {
         setError('email', {
@@ -68,8 +54,6 @@ const Register = () => {
       }
     }
   };
-
-  console.log('dauphaihau debug: content-form-message', contentForm.message)
 
   return (
     <Box
@@ -91,31 +75,27 @@ const Register = () => {
           classes='text-sm'
         >{contentForm.subTitle}</Text>
       </Box>
-
       {/*<Text>{contentForm.message}</Text>*/}
       {/*<div className={`-mt-4`}>*/}
-
       <Input
         name='name'
         label='Name'
         register={register}
-        errors={errors}
+        helperText={isEmptyObject(errors?.name) ? '' : errors.name.message}
       />
       <Input
         name='email'
         type='email'
         label='Email'
         register={register}
-        errors={errors}
+        helperText={isEmptyObject(errors?.email) ? '' : errors.email.message}
         ref={emailInputRef}
       />
-      {/*<InputComp.Password name='pass'/>*/}
-
       <Input.Password
         name='password'
         label='Password'
         register={register}
-        errors={errors}
+        helperText={isEmptyObject(errors?.password) ? '' : errors.password.message}
       />
       <Row
         justify='between'

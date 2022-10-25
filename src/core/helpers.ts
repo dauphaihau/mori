@@ -51,6 +51,10 @@ export const toLower = (value) => {
 //   return Object.keys(obj).length === 0
 // }
 
+export const isEmptyObject = (obj = {}) => {
+  return Object.keys(obj).length === 0
+}
+
 
 export function isEmpty(value) {
   try {

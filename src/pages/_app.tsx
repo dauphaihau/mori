@@ -7,6 +7,8 @@ import { AuthProvider } from "context/authContext";
 import { UIControllerProvider } from "context/UIControllerContext";
 import FilterProvider from "context/filterContext";
 import SizeObserver from "context/sliderContext";
+// import axios from 'axios';
+// axios.defaults.baseURL = process.env.BASE_URL;
 
 function EcommerceApp({ categories, Component, pageProps }) {
   return (

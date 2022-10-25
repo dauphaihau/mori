@@ -50,7 +50,7 @@ async function handleToken(auth): Promise<object> {
     }
 
     // case token still work
-    console.log('dauphaihau debug: token still work')
+    // console.log('dauphaihau debug: token still work')
     return dataToken
   }
   return null
