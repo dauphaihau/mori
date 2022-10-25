@@ -14,6 +14,8 @@ const dataBreadcrumb = [
 
 const ProductsPage = ({ products }) => {
 
+  console.log('dauphaihau debug: process-env-', process.env.BCRYPT_SALT)
+
   return (
     <>
       <Seo description='Mori ECommerce - All products'/>
