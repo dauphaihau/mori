@@ -1,7 +1,8 @@
 import axios from "axios";
 import config from "config/config.json";
 
-const baseUrl = process.env.BASE_URL
+const baseUrl = 'https://coffin-ecommerce-app.vercel.app'
+// const baseUrl = process.env.BASE_URL
 
 export const getProducts = async (params) => {
   try {

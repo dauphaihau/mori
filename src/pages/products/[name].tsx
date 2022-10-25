@@ -10,13 +10,6 @@ const ProductPage = ({ product, imageProps }) => {
     <Box classes='mx-auto max-w-[120rem] w-full laptop:w-[95%] px-2 tablet:px-6 laptop:px-0 '>
       <ProductInfo product={product}/>
 
-      {/*<a*/}
-      {/*  download*/}
-      {/*  href="/shrouding-body-handles.pdf"*/}
-      {/*>*/}
-      {/*  guide*/}
-      {/*</a>*/}
-
       {/*<CustomerReview/>*/}
       <ProductRelated product={product}/>
     </Box>
