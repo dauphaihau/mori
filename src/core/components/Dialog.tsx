@@ -24,6 +24,7 @@ export default function DialogCustom({
   classes,
   closeDialog = () => {},
   preventClose,
+  ...others
 }: DialogProps) {
 
   return (
@@ -31,12 +32,14 @@ export default function DialogCustom({
       appear
       show={isOpen}
       as={Fragment}
+      {...others}
     >
       <Dialog
         as='div'
         className='relative z-30'
         onClose={preventClose ? () => {
         } : closeDialog}
+        {...others}
       >
         <Transition.Child
           as={Fragment}

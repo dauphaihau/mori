@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from "react";
+import React, { ComponentPropsWithoutRef, forwardRef } from "react";
 import { clns } from "core/helpers";
 
 enum GAP {
@@ -61,7 +61,7 @@ const ALIGN_CONTENT_MAPS: Record<SPACE, string> = {
   [SPACE.AROUND]: 'content-around',
 };
 
-type RowType = {
+type RowProps = {
   gap: number,
   justify: 'center' | 'between' | 'around' | 'start' | 'end'
   align: 'center' | 'between' | 'around' | 'start' | 'end'
@@ -72,14 +72,15 @@ type RowType = {
   classes: string
 } & ComponentPropsWithoutRef<'div'>
 
-const Row = ({
+const Row = forwardRef(({
   children, classes, gap, hideIf, justify, align, content, wrap, reverse, ...others
-}: Partial<RowType>) => {
+}: Partial<RowProps>, ref: any) => {
 
   if (hideIf) return null
 
   return (
     <div
+      ref={ref}
       className={clns('flex',
         GAP_MAPS[gap],
         JUSTIFY_MAPS[justify],
@@ -94,6 +95,6 @@ const Row = ({
       {children}
     </div>
   );
-}
+})
 
 export default Row;

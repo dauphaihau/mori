@@ -224,3 +224,8 @@ export const convertType = (value) => {
 
   return value
 }
+
+export const createMaps = <ObjectMapType extends Record<string, string>>(
+  obj: ObjectMapType
+) => obj;
+

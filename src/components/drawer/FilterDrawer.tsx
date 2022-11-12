@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Filters from "../pages/products/Filters";
+import Filters from "../pages/productList/Filters";
 import { useFilterContext } from "context/filterContext";
 import { Drawer, Button, Col } from "core/components";
 

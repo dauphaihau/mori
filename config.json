@@ -1,0 +1,29 @@
+{
+  "cryptoKey": "dauphaihau",
+  "port": "1111",
+  "api": {
+    "host": "https://api.mori.dev.com",
+    "host2": "https://coffin-ecommerce.vercel.app",
+    "account": {
+      "login": "/api/account/login",
+      "register": "/api/account/register",
+      "forgotPassword": "/api/account/forgot-password",
+      "resetPassword": "/api/account/reset-password",
+      "changePassword": "/api/account/change-pass",
+      "address": "/api/account/address",
+      "me": "/api/account/me",
+      "logout": "/user/backoffice/logout",
+      "refreshToken": "/user/token"
+    },
+    "product": "/api/product"
+  },
+  "cookies": {
+    "expiredAt": "a8302fcfb5dd1a1506ab3555277110e6",
+    "auth": "7ec1e5cc8e04b1400181f2b29879b987",
+    "profile": "c10a7fb2207dfec86492311dd6684f32"
+  },
+  "token": {
+    "tokenLife": 3600,
+    "refreshTokenLife": 604800000
+  }
+}

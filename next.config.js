@@ -18,7 +18,7 @@ const nextConfig = {
       new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery",
-        "window.jQuery": "jquery",
+        "window.jQuery": "jquery"
       })
     );
     return config;
@@ -28,7 +28,7 @@ const nextConfig = {
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.
     // !! WARN !!
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: true
   },
 
   images: {
@@ -37,7 +37,7 @@ const nextConfig = {
       'www.musgrovewillowscoffins.co.uk',
       'ffma.co.uk',
       'perfectmemorials.com',
-      'iccm-mosaics.org',
+      'iccm-mosaics.org'
     ]
   }
 }

@@ -38,12 +38,12 @@ const Header = ({ categories }) => {
           />
           <Link
             href={Enums.PATH.HOME}
-            classes={clns('logo text-2xl font-bold',
+            classes={clns('logo text-2xl font-bold uppercase',
               pageHasBanner && 'text-white',
               pageHasBanner && scrollPositionY > 15 && '!text-primary-black'
             )}
           >
-            MORI
+            Mori
           </Link>
           <RightNavbar
             showSearchBar={showSearchBar}

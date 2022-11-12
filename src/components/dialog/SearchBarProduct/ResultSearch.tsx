@@ -7,11 +7,14 @@ const ResultSearch = ({ searchValue, products }) => {
 
   const renderResult = () => {
     if (!searchValue) return null;
-    if (products && products.length > 0) {
+    if (products.length) {
+    // if (products && products.length > 0) {
       return (
         <Box classes='relative'>
           <Text classes='pb-2 border-b sticky top-0 py-4 bg-white z-10'>{products.length} result</Text>
-          <Box>
+          <Box
+            data-testid="productsList"
+          >
             {
               products.map((item, index) => {
                 return (
@@ -39,6 +42,7 @@ const ResultSearch = ({ searchValue, products }) => {
                             h1
                             size={17}
                             classes='m-0 text-gray-600'
+                            data-testid={item.name}
                           >
                             {item.name}
                           </Text>
@@ -79,7 +83,9 @@ const ResultSearch = ({ searchValue, products }) => {
     return (
       <Box classes='laptop:pt-4'>
         <Text classes='mb-2'>Products</Text>
-        <Text classes='border-t py-4'>
+        <Text classes='border-t py-4'
+              data-testid="noResultsText"
+        >
           No results could be found
         </Text>
       </Box>

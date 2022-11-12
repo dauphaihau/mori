@@ -39,7 +39,7 @@ const PATH = {
     RESET_PASSWORD: '/account/reset-password',
   },
   PRODUCT: {
-    _: '/products',
+    _: '/product',
   },
   CATEGORIES: {
     _: '/categories',

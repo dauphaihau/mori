@@ -1,4 +1,5 @@
 import React from "react";
+import 'react-tippy/dist/tippy.css'
 import '../assets/styles/global.scss'
 import Layout from "components/layout";
 import { data as footerHomePageData } from '../assets/data/FooterData';

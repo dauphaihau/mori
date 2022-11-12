@@ -1,6 +1,6 @@
 import nc from 'next-connect';
 import User from 'server/models/User';
-import db from "server/db/db";
+import db from "server/config/db";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = nc();

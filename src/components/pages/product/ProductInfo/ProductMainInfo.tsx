@@ -7,6 +7,7 @@ import { useAuth } from "context/authContext";
 import { CartDrawer } from "../../../drawer";
 import { STORAGE_KEY } from "config/enums";
 import QuantitySelect from "./QuantitySelect";
+import moment from "moment";
 
 const ProductMainInfo = ({ product, context }) => {
   const { name, salePrice, price } = product;
@@ -90,6 +91,7 @@ const ProductMainInfo = ({ product, context }) => {
       <Text
         h1
         weight='light'
+        // weight='light'
         classes='text-xl tablet:text-2xl laptop:text-4xl mt-2 mb-5'
         text={name}
       />
@@ -99,7 +101,7 @@ const ProductMainInfo = ({ product, context }) => {
       >
         <RatingStars initialValue={product.rating}/>
         <Text
-          weight='medium'
+          // weight='medium'
           classes='mt-2 ml-4 mt-0'
           text='11 reviews'
         />
@@ -131,6 +133,7 @@ const ProductMainInfo = ({ product, context }) => {
           size='md'
           width='full'
           onClick={addItemToCart}
+          data-testid='addToCartButton'
           disabled={disableAddItem || product.quantity === 0}
           // disabled={quantityItem === product.quantity}
           text={product.quantity === 0 ? 'Sold out' : 'Add to Cart'}
@@ -185,8 +188,8 @@ const ProductMainInfo = ({ product, context }) => {
             objectFit='contain'
           />
           <Text classes='w-full text-sm'>
-            Arrives by Oct 13-18
-            if you order today.
+            Arrives by {moment().add(3,'days').format("MMM")} {' '}
+            {new Date().getDate() + 3} - {new Date().getDate() + 8} if you order today.
           </Text>
         </Row>
       </Col>

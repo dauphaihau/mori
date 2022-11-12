@@ -1,4 +1,4 @@
-import { ProductProps } from 'types/product';
+import { IProduct } from 'types/product';
 import Enums from "config/enums";
 
 export enum filterType {
@@ -18,8 +18,8 @@ export interface FilterActions {
 }
 
 export interface FilterState {
-  filtered_products: ProductProps[]
-  all_products: ProductProps[]
+  filtered_products: IProduct[]
+  all_products: IProduct[]
   gridView: boolean,
   sort: string,
   filters: {

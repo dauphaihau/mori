@@ -7,7 +7,7 @@ import { formatDollarUS, slugify, } from 'core/helpers';
 import { Button, QuantityPicker, Drawer, Link, Box, Col, Row, Text, NextImage } from 'core/components';
 import Enums from "config/enums";
 
-const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
+export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
   const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
   const { user, setUser } = useAuth();
   const router = useRouter();

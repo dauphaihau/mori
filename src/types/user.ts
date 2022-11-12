@@ -4,7 +4,7 @@ type AddressUser = {
   addressDetail: string,
 }
 
-export interface UserType {
+export interface IUser {
   role: number;
   address: AddressUser
   order: any;

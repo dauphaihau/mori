@@ -1,14 +1,10 @@
 import { FC, Reducer, useEffect, useReducer, useState } from 'react';
 import reducer, { FilterActions, FilterState, filterType } from './reducers/filterReducer';
 import { fetchInventory } from 'assets/data/InventoryData/provider/inventoryProvider';
-import { ProductProps } from "types/product";
+import { IProduct } from "types/product";
 import Enums from "../config/enums";
 import useSafeContext from "../core/hooks/useSafeContext";
 import { type } from "os";
-
-interface FilterProvider {
-
-}
 
 const initialState: FilterState = {
   showFiltersDrawer: false,
@@ -36,7 +32,7 @@ const initialState: FilterState = {
 export const [useFilterContext, Provider] = useSafeContext<FilterState>({})
 
 export const FilterProvider: FC = ({ children }) => {
-  const [products, setProducts] = useState<ProductProps | any>()
+  const [products, setProducts] = useState<IProduct | any>()
   const [state, dispatch] = useReducer<Reducer<FilterState, FilterActions>>(reducer, initialState);
 
   // useEffect(() => {
@@ -54,7 +50,6 @@ export const FilterProvider: FC = ({ children }) => {
   useEffect(() => {
     dispatch({ type: filterType.FILTER_PRODUCTS });
     dispatch({ type: filterType.SORT_PRODUCTS });
-
   }, [products, state.filters, state.sort])
 
   const setGridView = (payload) => dispatch({ type: filterType.SET_GRIDVIEW, payload });

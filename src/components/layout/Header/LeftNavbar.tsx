@@ -37,7 +37,12 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
         />
 
         <Box classes='hidden laptop:block'>
-          <Row classes='mt-1'>
+          <Row classes='mt-1 '>
+                    {/*<span*/}
+                    {/*  className={`bg-gray-custom-52  px-10 rounded-[4px] mt-2*/}
+                    {/*absolute h-10 w-10 -top-1 duration-500 translate-x-0 z-[-1]*/}
+                    {/*`}*/}
+                    {/*></span>*/}
             {
               navbarData.map(({ path, title }, index) => {
                 if (path === Enums.PATH.PRODUCT._) {
@@ -69,6 +74,7 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
                       hideIf={pageHasBanner}
                       href={path}
                       classes={clns('single-link__title',
+                        // 'group-hover:text-black',
                         router.route !== path ? 'default' : 'active',
                       )}
                     >

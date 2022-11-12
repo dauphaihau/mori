@@ -41,16 +41,16 @@ const validationSchema = Yup.object().shape({
 
 const formOptions = {
   resolver: yupResolver(validationSchema),
-  defaultValues: {
-    email: 'customer@mail.com',
-    password: '111111'
-  }
+  // defaultValues: {
+  //   email: 'customer@mail.com',
+  //   password: '111111'
+  // }
 };
 
 const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
   const router = useRouter();
-  const [currentForm, setCurrentForm] = useState('login')
-  const [isBtnLoading, setIsBtnLoading] = useState(false)
+  const [currentForm, setCurrentForm] = useState<string>('login')
+  const [isBtnLoading, setIsBtnLoading] = useState<boolean>(false)
   const { setUser, user } = useAuth();
   const emailInputRef = useAutoFocus();
 
@@ -70,13 +70,13 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
   } = useForm(formOptions);
 
   useEffect(() => {
-    if (currentForm === 'login') {
-      setValue('email', 'customer@mail.com')
-      setValue('password', '111111')
-    } else {
-      setValue('email', '')
-      setValue('password', '')
-    }
+    // if (currentForm === 'login') {
+    //   setValue('email', 'customer@mail.com')
+    //   setValue('password', '111111')
+    // } else {
+    //   setValue('email', '')
+    //   setValue('password', '')
+    // }
   }, [currentForm])
 
   const onSubmit = async (values) => {
@@ -112,6 +112,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
       closeDialog={() => setShowLoginDialog(false)}
       classes='w-[390px]'
       noPadding
+      data-testid='signInForm'
     >
       <Dialog.Content>
         <Row
@@ -130,7 +131,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
         >
           <Text
             h4
-            weight='medium'
+            // weight='medium'
           >{formType[currentForm].title}</Text>
           <Text>{formType[currentForm].message}</Text>
           {currentForm === 'register' && <Input
@@ -145,6 +146,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             type='email'
             label='Email'
             register={register}
+            data-testid='emailInput'
             helperText={errors['email']?.message}
             ref={emailInputRef}
           />
@@ -153,6 +155,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             <Input.Password
               name='password'
               label='Password'
+              data-testid='passwordInput'
               register={register}
               helperText={errors['password']?.message}
             />
@@ -178,6 +181,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
           <Button
             type='submit'
             width='full'
+            data-testid='btn-submit-login'
             classes={currentForm === 'forgotPassword' && '!mt-[5px]'}
             size='lg'
             isLoading={isBtnLoading}
@@ -188,16 +192,14 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             formType[currentForm].textFooter &&
             <Row classes='text-sm font-medium text-gray-500 dark:text-gray-300'>
               <Text
-                noDarkMode
                 span
                 classes='mr-2'
               >{formType[currentForm].textFooter}</Text>
               <Text
-                noDarkMode
-                as='button'
                 span
+                as='button'
                 color='black'
-                weight='medium'
+                // weight='medium'
                 classes='hover:underline'
                 onClick={() => {
                   setCurrentForm(currentForm === 'register' ? 'login' : 'register');
@@ -209,7 +211,6 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             </Row>
           }
         </Box>
-
       </Dialog.Content>
     </Dialog>
   );

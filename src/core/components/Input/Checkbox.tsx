@@ -45,10 +45,13 @@ const Checkbox = forwardRef(
           className={classes}
         />
         <label className='text-smaller'>{label}</label>
-
       </div>
     );
   }
 )
+
+Checkbox.defaultProps = {
+  defaultChecked: false
+}
 
 export default Checkbox;

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Product from "../../../../server/models/Product";
 import nc from "next-connect";
 // import inventoryCategories from "../../../assets/data/InventoryData/inventoryCategories";
-import db from "../../../../server/db/db";
+import db from "../../../../server/config/db";
 
 const handler = nc();
 

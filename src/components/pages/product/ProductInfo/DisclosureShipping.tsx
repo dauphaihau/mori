@@ -1,6 +1,6 @@
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon, GiftIcon } from '@heroicons/react/solid'
-import { Col, NextImage, Row } from 'core/components';
+import { Box, Col, NextImage, Row } from 'core/components';
 // import { Col, NextImage, Row, Tooltip } from 'core/components';
 import { clns } from 'core/helpers';
 
@@ -9,6 +9,8 @@ import {
 } from 'react-tippy';
 import TooltipCustom from "../../../../core/components/TooltipCustom";
 import * as React from "react";
+import moment from "moment";
+// import { MdOutlineLocalShipping } from "react-icons/all";
 
 export default function DisclosureShipping() {
 
@@ -49,21 +51,30 @@ export default function DisclosureShipping() {
                       Estimated arrival
                     </p>
                     <h2 className=''>
-                      Oct 13-18
+                      {moment().add(3, 'days').format("MMM")} {' '}
+                      {new Date().getDate() + 3}-{new Date().getDate() + 8}
                     </h2>
 
                     <Row align='center'>
                       <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
                       <div className='flex-auto h-1/2  border-0 border-b-2 border-gray-custom-52 mx-2'></div>
                       <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
+                      {/*<MdOutlineLocalShipping/>*/}
+
                       <div className='flex-auto h-1/2  border-0 border-b-2 border-gray-custom-52 mx-2'></div>
                       <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
                     </Row>
 
-                    <Row justify='between' classes='gap-1'>
+                    <Row
+                      justify='between'
+                      classes='gap-1'
+                    >
                       <Col gap={2}>
                         <div className=''>
-                          <p>Oct 9</p>
+                          <p className={'font-semibold'}>
+                            {moment().subtract(1, 'days').format("MMM")} {' '}
+                            {new Date().getDate() - 1}
+                          </p>
                           {/*<Tooltip content={'cahkcakchkaclkahlca'}>*/}
 
                           {/*<TooltipCustom content={<p>ackanckanc</p>}>*/}
@@ -72,22 +83,23 @@ export default function DisclosureShipping() {
                           {/*</li>*/}
 
                           <Tooltip
-                            // title="Welcome to React"
-                            position="top"
+                            title="After you place your order, Mori will take 1-2 business days to prepare it for shipment."
+                            animation='fade'
+                            position="bottom"
                             arrow={true}
                             arrowSize='big'
-
-                            html={
-
-                              <div
-                                className={clns(
-                                  'inline-block rounded-md bg-black p-2 text-white shadow-md',
-                                  'border '
-                                )}
-                              >
-                                Welcome to React
-                              </div>
-                            }
+                            interactive
+                            className={`bg-black p-0`}
+                            // html={
+                            //   <Box
+                            //     classes={clns(
+                            //       'inline-block rounded-md',
+                            //       'max-w-[300px]'
+                            //     )}
+                            //   >
+                            //     After you place your order, Mori will take 1-2 business days to prepare it for shipment.
+                            //   </Box>
+                            // }
                             // trigger="click"
                           >
                             <p className={'underline decoration-dashed underline-offset-4'}>Order placed</p>
@@ -99,17 +111,50 @@ export default function DisclosureShipping() {
                       {/*<div className='w-44 h-1/2 pb-4 border-0 border-b-2 border-white mx-4'></div>*/}
 
                       <Col classes='text-center ml-[-1rem]'>
-                        <p>Oct 9</p>
-                        <p className={'underline decoration-dashed underline-offset-4'}>Order ships</p>
+                        <p className={'font-semibold'}>
+
+                          {moment().format("MMM")} {' '}
+                          {new Date().getDate()}
+                          -
+                          {new Date().getDate() + 1}
+                        </p>
+                        <Tooltip
+                          title="Mori puts your order in the mail. "
+                          animation='fade'
+                          position="bottom"
+                          arrow={true}
+                          arrowSize='big'
+                          interactive
+                        >
+                          <p className='underline decoration-dashed underline-offset-4'>Order ships</p>
+                        </Tooltip>
                       </Col>
 
                       {/*<div className='w-44 h-1/2 pb-4 border-0 border-b-2 border-white mx-4'></div>*/}
 
                       <Col classes='text-right'>
-                        <p>Oct 9</p>
-                        <p className={'underline decoration-dashed underline-offset-4'}>Delivered!</p>
+                        <p className={'font-semibold'}>
+                          {moment().add(3, 'days').format("MMM")} {' '}
+                          {new Date().getDate() + 3} - {new Date().getDate() + 8}
+                        </p>
+                        <Tooltip
+                          html={
+                            <p className='text-white'>
+                              Estimated to arrive at your doorstep
+                              {moment().add(3, 'days').format("MMM")} {' '}
+                              {new Date().getDate() + 3} - {new Date().getDate() + 8}!
+                            </p>
+                          }
+                          animation='fade'
+                          position="bottom"
+                          arrow={true}
+                          arrowSize='big'
+                          interactive
+                          // className={`bg-black p-0`}
+                        >
+                          <p className='underline decoration-dashed underline-offset-4 cursor-newTab'>Delivered!</p>
+                        </Tooltip>
                       </Col>
-
                     </Row>
                   </div>
 
@@ -127,20 +172,39 @@ export default function DisclosureShipping() {
                   </div>
 
                   <div className='mt-10 space-y-3'>
-                    <p className='text-sm text-primary-gray'>
-                      Returns & exchanges
-                    </p>
+                    <Row classes='gap-x-28 mb-8'>
+                      <Box>
+                        <p className='text-sm text-primary-gray'>
+                          Returns & exchanges
+                        </p>
 
-                    <h2 className=''>
-                      Accepted
-                    </h2>
+                        <h3 className=''>
+                          Accepted
+                        </h3>
+                      </Box>
+                      <Box>
+                        <p className='text-sm text-primary-gray'>
+                          Return & exchange window
+                        </p>
+                        <h3 className=''>
+                          21 days
+                        </h3>
+                      </Box>
+                    </Row>
                     {/*<p className='text-primary-gray'>*/}
                     {/*  Exceptions may apply*/}
                     {/*</p>*/}
 
-                    <Row gap={4} align='center'>
+                    <Row
+                      gap={4}
+                      align='center'
+                    >
 
-                      <NextImage src='/images/product/hand.png' height={48} width={48}/>
+                      <NextImage
+                        src='/images/product/hand.png'
+                        height={48}
+                        width={48}
+                      />
 
                       <p className='w-full text-sm'>
                         Etsy Purchase Protection: Shop confidently on Etsy knowing if something goes wrong with an

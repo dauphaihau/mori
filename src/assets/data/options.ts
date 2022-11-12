@@ -9,11 +9,6 @@ import Enums, { PRODUCT_COLORS } from "config/enums";
 
 export const sortOptsTest = [
   {
-    label: 'Default',
-    // label: 'Sort Options',
-    value: '',
-  },
-  {
     label: 'Best Selling',
     value: Enums.SORT_PRODUCT_TEST.BEST_SELLING
   },

@@ -34,18 +34,22 @@ const priceData = [
 
 const colorsData = Object.values(PRODUCT_COLORS)
 
-export const filterSearch = ({ router, page, category, brand, color, price, sort, search }) => {
+export const filterSearch = ({ router, ...res }) => {
   const { pathname, query } = router
 
-  if (category) query.category = category;
-  if (brand) query.brand = brand;
-  if (color) query.color = color;
-  if (price) query.price = price;
-  if (page) query.page = page;
-  if (search) query.search = search;
-  if (sort) query.sort = sort;
+  const isSame = (key, value) => {
+    if (query[key] === value) {
+      delete query[key]
+    } else {
+      query[key] = value
+    }
+  }
 
-  router.push({ pathname, query })
+  Object.keys(res).forEach((key) => {
+    if (res[key]) isSame(key, res[key])
+  })
+
+  router.push({ pathname, query }, undefined, { scroll: false })
 }
 
 const Filters = () => {
@@ -69,19 +73,19 @@ const Filters = () => {
 
   const handleColor = (e) => {
     const value = e.target.dataset.color;
-    setColor(value)
+    setColor(color === value ? '' : value)
     filterSearch({ router, color: PRODUCT_COLORS2[value] })
   }
 
   const handleCategory = (e) => {
     const value = e.target.textContent.toLowerCase();
-    setCategory(value)
+    setCategory(category === value ? '' : value)
     filterSearch({ router, category: value })
   }
 
   const handleBrand = (e) => {
     const value = e.target.textContent;
-    setBrand(value)
+    setBrand(brand === value ? '' : value)
     filterSearch({ router, brand: value })
   }
 
@@ -92,7 +96,7 @@ const Filters = () => {
     if (!status) {
       const result = priceListChecked.filter(o => o !== idSelected)
       setPriceListChecked(result)
-      filterSearch({ router, price: result.toString() })
+      filterSearch({ router, price: result.length ? result.toString() : idSelected.toString() })
     } else {
       setPriceListChecked([...priceListChecked, idSelected])
       filterSearch({ router, price: [...priceListChecked, idSelected].toString() })
@@ -100,9 +104,12 @@ const Filters = () => {
   }
 
   const handleReset = () => {
-    const { pathname, query } = router
     router.query = {}
-    router.push({ pathname, query })
+    setCategory('')
+    setBrand('')
+    setColor('')
+    setPriceListChecked([])
+    router.push('/product', undefined, { scroll: false })
   }
 
   const {
@@ -135,8 +142,8 @@ const Filters = () => {
   const colors = getUniqueValues(all_products, 'colors')
 
   return (
-    //   <Box classes={`${launchSticky ? 'laptop:sticky top-[12%] h-full': ''}`}>
-    <Box classes='filters'>
+      // <Box classes={`${launchSticky ? 'laptop:sticky top-[12%] h-full': ''}`}>
+    <Box classes='filters sticky top-[80px] h-auto max-h-[700px] desktop:max-h-[900px] overflow-scroll pl-1'>
       <Box classes='filters__item'>
         <Text
           h3
@@ -225,6 +232,7 @@ const Filters = () => {
           priceData.map((item, index) => (
             <Checkbox
               key={index}
+              classesForm='mb-2'
               defaultChecked={priceListChecked.includes(item.id)}
               onChange={handlePrice}
               value={item.id}

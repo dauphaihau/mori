@@ -78,6 +78,7 @@
     //color: rgba(0, 0, 0, .8);
     //color: #1c1b1b;
     font-family: Eina;
+    //font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
   }
 
   .layout {
@@ -92,6 +93,10 @@
 
   .cursor-newTab {
     cursor: url('/images/new-tab.png') 10 10, pointer;
+  }
+
+  .cursor-question {
+    cursor: url('/images/question-mark.png') 10 10, pointer;
   }
 }
 
@@ -111,4 +116,9 @@
     ;
     background-color: rgba(0, 0, 0, 0.5);
   }
+}
+
+.myElement.is-pinned {
+  color: red;
+  display: none;
 }

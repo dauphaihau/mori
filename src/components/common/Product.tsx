@@ -3,11 +3,11 @@ import { clns, formatDollarUS, slugify } from "core/helpers";
 import Enums from "config/enums";
 import NextImageLoading from "../../core/components/Next/NextImageLoading";
 
-const Product = ({ data, dataFade }:any) => {
+const Product = ({ data, dataFade }) => {
   if (!data) return null
   return (
     <Box
-      classes='w-100'
+      classes='w-100 product'
       data-fade={dataFade}
     >
       <Link href={`${Enums.PATH.PRODUCT._}/${slugify(data?.name)}`}>
@@ -49,7 +49,11 @@ const Product = ({ data, dataFade }:any) => {
         </Box>
       </Link>
       <Box>
-        <Text classes='m-4 text-center text-sm laptop:text-lg mb-1'>{data?.name}</Text>
+        <Text
+          // transforms='uppercase'
+          data-testid={data?.name}
+          classes='m-4 text-center text-sm laptop:text-lg mb-1'
+        >{data?.name}</Text>
         <Row
           gap={4}
           justify='center'

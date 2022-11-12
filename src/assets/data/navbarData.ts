@@ -95,7 +95,6 @@ export default [
       //   subMenu: null,
       // },
     ]
-
   },
   {
     title: 'About',

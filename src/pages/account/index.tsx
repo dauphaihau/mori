@@ -37,6 +37,7 @@ const AccountPage = () => {
           <Button
             classes='pl-0'
             light
+            data-testid='logoutBtn'
             onClick={() => {
               router.push(Enums.PATH.DEFAULT);
               handleLogout()

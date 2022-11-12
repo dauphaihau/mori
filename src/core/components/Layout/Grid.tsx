@@ -1,21 +1,21 @@
 import { ComponentPropsWithoutRef } from "react";
-import { clns } from "core/helpers";
+import { cn } from "core/helpers";
 
 enum COL {
   FIRST = 1,
-  SECOND = 2,
-  THIRD = 3,
-  FOUR = 4,
-  FIVE = 5,
-  SIX = 6,
-  SEVEN = 7
+  SECOND ,
+  THIRD ,
+  FOUR ,
+  FIVE ,
+  SIX ,
+  SEVEN
 }
 
 enum GAP {
   FIRST = 1,
-  SECOND = 2,
-  THIRD = 3,
-  FOUR = 4,
+  SECOND ,
+  THIRD ,
+  FOUR ,
   EIGHT = 8,
 }
 
@@ -29,31 +29,31 @@ const COL_SX_MAPS: Record<COL, string> = {
   [COL.SEVEN]: 'grid-cols-7',
 };
 const COL_MD_MAPS: Record<COL, string> = {
-  [COL.FIRST]: 'ipad:grid-cols-1',
-  [COL.SECOND]: 'ipad:grid-cols-2',
-  [COL.THIRD]: 'ipad:grid-cols-3',
-  [COL.FOUR]: 'ipad:grid-cols-4',
-  [COL.FIVE]: 'ipad:grid-cols-5',
-  [COL.SIX]: 'ipad:grid-cols-6',
-  [COL.SEVEN]: 'ipad:grid-cols-7',
+  [COL.FIRST]: 'md:grid-cols-1',
+  [COL.SECOND]: 'md:grid-cols-2',
+  [COL.THIRD]: 'md:grid-cols-3',
+  [COL.FOUR]: 'md:grid-cols-4',
+  [COL.FIVE]: 'md:grid-cols-5',
+  [COL.SIX]: 'md:grid-cols-6',
+  [COL.SEVEN]: 'md:grid-cols-7',
 };
 const COL_LG_MAPS: Record<COL, string> = {
-  [COL.FIRST]: 'laptop:grid-cols-1',
-  [COL.SECOND]: 'laptop:grid-cols-2',
-  [COL.THIRD]: 'laptop:grid-cols-3',
-  [COL.FOUR]: 'laptop:grid-cols-4',
-  [COL.FIVE]: 'laptop:grid-cols-5',
-  [COL.SIX]: 'laptop:grid-cols-6',
-  [COL.SEVEN]: 'laptop:grid-cols-7',
+  [COL.FIRST]: 'lg:grid-cols-1',
+  [COL.SECOND]: 'lg:grid-cols-2',
+  [COL.THIRD]: 'lg:grid-cols-3',
+  [COL.FOUR]: 'lg:grid-cols-4',
+  [COL.FIVE]: 'lg:grid-cols-5',
+  [COL.SIX]: 'lg:grid-cols-6',
+  [COL.SEVEN]: 'lg:grid-cols-7',
 };
 const COL_XL_MAPS: Record<COL, string> = {
-  [COL.FIRST]: 'desktop:grid-cols-1',
-  [COL.SECOND]: 'desktop:grid-cols-2',
-  [COL.THIRD]: 'desktop:grid-cols-3',
-  [COL.FOUR]: 'desktop:grid-cols-4',
-  [COL.FIVE]: 'desktop:grid-cols-5',
-  [COL.SIX]: 'desktop:grid-cols-6',
-  [COL.SEVEN]: 'desktop:grid-cols-7',
+  [COL.FIRST]: 'xl:grid-cols-1',
+  [COL.SECOND]: 'xl:grid-cols-2',
+  [COL.THIRD]: 'xl:grid-cols-3',
+  [COL.FOUR]: 'xl:grid-cols-4',
+  [COL.FIVE]: 'xl:grid-cols-5',
+  [COL.SIX]: 'xl:grid-cols-6',
+  [COL.SEVEN]: 'xl:grid-cols-7',
 };
 const GAP_MAPS: Record<GAP, string> = {
   [GAP.FIRST]: 'gap-1',
@@ -77,7 +77,7 @@ const GAP_Y_MAPS: Record<GAP, string> = {
   [GAP.EIGHT]: 'gap-y-8',
 };
 
-type GridType = {
+type GridProps = {
   sx: number,
   md: number,
   lg: number,
@@ -92,16 +92,16 @@ const Grid = ({
   gap, classes, children,
   sx, md, lg, xl, gapx, gapy,
   ...others
-}: Partial<GridType>) => {
+}: Partial<GridProps>) => {
 
   return (
     <div
-      className={clns('grid',
+      className={cn('grid',
+        GAP_MAPS[gap],
         COL_SX_MAPS[sx],
         COL_MD_MAPS[md],
         COL_LG_MAPS[lg],
         COL_XL_MAPS[xl],
-        GAP_MAPS[gap],
         GAP_X_MAPS[gapx],
         GAP_Y_MAPS[gapy],
         classes
@@ -113,4 +113,5 @@ const Grid = ({
   );
 }
 
+Grid.displayName = 'Grid';
 export default Grid;

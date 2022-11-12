@@ -7,7 +7,9 @@ import { useUIController } from '../../context/UIControllerContext';
 import Header from './Header';
 import Footer from './Footer';
 
-const ChatBox = dynamic(() => import('./ChatBox'), { ssr: false });
+import ChatBox from './ChatBox';
+// const ChatBox = dynamic(() => import('./ChatBox'), { ssr: false });
+
 import BannerSlogan from '../pages/home/BannerSlogan';
 import { Box } from 'core/components';
 import { AddressDialog, SubscribeDialog } from 'components/dialog';
@@ -15,12 +17,12 @@ import { clns } from 'core/helpers';
 import AcceptCookie from "./AcceptCookie";
 import FreeShip from "./FreeShip";
 
-interface LayoutType {
+interface LayoutProps {
   children: ReactNode;
   categories: [],
 }
 
-const Layout = ({ children, categories }: LayoutType) => {
+const Layout = ({ children, categories }: LayoutProps) => {
   const [isMobileScreen, setIsMobileScreen] = useState(false)
   const [accountLayout, setAccountLayout] = useState(false)
   const router = useRouter();
@@ -32,7 +34,7 @@ const Layout = ({ children, categories }: LayoutType) => {
   }, [])
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     const arrPathAccount = ['forgot-password', 'reset-password']
     if (arrPathAccount.includes(router.pathname.slice(9))) {
       setAccountLayout(true)
@@ -46,7 +48,7 @@ const Layout = ({ children, categories }: LayoutType) => {
         reverseOrder={false}
       />
 
-      {/*<SubscribeDialog/>*/}
+      <SubscribeDialog/>
       <AddressDialog/>
       {/*<ChatBox/>*/}
 

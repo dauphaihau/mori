@@ -9,6 +9,7 @@ export const getProducts = async (params) => {
     const res = await fetch(`${baseUrl}${config.api.product}${params}`, {
       method: 'GET',
     })
+    console.log('dauphaihau debug: res', res)
     return await res.json()
   } catch (err) {
     console.log('err', err)

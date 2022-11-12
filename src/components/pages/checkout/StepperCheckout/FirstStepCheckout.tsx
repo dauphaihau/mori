@@ -106,7 +106,7 @@ const FirstStepCheckout = (props) => {
           rowsPerPage={4}
           rows={cart}
         />
-        <Link href='/products'>
+        <Link href='/productList'>
           <Button
             classes='mt-6 px-0 font-bold'
             light

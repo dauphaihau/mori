@@ -4,14 +4,14 @@ import { accountService } from 'services/account';
 import { handleGetCookie, handleRemoveCookie, handleSetCookie } from 'lib/cookie';
 import { isEmpty } from 'core/helpers';
 import config from 'config/config.json';
-import { UserType } from 'types/user';
+import { IUser } from 'types/user';
 import Enums from "config/enums";
 import { useRouter } from "next/router";
 import { signToken, verifyToken } from "lib/jwt";
 import useSafeContext from "../core/hooks/useSafeContext";
 
 export interface AuthState {
-  user: UserType
+  user: IUser
   setUser: (prevState) => void,
   handleLogout: () => void,
   role: number
@@ -34,7 +34,7 @@ export const [useAuth, Provider] = useSafeContext<AuthState>(initialState)
 // }
 
 export const AuthProvider: FC = ({ children }) => {
-  const [user, setUser] = useState<UserType | null>();
+  const [user, setUser] = useState<IUser | null>();
   const [role, setRole] = useState(Enums.ROLE.BASIC)
   const router = useRouter();
 

@@ -9,7 +9,7 @@ import RealLifeImages from "../components/pages/home/RealLifeImages";
 import BannerSlogan from "../components/pages/home/BannerSlogan";
 import FeedBack from "../components/pages/home/FeedBack";
 import Product from 'server/models/Product';
-import db from 'server/db/db';
+import db from 'server/config/db';
 
 const HomePage = ({ inventoryData = [], categoriesData }) => {
   return (

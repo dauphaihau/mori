@@ -28,6 +28,7 @@ const SearchInput = (props) => {
         />
         <input
           ref={inputRef}
+          data-testid='searchInput'
           onChange={props.onChange}
           placeholder='Search'
           className='

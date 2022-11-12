@@ -9,8 +9,8 @@ const ProductInfo = ({ product }) => {
 
   const dataBreadcrumb = [
     { path: Enums.PATH.DEFAULT, name: 'Home' },
-    { path: Enums.PATH.PRODUCT._, name: 'Products' },
-    { name: product.name },
+    { path: Enums.PATH.PRODUCT._, name: 'Product' },
+    { name: product?.name },
   ];
 
   const Left = () => {

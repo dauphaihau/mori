@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Box, Col, Row, Link, Text } from 'core/components';
 import { formatDollarUS } from 'core/helpers';
-import { ProductProps } from 'types/product';
+import { IProduct } from 'types/product';
 
 const hoverEffect =
   typeof window !== `undefined` ? require("hover-effect").default : null;
@@ -14,7 +14,7 @@ const hoverEffect =
 //   price: number,
 // }
 
-const ProductCard = (props: ProductProps) => {
+const ProductCard = (props: IProduct) => {
   const { link, title, imageSrc, price, imageHover } = props;
 
   useEffect(() => {

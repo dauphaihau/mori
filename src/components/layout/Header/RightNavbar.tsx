@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { ShoppingBagIcon, UserIcon, SearchIcon } from '@heroicons/react/outline';
-import { UserIcon as UserIconSolid } from '@heroicons/react/solid';
 
 import { useAuth } from 'context/authContext';
 import { Link, Button, Box, Row } from 'core/components';
@@ -9,7 +7,7 @@ import { LoginRegisterDialog, SearchProductDialog } from 'components/dialog';
 import { clns } from 'core/helpers';
 import Enums from 'config/enums';
 import { useScrollPosition } from "core/hooks";
-import useMediaQuery from 'core/hooks/useMediaQuery';
+import { Icons } from "components/common/Icons";
 
 function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
   const [showLoginDialog, setShowLoginDialog] = useState(false)
@@ -38,11 +36,12 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
           classes='mr-4 p-0'
           onClick={() => setShowSearchBar(true)}
         >
-          <SearchIcon
+          <Icons.search
             className={clns('stroke-1',
               pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
               !pageHasBanner && '!text-primary-black'
             )}
+            data-testid='searchIcon'
             width={35}
             height={25}
           />
@@ -56,7 +55,7 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
             justify='end'
             classes='flex-1 relative'
           >
-            <ShoppingBagIcon
+            <Icons.bag
               className={clns('stroke-1',
                 pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
                 !pageHasBanner && '!text-primary-black'
@@ -84,22 +83,24 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
           {
             user?.role === Enums.ROLE.ACCOUNT ?
               <Link href={Enums.PATH.ACCOUNT._}>
-                <UserIconSolid
+                <Icons.userSolid
                   className={clns('stroke-1',
                     pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
                     !pageHasBanner && '!text-primary-black'
                   )}
                   width={35}
                   height={25}
+                  data-testid='userIcon-logged'
                 />
               </Link>
-              : <UserIcon
+              : <Icons.user
                 width={35}
                 className={clns('stroke-1',
                   pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
                   !pageHasBanner && '!text-primary-black'
                 )}
                 height={25}
+                data-testid='userIcon-login'
                 onClick={() => setShowLoginDialog(true)}
               />
           }

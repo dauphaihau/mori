@@ -2,13 +2,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import nc from 'next-connect';
 
 import Product from '../../../server/models/Product';
-import db from "../../../server/db/db";
+import db from "../../../server/config/db";
 
 const handler = nc();
 
-class APIfeatures {
+class APIFeatures {
   private queryString: any;
-  private query: any;
+  query: any;
 
   constructor(query, queryString) {
     this.query = query;
@@ -45,8 +45,6 @@ class APIfeatures {
             "$and": [{ "price": { "$gte": Number(a) } }]
           }
       })
-      console.log('dauphaihau debug: queryRangeList', queryRangeList)
-
       this.query.find({ "$or": queryRangeList })
     }
     this.query.find()
@@ -74,17 +72,28 @@ class APIfeatures {
 }
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-  const features = new APIfeatures(Product.find(), req.query)
+  const features = new APIFeatures(Product.find(), req.query)
   .filtering()
   .sorting()
   .paginating()
   const products = await features.query
+  // const countQuery = await features.query.count()
+
+
+  // features.query.countDocuments(features.queryString, function countResults(err, result) {
+  //   if (err) {
+  //     //handle error
+  //   }
+  //   console.log(result);
+  // });
+
+  const total = await Product.countDocuments()
   // console.log('dauphaihau debug: products', products)
   res.json({
     code: '200',
     message: 'OK',
-    result: products.length,
-    products
+    products,
+    total
   })
 });
 

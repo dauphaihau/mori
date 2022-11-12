@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { NextImage, Input, Button, Text, Dialog, Box, Col, Grid } from 'core/components';
 import Enums from "config/enums";
-import { clns } from "core/helpers";
+import { cn } from "core/helpers";
 
 const SubscribeDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,7 +20,7 @@ const SubscribeDialog = () => {
     <Dialog
       isOpen={isOpen}
       closeDialog={async () => setIsOpen(false)}
-      classes={clns('w-[700px] h-[365px] hidden tablet:block',
+      classes={cn('w-[700px] h-[365px] hidden tablet:block',
         "bg-[url('/images/newsletter-bg.png')]"
       )}
     >

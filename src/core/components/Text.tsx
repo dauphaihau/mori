@@ -1,67 +1,49 @@
 import { ReactNode } from "react";
-import { clns } from "../helpers";
+import { cn, createMaps } from "core/helpers";
 
-// enum Transforms {
-//   'uppercase',
-//   'lowercase',
-// }
+const FONT_WEIGHT_MAP = createMaps({
+  bold: 'font-bold',
+  light: 'font-light',
+  semibold: 'font-semibold',
+})
 
-enum Transforms {
-  UPPERCASE = 'uppercase',
-  LOWERCASE = 'lowercase',
-}
-
-enum FONT_WEIGHT {
-  BOLD = 'bold',
-  LIGHT = 'light',
-  SEMIBOLD = 'semibold',
-}
-
-const FONT_WEIGHT_MAP: Record<FONT_WEIGHT, string> = {
-  [FONT_WEIGHT.BOLD]: 'font-bold',
-  [FONT_WEIGHT.LIGHT]: 'font-light',
-  [FONT_WEIGHT.SEMIBOLD]: 'font-semibold',
-};
-
-interface TextType {
-  children: ReactNode,
+interface TextProps {
+  children: ReactNode
   classes: string
-  transforms: 'uppercase' | 'lowercase',
-  color: string,
-  weight: string
-  noDarkMode: boolean,
-  h1: boolean,
-  h2: boolean,
-  h3: boolean,
-  h4: boolean,
-  h5: boolean,
-  h6: boolean,
-  b: boolean,
-  label: boolean,
-  hideIf: boolean,
-  i: boolean,
-  span: boolean,
-  size: string | number,
-  as: 'button',
-  text: string | number | ReactNode,
-  onClick: () => any,
+  transforms: 'uppercase' | 'lowercase' | 'capitalize'
+  color: string
+  weight: keyof typeof FONT_WEIGHT_MAP
+  h1: boolean
+  h2: boolean
+  h3: boolean
+  h4: boolean
+  h5: boolean
+  h6: boolean
+  b: boolean
+  label: boolean
+  hideIf: boolean
+  i: boolean
+  span: boolean
+  size: string | number
+  as: 'button'
+  text: string | number | ReactNode
+  onClick: () => any
   noSelect: boolean
 }
 
-const Text = (props: Partial<TextType>) => {
+const Text = (props: Partial<TextProps>) => {
 
   const {
-    children, classes, color, as, transforms = '', b, noDarkMode, size, hideIf,
+    children, classes, color, as, transforms = '', b, size, hideIf,
     noSelect,
-    weight, h1, h2, h3, h4, h5, h6, span, label, i, text, ...others
+    weight = '', h1, h2, h3, h4, h5, h6, span, label, i, text, ...others
   } = props
 
-  const allClass = clns(
-    noDarkMode ? 'dark:text-black' : 'dark:text-white',
-    Transforms[transforms.toUpperCase()],
+  const allClass = cn(
+    transforms,
     FONT_WEIGHT_MAP[weight],
-    as === 'button' && 'cursor-pointer',
-    noSelect && 'select-none',
+    as === 'button' ? 'cursor-pointer': '',
+    noSelect ? 'select-none': '',
     classes
   )
 
