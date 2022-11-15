@@ -2,6 +2,7 @@ import { NextImage, Link, Box, Text, Badge, Row } from 'core/components';
 import { clns, formatDollarUS, slugify } from "core/helpers";
 import Enums from "config/enums";
 import NextImageLoading from "../../core/components/Next/NextImageLoading";
+import { config } from "../../config";
 
 const Product = ({ data, dataFade }) => {
   if (!data) return null
@@ -37,7 +38,7 @@ const Product = ({ data, dataFade }) => {
             {/*/>*/}
             <NextImage
               alt={data?.title}
-              src={data?.images[0]}
+              src={config.hostStaticSource + data?.images[0]}
               className='w-3/5'
               width={300}
               height={300}

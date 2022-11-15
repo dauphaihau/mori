@@ -8,14 +8,14 @@ const RelatedProduct = ({ product }) => {
   const router = useRouter();
   const [relatedProducts, setRelatedProducts] = useState([])
 
-  useEffect(() => {
-    const loadInit = async () => {
-      const res = await inventoryForCategory(product.categories[0]);
-      setRelatedProducts(res);
-      // setQuantityItem(1);
-    }
-    loadInit()
-  }, [router.asPath])
+  // useEffect(() => {
+  //   const loadInit = async () => {
+  //     const res = await inventoryForCategory(product.categories[0]);
+  //     setRelatedProducts(res);
+  //     // setQuantityItem(1);
+  //   }
+  //   loadInit()
+  // }, [router.asPath])
 
   return (
     <div className={`  flex flex-col laptop:flex-row gap-x-8 desktop:w-10/12 mx-auto `}>
@@ -26,15 +26,25 @@ const RelatedProduct = ({ product }) => {
         >You may also like</Text>
         <Grid gap={4} sx={1} md={2} lg={4}>
           {
-            relatedProducts?.filter(p => p.id !== product.id).map((item, index) => {
+            product?.map((item, index) => {
               return (
                 <Product
                   data={item}
                   key={index}
                 />
               )
-            }).slice(0, 4)
+            })
           }
+          {/*{*/}
+          {/*  relatedProducts?.filter(p => p.id !== product.id).map((item, index) => {*/}
+          {/*    return (*/}
+          {/*      <Product*/}
+          {/*        data={item}*/}
+          {/*        key={index}*/}
+          {/*      />*/}
+          {/*    )*/}
+          {/*  }).slice(0, 4)*/}
+          {/*}*/}
         </Grid>
       </Box>
     </div>

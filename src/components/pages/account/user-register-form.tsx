@@ -65,21 +65,21 @@ export default function UserRegisterForm({ className }: UserRegisterFormProps) {
         name='name'
         label='Name'
         register={register}
-        helperText={errors?.name ? errors?.name?.message : ''}
+        helperText={errors?.name?.message}
       />
       <Input
         name='email'
         type='email'
         label='Email'
         register={register}
-        helperText={errors?.email ? errors?.email?.message : ''}
+        helperText={errors?.email?.message}
         ref={emailInputRef}
       />
       <Input.Password
         name='password'
         label='Password'
         register={register}
-        helperText={errors?.password ? errors?.password?.message : ''}
+        helperText={errors?.password?.message}
       />
       <Row
         justify='between'

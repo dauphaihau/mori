@@ -3,13 +3,18 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { LockClosedIcon, XIcon } from '@heroicons/react/solid';
 
 import { useAuth } from 'context/authContext';
 import { Dialog, Button, Text, Link, Checkbox, Input, Box, Row } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
 import { accountService } from 'services/account';
 import Enums from "config/enums";
+import { Icons } from 'components/common/Icons';
+import { IUserAuthSchema } from "lib/validation/auth";
+
+type FormData = {
+  name: string
+} & IUserAuthSchema
 
 const formType = {
   login: {
@@ -50,7 +55,7 @@ const formOptions = {
 const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
   const router = useRouter();
   const [currentForm, setCurrentForm] = useState<string>('login')
-  const [isBtnLoading, setIsBtnLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const { setUser, user } = useAuth();
   const emailInputRef = useAutoFocus();
 
@@ -67,7 +72,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
     register, handleSubmit,
     reset, setError, setValue,
     formState: { errors },
-  } = useForm(formOptions);
+  } = useForm<FormData>(formOptions);
 
   useEffect(() => {
     // if (currentForm === 'login') {
@@ -79,14 +84,14 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
     // }
   }, [currentForm])
 
-  const onSubmit = async (values) => {
-    setIsBtnLoading(true)
+  const onSubmit = async (values: FormData) => {
+    setIsLoading(true)
     const {
       isLoading,
       data,
       message
     } = currentForm === 'register' ? await accountService.register(values) : await accountService.login(values)
-    setIsBtnLoading(isLoading)
+    setIsLoading(isLoading)
 
     if (data) {
       if (currentForm === 'login') {
@@ -119,7 +124,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
           justify='end'
           classes='p-2 mb-[-44px]'
         >
-          <XIcon
+          <Icons.x
             className='btn-icon--noBg'
             onClick={() => setShowLoginDialog(false)}
           />
@@ -138,7 +143,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             name='name'
             label='Name'
             register={register}
-            helperText={errors['name']?.message}
+            helperText={errors?.name?.message}
           />}
           <Input
             clearable
@@ -147,7 +152,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             label='Email'
             register={register}
             data-testid='emailInput'
-            helperText={errors['email']?.message}
+            helperText={errors?.email?.message}
             ref={emailInputRef}
           />
           {
@@ -157,7 +162,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
               label='Password'
               data-testid='passwordInput'
               register={register}
-              helperText={errors['password']?.message}
+              helperText={errors?.password?.message}
             />
           }
           {
@@ -184,7 +189,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             data-testid='btn-submit-login'
             classes={currentForm === 'forgotPassword' && '!mt-[5px]'}
             size='lg'
-            isLoading={isBtnLoading}
+            isLoading={isLoading}
           >
             {formType[currentForm].textButton}
           </Button>

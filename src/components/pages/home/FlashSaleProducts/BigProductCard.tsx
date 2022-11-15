@@ -134,6 +134,7 @@ const BigProductCard = ({ data }) => {
         {/*/>*/}
 
         <NextImage
+          // src='https://res.cloudinary.com/duiehrbms/image/upload/v1667916502/cld-sample-4.jpg'
           src={images[0]}
           alt={name}
           className='w-auto'

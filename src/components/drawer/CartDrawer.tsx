@@ -6,6 +6,7 @@ import { useAuth } from 'context/authContext';
 import { formatDollarUS, slugify, } from 'core/helpers';
 import { Button, QuantityPicker, Drawer, Link, Box, Col, Row, Text, NextImage } from 'core/components';
 import Enums from "config/enums";
+import getStripe from "../../lib/get-stripejs";
 
 export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
   const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
@@ -46,27 +47,25 @@ export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
   if (!renderClientSideComponent) return null
 
   const ItemList = () => {
-    if (cartEmpty) {
-      return (
-        <Col
-          align='center'
-          justify='center'
-          classes='h-full text-center'
-        >
-          <NextImage
-            width={300}
-            height={300}
-            src='/images/empty.png'
-            objectFit={'contain'}
-            alt='empty'
-          />
-          <Text
-            weight='bold'
-            classes='text-xl mb-8'
-          >Your cart is empty.</Text>
-        </Col>
-      )
-    }
+    if (cartEmpty) return (
+      <Col
+        align='center'
+        justify='center'
+        classes='h-full text-center'
+      >
+        <NextImage
+          width={300}
+          height={300}
+          src='/images/empty.png'
+          objectFit={'contain'}
+          alt='empty'
+        />
+        <Text
+          weight='bold'
+          classes='text-xl mb-8'
+        >Your cart is empty.</Text>
+      </Col>
+    )
     return (
       <Col classes='h-full overflow-x-hidden'>
         <Box>
@@ -83,14 +82,14 @@ export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
                   >
                     {
                       item?.images &&
-                    <NextImage
-                      width={96}
-                      height={96}
-                      src={item.images[0]}
-                      alt={item.name}
-                      className={'h-24 w-24 tablet:h-28 tablet:w-28 m-0'}
-                      objectFit={'contain'}
-                    />
+                      <NextImage
+                        width={96}
+                        height={96}
+                        src={item.images[0]}
+                        alt={item.name}
+                        className={'h-24 w-24 tablet:h-28 tablet:w-28 m-0'}
+                        objectFit={'contain'}
+                      />
                     }
                     <Box
                       classes='
@@ -138,6 +137,32 @@ export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
     )
   }
 
+  const handleCheckout = async () => {
+    const stripe = await getStripe();
+
+    console.log('dauphaihau debug: cart-items', cart)
+    const response = await fetch("/api/checkout_sessions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cart),
+    });
+
+    if (response.status !== 200) {
+      console.error(`Failed to Proceed because of ${response.status}`);
+      // toast.error(`Failed to Proceed because of ${response.status}`);
+      return;
+    }
+
+    const data = await response.json();
+
+    console.log("Redirecting...");
+    // toast.loading("Redirecting...");
+
+    stripe.redirectToCheckout({ sessionId: data.id });
+  };
+
   return (
     <>
       <Drawer
@@ -149,11 +174,12 @@ export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
           title='Your Cart'
         />
         <Drawer.Body classes=''>
-        {/*<Drawer.Body classes='h-[81%] tablet:h-[85%] desktop:h-[86%]'>*/}
+          {/*<Drawer.Body classes='h-[81%] tablet:h-[85%] desktop:h-[86%]'>*/}
           <ItemList/>
         </Drawer.Body>
         <Drawer.Footer>
           {/* mobile - tablet*/}
+
           <form
             action='/api/checkout_sessions'
             method='POST'
@@ -177,7 +203,8 @@ export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
             width='full'
             classes='hidden lg:block'
             disabled={cartEmpty}
-            onClick={() => router.push(Enums.PATH.CHECKOUT._)}
+            onClick={handleCheckout}
+            // onClick={() => router.push(Enums.PATH.CHECKOUT._)}
           >
             <Row
               justify='between'

@@ -207,7 +207,7 @@ export default function DisclosureShipping() {
                       />
 
                       <p className='w-full text-sm'>
-                        Etsy Purchase Protection: Shop confidently on Etsy knowing if something goes wrong with an
+                        Mori Purchase Protection: Shop confidently on Etsy knowing if something goes wrong with an
                         order,
                         we&apos;ve got your back for all eligible purchases — see program terms
                       </p>

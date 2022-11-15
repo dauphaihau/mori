@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { NextImage, Box, Row } from 'core/components';
 import useEmblaCarousel from 'embla-carousel-react';
+import { config } from "../../../../config";
 
 const SLIDE_COUNT = 5;
 const slides = Array.from(Array(SLIDE_COUNT).keys());
@@ -46,7 +47,7 @@ const ProductImages = ({ product }) => {
   return (
     <div>
       <NextImage
-        src={main}
+        src={config.hostStaticSource + main}
         // src={image}
         alt='product'
         width={300}
@@ -70,7 +71,7 @@ const ProductImages = ({ product }) => {
                     <Box classes='flex flex-column justify-center items-center'>
                       <NextImage
                         alt={name}
-                        src={o}
+                        src={config.hostStaticSource + o}
                         className='w-3/5'
                         width={90}
                         height={90}

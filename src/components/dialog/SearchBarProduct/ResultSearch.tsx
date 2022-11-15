@@ -2,6 +2,7 @@ import React from 'react';
 import { NextImage, Box, Col, Link, Row, Text } from 'core/components';
 import { formatDollarUS, slugify } from 'core/helpers';
 import Enums from "../../../config/enums";
+import { config } from "config";
 
 const ResultSearch = ({ searchValue, products }) => {
 
@@ -29,7 +30,7 @@ const ResultSearch = ({ searchValue, products }) => {
                           width={100}
                           objectFit={`contain`}
                           className='m-0'
-                          src={item.images[0]}
+                          src={config.hostStaticSource + item.images[0]}
                           alt={item.name}
                         />
                       </Box>
@@ -41,7 +42,8 @@ const ResultSearch = ({ searchValue, products }) => {
                           <Text
                             h1
                             size={17}
-                            classes='m-0 text-gray-600'
+                            classes='m-0 '
+                            // classes='m-0 text-gray-600'
                             data-testid={item.name}
                           >
                             {item.name}
@@ -59,7 +61,8 @@ const ResultSearch = ({ searchValue, products }) => {
                                 &&
                                 <Text
                                   size={12}
-                                  classes='ml-2 line-through text-gray-400'
+                                  classes='ml-2 line-through'
+                                  // classes='ml-2 line-through text-gray-400'
                                 >
                                   {formatDollarUS(item.price)}</Text>
                               }

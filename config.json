@@ -25,5 +25,6 @@
   "token": {
     "tokenLife": 3600,
     "refreshTokenLife": 604800000
-  }
+  },
+  "hostStaticSource": "https://res.cloudinary.com/duiehrbms/image/upload/v1668264431/mori-ecommerce"
 }

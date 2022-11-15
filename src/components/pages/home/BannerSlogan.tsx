@@ -2,6 +2,7 @@ import { Box, Divider, Row, Text } from 'core/components';
 import { useCallback } from 'react';
 import { clns } from "core/helpers";
 import Carousel, { useCarousel } from 'context/carouselContext';
+import { config } from "../../../config";
 
 const Dots = () => {
   const { embla: emblaApi, selectedIndex, scrollSnaps } = useCarousel();
@@ -47,8 +48,8 @@ export default function BannerSlogan() {
                 '
               >
                 <Box
+                  style={{backgroundImage: `url(${config.hostStaticSource + item.bannerImg})`}}
                   classes={clns(
-                    item.bannerImg,
                     `
                     tablet:bg-fixed
                     relative 
@@ -88,7 +89,6 @@ export default function BannerSlogan() {
                   </Box>
                 </Box>
               </Box>
-
             </div>
           ))
         }
@@ -99,22 +99,22 @@ export default function BannerSlogan() {
 
 const data = [
   {
-    bannerImg: "bg-[url('/images/banners/weaver-memorials-columbarium-2.png')]",
+    bannerImg: '/banners/weaver-memorials-columbarium-2_cxxbdx.png',
     slogan: 'Immortalize Your Loved One',
     subSlogan: 'Dignity and compassion guaranteed'
   },
   {
-    bannerImg: "bg-[url('/images/banners/banner-homepage.png')]",
+    bannerImg: '/banners/banner-homepage_ofukim.png',
     slogan: 'Décor & Lifestyle',
     subSlogan: 'Dignity and compassion guaranteed'
   },
   {
-    bannerImg: "bg-[url('/images/banners/contemporary-banner.png')]",
+    bannerImg: '/banners/contemporary-banner_ztlpco.jpg',
     slogan: 'Preserving memories beyond imagination.',
     subSlogan: 'Dignity and compassion guaranteed'
   },
   {
-    bannerImg: "bg-[url('/images/banners/cremation-urn.png')]",
+    bannerImg: '/banners/cremation-urn_bbnikn.png',
     slogan: 'Immortalize Your Loved One',
     subSlogan: 'Dignity and compassion guaranteed'
   },

@@ -134,7 +134,7 @@ const ProductMainInfo = ({ product, context }) => {
           width='full'
           onClick={addItemToCart}
           data-testid='addToCartButton'
-          disabled={disableAddItem || product.quantity === 0}
+          // disabled={disableAddItem || product.quantity === 0}
           // disabled={quantityItem === product.quantity}
           text={product.quantity === 0 ? 'Sold out' : 'Add to Cart'}
         />

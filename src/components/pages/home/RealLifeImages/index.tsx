@@ -5,6 +5,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useFadeIn, useMediaQuery } from 'core/hooks';
 import FadeInSection from "components/common/FadeInSection";
+import { config } from "config";
 
 const RealLifeImages = ({ categoriesData = [] }) => {
 
@@ -85,7 +86,7 @@ const RealLifeImages = ({ categoriesData = [] }) => {
               >
                 <div className='relative'>
                   <NextImage
-                    src={o.srcImg}
+                    src={config.hostStaticSource + o.srcImg}
                     // height={284}
                     // width={284}
                     height={350}
@@ -122,12 +123,12 @@ const data = [
   //   productName: 'Bamboo Coffin'
   // },
   {
-    srcImg: '/images/real-life/coffin-willow-banana.jpeg',
+    srcImg: '/real-life/coffin-willow-banana_fuvhvw.jpg',
     author: '@dauphaihau',
     productName: 'Banana Leaf Coffins'
   },
   {
-    srcImg: '/images/real-life/willow-pod-coffin.jpeg',
+    srcImg: '/real-life/willow-pod-coffin_khtmpb.jpg',
     author: '@dauphaihau',
     productName: 'Willow Pod Coffin'
   },
@@ -137,27 +138,27 @@ const data = [
   //   productName: 'Wicker Coffin'
   // },
   {
-    srcImg: '/images/real-life/white-coffin.jpg',
+    srcImg: '/real-life/white-coffin_oamrxl.jpg',
     author: '@dauphaihau',
     productName: 'Child’s Curved Painted'
   },
   {
-    srcImg: '/images/real-life/willow-rounded-coffin.jpeg',
+    srcImg: '/real-life/willow-rounded-coffin_l5simf.jpg',
     author: '@dauphaihau',
     productName: 'Willow Rounded Coffin'
   },
   {
-    srcImg: '/images/real-life/buff-willow-coffin.jpeg',
+    srcImg: '/real-life/buff-willow-coffin_ps2mjo.jpg',
     author: '@dauphaihau',
     productName: 'Buff – Rounded'
   },
   {
-    srcImg: '/images/real-life/gold-willow-coffin-2.jpg',
+    srcImg: '/real-life/gold-willow-coffin-2_oq8hji.jpg',
     author: '@dauphaihau',
     productName: 'Gold Willow Coffin'
   },
   {
-    srcImg: '/images/real-life/seagrass-coffin.jpg',
+    srcImg: '/real-life/seagrass-coffin_xqrerq.jpg',
     author: '@dauphaihau',
     productName: 'Seagrass Coffin'
   },

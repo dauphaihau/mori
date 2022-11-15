@@ -17,7 +17,7 @@
     //    "jsx": "preserve",
     "downlevelIteration": true, /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
     "baseUrl": "./src",
-    "jsx": "preserve"
+    "jsx": "preserve",
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "cypress"]

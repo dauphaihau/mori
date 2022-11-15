@@ -1,7 +1,7 @@
 let inventory = [
   {
     id: '1',
-    categories: ['caskets'],
+    categories: ['casket'],
     name: 'Autumn Oak Hardwood',
     price: '2500',
     colors: ['#7A6255'],
@@ -15,7 +15,7 @@ let inventory = [
   },
   {
     id: '2',
-    categories: ['caskets'],
+    categories: ['casket'],
     name: 'Trinity Oak',
     price: '2100',
     salePrice: '2000',
@@ -30,7 +30,7 @@ let inventory = [
   },
   {
     id: '3',
-    categories: ['caskets'],
+    categories: ['casket'],
     name: 'White Chased Solid Wood',
     price: '2845',
     salePrice: '2600',
@@ -45,7 +45,7 @@ let inventory = [
   },
   {
     id: '4',
-    categories: ['caskets'],
+    categories: ['casket'],
     name: 'Last Supper Hardwood',
     price: '2245',
     salePrice: '2100',
@@ -184,7 +184,9 @@ let inventory = [
     name: 'Wicker Coffins',
     price: '200',
     salePrice: '180',
-    images: ['/images/products/coffin-child1.png', '/images/products/coffin-child1a.png'],
+    // images: ['/images/products/coffin-child1.png', '/images/products/coffin-child1a.png'],
+    images: ['https://res.cloudinary.com/duiehrbms/image/upload/v1668264431/mori-ecommerce/products/coffin-child1_c9le0u.png',
+      'https://res.cloudinary.com/duiehrbms/image/upload/v1668264431/mori-ecommerce/products/coffin-child1a_e9xnjc.png'],
     colors: ['#B99374'],
     description: 'Rustic bands of natural rattan are woven together to create this beautiful wicker coffin. The dark brown colour of this coffin perfectly complements the lightly coloured rope handles and will suit any style of flowers that the coffin happens to be adorned with. Each coffin is made by hand using traditional weaving techniques.',
     brand: 'Aurora',
@@ -199,7 +201,8 @@ let inventory = [
     name: 'Child’s Curved Painted',
     price: '220',
     colors: ['#cfcdcb'],
-    images: ['/images/products/coffin-child2.png'],
+    images: ['https://res.cloudinary.com/duiehrbms/image/upload/v1668264431/mori-ecommerce/products/coffin-child2_nxcqxw.png'],
+    // images: ['/images/products/coffin-child2.png'],
     description: `Our Child’s Curved Painted Willow Coffin features tapered round ends, beautifully plaited edging and natural hand-woven willow handles. We make each Child’s coffins with sensitivity in mind, each one made in our workshops in Somerset using natural willow and using completely natural processes. 
     
    Every wicker coffin is made with the same care and dedication that has driven our family business for over four generations.`,
@@ -426,21 +429,21 @@ let inventory = [
     createdAt: '2022-05-01T14:55:06.641+00:00',
     bestSelling: true
   },
-  {
-    id: '31',
-    categories: ['natural material coffin', 'child coffin'],
-    name: 'Bamboo Coffins',
-    price: '220',
-    salePrice: '202.5',
-    images: ['/images/products/coffin22.png', '/images/products/coffin22a.png'],
-    colors: ['#f3eed7'],
-    description: 'The bamboo weave is interlaced to form an attractive wicker matt that is then woven around a strong natural frame. Bamboo is one of the fastest-growing plants on Earth and has been known to grow to one meter within a day.',
-    brand: 'Batesville',
-    quantity: 10,
-    rating: 4,
-    createdAt: '2022-08-28T14:55:06.641+00:00',
-    bestSelling: false
-  },
+  // {
+  //   id: '31',
+  //   categories: ['natural material coffin', 'child coffin'],
+  //   name: 'Bamboo Coffins',
+  //   price: '220',
+  //   salePrice: '202.5',
+  //   images: ['/images/products/coffin22.png', '/images/products/coffin22a.png'],
+  //   colors: ['#f3eed7'],
+  //   description: 'The bamboo weave is interlaced to form an attractive wicker matt that is then woven around a strong natural frame. Bamboo is one of the fastest-growing plants on Earth and has been known to grow to one meter within a day.',
+  //   brand: 'Batesville',
+  //   quantity: 10,
+  //   rating: 4,
+  //   createdAt: '2022-08-28T14:55:06.641+00:00',
+  //   bestSelling: false
+  // },
   {
     id: '32',
     categories: ['natural material coffin', 'child coffin'],

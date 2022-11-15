@@ -55,7 +55,6 @@ export const isEmptyObject = (obj = {}) => {
   return Object.keys(obj).length === 0
 }
 
-
 export function isEmpty(value) {
   try {
     return typeof value === "undefined" ||
@@ -77,7 +76,7 @@ export const parseJson = (str) => {
 
 export function parseJSON<T>(value: string | null): T | undefined {
   try {
-    return  JSON.parse(value )
+    return JSON.parse(value)
   } catch {
     console.log('parsing error on', { value })
     return undefined
@@ -180,11 +179,13 @@ export const slugify = (string) => {
   .replace(/-+$/, '') // Trim - from end of text
 }
 
-export function titleIfy(slug) {
+export function titleIfy(slug, except = ['and', 'with']) {
   let words = slug.split('-')
   for (let i = 0; i < words.length; i++) {
     let word = words[i]
-    words[i] = word.charAt(0).toUpperCase() + word.slice(1)
+    if (!except.includes(word)) {
+      words[i] = word.charAt(0).toUpperCase() + word.slice(1)
+    }
   }
   return words.join(' ')
 }

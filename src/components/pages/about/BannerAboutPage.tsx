@@ -1,10 +1,16 @@
 import { Box, Divider, Text } from 'core/components';
 import { FC } from 'react';
+import { cn } from "../../../core";
 
 const BannerAboutPage: FC = () => {
   return (
     <Box classes='about-page__banner'>
-      <Box classes='image-banner-frame'>
+      <Box
+        classes={
+          cn('image-banner-frame',
+            "bg-[url('https://res.cloudinary.com/duiehrbms/image/upload/v1668334342/mori-ecommerce/about/banner_rlumwu.webp')]"
+          )}
+      >
         <Box classes='slogan'>
           <Text
             transforms='uppercase'
