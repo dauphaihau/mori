@@ -16,15 +16,25 @@ const PRODUCT_COLORS2 = {
 
 const categoriesData = [
   { "name": "casket", },
-  { "name": "natural material coffin", },
+  { "name": "coffin", },
   { "name": "traditional coffin", },
   { "name": "shrouds", },
-  { "name": "bamboo coffin", },
   { "name": "child coffin", },
   { "name": "baby coffin", },
   { "name": "cremation urns", },
   { "name": "memorial", }
 ]
+// const categoriesData = [
+//   { "name": "casket", },
+//   { "name": "natural material coffin", },
+//   { "name": "traditional coffin", },
+//   { "name": "shrouds", },
+//   { "name": "bamboo coffin", },
+//   { "name": "child coffin", },
+//   { "name": "baby coffin", },
+//   { "name": "cremation urns", },
+//   { "name": "memorial", }
+// ]
 
 const priceData = [
   { id: '0-500', title: '$0-$500' },

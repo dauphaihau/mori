@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from 'next-connect';
+import mongoose from "mongoose";
 
 import Product from '../../../server/models/Product';
 import db from "../../../server/config/db";
@@ -21,6 +22,7 @@ class APIFeatures {
     // const excludeFields = ['page', 'sort', 'limit']
     // excludeFields.forEach(el => delete (queryObj[el]))
 
+    // if (queryObj.category !== 'all') this.query.find({ category: queryObj.category })
     if (queryObj.category !== 'all') this.query.find({ categories: queryObj.category })
     if (queryObj.brand !== 'all') this.query.find({ brand: queryObj.brand })
     if (queryObj.color !== 'all') this.query.find({ colors: queryObj.color })
@@ -108,5 +110,35 @@ handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
     products
   });
 })
+
+handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
+  const mapped = req.body.ids.map(item => mongoose.Types.ObjectId(item))
+
+  // const data = await Product.aggregate().sortByCount("categories");
+  const data = await Product.aggregate([
+    {
+      $group: {
+        _id: '$category',
+        count: { $sum: 1 } // this means that the count will increment by 1
+      }
+    }
+  ]);
+
+
+  console.log('dauphaihau debug: data', data)
+
+  const result = await Product.find({
+    '_id': {
+      $in: mapped
+    }
+  });
+
+  res.json({
+    code: '200',
+    message: 'OK',
+    result
+  });
+  await db.disconnect();
+});
 
 export default handler;

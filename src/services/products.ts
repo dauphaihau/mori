@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "config/config.json";
+import config from "../../config.json";
 
 // const baseUrl = 'https://coffin-ecommerce-app.vercel.app'
 const baseUrl = process.env.BASE_URL
@@ -20,6 +20,17 @@ export const getProductByName = async (params) => {
   try {
     const res = await axios.delete(config.api.product, {
       params,
+    })
+    return await res.data
+  } catch (err) {
+    console.log('err', err)
+  }
+}
+
+export const getProductByIds = async (ids) => {
+  try {
+    const res = await axios.post(baseUrl + config.api.product, {
+      ids,
     })
     return await res.data
   } catch (err) {

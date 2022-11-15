@@ -1,10 +1,15 @@
 import { NextImage, Link, Box, Text, Badge, Row } from 'core/components';
 import { clns, formatDollarUS, slugify } from "core/helpers";
 import Enums from "config/enums";
-import NextImageLoading from "../../core/components/Next/NextImageLoading";
-import { config } from "../../config";
+import { config } from "config";
+import { IProduct } from "types/product";
 
-const Product = ({ data, dataFade }) => {
+type ProductProps = {
+  data: IProduct
+  dataFade?: string
+}
+
+const Product = ({ data, dataFade }: ProductProps) => {
   if (!data) return null
   return (
     <Box

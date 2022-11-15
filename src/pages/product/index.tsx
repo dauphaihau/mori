@@ -55,7 +55,6 @@ export async function getServerSideProps({ query }) {
   // const sort = query.sort || ''
   const price = query.price || ''
 
-  await db.connect();
   const data = await getProducts(
     `?limit=${page * 12}&category=${category}&brand=${brand}&color=${color}&price=${price}&sort=${sort}`
   )

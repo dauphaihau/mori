@@ -21,8 +21,7 @@ const validationSchema = Yup.object().shape({
   .min(6, 'Password must be at least 6 characters'),
 });
 
-interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {
-}
+interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
 export default function UserAuthForm({ className }: UserAuthFormProps) {
 

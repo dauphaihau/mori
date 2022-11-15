@@ -11,9 +11,7 @@ const ProductPage = ({ product, productByCategory, imageProps }) => {
   return (
     <Box classes='mx-auto max-w-[120rem] w-full laptop:w-[95%] px-2 tablet:px-6 laptop:px-0 '>
       <ProductInfo product={product}/>
-
-      {/*<CustomerReview/>*/}
-      <ProductRelated product={productByCategory}/>
+      <ProductRelated products={productByCategory}/>
     </Box>
   )
 }
@@ -43,25 +41,21 @@ const ProductPage = ({ product, productByCategory, imageProps }) => {
 
 export async function getServerSideProps({ params }) {
   const name = titleIfy(params.name)
-
-  await db.connect();
   console.log('dauphaihau debug: name', name)
-  const product = await Product.findOne({ name }).lean();
-  await db.disconnect();
 
+  // @ts-ignore
+  const product = await Product.findOne({ name }).lean();
   console.log('dauphaihau debug: product', product)
 
   const productByCategory = await Product.find({ categories: product.categories[0] }).limit(4);
-
   console.log('dauphaihau debug: productByCategory', productByCategory)
 
   return {
-      props: {
-       product: JSON.parse(JSON.stringify(product)),
-       productByCategory: JSON.parse(JSON.stringify(productByCategory))
-      }
+    props: {
+      product: JSON.parse(JSON.stringify(product)),
+      productByCategory: JSON.parse(JSON.stringify(productByCategory))
+    }
   };
 }
-
 
 export default ProductPage

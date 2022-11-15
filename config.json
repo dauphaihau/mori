@@ -15,7 +15,8 @@
       "logout": "/user/backoffice/logout",
       "refreshToken": "/user/token"
     },
-    "product": "/api/product"
+    "product": "/api/product",
+    "productHomepage": "/api/thunha"
   },
   "cookies": {
     "expiredAt": "a8302fcfb5dd1a1506ab3555277110e6",

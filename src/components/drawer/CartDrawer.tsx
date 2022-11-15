@@ -7,6 +7,7 @@ import { formatDollarUS, slugify, } from 'core/helpers';
 import { Button, QuantityPicker, Drawer, Link, Box, Col, Row, Text, NextImage } from 'core/components';
 import Enums from "config/enums";
 import getStripe from "../../lib/get-stripejs";
+import { config } from "config";
 
 export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
   const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
@@ -85,7 +86,7 @@ export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
                       <NextImage
                         width={96}
                         height={96}
-                        src={item.images[0]}
+                        src={config.hostStaticSource + item.images[0]}
                         alt={item.name}
                         className={'h-24 w-24 tablet:h-28 tablet:w-28 m-0'}
                         objectFit={'contain'}

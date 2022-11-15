@@ -3,6 +3,7 @@
     "categories": [
       "casket"
     ],
+    "category": "casket",
     "name": "Autumn Oak Hardwood",
     "price": 2500,
     "colors": [
@@ -22,6 +23,7 @@
     "categories": [
       "casket"
     ],
+    "category": "casket",
     "name": "Clarksburg Wooden Casket",
     "price": 7575,
     "colors": [
@@ -41,6 +43,7 @@
     "categories": [
       "casket"
     ],
+    "category": "casket",
     "name": "Trinity Oak",
     "price": 2100,
     "salePrice": 2000,
@@ -61,6 +64,7 @@
     "categories": [
       "casket"
     ],
+    "category": "casket",
     "name": "White Chased Solid Wood",
     "price": 2845,
     "salePrice": 2600,
@@ -81,6 +85,7 @@
     "categories": [
       "casket"
     ],
+    "category": "casket",
     "name": "Last Supper Hardwood",
     "price": 2245,
     "salePrice": 2100,
@@ -101,6 +106,7 @@
     "categories": [
       "natural material coffin"
     ],
+    "category": "coffin",
     "name": "Willow Pod Coffin",
     "price": 550,
     "salePrice": 520,
@@ -121,6 +127,7 @@
     "categories": [
       "traditional coffin"
     ],
+    "category": "traditional coffin",
     "name": "Shannon",
     "price": 895,
     "images": [
@@ -140,6 +147,7 @@
     "categories": [
       "natural material coffin"
     ],
+    "category": "coffin",
     "name": "Oval Walnut Tree Coffin",
     "price": 800,
     "images": [
@@ -159,6 +167,7 @@
     "categories": [
       "natural material coffin"
     ],
+    "category": "coffin",
     "name": "Oval Maple Tree Coffin",
     "price": 750,
     "images": [
@@ -178,6 +187,7 @@
     "categories": [
       "traditional coffin"
     ],
+    "category": "traditional coffin",
     "name": "Traditional Wreath Mould Lid",
     "price": 445,
     "images": [
@@ -197,6 +207,7 @@
     "categories": [
       "traditional coffin"
     ],
+    "category": "traditional coffin",
     "name": "Traditional Box Lid Coffin",
     "price": 425,
     "images": [
@@ -216,6 +227,7 @@
     "categories": [
       "traditional coffin"
     ],
+    "category": "traditional coffin",
     "name": "Traditional High raised Lid Coffin",
     "price": 535,
     "salePrice": 500,
@@ -233,6 +245,7 @@
     "bestSelling": false
   },
   {
+    "category": "shrouds",
     "categories": [
       "shrouds",
       "natural material coffin"
@@ -261,6 +274,7 @@
       "natural material coffin",
       "bamboo coffin"
     ],
+    "category": "coffin",
     "name": "Simple Willow Coffin",
     "price": 495,
     "salePrice": 450,
@@ -283,6 +297,7 @@
       "natural material coffin",
       "bamboo coffin"
     ],
+    "category": "coffin",
     "name": "Bamboo Round Coffin",
     "price": 415,
     "colors": [
@@ -303,6 +318,7 @@
       "natural material coffin",
       "bamboo coffin"
     ],
+    "category": "coffin",
     "name": "Bamboo Lattice Round Coffin",
     "price": 485,
     "colors": [
@@ -323,6 +339,7 @@
       "natural material coffin",
       "child coffin"
     ],
+    "category": "child coffin",
     "name": "Wicker Coffins",
     "price": 200,
     "salePrice": 180,
@@ -345,6 +362,7 @@
       "natural material coffin",
       "child coffin"
     ],
+    "category": "child coffin",
     "name": "Child’s Curved Painted",
     "price": 220,
     "colors": [
@@ -366,6 +384,7 @@
       "natural material coffin",
       "baby coffin"
     ],
+    "category": "baby coffin",
     "name": "Baby Crib Casket",
     "colors": [
       "#f3eed7"
@@ -387,6 +406,7 @@
       "natural material coffin",
       "baby coffin"
     ],
+    "category": "baby coffin",
     "name": "Cane Infant Coffin",
     "colors": [
       "#f3eed7"
@@ -406,6 +426,7 @@
     "categories": [
       "cremation urns"
     ],
+    "category": "cremation urns",
     "name": "Willow Round",
     "price": 65,
     "colors": [
@@ -425,6 +446,7 @@
     "categories": [
       "cremation urns"
     ],
+    "category": "cremation urns",
     "name": "Pandanus Round Upright",
     "price": 65,
     "colors": [
@@ -444,6 +466,7 @@
     "categories": [
       "cremation urns"
     ],
+    "category": "cremation urns",
     "name": "Traditional Octagonal",
     "price": 65,
     "images": [
@@ -463,6 +486,7 @@
     "categories": [
       "cremation urns"
     ],
+    "category": "cremation urns",
     "name": "Traditional – Dark Oak",
     "price": 70,
     "colors": [
@@ -482,6 +506,7 @@
     "categories": [
       "cremation urns"
     ],
+    "category": "cremation urns",
     "name": "Round Bamboo",
     "price": 65,
     "colors": [
@@ -501,6 +526,7 @@
     "categories": [
       "natural material coffin"
     ],
+    "category": "coffin",
     "name": "Buff Rounded",
     "price": 750,
     "colors": [
@@ -520,6 +546,7 @@
     "categories": [
       "natural material coffin"
     ],
+    "category": "coffin",
     "name": "Willow Rounded Coffin",
     "price": 505,
     "colors": [
@@ -540,6 +567,7 @@
       "natural material coffin",
       "shrouds"
     ],
+    "category": "shrouds",
     "name": "Shroud and Wicker stretcher",
     "price": 475,
     "colors": [
@@ -560,6 +588,7 @@
       "natural material coffin",
       "child coffin"
     ],
+    "category": "child coffin",
     "name": "Gold Willow Coffin",
     "price": 220,
     "salePrice": 198.32,
@@ -582,6 +611,7 @@
       "natural material coffin",
       "child coffin"
     ],
+    "category": "child coffin",
     "name": "Cane Coffins",
     "price": 290,
     "salePrice": 280,
@@ -604,6 +634,7 @@
       "natural material coffin",
       "child coffin"
     ],
+    "category": "child coffin",
     "name": "Seagrass Coffins",
     "price": 270,
     "salePrice": 200,
@@ -626,6 +657,7 @@
       "natural material coffin",
       "baby coffin"
     ],
+    "category": "baby coffin",
     "name": "Banana Leaf Coffins",
     "price": 182,
     "salePrice": 150.4,
@@ -648,6 +680,7 @@
       "natural material coffin",
       "child coffin"
     ],
+    "category": "child coffin",
     "name": "Bamboo Coffins",
     "price": 220,
     "salePrice": 202.5,
@@ -670,6 +703,7 @@
       "natural material coffin",
       "child coffin"
     ],
+    "category": "child coffin",
     "name": "Banana Leaf Curved",
     "price": 543,
     "salePrice": null,
@@ -692,6 +726,7 @@
       "natural material coffin",
       "child coffin"
     ],
+    "category": "child coffin",
     "name": "White Wicker",
     "price": 700,
     "salePrice": null,
@@ -714,6 +749,7 @@
       "natural material coffin",
       "child coffin"
     ],
+    "category": "child coffin",
     "name": "Round ended Willow Coffin",
     "price": 700,
     "salePrice": null,
@@ -735,6 +771,7 @@
       "natural material coffin",
       "child coffin"
     ],
+    "category": "child coffin",
     "name": "Somerset Willow Coffin",
     "price": 700,
     "salePrice": null,
@@ -757,6 +794,7 @@
       "natural material coffin",
       "child coffin"
     ],
+    "category": "child coffin",
     "name": "Water Hyacinth Coffin",
     "price": 680,
     "salePrice": null,
@@ -777,6 +815,7 @@
     "categories": [
       "cremation urns"
     ],
+    "category": "cremation urns",
     "name": "Pure Black Modern Urn",
     "price": 199,
     "colors": [
@@ -798,6 +837,7 @@
       "natural material coffin",
       "shrouds"
     ],
+    "category": "shrouds",
     "name": "Willow Carrier",
     "price": 349,
     "colors": [
@@ -818,6 +858,7 @@
     "categories": [
       "traditional coffin"
     ],
+    "category": "traditional coffin",
     "name": "Premium Traditional Casket",
     "price": 795,
     "colors": [
@@ -834,6 +875,7 @@
     "bestSelling": false
   },
   {
+    "category": "memorial",
     "categories": [
       "memorial"
     ],
@@ -853,6 +895,7 @@
     "bestSelling": false
   },
   {
+    "category": "memorial",
     "categories": [
       "memorial"
     ],
@@ -872,6 +915,7 @@
     "bestSelling": true
   },
   {
+    "category": "memorial",
     "categories": [
       "memorial"
     ],
@@ -891,6 +935,7 @@
     "bestSelling": true
   },
   {
+    "category": "memorial",
     "categories": [
       "memorial"
     ],

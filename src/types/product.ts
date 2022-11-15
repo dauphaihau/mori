@@ -7,8 +7,9 @@ export interface IProduct {
   rating: number,
   categories: string[]
   images: string[],
-  price: string | number,
+  price: number,
   colors: string[],
+  sold: number,
   brand: string,
   quantity: number,
   bestSelling: boolean,

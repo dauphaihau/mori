@@ -10,8 +10,11 @@ import BannerSlogan from "../components/pages/home/BannerSlogan";
 import FeedBack from "../components/pages/home/FeedBack";
 import Product from 'server/models/Product';
 import db from 'server/config/db';
+import { getProductByIds, getProducts } from "../services/products";
+import config from "../../config.json";
 
 const HomePage = ({ inventoryData = [], categoriesData }) => {
+  console.log('dauphaihau debug: categories-data', categoriesData)
   return (
     <>
       <Seo/>
@@ -19,8 +22,8 @@ const HomePage = ({ inventoryData = [], categoriesData }) => {
       <BannerSlogan/>
       <SpecialProduct data={inventoryData[13]}/>
       <FlashSaleProducts inventoryData={inventoryData}/>
-      <ShopByCategories categoriesData={categoriesData}/>
-      <RealLifeImages categoriesData={categoriesData}/>
+      {/*<ShopByCategories categoriesData={categoriesData}/>*/}
+      {/*<RealLifeImages categoriesData={categoriesData}/>*/}
       <ClientLogo/>
       <FeedBack/>
       <Contact/>
@@ -28,9 +31,42 @@ const HomePage = ({ inventoryData = [], categoriesData }) => {
   )
 }
 
+// export async function getStaticProps() {
+//   const inventory = await fetchInventory()
+//   const arr = ['637240340ceb462471b441ec', '637240340ceb462471b441d3']
+//   // const product = Product.find()
+//   const res = await getProductByIds(arr)
+//   // console.log('dauphaihau debug: http-127-0-0-1-3000-config-api-product', 'http://127.0.0.1:3000' + config.api.product)
+//   // const res = await fetch('http://127.0.0.1:3000' + config.api.product, {
+//   //   method: 'DELETE',
+//   //   body: JSON.stringify(arr)
+//   // })
+//
+//   console.log('dauphaihau debug: res', res)
+//   const categoriesData = await inventoryCategories()
+//   return {
+//     props: {
+//       inventoryData: inventory,
+//       categoriesData: categoriesData
+//     }
+//   }
+// }
+
 export async function getStaticProps() {
   const inventory = await fetchInventory()
-  const categoriesData = await inventoryCategories()
+  const arr = ['637240340ceb462471b441ec', '637240340ceb462471b441d3']
+  // const product = Product.find()
+
+  // const res = await getProductByIds(arr)
+
+  // console.log('dauphaihau debug: http-127-0-0-1-3000-config-api-product', 'http://127.0.0.1:3000' + config.api.product)
+  // const res = await fetch('http://127.0.0.1:3000' + config.api.product, {
+  //   method: 'DELETE',
+  //   body: JSON.stringify(arr)
+  // })
+
+  // console.log('dauphaihau debug: res', res)
+  const categoriesData = await inventoryCategories(inventory)
   return {
     props: {
       inventoryData: inventory,
