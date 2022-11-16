@@ -10,6 +10,7 @@ import { filterSearch } from "./Filters";
 import useIntersectionObserver from 'core/hooks/useIntersectionObserver';
 
 const Products = ({ data }) => {
+  console.log('dauphaihau debug: data', data)
   const { gridView } = useFilterContext()
   // const { gridView, filtered_products: products } = useFilterContext()
   const [isLoaded, setIsLoaded] = useState(false);
@@ -196,12 +197,12 @@ const Products = ({ data }) => {
           <Text
             h1
             classes='text-3xl laptop:text-xl font-light'
-          >{products.length} results found</Text>
+          >{products?.length} results found</Text>
           {/*>{total} results found</Text>*/}
           <Sorter/>
         </Row>
         {
-          products.length < 1
+          products && products.length < 1
             ? <Text>Sorry, no products matched your search...</Text>
             : <>
               {ProductList()}
