@@ -17,19 +17,19 @@ interface ProductListPageProps {
   products: IProduct[]
 }
 
-const ProductListPage: NextPage<ProductListPageProps> = ({ products }) => {
+const ProductListPage: NextPage<ProductListPageProps> = ({ products = [] }) => {
   return (
     <>
       <Seo description='Mori ECommerce - All products'/>
 
-      {/*<FilterDrawer/>*/}
+      <FilterDrawer/>
       <Box classes='hidden laptop:block layout desktop:w-[96%] pt-16'>
         <Breadcrumb
           classes='mb-6 pl-1'
           // classes='mb-6 sticky top-20'
           data={dataBreadcrumb}
         />
-        {/*<Products data={products}/>*/}
+        <Products data={products}/>
       </Box>
 
       {/*Mobile - Tablet version*/}

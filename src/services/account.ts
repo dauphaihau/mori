@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getHeaders } from 'lib/getHeaders';
 import { encryptPassword } from 'lib/crypto';
-import config from 'config/config.json';
+import { config } from "config";
 import { handleSetCookie } from 'lib/cookie';
 import api from 'lib/axios';
 
