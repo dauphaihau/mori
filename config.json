@@ -17,7 +17,8 @@
     },
     "product": {
       "_": "/api/product",
-      "categories": "/api/product/categories"
+      "categories": "/api/product/categories",
+      "detail": "/api/product/detail"
     }
   },
   "cookies": {

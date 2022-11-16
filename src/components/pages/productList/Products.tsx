@@ -10,7 +10,6 @@ import { filterSearch } from "./Filters";
 import useIntersectionObserver from 'core/hooks/useIntersectionObserver';
 
 const Products = ({ data }) => {
-  console.log('dauphaihau debug: data', data)
   const { gridView } = useFilterContext()
   // const { gridView, filtered_products: products } = useFilterContext()
   const [isLoaded, setIsLoaded] = useState(false);

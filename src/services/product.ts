@@ -12,6 +12,20 @@ export const productService = {
       console.log('err', err)
     }
   },
+
+  getDetailProduct: async (name) => {
+    try {
+      const res = await api.get(config.api.product.detail, {
+        params: {
+          name
+        }
+      })
+      return res.data
+    } catch (err) {
+      console.log('err', err)
+    }
+  },
+
   // getProductByName: async (list = []) => {
   //   try {
   //     const res = await api.post(config.api.product._, {

@@ -44,7 +44,9 @@ const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog 
 
     async function handleSearch() {
       const data = await productService.getProductByName({ search: searchValue, limit: 6 })
-      setProducts(data.products)
+      if (data) {
+        setProducts(data.products)
+      }
     }
 
     handleSearch()

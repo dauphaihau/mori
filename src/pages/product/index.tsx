@@ -34,10 +34,7 @@ export default function ProductListPage<NextPage>() {
         price: router.query.price || '',
       }
       const res = await productService.getProducts(params)
-      // setProducts(res.products)
       setData(res)
-      console.log('dauphaihau debug: res', res)
-      // console.log('dauphaihau debug: products', products)
     }
     initLoad()
 
@@ -56,7 +53,7 @@ export default function ProductListPage<NextPage>() {
         />
 
         {
-          data && data.products.length > 0 &&
+          data?.products && data.products.length > 0 &&
           <Products data={data}/>
         }
       </Box>
