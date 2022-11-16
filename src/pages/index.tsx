@@ -54,9 +54,9 @@ export async function getStaticProps() {
   // const categoriesData = await inventoryCategories(inventory)
   // console.log('dauphaihau debug: categories-data', categoriesData)
 
-  const arr = ['62b82018a62d7c58e1c6a8eb']
-  const res = await productService.getProductByName(arr)
-  console.log('dauphaihau debug: res', res)
+  // const arr = ['62b82018a62d7c58e1c6a8eb']
+  // const res = await productService.getProductByIds(arr)
+  // console.log('dauphaihau debug: res', res)
 
   const categories = await productService.getCategories()
 

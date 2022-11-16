@@ -5,7 +5,7 @@ import { clns, debounce } from 'core/helpers';
 import { Box, Portal } from 'core/components';
 import SearchInput from './SearchInput';
 import ResultSearch from './ResultSearch';
-import { getProductByName } from "../../../services/product";
+import { productService } from "../../../services/product";
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable'
 import axios from "axios";
@@ -43,7 +43,7 @@ const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog 
     if (!searchValue) return;
 
     async function handleSearch() {
-      const data = await getProductByName({ search: searchValue, limit: 6 })
+      const data = await productService.getProductByName({ search: searchValue, limit: 6 })
       setProducts(data.products)
     }
 

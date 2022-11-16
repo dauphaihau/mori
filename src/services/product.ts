@@ -12,26 +12,26 @@ export const productService = {
       console.log('err', err)
     }
   },
-  getProductByName: async (list = []) => {
-    try {
-      const res = await api.post(config.api.product._, {
-        list,
-      })
-      return await res.data
-    } catch (err) {
-      console.log('err', err)
-    }
-  },
-  // getProductByIds: async (ids) => {
+  // getProductByName: async (list = []) => {
   //   try {
   //     const res = await api.post(config.api.product._, {
-  //       ids,
+  //       list,
   //     })
   //     return await res.data
   //   } catch (err) {
   //     console.log('err', err)
   //   }
   // },
+  getProductByIds: async (ids) => {
+    try {
+      const res = await api.post(config.api.product._, {
+        ids,
+      })
+      return await res.data
+    } catch (err) {
+      console.log('err', err)
+    }
+  },
   getCategories: async () => {
     try {
       const res = await api.get(config.api.product.categories)
@@ -40,12 +40,12 @@ export const productService = {
       console.log('err', err)
     }
   },
-  // getProductByName: async (params) => {
-  //   try {
-  //     const res = await api.delete(config.api.product._, { params })
-  //     return await res.data
-  //   } catch (err) {
-  //     console.log('err', err)
-  //   }
-  // },
+  getProductByName: async (params) => {
+    try {
+      const res = await api.delete(config.api.product._, { params })
+      return await res.data
+    } catch (err) {
+      console.log('err', err)
+    }
+  },
 }
