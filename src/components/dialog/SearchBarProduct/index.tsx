@@ -5,7 +5,7 @@ import { clns, debounce } from 'core/helpers';
 import { Box, Portal } from 'core/components';
 import SearchInput from './SearchInput';
 import ResultSearch from './ResultSearch';
-import { getProductByName } from "../../../services/products";
+import { getProductByName } from "../../../services/product";
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable'
 import axios from "axios";

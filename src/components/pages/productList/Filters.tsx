@@ -4,7 +4,6 @@ import { useFilterContext } from 'context/filterContext';
 import { clns, formatDollarUS, getUniqueValues, titleIfy } from 'core/helpers';
 import { Text, Box, Button, Checkbox, Link } from 'core/components';
 import { useRouter } from 'next/router';
-import { getCategories } from "../../../services/products";
 import Enums, { PRODUCT_COLORS } from "../../../config/enums";
 
 const PRODUCT_COLORS2 = {
@@ -15,15 +14,16 @@ const PRODUCT_COLORS2 = {
 }
 
 const categoriesData = [
-  { "name": "casket", },
-  { "name": "coffin", },
-  { "name": "traditional coffin", },
-  { "name": "shrouds", },
-  { "name": "child coffin", },
-  { "name": "baby coffin", },
-  { "name": "cremation urns", },
-  { "name": "memorial", }
+  { "name": "casket" },
+  { "name": "coffin" },
+  { "name": "traditional coffin" },
+  { "name": "shrouds" },
+  { "name": "child coffin" },
+  { "name": "baby coffin" },
+  { "name": "cremation urns" },
+  { "name": "memorial" }
 ]
+
 // const categoriesData = [
 //   { "name": "casket", },
 //   { "name": "natural material coffin", },
@@ -63,7 +63,7 @@ export const filterSearch = ({ router, ...res }) => {
   router.push({ pathname, query }, undefined, { scroll: false })
 }
 
-const Filters = () => {
+export default function Filters() {
 // const Filters = ({ launchSticky, quantityProd }) => {
   const [category, setCategory] = useState('')
   const [brand, setBrand] = useState('')
@@ -153,7 +153,7 @@ const Filters = () => {
   const colors = getUniqueValues(all_products, 'colors')
 
   return (
-      // <Box classes={`${launchSticky ? 'laptop:sticky top-[12%] h-full': ''}`}>
+    // <Box classes={`${launchSticky ? 'laptop:sticky top-[12%] h-full': ''}`}>
     <Box classes='filters sticky top-[80px] h-auto max-h-[700px] desktop:max-h-[900px] overflow-scroll pl-1'>
       <Box classes='filters__item'>
         <Text
@@ -161,9 +161,9 @@ const Filters = () => {
           classes='filters__title'
         >Categories</Text>
         <Box>
-          {categories?.map(({ name }, idz) => (
+          {categories?.map(({ name }, idx) => (
             <button
-              key={idz}
+              key={idx}
               type='button'
               className={clns('filter__btn hover:text-black', category === name && 'is-selected')}
               name='category'
@@ -279,4 +279,3 @@ const Filters = () => {
   );
 }
 
-export default Filters;

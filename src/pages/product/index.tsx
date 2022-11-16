@@ -4,8 +4,7 @@ import Seo from 'components/common/Seo';
 import Enums from "config/enums";
 import FiltersSortMobile from "../../components/pages/productList/FiltersSortMobile";
 import Products from "../../components/pages/productList/Products";
-import db from "../../server/config/db";
-import { getProducts } from "../../services/products";
+import { productService } from "services/product";
 import { GetServerSideProps, NextPage } from "next";
 import { IProduct } from "../../types/product";
 
@@ -15,12 +14,10 @@ const dataBreadcrumb = [
 ];
 
 interface ProductListPageProps {
-  data: IProduct[]
+  products: IProduct[]
 }
 
-
-const ProductListPage: NextPage<ProductListPageProps> = ({ data }) => {
-
+const ProductListPage: NextPage<ProductListPageProps> = ({ products }) => {
   return (
     <>
       <Seo description='Mori ECommerce - All products'/>
@@ -32,7 +29,7 @@ const ProductListPage: NextPage<ProductListPageProps> = ({ data }) => {
           // classes='mb-6 sticky top-20'
           data={dataBreadcrumb}
         />
-        <Products data={data}/>
+        <Products data={products}/>
       </Box>
 
       {/*Mobile - Tablet version*/}
@@ -41,36 +38,21 @@ const ProductListPage: NextPage<ProductListPageProps> = ({ data }) => {
   );
 }
 
-const removeUndefinedForNextJsSerializing = <T,>(props: T): T =>
-  Object.fromEntries(
-    Object.entries(props).filter(([, value]) => value !== undefined),
-) as T;
-
 export async function getServerSideProps({ query }) {
-  const page: any = query.page || 1
-  const category = query.category || 'all'
-  const brand = query.brand || 'all'
-  const color = query.color || 'all'
-  const sort = query.sort || '-createdAt'
-  // const sort = query.sort || ''
-  const price = query.price || ''
+  const params = {
+    page: query.page || 1,
+    category: query.category || 'all',
+    brand: query.brand || 'all',
+    color: query.color || 'all',
+    sort: query.sort || '-createdAt',
+    price: query.price || '',
+  }
 
-  const data = await getProducts(
-    `?limit=${page * 12}&category=${category}&brand=${brand}&color=${color}&price=${price}&sort=${sort}`
-  )
-
-  // const test = removeUndefinedForNextJsSerializing({
-  //   data: await getProducts(
-  //     // `?limit=${page * 6}`
-  //     `?limit=${page * 6}&category=${category}&brand=${brand}&color=${color}&sort=${sort}`
-  //   )
-  // })
+  const products = await productService.getProducts(params)
 
   return {
-    // props: test ,
     props: {
-      data,
-      // products: products.map(db.convertDocToObj),
+      products,
       // categories: categoriesData
     },
   };

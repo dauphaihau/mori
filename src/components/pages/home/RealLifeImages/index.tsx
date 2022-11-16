@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Box, NextImage, Text } from 'core/components';
 import { clns } from 'core/helpers';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
@@ -7,8 +7,7 @@ import { useFadeIn, useMediaQuery } from 'core/hooks';
 import FadeInSection from "components/common/FadeInSection";
 import { config } from "config";
 
-const RealLifeImages = ({ categoriesData = [] }) => {
-
+const RealLifeImages: FC = () => {
   const [viewportRef, embla] = useEmblaCarousel({
     align: 'start',
     skipSnaps: false

@@ -4,7 +4,6 @@ import { fetchInventory } from 'assets/data/InventoryData/provider/inventoryProv
 import { IProduct } from "types/product";
 import Enums from "../config/enums";
 import useSafeContext from "../core/hooks/useSafeContext";
-import { type } from "os";
 
 const initialState: FilterState = {
   showFiltersDrawer: false,

@@ -15,8 +15,10 @@
       "logout": "/user/backoffice/logout",
       "refreshToken": "/user/token"
     },
-    "product": "/api/product",
-    "productHomepage": "/api/thunha"
+    "product": {
+      "_": "/api/product",
+      "categories": "/api/product/categories"
+    }
   },
   "cookies": {
     "expiredAt": "a8302fcfb5dd1a1506ab3555277110e6",
@@ -26,6 +28,10 @@
   "token": {
     "tokenLife": 3600,
     "refreshTokenLife": 604800000
+  },
+  "request": {
+    "timeoutView": 35000,
+    "timeoutRequest": 30000
   },
   "hostStaticSource": "https://res.cloudinary.com/duiehrbms/image/upload/v1668264431/mori-ecommerce"
 }

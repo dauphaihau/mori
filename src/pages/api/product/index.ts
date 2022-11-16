@@ -35,17 +35,17 @@ class APIFeatures {
       const queryRangeList = arrRangePrice.map(item => {
         console.log('dauphaihau debug: item', item.split('-'))
         const [a, b] = item.split('-')
-          if (b) {
-            return {
-              "$and": [
-                { "price": { "$gt": Number(a) } },
-                { "price": { "$lte": Number(b) } }
-              ]
-            }
-          }
+        if (b) {
           return {
-            "$and": [{ "price": { "$gte": Number(a) } }]
+            "$and": [
+              { "price": { "$gt": Number(a) } },
+              { "price": { "$lte": Number(b) } }
+            ]
           }
+        }
+        return {
+          "$and": [{ "price": { "$gte": Number(a) } }]
+        }
       })
       this.query.find({ "$or": queryRangeList })
     }
@@ -74,13 +74,13 @@ class APIFeatures {
 }
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
+  await db.connect();
   const features = new APIFeatures(Product.find(), req.query)
   .filtering()
   .sorting()
   .paginating()
   const products = await features.query
   // const countQuery = await features.query.count()
-
 
   // features.query.countDocuments(features.queryString, function countResults(err, result) {
   //   if (err) {
@@ -90,6 +90,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   // });
 
   const total = await Product.countDocuments()
+  await db.disconnect();
   // console.log('dauphaihau debug: products', products)
   res.json({
     code: '200',
@@ -112,26 +113,16 @@ handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  const mapped = req.body.ids.map(item => mongoose.Types.ObjectId(item))
+  console.log('dauphaihau debug: req-body', req.body)
+  // const mapped = req.body.ids.map(item => mongoose.Types.ObjectId(item))
 
-  // const data = await Product.aggregate().sortByCount("categories");
-  const data = await Product.aggregate([
-    {
-      $group: {
-        _id: '$category',
-        count: { $sum: 1 } // this means that the count will increment by 1
-      }
-    }
-  ]);
+  // console.log('dauphaihau debug: mapped', mapped)
+  // console.log('dauphaihau debug: data', data)
 
+  const result = await Product.find({ 'name': { $in: [ 'Autumn Oak Hardwood' ] } });
+  // const result = await Product.find({ '_id': { $in: mapped } });
 
-  console.log('dauphaihau debug: data', data)
-
-  const result = await Product.find({
-    '_id': {
-      $in: mapped
-    }
-  });
+  console.log('dauphaihau debug: result', result)
 
   res.json({
     code: '200',

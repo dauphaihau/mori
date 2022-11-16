@@ -3,6 +3,7 @@ import { getHeaders } from 'lib/getHeaders';
 import { encryptPassword } from 'lib/crypto';
 import config from 'config/config.json';
 import { handleSetCookie } from 'lib/cookie';
+import api from 'lib/axios';
 
 export const accountService = {
   register: async (values) => {
@@ -24,7 +25,8 @@ export const accountService = {
     const { password } = values
     const modifiedValues = { ...values, password: encryptPassword(password, config.cryptoKey) }
     try {
-      const { data: { data } } = await axios.post(config.api.account.login, modifiedValues);
+      const { data: { data } } = await axios.post(config.api.account.login, modifiedValues); // client ??
+      // const { data: { data } } = await api.post(config.api.account.login, modifiedValues); // method server on client, error ?
       handleSetCookie(config.cookies.auth, data.auth)
       handleSetCookie(config.cookies.profile, data.profile)
       return { data, isLoading: !data  };
