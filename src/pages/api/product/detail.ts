@@ -8,11 +8,8 @@ const handler = nc();
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   await db.connect();
-  const value = req.query
-  console.log('dauphaihau debug: value', value)
-  console.log('dauphaihau debug: req-query', req.query.name)
-
   const product = await Product.findOne({ name: req.query.name }).lean();
+  console.log('dauphaihau debug: product', product)
 
   await db.disconnect();
   // console.log('dauphaihau debug: products', products)

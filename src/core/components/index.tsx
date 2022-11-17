@@ -8,8 +8,10 @@ export { default as Portal} from './Portal'
 export { default as Drawer} from './Drawer'
 export { default as Badge} from './Badge'
 export { default as Table} from './Table'
+// export { default as Loading} from './Loading'
 
 
+export * from './Loading'
 export * from './Layout'
 // export * from './Table'
 export * from './Next'

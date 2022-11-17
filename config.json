@@ -18,7 +18,8 @@
     "product": {
       "_": "/api/product",
       "categories": "/api/product/categories",
-      "detail": "/api/product/detail"
+      "detail": "/api/product/detail",
+      "related": "/api/product/related"
     }
   },
   "cookies": {
