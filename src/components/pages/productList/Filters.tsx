@@ -122,18 +122,18 @@ export default function Filters() {
     router.push('/product', undefined, { scroll: false })
   }
 
-  const {
-    filters: {
-      // brand,
-      // category,
-      // color,
-      minPrice, maxPrice, price
-    },
-    all_products,
-    updateFilters, clearFilters,
-  } = useFilterContext()
-
-  const colors = getUniqueValues(all_products, 'colors')
+  // const {
+  //   filters: {
+  //     // brand,
+  //     // category,
+  //     // color,
+  //     minPrice, maxPrice, price
+  //   },
+  //   all_products,
+  //   updateFilters, clearFilters,
+  // } = useFilterContext()
+  //
+  // const colors = getUniqueValues(all_products, 'colors')
 
   return (
     <Box classes='filters sticky top-[80px] h-auto max-h-[700px] desktop:max-h-[900px] overflow-scroll pl-1'>

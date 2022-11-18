@@ -1,13 +1,25 @@
 import React from 'react';
 import { NextImage, Box, Col, Link, Row, Text } from 'core/components';
 import { formatDollarUS, slugify } from 'core/helpers';
-import Enums from "../../../config/enums";
+import Enums from "config/enums";
 import { config } from "config";
 
 const ResultSearch = ({ searchValue, products }) => {
 
   const renderResult = () => {
     if (!searchValue) return null;
+    if (products.length === 0) {
+      return (
+        <Box classes='laptop:pt-4'>
+          <Text classes='mb-2'>Products</Text>
+          <Text classes='border-t py-4'
+                data-testid="noResultsText"
+          >
+            No results could be found
+          </Text>
+        </Box>
+      )
+    }
     if (products.length) {
     // if (products && products.length > 0) {
       return (
@@ -83,16 +95,6 @@ const ResultSearch = ({ searchValue, products }) => {
         </Box>
       )
     }
-    return (
-      <Box classes='laptop:pt-4'>
-        <Text classes='mb-2'>Products</Text>
-        <Text classes='border-t py-4'
-              data-testid="noResultsText"
-        >
-          No results could be found
-        </Text>
-      </Box>
-    )
   }
 
   return (

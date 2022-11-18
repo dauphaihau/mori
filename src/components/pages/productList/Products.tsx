@@ -116,10 +116,7 @@ const Products = ({ data }) => {
       return (
         <>
           <Grid
-            gap={4}
-            sx={1}
-            md={2}
-            lg={3}
+            gap={4} sx={1} md={2} lg={3}
             classes={clns(isLoaded && 'fade-in-start', 'product-list')}
           >
             {
@@ -186,8 +183,7 @@ const Products = ({ data }) => {
     <>
       {
         products && products.length < 1
-          ? 'loading'
-          // ? <Text>Sorry, no products matched your search...</Text>
+          ? <Text>Sorry, no products matched your search...</Text>
           : <>
             {ProductList()}
             {/*<ProductList/>*/}

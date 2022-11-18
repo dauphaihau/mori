@@ -33,12 +33,16 @@ const NextImageLoading = ({
 
   console.log('dauphaihau debug: status', status)
 
-  const handleImageLoad = (e) => {
-    console.log('dauphaihau debug: e-natural-width', e.naturalWidth)
-    console.log('dauphaihau debug: e-natural-height', e.naturalHeight)
-    console.log('dauphaihau debug: loaddd', e)
-    setStatus('complete')
-  };
+  // const handleImageLoad = (e) => {
+  //   console.log('dauphaihau debug: e-natural-width', e.naturalWidth)
+  //   console.log('dauphaihau debug: e-natural-height', e.naturalHeight)
+  //   console.log('dauphaihau debug: loaddd', e)
+  //   setStatus('complete')
+  // };
+
+  const handleLoad = () => {
+    console.log('dauphaihau debug: loadddd')
+  }
 
   return (
     <figure
@@ -60,6 +64,9 @@ const NextImageLoading = ({
         width={width}
         height={height}
         alt={alt}
+        onLoad={(e) => {
+          e.target.src.indexOf('data:image/gif;base64') < 0 && handleLoad()
+        }}
         onLoadingComplete={() => setStatus('complete')}
         // onLoadingComplete={(e) => {
         //   console.log('dauphaihau debug: e-natural-width', e.naturalWidth)
