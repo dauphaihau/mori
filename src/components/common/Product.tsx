@@ -3,6 +3,7 @@ import { clns, formatDollarUS, slugify } from "core/helpers";
 import Enums from "config/enums";
 import { config } from "config";
 import { IProduct } from "types/product";
+import NextImageLoading from "../../core/components/Next/NextImageLoading";
 
 type ProductProps = {
   data: IProduct
@@ -31,17 +32,8 @@ const Product = ({ data, dataFade }: ProductProps) => {
             Sold out
           </Badge>
           <Box classes='flex-center flex-column'>
-            {/*<NextImageLoading*/}
-            {/*  useSkeleton*/}
-            {/*  alt={data?.title}*/}
-            {/*  src={data?.images[0}*/}
-            {/*  className='w-3/5'*/}
-            {/*  width={300}*/}
-            {/*  height={300}*/}
-            {/*  objectFit='contain'*/}
-            {/*  layout='intrinsic'*/}
-            {/*/>*/}
-            <NextImage
+            <NextImageLoading
+              useSkeleton
               alt={data?.title}
               src={config.hostStaticSource + data?.images[0]}
               className='w-3/5'
@@ -50,6 +42,15 @@ const Product = ({ data, dataFade }: ProductProps) => {
               objectFit='contain'
               layout='intrinsic'
             />
+            {/*<NextImage*/}
+            {/*  alt={data?.title}*/}
+            {/*  src={config.hostStaticSource + data?.images[0]}*/}
+            {/*  className='w-3/5'*/}
+            {/*  width={300}*/}
+            {/*  height={300}*/}
+            {/*  objectFit='contain'*/}
+            {/*  layout='intrinsic'*/}
+            {/*/>*/}
             <Box classes='my-div'></Box>
           </Box>
         </Box>
@@ -81,7 +82,8 @@ const Product = ({ data, dataFade }: ProductProps) => {
         </Row>
       </Box>
     </Box>
-  )
+  );
+
 }
 
 export default Product

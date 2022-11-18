@@ -2,6 +2,7 @@ import { Link, NextImage, Box, Text, Col, Grid, List } from 'core/components';
 import { data as footerData } from 'assets/data/FooterData';
 import Enums from 'config/enums';
 import { clns } from "core/helpers";
+import { config } from "../../config";
 
 const Footer = () => {
   return (
@@ -70,7 +71,7 @@ const Footer = () => {
                       target='_blank'
                     >
                       <NextImage
-                        src={item.srcImg}
+                        src={config.hostStaticSource + item.srcImg}
                         alt={item.name}
                         width={item.width}
                         height={item.height}

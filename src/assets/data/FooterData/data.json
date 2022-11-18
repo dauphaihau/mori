@@ -105,34 +105,34 @@
   "listPayment": [
     {
       "name": "Visa",
-      "srcImg": "/images/payment/visa.png",
+      "srcImg": "/logo/payment/visa_puija1.png",
       "width": 65,
       "height": 20,
       "objectFit": "contain"
     },
     {
       "name": "Paypal",
-      "srcImg": "/images/payment/paypal.png",
+      "srcImg": "/logo/payment/paypal_kxn5no.png",
       "width": 76,
       "height": 20,
       "objectFit": "contain"
     },
     {
       "name": "Amazon",
-      "srcImg": "/images/payment/amazon.png",
+      "srcImg": "/logo/payment/amazon_srpnf5.png",
       "width": 86,
       "height": 35,
       "objectFit": "contain"
     },
     {
       "name": "Apple Pay",
-      "srcImg": "/images/payment/apple-pay.png",
+      "srcImg": "/logo/payment/apple-pay_uho0qp.png",
       "width": 66,
       "height": 30
     },
     {
       "name": "Skrill",
-      "srcImg": "/images/payment/skrill.png",
+      "srcImg": "/logo/payment/skrill_sp7tso.png",
       "width": 69,
       "height": 20
     }

@@ -13,6 +13,10 @@ const ProductInfo = ({ product }) => {
     { name: product?.name },
   ];
 
+  // if (!product) {
+  //   return null
+  // }
+
   const Left = () => {
     return (
       <Box classes='w-full laptop:w-8/12 h-120 pt-2 pb-8'>

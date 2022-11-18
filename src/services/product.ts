@@ -3,16 +3,6 @@ import api from "lib/axios";
 import useSWR from "swr";
 
 export const productService = {
-  getProducts: async (params) => {
-    try {
-      const res = await api.get(config.api.product._, {
-        params
-      })
-      return res.data
-    } catch (err) {
-      console.log('err', err)
-    }
-  },
   // getProductByName: async (list = []) => {
   //   try {
   //     const res = await api.post(config.api.product._, {
@@ -57,6 +47,18 @@ export const productService = {
       console.log('err', err)
     }
   },
+}
+
+export function useProducts(params) {
+  const fetcher = url => api.get(url, { params }).then(res => res.data)
+  const { data, error, mutate } = useSWR([config.api.product._, params], fetcher)
+  return {
+    data,
+    // products: data?.products,
+    isLoading: !data,
+    isError: !!error,
+    mutate
+  };
 }
 
 export function useDetailProduct(name) {

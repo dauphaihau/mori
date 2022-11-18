@@ -64,7 +64,6 @@ export const filterSearch = ({ router, ...res }) => {
 }
 
 export default function Filters() {
-// const Filters = ({ launchSticky, quantityProd }) => {
   const [category, setCategory] = useState('')
   const [brand, setBrand] = useState('')
   const [categories, setCategories] = useState([])
@@ -134,26 +133,9 @@ export default function Filters() {
     updateFilters, clearFilters,
   } = useFilterContext()
 
-  const [sticky, setSticky] = useState(false)
-
-  // useEffect(() => {
-  //   const scrollListener = () => {
-  //     if (window.scrollY > 40) {
-  //       setSticky(true)
-  //     } else {
-  //       setSticky(false)
-  //     }
-  //   }
-  //   window.addEventListener('scroll', scrollListener)
-  //   return () => {
-  //     window.removeEventListener('scroll', scrollListener)
-  //   }
-  // }, [])
-
   const colors = getUniqueValues(all_products, 'colors')
 
   return (
-    // <Box classes={`${launchSticky ? 'laptop:sticky top-[12%] h-full': ''}`}>
     <Box classes='filters sticky top-[80px] h-auto max-h-[700px] desktop:max-h-[900px] overflow-scroll pl-1'>
       <Box classes='filters__item'>
         <Text

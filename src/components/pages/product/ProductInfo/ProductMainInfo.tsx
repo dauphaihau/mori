@@ -27,7 +27,7 @@ const ProductMainInfo = ({ product, context }) => {
       const storageState = window.localStorage.getItem(STORAGE_KEY)
       if (storageState) {
         const state = JSON.parse(storageState)
-        console.log('dauphaihau debug: state', state)
+        // console.log('dauphaihau debug: state', state)
       }
     }
   }, [showCartDrawer])
@@ -36,23 +36,23 @@ const ProductMainInfo = ({ product, context }) => {
     try {
       if (cart.length) {
         const productInCart = cart.find(o => product.id === o.id)
-        console.log('dauphaihau debug: product-in-cart', productInCart)
+        // console.log('dauphaihau debug: product-in-cart', productInCart)
         if (productInCart) {
           const resQuantityProd = product.quantity - productInCart.quantity
           return resQuantityProd >= valueSelected
         }
         return false
       }
-      console.log('dauphaihau debug: empty-cart')
+      // console.log('dauphaihau debug: empty-cart')
       return true
 
     } catch (error) {
-      console.log('dauphaihau debug: error', error)
+      // console.log('dauphaihau debug: error', error)
     }
   }
 
   const handleSelectQuantityItem = (quantitySelected) => {
-    console.log('dauphaihau debug: quantity-val', quantitySelected)
+    // console.log('dauphaihau debug: quantity-val', quantitySelected)
 
     const status1 = product.quantity >= quantitySelected
     const status2 = handleValidCheckInCart(quantitySelected)

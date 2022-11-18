@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Box, Grid, Row, Text, Button } from 'core/components';
 import { clns } from "core/helpers";
-import { Filters, ProductListView, Sorter } from "./index";
+import { ProductListView } from "./index";
 import Product from 'components/common/Product';
 import { useFilterContext } from "context/filterContext";
 import { useRouter } from "next/router";
@@ -16,7 +16,9 @@ const Products = ({ data }) => {
   const [page, setPage] = useState(1)
   const router = useRouter();
   const [pageNum, setPageNum] = useState(1);
+
   const { products, total } = data
+
   const [pageNumber, setPageNumber] = useState(0);
   const loadingRef = useRef(null);
   const listInnerRef = useRef(null);
@@ -176,42 +178,23 @@ const Products = ({ data }) => {
   // const isVisible = entry?.intersectionRatio < 1
   // console.log('dauphaihau debug: is-visible', isVisible)
 
-  return (
-    <Grid
-      sx={5}
-      // classes='min-h-full'
-    >
-      <Filters
-        // quantityProd={products.length}
-        // launchSticky={true}
-      />
-      <Box classes='w-full col-span-4'>
-        <Row
-          ref={ref}
-          justify='between'
-          // classes='mb-6 sticky top-[80px] z-10 bg-white myElement'
-          classes='mb-6 sticky top-[50px] z-10 pt-[25px] pb-4 bg-white myElement'
-          // classes='mb-6 sticky top-[80px] z-10 bg-white myElement'
-        >
-          <Text
-            h1
-            classes='text-3xl laptop:text-xl font-light'
-          >{products?.length} results found</Text>
-          {/*>{total} results found</Text>*/}
-          <Sorter/>
-        </Row>
-        {
-          products && products.length < 1
-            ? <Text>Sorry, no products matched your search...</Text>
-            : <>
-              {ProductList()}
-              {/*<ProductList/>*/}
-              <ButtonLoadMore/>
-            </>
-        }
-      </Box>
-    </Grid>
+  if (products && products.length === 0) {
+    return <Text>Sorry, no products matched your search...</Text>
+  }
 
+  return (
+    <>
+      {
+        products && products.length < 1
+          ? 'loading'
+          // ? <Text>Sorry, no products matched your search...</Text>
+          : <>
+            {ProductList()}
+            {/*<ProductList/>*/}
+            <ButtonLoadMore/>
+          </>
+      }
+    </>
   );
 }
 

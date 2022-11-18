@@ -46,35 +46,59 @@ const NextImageLoading = ({
       className={clns(className,
         'overflow-hidden rounded  relative',
         status === 'loading' && 'w-auto'
-        )}
+      )}
     >
-      {
-        status === 'loading' ?
-          <Loading className='h-8 w-auto'  />
-          :
-          <Image
-            className={clns(
-              imgClassName,
-              // text-gray to hide alt text
-              status === 'loading' && clns('animate-pulse', blurClassName)
-            )}
-            // src={URL.createObjectURL(src)}
-            src={src}
-            width={width}
-            height={height}
-            alt={alt}
-            // onLoadingComplete={() => setStatus('complete')}
-            onLoadingComplete={(e) => {
-              console.log('dauphaihau debug: e-natural-width', e.naturalWidth)
-              console.log('dauphaihau debug: e-natural-height', e.naturalHeight)
-              handleImageLoad(e);
-            }}
+      {status === 'loading' && <Loading className='h-8 w-auto'/>}
+      <Image
+        className={clns(
+          imgClassName,
+          // text-gray to hide alt text
+          status === 'loading' && clns('animate-pulse', blurClassName)
+        )}
+        // src={URL.createObjectURL(src)}
+        src={src}
+        width={width}
+        height={height}
+        alt={alt}
+        onLoadingComplete={() => setStatus('complete')}
+        // onLoadingComplete={(e) => {
+        //   console.log('dauphaihau debug: e-natural-width', e.naturalWidth)
+        //   console.log('dauphaihau debug: e-natural-height', e.naturalHeight)
+        //   handleImageLoad(e);
+        // }}
 
-            layout={layout}
-            objectFit={objectFit}
-            {...others}
-          />
-      }
+        layout={layout}
+        objectFit={objectFit}
+        {...others}
+      />
+
+      {/*{*/}
+      {/*  status === 'loading' ?*/}
+      {/*    <Loading className='h-8 w-auto'  />*/}
+      {/*    :*/}
+      {/*    <Image*/}
+      {/*      className={clns(*/}
+      {/*        imgClassName,*/}
+      {/*        // text-gray to hide alt text*/}
+      {/*        status === 'loading' && clns('animate-pulse', blurClassName)*/}
+      {/*      )}*/}
+      {/*      // src={URL.createObjectURL(src)}*/}
+      {/*      src={src}*/}
+      {/*      width={width}*/}
+      {/*      height={height}*/}
+      {/*      alt={alt}*/}
+      {/*      onLoadingComplete={() => setStatus('complete')}*/}
+      {/*      // onLoadingComplete={(e) => {*/}
+      {/*      //   console.log('dauphaihau debug: e-natural-width', e.naturalWidth)*/}
+      {/*      //   console.log('dauphaihau debug: e-natural-height', e.naturalHeight)*/}
+      {/*      //   handleImageLoad(e);*/}
+      {/*      // }}*/}
+
+      {/*      layout={layout}*/}
+      {/*      objectFit={objectFit}*/}
+      {/*      {...others}*/}
+      {/*    />*/}
+      {/*}*/}
     </figure>
   );
 }
