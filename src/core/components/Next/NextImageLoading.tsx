@@ -2,6 +2,7 @@ import Image, { ImageProps } from 'next/image';
 import { useState } from "react";
 import { clns } from 'core/helpers';
 import { Loading } from "../Loading";
+import { LoadingOverlay } from '@mantine/core';
 
 type NextImageType = {
   useSkeleton?: boolean;
@@ -31,33 +32,24 @@ const NextImageLoading = ({
   const [status, setStatus] = useState(useSkeleton ? 'loading' : 'complete');
   const widthIsSet = className?.includes('w-') ?? false;
 
-  console.log('dauphaihau debug: status', status)
-
-  // const handleImageLoad = (e) => {
-  //   console.log('dauphaihau debug: e-natural-width', e.naturalWidth)
-  //   console.log('dauphaihau debug: e-natural-height', e.naturalHeight)
-  //   console.log('dauphaihau debug: loaddd', e)
-  //   setStatus('complete')
-  // };
-
-  const handleLoad = () => {
-    console.log('dauphaihau debug: loadddd')
-  }
-
   return (
     <figure
       style={!widthIsSet ? { width: `${width}px` } : undefined}
       className={clns(className,
-        'overflow-hidden rounded  relative',
-        status === 'loading' && 'w-auto'
+        'overflow-hidden rounded relative',
       )}
     >
-      {status === 'loading' && <Loading className='h-8 w-auto'/>}
+      {status === 'loading' && <LoadingOverlay
+        // loaderProps={{ size: 'sm', color: 'black', variant: 'bars' }}
+        loaderProps={{ size: 'md', color: 'black', variant: 'dots' }}
+        overlayOpacity={0.3}
+        overlayColor="transparent"
+        visible
+        />
+      }
       <Image
         className={clns(
           imgClassName,
-          // text-gray to hide alt text
-          status === 'loading' && clns('animate-pulse', blurClassName)
         )}
         // src={URL.createObjectURL(src)}
         src={src}
@@ -65,47 +57,12 @@ const NextImageLoading = ({
         height={height}
         alt={alt}
         onLoad={(e) => {
-          e.target.src.indexOf('data:image/gif;base64') < 0 && handleLoad()
+          e.target.src.indexOf('data:image/gif;base64') < 0 && setStatus('complete')
         }}
-        onLoadingComplete={() => setStatus('complete')}
-        // onLoadingComplete={(e) => {
-        //   console.log('dauphaihau debug: e-natural-width', e.naturalWidth)
-        //   console.log('dauphaihau debug: e-natural-height', e.naturalHeight)
-        //   handleImageLoad(e);
-        // }}
-
         layout={layout}
         objectFit={objectFit}
         {...others}
       />
-
-      {/*{*/}
-      {/*  status === 'loading' ?*/}
-      {/*    <Loading className='h-8 w-auto'  />*/}
-      {/*    :*/}
-      {/*    <Image*/}
-      {/*      className={clns(*/}
-      {/*        imgClassName,*/}
-      {/*        // text-gray to hide alt text*/}
-      {/*        status === 'loading' && clns('animate-pulse', blurClassName)*/}
-      {/*      )}*/}
-      {/*      // src={URL.createObjectURL(src)}*/}
-      {/*      src={src}*/}
-      {/*      width={width}*/}
-      {/*      height={height}*/}
-      {/*      alt={alt}*/}
-      {/*      onLoadingComplete={() => setStatus('complete')}*/}
-      {/*      // onLoadingComplete={(e) => {*/}
-      {/*      //   console.log('dauphaihau debug: e-natural-width', e.naturalWidth)*/}
-      {/*      //   console.log('dauphaihau debug: e-natural-height', e.naturalHeight)*/}
-      {/*      //   handleImageLoad(e);*/}
-      {/*      // }}*/}
-
-      {/*      layout={layout}*/}
-      {/*      objectFit={objectFit}*/}
-      {/*      {...others}*/}
-      {/*    />*/}
-      {/*}*/}
     </figure>
   );
 }

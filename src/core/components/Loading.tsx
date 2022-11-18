@@ -4,6 +4,7 @@ export const Loading = ({ className }: any) => {
   return (
     <svg
       role="status"
+      // className={clns('inline w-4 h-4 text-black ', className)}
       className={clns('inline w-4 h-4 text-black animate-spin ', className)}
       viewBox="0 0 100 101"
       fill="none"
