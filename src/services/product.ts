@@ -63,7 +63,19 @@ export function useCategories() {
   };
 }
 
-export function useColors() {
+export function useColors(category) {
+  console.log('dauphaihau debug: category-all-', category ?? 'all')
+  const fetcher = url => api.get(url, { params: { category: category ?? 'all' } }).then(res => res.data)
+  const { data, error } = useSWR([config.api.product.color, { params: { category: category ?? 'all' } }], fetcher)
+  return {
+    colors: data?.colors,
+    isLoading: !data,
+    isError: !!error,
+  };
+}
+
+// get data depend category ( color, price, material, ... )
+export function useFilters() {
   const fetcher = url => api.get(url).then(res => res.data)
   const { data, error } = useSWR(config.api.product.categories, fetcher)
   return {

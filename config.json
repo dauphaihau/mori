@@ -21,7 +21,8 @@
       "detail": "/api/product/detail",
       "related": "/api/product/related",
       "search": "/api/product/search",
-      "sale": "/api/product/sale"
+      "sale": "/api/product/sale",
+      "color": "/api/product/color"
     }
   },
   "cookies": {

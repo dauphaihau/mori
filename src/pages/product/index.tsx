@@ -36,7 +36,7 @@ export default function ProductListPage<NextPage>() {
   // setProgress(progress + 30)
   // setProgress(!isLoading && 100)
   // setProgress(isLoading ? 30 : 100)
-  console.log('dauphaihau debug: data', data)
+  // console.log('dauphaihau debug: data', data)
 
   return (
     <>

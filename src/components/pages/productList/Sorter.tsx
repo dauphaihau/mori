@@ -3,7 +3,7 @@ import { ViewGridIcon, MenuIcon } from '@heroicons/react/outline';
 import { sortOpts, sortOptsTest } from 'assets/data/options';
 import { Select, Text, Box, Row } from 'core/components';
 import { clns } from "core/helpers";
-import { filterSearch } from "./Filters";
+import { filterSearch } from "./Filters/Filters";
 import { useRouter } from "next/router";
 import { useState } from "react";
 

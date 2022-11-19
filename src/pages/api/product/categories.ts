@@ -7,8 +7,8 @@ const handler = nc();
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   await db.connect();
-  // const categories = await Product.aggregate().sortByCount("categories");
   const categories = await Product.aggregate().sortByCount("category");
+
   // const categories = await Product.aggregate([
   //   {
   //     $group: {

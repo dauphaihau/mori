@@ -6,7 +6,7 @@ import { ProductListView } from "./index";
 import Product from 'components/common/Product';
 import { useFilterContext } from "context/filterContext";
 import { useRouter } from "next/router";
-import { filterSearch } from "./Filters";
+import { filterSearch } from "./Filters/Filters";
 import useIntersectionObserver from 'core/hooks/useIntersectionObserver';
 
 const Products = ({ data }) => {

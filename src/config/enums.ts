@@ -89,6 +89,7 @@ export enum PRODUCT_COLORS {
   GREYISH_BROWN = '#7a6255',
   PALE_BROWN = '#b99374',
   PALE = '#f3eed7',
+  BLACK = '#000',
 }
 
 

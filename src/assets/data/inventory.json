@@ -1,15 +1,9 @@
 [
   {
-    "categories": [
-      "casket"
-    ],
     "category": "casket",
     "name": "Autumn Oak Hardwood",
     "price": 2500,
     "color": "greyish-brown",
-    "colors": [
-      "#7A6255"
-    ],
     "images": [
       "/product/casket-autumn-oak-ardwood_imxhpl.png"
     ],
@@ -21,16 +15,10 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "casket"
-    ],
     "category": "casket",
     "name": "Clarksburg Wooden Casket",
     "price": 7575,
     "color": "greyish-brown",
-    "colors": [
-      "#7A6255"
-    ],
     "images": [
       "/product/casket-clarksburg_oyptdh.png"
     ],
@@ -42,9 +30,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "casket"
-    ],
     "category": "casket",
     "name": "Trinity Oak",
     "price": 2100,
@@ -53,9 +38,6 @@
       "/product/casket-trinity-oak_swipzi.png"
     ],
     "color": "greyish-brown",
-    "colors": [
-      "#7A6255"
-    ],
     "description": "Premium Traditional American Coffin Casket hardwood Oak, manufactured in the USA, White cream interior with side pleated panel and Stationary hardware and handles . Beautifully lined in cream velvet and single panel lidAdjustable bed and mattressPlease notify us if you require a name and message to be added to the outside of the coffin.",
     "brand": "Batesville",
     "quantity": 10,
@@ -64,9 +46,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "casket"
-    ],
     "category": "casket",
     "name": "White Chased Solid Wood",
     "price": 2845,
@@ -75,9 +54,6 @@
       "/product/casket-white-chased_-solid-wood_gp9jh3.png"
     ],
     "color": "silver",
-    "colors": [
-      "#cfcdcb"
-    ],
     "description": " Traditional American Casket, manufactured in USA from Solid Hardwood timber, finished in White with metal handlesAdjustable bed and mattressPlease notify us if you require a name and message to be added to the outside of the coffin.",
     "brand": "Batesville",
     "quantity": 12,
@@ -86,17 +62,11 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "casket"
-    ],
     "category": "casket",
     "name": "Last Supper Hardwood",
     "price": 2245,
     "salePrice": 2100,
     "color": "greyish-brown",
-    "colors": [
-      "#7A6255"
-    ],
     "images": [
       "/product/casket-last-supper-hardwood_ccedyk.png"
     ],
@@ -108,17 +78,11 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin"
-    ],
     "category": "coffin",
     "name": "Willow Pod Coffin",
     "price": 550,
     "salePrice": 520,
     "color": "greyish-brown",
-    "colors": [
-      "#7A6255"
-    ],
     "images": [
       "/product/coffin-willow-pod_gwymz9.png"
     ],
@@ -130,9 +94,6 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "traditional coffin"
-    ],
     "category": "traditional coffin",
     "name": "Shannon",
     "price": 895,
@@ -140,9 +101,6 @@
       "/product/coffin-traditional-shannon_uuwxlu.png"
     ],
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "description": "A clear-finished oak coffin with bridge panels on the sides and ends. The Shannon follows a classic Irish coffin design and is shown here with brass effect metal bar handles. It is lined with a rich satin interior, available in a choice of colours .",
     "brand": "Astral",
     "quantity": 10,
@@ -151,9 +109,6 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "natural material coffin"
-    ],
     "category": "coffin",
     "name": "Oval Walnut Tree Coffin",
     "price": 800,
@@ -161,9 +116,6 @@
       "/product/coffin-modern-walnutt_findy8.png"
     ],
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "description": "This handmade English coffin with a walnut veneer and solid maple load-bearing bar handles, giving a contrast of light and dark wood. Comes with a book and keepsake butterfly so you can personalise the coffin with a message, lyric or a reading. Plastic Free and FFMA certified",
     "brand": "Astral",
     "quantity": 7,
@@ -172,9 +124,6 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "natural material coffin"
-    ],
     "category": "coffin",
     "name": "Oval Maple Tree Coffin",
     "price": 750,
@@ -182,9 +131,6 @@
       "/product/coffin-modern-maple_ul9dp7.png"
     ],
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "description": "The Oval coffin has a more modern minimalist shape for coffin design, with its organic elliptical shape and delicate detailing. The soft sheen water-based lacquer emphasises the beautiful, rich, deep brown colour of the black American walnut, giving The Walnut Tree a feeling of comfort and calm.",
     "brand": "Astral",
     "quantity": 3,
@@ -193,9 +139,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "traditional coffin"
-    ],
     "category": "traditional coffin",
     "name": "Traditional Wreath Mould Lid",
     "price": 445,
@@ -203,9 +146,6 @@
       "/product/coffin-traditional-wreath-mould-lid_tbrfur.png"
     ],
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "description": "Traditional British Coffin hand crafted in the UK, from Quality oak veneer. Excellent finish, simple lines and classic design. Includes handles, coffin Liner and Name plate. All traditional coffins are available in the following Wood Stains: Dark Oak, Light Oak, Mahogony, Mid Oak, and Rose Click here to review all the wood stain colours we have to choose from",
     "brand": "Astral",
     "quantity": 2,
@@ -214,9 +154,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "traditional coffin"
-    ],
     "category": "traditional coffin",
     "name": "Traditional Box Lid Coffin",
     "price": 425,
@@ -224,9 +161,6 @@
       "/product/coffin-traditional-box-lid-coffin_ib0p8b.png"
     ],
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "description": "Traditional British Coffin hand crafted in the UK, from Quality oak veneer. Excellent finish, simple lines and classic design. Includes handles, coffin Liner and Name plate. All traditional coffins are available in the following Wood Stains: Dark Oak, Light Oak, Mahogony, Mid Oak, and Rose Click here to review all the wood stain colours we have to choose from",
     "brand": "Astral",
     "quantity": 20,
@@ -235,17 +169,11 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "traditional coffin"
-    ],
     "category": "traditional coffin",
     "name": "Traditional High raised Lid Coffin",
     "price": 535,
     "salePrice": 500,
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "images": [
       "/product/coffin-traditional-high-raised-lid-coffin_rzezsg.png"
     ],
@@ -258,16 +186,9 @@
   },
   {
     "category": "shrouds",
-    "categories": [
-      "shrouds",
-      "natural material coffin"
-    ],
     "name": "Bamboo Shroud",
     "price": 350,
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "images": [
       "/product/shroud-bamboo_nptab1.png",
       "/product/shroud-bamboo-2_kgmrye.png",
@@ -283,18 +204,11 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "natural material coffin",
-      "bamboo coffin"
-    ],
     "category": "coffin",
     "name": "Simple Willow Coffin",
     "price": 495,
     "salePrice": 450,
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "images": [
       "/product/coffin-willow-simple_iy7nmw.png",
       "/product/coffin-willow-simple-2_wcdt50.png"
@@ -307,17 +221,10 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "bamboo coffin"
-    ],
     "category": "coffin",
     "name": "Bamboo Round Coffin",
     "price": 415,
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "images": [
       "/product/coffin-willow-bamboo-round_wxvra2.png"
     ],
@@ -329,17 +236,10 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "bamboo coffin"
-    ],
     "category": "coffin",
     "name": "Bamboo Lattice Round Coffin",
     "price": 485,
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "images": [
       "/product/coffin-willow-bamboo-lattice-round_yrifup.png"
     ],
@@ -351,10 +251,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "child coffin"
-    ],
     "category": "child coffin",
     "name": "Wicker Coffins",
     "price": 200,
@@ -364,9 +260,6 @@
       "/product/coffin-child-wicker-2_ix0dwp.png"
     ],
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "description": "Rustic bands of natural rattan are woven together to create this beautiful wicker coffin. The dark brown colour of this coffin perfectly complements the lightly coloured rope handles and will suit any style of flowers that the coffin happens to be adorned with. Each coffin is made by hand using traditional weaving techniques.",
     "brand": "Aurora",
     "quantity": 18,
@@ -375,17 +268,10 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "child coffin"
-    ],
     "category": "child coffin",
     "name": "Child’s Curved Painted",
     "price": 220,
     "color": "silver",
-    "colors": [
-      "#cfcdcb"
-    ],
     "images": [
       "/product/coffin-child-curved-_painted_hqc7zr.png",
       "/product/coffin-child-curved-_painted-2_ipzcbc.png"
@@ -398,16 +284,9 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "natural material coffin",
-      "baby coffin"
-    ],
     "category": "baby coffin",
     "name": "Baby Crib Casket",
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "price": 160,
     "images": [
       "/product/coffin-baby-crib_jltf9j.png",
@@ -421,16 +300,9 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "baby coffin"
-    ],
     "category": "baby coffin",
     "name": "Cane Infant Coffin",
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "price": 450,
     "images": [
       "/product/coffin-baby-cane_nnqji5.png"
@@ -443,16 +315,10 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "cremation urns"
-    ],
     "category": "cremation urns",
     "name": "Willow Round",
     "price": 65,
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "images": [
       "/product/cremation-urn1_dybjin.png"
     ],
@@ -464,16 +330,10 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "cremation urns"
-    ],
     "category": "cremation urns",
     "name": "Pandanus Round Upright",
     "price": 65,
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "images": [
       "/product/cremation-urn3_thv7jv.png"
     ],
@@ -485,9 +345,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "cremation urns"
-    ],
     "category": "cremation urns",
     "name": "Traditional Octagonal",
     "price": 65,
@@ -495,9 +352,6 @@
       "/product/cremation-urn4_ds53na.png"
     ],
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "description": "Exclusive to compare the coffin. These beautifully made traditional Cremation Urn, and Ash containers are available in any wood stain and or solid colour.All traditional Urns are available in the following Wood Stains: Dark Oak, Light Oak, Mahogony, Mid Oak, and Rose wood. Alternatively they can be offered in a solid colour: Linen White, Mid Blue, Pink, Deep Pink, Post Office Red, Summer Blue, Dark Blue,",
     "brand": "Aurora",
     "quantity": 3,
@@ -506,16 +360,10 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "cremation urns"
-    ],
     "category": "cremation urns",
     "name": "Traditional – Dark Oak",
     "price": 70,
     "color": "greyish-brown",
-    "colors": [
-      "#7A6255"
-    ],
     "images": [
       "/product/cremation-urn5_m95gxq.png"
     ],
@@ -527,16 +375,10 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "cremation urns"
-    ],
     "category": "cremation urns",
     "name": "Round Bamboo",
     "price": 65,
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "images": [
       "/product/cremation-urn6_ggztgv.png"
     ],
@@ -548,16 +390,10 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin"
-    ],
     "category": "coffin",
     "name": "Buff Rounded",
     "price": 750,
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "images": [
       "/product/coffin-willow-buff-rounded_pn6ksx.png"
     ],
@@ -569,16 +405,10 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin"
-    ],
     "category": "coffin",
     "name": "Willow Rounded Coffin",
     "price": 505,
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "images": [
       "/product/coffin-willow-rounded_noggwl.png"
     ],
@@ -590,17 +420,10 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "shrouds"
-    ],
     "category": "shrouds",
     "name": "Shroud and Wicker stretcher",
     "price": 475,
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "images": [
       "/product/shroud1_uc4ex5.png"
     ],
@@ -612,10 +435,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "child coffin"
-    ],
     "category": "child coffin",
     "name": "Gold Willow Coffin",
     "price": 220,
@@ -625,9 +444,6 @@
       "/product/coffin-willow-gold-2_lw5m49.png"
     ],
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "description": "Our Willow Coffins have a slightly pink and golden look, they are hand-worked by traditional basket weavers using age-old methods that have changed very little in over 2000 years. Willow is by far the ultimate in environmental recycling, willow is grown in rows of bushes and once harvested can generate back to the same height within a year. Willow has been known to grow up to 3 metres tall annually and has the ability to degrade much more quickly than conventional hardwood.",
     "brand": "Aurora",
     "quantity": 10,
@@ -636,10 +452,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "child coffin"
-    ],
     "category": "child coffin",
     "name": "Cane Coffins",
     "price": 290,
@@ -649,9 +461,6 @@
       "/product/coffin-willow-cane-2_lmiirr.png"
     ],
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "description": "Handcrafted using woven cane, sometimes referred to as wicker or rattan, our Cane Coffins hold an off-white appearance and are skillfully finished by hand using traditional basket making techniques",
     "brand": "Aurora",
     "quantity": 0,
@@ -660,10 +469,6 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "natural material coffin",
-      "child coffin"
-    ],
     "category": "child coffin",
     "name": "Seagrass Coffins",
     "price": 270,
@@ -673,9 +478,6 @@
       "/product/coffin-willow-seagrass-2_b7u4wl.png"
     ],
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "description": "Our Seagrass Coffins are a beautiful compliment, rustic and natural with subtle green and blue tones. They are woven by hand using yarns of twisted seagrass and finished with cane, top and bottom.",
     "brand": "Aurora",
     "quantity": 18,
@@ -684,10 +486,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "baby coffin"
-    ],
     "category": "baby coffin",
     "name": "Banana Leaf Coffins",
     "price": 182,
@@ -697,9 +495,6 @@
       "/product/coffin-baby-banana-leaf-2_ao7pq4.png"
     ],
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "description": "Our Children’s Caskets are carefully handcrafted in Seagrass, Banana Leaf or Cane. Available in the curved shape (rounded end) tapering from end to end, and available in a range of finished sizes with natural rope handles and fully fitted with natural linings, pillow and covers",
     "brand": "Aurora",
     "quantity": 0,
@@ -708,10 +503,6 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "natural material coffin",
-      "child coffin"
-    ],
     "category": "child coffin",
     "name": "Bamboo Coffins",
     "price": 220,
@@ -721,9 +512,6 @@
       "/product/coffin-willow-bamboo-2_n0fklv.png"
     ],
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "description": "The bamboo weave is interlaced to form an attractive wicker matt that is then woven around a strong natural frame. Bamboo is one of the fastest-growing plants on Earth and has been known to grow to one meter within a day.",
     "brand": "Batesville",
     "quantity": 10,
@@ -732,10 +520,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "child coffin"
-    ],
     "category": "child coffin",
     "name": "Banana Leaf Curved",
     "price": 543,
@@ -745,9 +529,6 @@
       "/product/coffin-willow-banana-leaf-curved-2_cienyq.png"
     ],
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "description": "Hand-crafted Cane coffin, made in the Traditional shape with six rope handles and a fitted cotton liner and solid wood board base.",
     "brand": "Batesville",
     "quantity": 1,
@@ -756,10 +537,6 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "natural material coffin",
-      "child coffin"
-    ],
     "category": "child coffin",
     "name": "White Wicker",
     "price": 700,
@@ -769,9 +546,6 @@
       "/product/coffin-willow-white-wicker-2_vadzjz.png"
     ],
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "description": "Our natural and eco-friendly ‘White Wicker’ is made from a variety of organic materials. The art of wickerwork takes its heritage from the ancient craft of basket weaving. A simple design with durability, the ‘White Wicker’ is tightly hand woven by our local craftsmen in Indonesia using traditional methods passed down from generations.",
     "brand": "Aurora",
     "quantity": 1,
@@ -780,10 +554,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "child coffin"
-    ],
     "category": "child coffin",
     "name": "Round ended Willow Coffin",
     "price": 700,
@@ -792,9 +562,6 @@
       "/product/coffin-willow-round-ended_itcvff.png"
     ],
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "description": "Round ended woven willow coffin.\nHandwoven using natural Somerset willow grown on our farm on the Somerset Levels. Available in a variety of natural and colour options.\nStandard and bespoke sizes are offered.",
     "brand": "Aurora",
     "quantity": 1,
@@ -803,10 +570,6 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "natural material coffin",
-      "child coffin"
-    ],
     "category": "child coffin",
     "name": "Somerset Willow Coffin",
     "price": 700,
@@ -816,9 +579,6 @@
       "/product/coffin-willow-somerset-2_o8903e.png"
     ],
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "description": "Traditional shape Somerset Willow Coffin. Manufactured and finished in Great Britain using natural willow with incorporated woven willow handles. Available in a variety of colour combinations and natural finishes.",
     "brand": "Aurora",
     "quantity": 4,
@@ -827,10 +587,6 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "natural material coffin",
-      "child coffin"
-    ],
     "category": "child coffin",
     "name": "Water Hyacinth Coffin",
     "price": 680,
@@ -839,9 +595,6 @@
       "/product/coffin-willow-water-hyacinth_kf40j1.png"
     ],
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "description": "A natural hand-crafted biodegradable coffin, half round in shape – or can be traditional shape (see alternative photo), made from environmentally friendly Water Hyacinth. Traidcraft Fair Trade, Plastic Free and FFMA certified",
     "brand": "Astral",
     "quantity": 4,
@@ -850,16 +603,10 @@
     "bestSelling": false
   },
   {
-    "categories": [
-      "cremation urns"
-    ],
     "category": "cremation urns",
     "name": "Pure Black Modern Urn",
     "price": 199,
-    "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
+    "color": "black",
     "images": [
       "/product/urn-black-modern_hzizhb.png",
       "/product/urn-black-modern-2_blijrk.png"
@@ -872,17 +619,10 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "natural material coffin",
-      "shrouds"
-    ],
     "category": "shrouds",
     "name": "Willow Carrier",
     "price": 349,
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "images": [
       "/product/coffin-willow-carrier_lvxuah.png",
       "/product/coffin-willow-carrier-2_eu6f3t.png"
@@ -895,16 +635,10 @@
     "bestSelling": true
   },
   {
-    "categories": [
-      "traditional coffin"
-    ],
     "category": "traditional coffin",
     "name": "Premium Traditional Casket",
     "price": 795,
     "color": "pale-brown",
-    "colors": [
-      "#B99374"
-    ],
     "images": [
       "/product/coffin-traditional-premium-casket_xgtzvr.png"
     ],
@@ -917,15 +651,9 @@
   },
   {
     "category": "memorial",
-    "categories": [
-      "memorial"
-    ],
     "name": "Lawn Memorial",
     "price": 1500,
-    "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
+    "color": "black",
     "images": [
       "/product/memorial-lawn_oq7xjw.png"
     ],
@@ -938,15 +666,9 @@
   },
   {
     "category": "memorial",
-    "categories": [
-      "memorial"
-    ],
     "name": "Memorial with Mother and Child",
     "price": 4940,
-    "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
+    "color": "black",
     "images": [
       "/product/memorial-mother-and-child_k4pkae.png"
     ],
@@ -959,15 +681,9 @@
   },
   {
     "category": "memorial",
-    "categories": [
-      "memorial"
-    ],
     "name": "Headstone with Cross",
     "price": 1610,
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "images": [
       "/product/memorial-headstone-with-cross_ij5jjx.png"
     ],
@@ -980,15 +696,9 @@
   },
   {
     "category": "memorial",
-    "categories": [
-      "memorial"
-    ],
     "name": "Sacred Heart and Gates Kerbed Memorial",
     "price": 5752,
     "color": "pale",
-    "colors": [
-      "#f3eed7"
-    ],
     "images": [
       "/product/memorial-sacred-heart-gate_qlxxgr.png"
     ],
@@ -998,5 +708,21 @@
     "rating": 5,
     "createdAt": "2022-12-01T14:55:06.641+00:00",
     "bestSelling": true
+  },
+  {
+    "category": "coffin",
+    "name": "The Diamant 32",
+    "price": 2500,
+    "color": "black",
+    "images": [
+      "/product/coffin-diamant32_vamokb.png",
+      "/product/coffin-diamant32-2_yha1fz.png"
+    ],
+    "description": "Diamant 32 is part of a collection of timeless coffins and urns. Inspired by the shape of a diamond, this series aims to combine form and emotion in order to ensure a dignified valediction. The highest point of the coffin is aligned with the heart of the deceased and the surface of the coffin has been shaped in a way that a single flower can be placed at this exact spot. All models are upholstered in cotton. The coffins are made of Nordic birch plywood and are available painted in black or white with a silk matt or highly polished finish.",
+    "brand": "Aurora",
+    "quantity": 5,
+    "rating": 4,
+    "createdAt": "2022-11-19T14:55:06.641+00:00",
+    "bestSelling": false
   }
 ]

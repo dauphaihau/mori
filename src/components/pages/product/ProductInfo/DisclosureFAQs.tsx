@@ -2,7 +2,7 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
 import { clns } from 'core/helpers';
 
-interface FAQsType {
+interface FAQsProps {
   data: {
     title: string,
     content: string,

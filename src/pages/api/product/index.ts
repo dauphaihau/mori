@@ -34,7 +34,7 @@ class APIFeatures {
 
       const arrRangePrice = queryObj.price.split(',')
       const queryRangeList = arrRangePrice.map(item => {
-        console.log('dauphaihau debug: item', item.split('-'))
+        // console.log('dauphaihau debug: item', item.split('-'))
         const [a, b] = item.split('-')
         if (b) {
           return {
