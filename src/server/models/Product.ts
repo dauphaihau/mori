@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema<IProduct>(
     name: { type: String, required: true },
     categories: { type: [String], required: true },
     category: { type: String, required: true },
+    material: { type: String, required: true },
     price: { type: Number, required: true },
     colors: { type: [String], required: true },
     color: { type: String, required: true },

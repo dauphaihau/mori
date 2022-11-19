@@ -5,6 +5,7 @@ export interface IProduct {
   salePrice: number,
   description: string,
   rating: number,
+  material: number,
   categories: string[]
   images: string[],
   price: number,

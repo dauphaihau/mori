@@ -2,12 +2,13 @@
   {
     "category": "casket",
     "name": "Autumn Oak Hardwood",
+    "material": "oak",
     "price": 2500,
     "color": "greyish-brown",
     "images": [
       "/product/casket-autumn-oak-ardwood_imxhpl.png"
     ],
-    "description": " Premium Traditional American Coffin Casket hardwood Oak, manufactured in the USA, White cream interior with side pleated panel and Stationary hardware and handles . Beautifully lined in cream velvetAdjustable bed and mattressPlease notify us if you require a name and message to be added to the outside of the coffin.",
+    "description": "Premium Traditional American Coffin Casket hardwood Oak, manufactured in the USA, White cream interior with side pleated panel and Stationary hardware and handles . Beautifully lined in cream velvetAdjustable bed and mattressPlease notify us if you require a name and message to be added to the outside of the coffin.",
     "brand": "Batesville",
     "quantity": 0,
     "rating": 4,
@@ -17,6 +18,7 @@
   {
     "category": "casket",
     "name": "Clarksburg Wooden Casket",
+    "material": "wood",
     "price": 7575,
     "color": "greyish-brown",
     "images": [
@@ -32,6 +34,7 @@
   {
     "category": "casket",
     "name": "Trinity Oak",
+    "material": "oak",
     "price": 2100,
     "salePrice": 2000,
     "images": [
@@ -48,6 +51,7 @@
   {
     "category": "casket",
     "name": "White Chased Solid Wood",
+    "material": "wood",
     "price": 2845,
     "salePrice": 2600,
     "images": [
@@ -64,6 +68,7 @@
   {
     "category": "casket",
     "name": "Last Supper Hardwood",
+    "material": "wood",
     "price": 2245,
     "salePrice": 2100,
     "color": "greyish-brown",
@@ -80,6 +85,7 @@
   {
     "category": "coffin",
     "name": "Willow Pod Coffin",
+    "material": "willow",
     "price": 550,
     "salePrice": 520,
     "color": "greyish-brown",
@@ -112,6 +118,7 @@
     "category": "coffin",
     "name": "Oval Walnut Tree Coffin",
     "price": 800,
+    "material": "walnut",
     "images": [
       "/product/coffin-modern-walnutt_findy8.png"
     ],
@@ -126,6 +133,7 @@
   {
     "category": "coffin",
     "name": "Oval Maple Tree Coffin",
+    "material": "maple",
     "price": 750,
     "images": [
       "/product/coffin-modern-maple_ul9dp7.png"
@@ -141,6 +149,7 @@
   {
     "category": "traditional coffin",
     "name": "Traditional Wreath Mould Lid",
+    "material": "oak",
     "price": 445,
     "images": [
       "/product/coffin-traditional-wreath-mould-lid_tbrfur.png"
@@ -156,6 +165,7 @@
   {
     "category": "traditional coffin",
     "name": "Traditional Box Lid Coffin",
+    "material": "oak",
     "price": 425,
     "images": [
       "/product/coffin-traditional-box-lid-coffin_ib0p8b.png"
@@ -171,6 +181,7 @@
   {
     "category": "traditional coffin",
     "name": "Traditional High raised Lid Coffin",
+    "material": "oak",
     "price": 535,
     "salePrice": 500,
     "color": "pale-brown",
@@ -187,6 +198,7 @@
   {
     "category": "shrouds",
     "name": "Bamboo Shroud",
+    "material": "bamboo",
     "price": 350,
     "color": "pale",
     "images": [
@@ -206,6 +218,7 @@
   {
     "category": "coffin",
     "name": "Simple Willow Coffin",
+    "material": "willow",
     "price": 495,
     "salePrice": 450,
     "color": "pale-brown",
@@ -223,6 +236,7 @@
   {
     "category": "coffin",
     "name": "Bamboo Round Coffin",
+    "material": "bamboo",
     "price": 415,
     "color": "pale",
     "images": [
@@ -238,6 +252,7 @@
   {
     "category": "coffin",
     "name": "Bamboo Lattice Round Coffin",
+    "material": "bamboo",
     "price": 485,
     "color": "pale",
     "images": [
@@ -253,6 +268,7 @@
   {
     "category": "child coffin",
     "name": "Wicker Coffins",
+    "material": "wicker",
     "price": 200,
     "salePrice": 180,
     "images": [
@@ -270,6 +286,7 @@
   {
     "category": "child coffin",
     "name": "Child’s Curved Painted",
+    "material": "willow",
     "price": 220,
     "color": "silver",
     "images": [
@@ -317,6 +334,7 @@
   {
     "category": "cremation urns",
     "name": "Willow Round",
+    "material": "willow",
     "price": 65,
     "color": "pale-brown",
     "images": [
@@ -362,6 +380,7 @@
   {
     "category": "cremation urns",
     "name": "Traditional – Dark Oak",
+    "material": "oak",
     "price": 70,
     "color": "greyish-brown",
     "images": [
@@ -377,6 +396,7 @@
   {
     "category": "cremation urns",
     "name": "Round Bamboo",
+    "material": "bamboo",
     "price": 65,
     "color": "pale",
     "images": [
@@ -407,6 +427,7 @@
   {
     "category": "coffin",
     "name": "Willow Rounded Coffin",
+    "material": "willow",
     "price": 505,
     "color": "pale",
     "images": [
@@ -422,6 +443,7 @@
   {
     "category": "shrouds",
     "name": "Shroud and Wicker stretcher",
+    "material": "wicker",
     "price": 475,
     "color": "pale-brown",
     "images": [
@@ -437,6 +459,7 @@
   {
     "category": "child coffin",
     "name": "Gold Willow Coffin",
+    "material": "willow",
     "price": 220,
     "salePrice": 198.32,
     "images": [
@@ -471,6 +494,7 @@
   {
     "category": "child coffin",
     "name": "Seagrass Coffins",
+    "material": "seagrass",
     "price": 270,
     "salePrice": 200,
     "images": [
@@ -505,6 +529,7 @@
   {
     "category": "child coffin",
     "name": "Bamboo Coffins",
+    "material": "bamboo",
     "price": 220,
     "salePrice": 202.5,
     "images": [
@@ -539,6 +564,7 @@
   {
     "category": "child coffin",
     "name": "White Wicker",
+    "material": "wicker",
     "price": 700,
     "salePrice": null,
     "images": [
@@ -556,6 +582,7 @@
   {
     "category": "child coffin",
     "name": "Round ended Willow Coffin",
+    "material": "willow",
     "price": 700,
     "salePrice": null,
     "images": [
@@ -572,6 +599,7 @@
   {
     "category": "child coffin",
     "name": "Somerset Willow Coffin",
+    "material": "willow",
     "price": 700,
     "salePrice": null,
     "images": [
@@ -621,6 +649,7 @@
   {
     "category": "shrouds",
     "name": "Willow Carrier",
+    "material": "willow",
     "price": 349,
     "color": "pale",
     "images": [
@@ -637,6 +666,7 @@
   {
     "category": "traditional coffin",
     "name": "Premium Traditional Casket",
+    "material": "oak",
     "price": 795,
     "color": "pale-brown",
     "images": [
