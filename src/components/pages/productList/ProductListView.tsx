@@ -1,6 +1,7 @@
 import { Col, Row, Link, Text, NextImage } from 'core/components';
 import { formatDollarUS, sliceText, slugify } from 'core/helpers';
 import Enums from "config/enums";
+import { config } from "../../../config";
 
 const ProductListView = ({ data, dataFade }) => {
 
@@ -19,7 +20,7 @@ const ProductListView = ({ data, dataFade }) => {
             alt={data.name}
             width={200}
             height={200}
-            src={data.images[0]}
+            src={config.hostStaticSource + data?.images[0]}
             objectFit='contain'
           />
         </Col>

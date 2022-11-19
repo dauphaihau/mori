@@ -9,6 +9,7 @@ export interface IProduct {
   images: string[],
   price: number,
   colors: string[],
+  color: string,
   sold: number,
   brand: string,
   quantity: number,

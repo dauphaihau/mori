@@ -19,7 +19,9 @@
       "_": "/api/product",
       "categories": "/api/product/categories",
       "detail": "/api/product/detail",
-      "related": "/api/product/related"
+      "related": "/api/product/related",
+      "search": "/api/product/search",
+      "sale": "/api/product/sale"
     }
   },
   "cookies": {

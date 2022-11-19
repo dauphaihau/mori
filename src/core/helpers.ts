@@ -190,7 +190,7 @@ export function titleIfy(slug, except = ['and', 'with']) {
   return words.join(' ')
 }
 
-export const formatDollarUS = (number, newOptions = {}) => {
+export const formatDollarUS = (price, newOptions = {}) => {
   let options = {
     style: "currency",
     currency: "USD",
@@ -198,7 +198,7 @@ export const formatDollarUS = (number, newOptions = {}) => {
     maximumSignificantDigits: 3,
   }
   options = { ...options, ...newOptions }
-  return new Intl.NumberFormat("en-US", options).format(number / 1);
+  return new Intl.NumberFormat("en-US", options).format(price / 1);
 };
 
 export const getUniqueValues = (data, type) => {

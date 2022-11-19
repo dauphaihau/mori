@@ -4,14 +4,15 @@ import mongoose from "mongoose";
 
 import Product from '../../../server/models/Product';
 import db from "../../../server/config/db";
+import { IProduct } from "../../../types/product";
 
 const handler = nc();
 
 class APIFeatures {
-  private queryString: any;
+  queryString: any;
   query: any;
 
-  constructor(query, queryString) {
+  constructor(query: IProduct, queryString) {
     this.query = query;
     this.queryString = queryString;
   }
@@ -22,10 +23,10 @@ class APIFeatures {
     // const excludeFields = ['page', 'sort', 'limit']
     // excludeFields.forEach(el => delete (queryObj[el]))
 
-    // if (queryObj.category !== 'all') this.query.find({ category: queryObj.category })
-    if (queryObj.category !== 'all') this.query.find({ categories: queryObj.category })
+    if (queryObj.category !== 'all') this.query.find({ category: queryObj.category })
     if (queryObj.brand !== 'all') this.query.find({ brand: queryObj.brand })
-    if (queryObj.color !== 'all') this.query.find({ colors: queryObj.color })
+    if (queryObj.color !== 'all') this.query.find({ color: queryObj.color })
+    // if (queryObj.color !== 'all') this.query.find({ colors: queryObj.color })
 
     if (queryObj.price) {
       // console.log('dauphaihau debug: query-obj-price', queryObj.price)
@@ -119,10 +120,10 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   // console.log('dauphaihau debug: mapped', mapped)
   // console.log('dauphaihau debug: data', data)
 
-  const result = await Product.find({ 'name': { $in: [ 'Autumn Oak Hardwood' ] } });
+  const result = await Product.find({ 'name': { $in: [ 'Autumn Oak Hardwood', 'Clarksburg Wooden Casket' ] } });
   // const result = await Product.find({ '_id': { $in: mapped } });
 
-  console.log('dauphaihau debug: result', result)
+  // console.log('dauphaihau debug: result', result)
 
   res.json({
     code: '200',

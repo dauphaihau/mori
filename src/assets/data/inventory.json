@@ -6,6 +6,7 @@
     "category": "casket",
     "name": "Autumn Oak Hardwood",
     "price": 2500,
+    "color": "greyish-brown",
     "colors": [
       "#7A6255"
     ],
@@ -26,6 +27,7 @@
     "category": "casket",
     "name": "Clarksburg Wooden Casket",
     "price": 7575,
+    "color": "greyish-brown",
     "colors": [
       "#7A6255"
     ],
@@ -50,6 +52,7 @@
     "images": [
       "/product/casket-trinity-oak_swipzi.png"
     ],
+    "color": "greyish-brown",
     "colors": [
       "#7A6255"
     ],
@@ -71,6 +74,7 @@
     "images": [
       "/product/casket-white-chased_-solid-wood_gp9jh3.png"
     ],
+    "color": "silver",
     "colors": [
       "#cfcdcb"
     ],
@@ -89,6 +93,7 @@
     "name": "Last Supper Hardwood",
     "price": 2245,
     "salePrice": 2100,
+    "color": "greyish-brown",
     "colors": [
       "#7A6255"
     ],
@@ -110,6 +115,7 @@
     "name": "Willow Pod Coffin",
     "price": 550,
     "salePrice": 520,
+    "color": "greyish-brown",
     "colors": [
       "#7A6255"
     ],
@@ -133,6 +139,7 @@
     "images": [
       "/product/coffin-traditional-shannon_uuwxlu.png"
     ],
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -153,6 +160,7 @@
     "images": [
       "/product/coffin-modern-walnutt_findy8.png"
     ],
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -173,6 +181,7 @@
     "images": [
       "/product/coffin-modern-maple_ul9dp7.png"
     ],
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -193,6 +202,7 @@
     "images": [
       "/product/coffin-traditional-wreath-mould-lid_tbrfur.png"
     ],
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -213,6 +223,7 @@
     "images": [
       "/product/coffin-traditional-box-lid-coffin_ib0p8b.png"
     ],
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -231,6 +242,7 @@
     "name": "Traditional High raised Lid Coffin",
     "price": 535,
     "salePrice": 500,
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -252,6 +264,7 @@
     ],
     "name": "Bamboo Shroud",
     "price": 350,
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -278,6 +291,7 @@
     "name": "Simple Willow Coffin",
     "price": 495,
     "salePrice": 450,
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -300,6 +314,7 @@
     "category": "coffin",
     "name": "Bamboo Round Coffin",
     "price": 415,
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -321,6 +336,7 @@
     "category": "coffin",
     "name": "Bamboo Lattice Round Coffin",
     "price": 485,
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -347,6 +363,7 @@
       "/product/coffin-child-wicker_phl14n.png",
       "/product/coffin-child-wicker-2_ix0dwp.png"
     ],
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -365,6 +382,7 @@
     "category": "child coffin",
     "name": "Child’s Curved Painted",
     "price": 220,
+    "color": "silver",
     "colors": [
       "#cfcdcb"
     ],
@@ -386,6 +404,7 @@
     ],
     "category": "baby coffin",
     "name": "Baby Crib Casket",
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -408,6 +427,7 @@
     ],
     "category": "baby coffin",
     "name": "Cane Infant Coffin",
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -429,6 +449,7 @@
     "category": "cremation urns",
     "name": "Willow Round",
     "price": 65,
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -449,6 +470,7 @@
     "category": "cremation urns",
     "name": "Pandanus Round Upright",
     "price": 65,
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -472,6 +494,7 @@
     "images": [
       "/product/cremation-urn4_ds53na.png"
     ],
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -489,6 +512,7 @@
     "category": "cremation urns",
     "name": "Traditional – Dark Oak",
     "price": 70,
+    "color": "greyish-brown",
     "colors": [
       "#7A6255"
     ],
@@ -509,6 +533,7 @@
     "category": "cremation urns",
     "name": "Round Bamboo",
     "price": 65,
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -529,6 +554,7 @@
     "category": "coffin",
     "name": "Buff Rounded",
     "price": 750,
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -549,6 +575,7 @@
     "category": "coffin",
     "name": "Willow Rounded Coffin",
     "price": 505,
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -570,6 +597,7 @@
     "category": "shrouds",
     "name": "Shroud and Wicker stretcher",
     "price": 475,
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -596,6 +624,7 @@
       "/product/coffin-willow-gold_to6orf.png",
       "/product/coffin-willow-gold-2_lw5m49.png"
     ],
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -619,6 +648,7 @@
       "/product/coffin-willow-cane_o85vh2.png",
       "/product/coffin-willow-cane-2_lmiirr.png"
     ],
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -642,6 +672,7 @@
       "/product/coffin-willow-seagrass_mlb0oo.png",
       "/product/coffin-willow-seagrass-2_b7u4wl.png"
     ],
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -665,6 +696,7 @@
       "/product/coffin-baby-banana-leaf_ayapfe.png",
       "/product/coffin-baby-banana-leaf-2_ao7pq4.png"
     ],
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -688,6 +720,7 @@
       "/product/coffin-willow-bamboo_ptekwa.png",
       "/product/coffin-willow-bamboo-2_n0fklv.png"
     ],
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -711,6 +744,7 @@
       "/product/coffin-willow-banana-leaf-curved_cep9jy.png",
       "/product/coffin-willow-banana-leaf-curved-2_cienyq.png"
     ],
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -734,6 +768,7 @@
       "/product/coffin-willow-white-wicker_d9ywd9.png",
       "/product/coffin-willow-white-wicker-2_vadzjz.png"
     ],
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -756,6 +791,7 @@
     "images": [
       "/product/coffin-willow-round-ended_itcvff.png"
     ],
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -779,6 +815,7 @@
       "/product/coffin-willow-somerset_nhza4g.png",
       "/product/coffin-willow-somerset-2_o8903e.png"
     ],
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -801,6 +838,7 @@
     "images": [
       "/product/coffin-willow-water-hyacinth_kf40j1.png"
     ],
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -818,6 +856,7 @@
     "category": "cremation urns",
     "name": "Pure Black Modern Urn",
     "price": 199,
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -840,6 +879,7 @@
     "category": "shrouds",
     "name": "Willow Carrier",
     "price": 349,
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -861,6 +901,7 @@
     "category": "traditional coffin",
     "name": "Premium Traditional Casket",
     "price": 795,
+    "color": "pale-brown",
     "colors": [
       "#B99374"
     ],
@@ -881,6 +922,7 @@
     ],
     "name": "Lawn Memorial",
     "price": 1500,
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -901,6 +943,7 @@
     ],
     "name": "Memorial with Mother and Child",
     "price": 4940,
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -921,6 +964,7 @@
     ],
     "name": "Headstone with Cross",
     "price": 1610,
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],
@@ -941,6 +985,7 @@
     ],
     "name": "Sacred Heart and Gates Kerbed Memorial",
     "price": 5752,
+    "color": "pale",
     "colors": [
       "#f3eed7"
     ],

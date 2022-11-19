@@ -15,6 +15,7 @@ export const DotButton = ({ selected, onClick }) => (
 );
 
 const ProductImages = ({ product }) => {
+
   const { images, name } = product;
 
   const [viewportRef, embla] = useEmblaCarousel({ skipSnaps: false });

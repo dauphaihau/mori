@@ -1,40 +1,18 @@
 import { useEffect, useState } from 'react';
 
-import { useFilterContext } from 'context/filterContext';
 import { clns, formatDollarUS, getUniqueValues, titleIfy } from 'core/helpers';
-import { Text, Box, Button, Checkbox, Link } from 'core/components';
+import { Text, Box, Button, Checkbox, Link, Skeleton } from 'core/components';
 import { useRouter } from 'next/router';
 import Enums, { PRODUCT_COLORS } from "../../../config/enums";
+import { useCategories } from "../../../services/product";
 
 const PRODUCT_COLORS2 = {
+  'all': 'all',
   '#cfcdcb': 'silver',
   '#7a6255': 'greyish-brown',
   '#b99374': 'pale-brown',
   '#f3eed7': 'pale',
 }
-
-const categoriesData = [
-  { "name": "casket" },
-  { "name": "coffin" },
-  { "name": "traditional coffin" },
-  { "name": "shrouds" },
-  { "name": "child coffin" },
-  { "name": "baby coffin" },
-  { "name": "cremation urns" },
-  { "name": "memorial" }
-]
-
-// const categoriesData = [
-//   { "name": "casket", },
-//   { "name": "natural material coffin", },
-//   { "name": "traditional coffin", },
-//   { "name": "shrouds", },
-//   { "name": "bamboo coffin", },
-//   { "name": "child coffin", },
-//   { "name": "baby coffin", },
-//   { "name": "cremation urns", },
-//   { "name": "memorial", }
-// ]
 
 const priceData = [
   { id: '0-500', title: '$0-$500' },
@@ -64,25 +42,27 @@ export const filterSearch = ({ router, ...res }) => {
 }
 
 export default function Filters() {
+  const { categories } = useCategories();
   const [category, setCategory] = useState('')
   const [brand, setBrand] = useState('')
-  const [categories, setCategories] = useState([])
   const [color, setColor] = useState('')
   const [priceListChecked, setPriceListChecked] = useState([])
   const router = useRouter()
 
-  useEffect(() => {
-    async function handleSearch() {
-      // const data = await getCategories()
-      // console.log('dauphaihau debug: data', data)
-      setCategories(categoriesData)
-    }
-
-    handleSearch()
-  }, [])
+  // useEffect(() => {
+  //   async function handleSearch() {
+  //     // const data = await getCategories()
+  //     // console.log('dauphaihau debug: data', data)
+  //     setCategories(categoriesData)
+  //   }
+  //
+  //   handleSearch()
+  // }, [])
 
   const handleColor = (e) => {
     const value = e.target.dataset.color;
+    console.log('dauphaihau debug: value', value)
+    console.log('dauphaihau debug: router-query', router.query)
     setColor(color === value ? '' : value)
     filterSearch({ router, color: PRODUCT_COLORS2[value] })
   }
@@ -122,19 +102,6 @@ export default function Filters() {
     router.push('/product', undefined, { scroll: false })
   }
 
-  // const {
-  //   filters: {
-  //     // brand,
-  //     // category,
-  //     // color,
-  //     minPrice, maxPrice, price
-  //   },
-  //   all_products,
-  //   updateFilters, clearFilters,
-  // } = useFilterContext()
-  //
-  // const colors = getUniqueValues(all_products, 'colors')
-
   return (
     <Box classes='filters sticky top-[80px] h-auto max-h-[700px] desktop:max-h-[900px] overflow-scroll pl-1'>
       <Box classes='filters__item'>
@@ -143,18 +110,25 @@ export default function Filters() {
           classes='filters__title'
         >Categories</Text>
         <Box>
-          {categories?.map(({ name }, idx) => (
-            <button
-              key={idx}
-              type='button'
-              className={clns('filter__btn hover:text-black', category === name && 'is-selected')}
-              name='category'
-              onClick={handleCategory}
-              // onClick={updateFilters}
-            >
-              {titleIfy(name)}
-            </button>
-          ))}
+          {categories ? categories?.map(({ _id: name }, idx) => (
+              <button
+                key={idx}
+                type='button'
+                className={clns('filter__btn hover:text-black', category === name && 'is-selected')}
+                name='category'
+                onClick={handleCategory}
+                // onClick={updateFilters}
+              >
+                {titleIfy(name)}
+              </button>
+            ))
+            : <Skeleton
+              quantity={8}
+              width={120}
+              height={28}
+              classes='rounded mb-4'
+            />
+          }
         </Box>
       </Box>
       <Box classes='filters__item'>
@@ -210,7 +184,6 @@ export default function Filters() {
                 className={color === c ? 'filters__colorBtn active' : 'filters__colorBtn'}
                 data-color={c}
                 onClick={handleColor}
-                // onClick={updateFilters}
               />
             );
           })}
@@ -235,27 +208,9 @@ export default function Filters() {
           ))
         }
       </Box>
-
-      {/*<Box classes='filters__item'>*/}
-      {/*  <Text*/}
-      {/*    h3*/}
-      {/*    classes='filters__title'*/}
-      {/*  >Price</Text>*/}
-      {/*  <Text classes=''>{formatDollarUS(price, { maximumSignificantDigits: 3, })}</Text>*/}
-      {/*  <input*/}
-      {/*    type='range'*/}
-      {/*    name='price'*/}
-      {/*    className='range-input'*/}
-      {/*    value={price}*/}
-      {/*    min={minPrice}*/}
-      {/*    max={maxPrice}*/}
-      {/*    onChange={updateFilters}*/}
-      {/*  />*/}
-      {/*</Box>*/}
       <Button
         classes='w-fit hidden laptop:block'
         onClick={handleReset}
-        // onClick={() => clearFilters()}
       >clear all</Button>
     </Box>
   );

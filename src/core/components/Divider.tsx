@@ -1,8 +1,8 @@
-interface DividerType {
+interface DividerProps {
   classes?: string,
 }
 
-const Divider = ({ classes }: DividerType) => {
+const Divider = ({ classes }: DividerProps) => {
   return (
     <div className={`border-b  ${classes} `}/>
   );

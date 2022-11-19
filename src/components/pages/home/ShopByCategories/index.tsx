@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { Box, Grid, Link, NextImage, Text } from 'core/components';
 import { titleIfy } from "core/helpers";
 import FadeInSection from 'components/common/FadeInSection';
 import { config } from "config";
+import { useCategories } from "services/product";
 
 const mapImage = {
   ['casket']: '/product/casket-trinity-oak_swipzi.png',
@@ -20,7 +22,10 @@ type Category = {
   count: number
 }
 
-const ShopByCategories = ({ categories = [] }) => {
+// const ShopByCategories = ({ categories = [] }) => {
+export default function ShopByCategories () {
+  const { categories } = useCategories();
+
   return (
     <FadeInSection classes='my-20 layout laptop:w-9/12 text-center'>
       <Text
@@ -29,7 +34,7 @@ const ShopByCategories = ({ categories = [] }) => {
       >Shop By Categories</Text>
       <Grid sx={1} md={2} lg={3} gap={4}>
         {
-          categories.length > 0 &&
+          categories && categories.length > 0 &&
           categories.map(({ _id: name, count }: Category, index) => (
             <Box
               classes='mb-4 laptop:mb-0 bg-product p-6 relative'
@@ -92,5 +97,3 @@ const ShopByCategories = ({ categories = [] }) => {
     </FadeInSection>
   );
 }
-
-export default ShopByCategories;

@@ -9,6 +9,8 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import FiltersSortMobile from "../../components/pages/productList/FiltersSortMobile";
 import { Filters, Sorter } from "../../components/pages/productList";
+import { cn } from 'core/helpers';
+import { useUIController } from "context/UIControllerContext";
 
 const dataBreadcrumb = [
   { path: Enums.PATH.DEFAULT, name: 'Home' },
@@ -20,6 +22,7 @@ interface ProductListPageProps {
 }
 
 export default function ProductListPage<NextPage>() {
+  const { progress, setProgress } = useUIController();
   const router = useRouter()
   const params = {
     page: router.query.page || 1,
@@ -29,25 +32,11 @@ export default function ProductListPage<NextPage>() {
     sort: router.query.sort || '-createdAt',
     price: router.query.price || '',
   }
-  const { data } = useProducts(params)
+  const { data, isLoading } = useProducts(params)
+  // setProgress(progress + 30)
+  // setProgress(!isLoading && 100)
+  // setProgress(isLoading ? 30 : 100)
   console.log('dauphaihau debug: data', data)
-
-  // useEffect(() => {
-  //   const initLoad = async () => {
-  //     const params = {
-  //       page: router.query.page || 1,
-  //       category: router.query.category || 'all',
-  //       brand: router.query.brand || 'all',
-  //       color: router.query.color || 'all',
-  //       sort: router.query.sort || '-createdAt',
-  //       price: router.query.price || '',
-  //     }
-  //     const res = await productService.getProducts(params)
-  //     setData(res)
-  //   }
-  //   initLoad()
-  //
-  // }, [router.asPath])
 
   return (
     <>
@@ -76,7 +65,7 @@ export default function ProductListPage<NextPage>() {
             >
               <Text
                 h1
-                classes='text-3xl laptop:text-xl font-light'
+                classes={cn('text-3xl laptop:text-xl font-light', isLoading && 'invisible')}
               >{data?.products.length} results found</Text>
               {/*>{total} results found</Text>*/}
               <Sorter/>

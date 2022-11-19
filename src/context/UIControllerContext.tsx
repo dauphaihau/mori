@@ -7,21 +7,20 @@ import reducer, {
 import * as React from "react";
 import { useRouter } from "next/router";
 import { STORAGE_KEY } from "../config/enums";
+import useSafeContext from "../core/hooks/useSafeContext";
+import { FilterState } from "./reducers/filterReducer";
 
 const initialState = {
   openAddressModal: false,
   // dispatch: () => {},
-  // setProgress: () => {},
-  // setCategories: () => {},
+  setProgress: () => {},
+  setCategories: () => {},
   categories: [],
   progress: 0,
 };
 
-const UIControllerContext = createContext<Partial<uiControllerState>>({});
 
-export function useUIController() {
-  return useContext(UIControllerContext);
-}
+export const [useUIController, Provider] = useSafeContext<uiControllerState>({})
 
 export const UIControllerProvider: FC = ({ children }) => {
   const [controller, dispatch] = useReducer<Reducer<uiControllerState, uiControllerActions>>(reducer, initialState);
@@ -47,7 +46,7 @@ export const UIControllerProvider: FC = ({ children }) => {
   // }, [router.asPath]);
 
   return (
-    <UIControllerContext.Provider
+    <Provider
       value={{
         ...(controller as object), dispatch,
         setCategories, categories,
@@ -56,6 +55,6 @@ export const UIControllerProvider: FC = ({ children }) => {
       }}
     >
       {children}
-    </UIControllerContext.Provider>
+    </Provider>
   );
 }

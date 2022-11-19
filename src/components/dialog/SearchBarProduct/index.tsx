@@ -5,14 +5,13 @@ import { clns, debounce } from 'core/helpers';
 import { Box, Portal } from 'core/components';
 import SearchInput from './SearchInput';
 import ResultSearch from './ResultSearch';
-import { productService } from "../../../services/product";
+import { productService, useProducts, useSearchProducts } from "../../../services/product";
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable'
-import axios from "axios";
 
 const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog }) => {
   const router = useRouter();
-  const [products, setProducts] = useState([])
+  // const [products, setProducts] = useState([])
   const [searchValue, setSearchValue] = useState('');
 
   // const fetcher = async (url) => await axios.get(url, {
@@ -28,9 +27,9 @@ const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog 
     setSearchValue('')
   }, [router.asPath])
 
-  useEffect(() => {
-    setProducts([])
-  }, [showSearchProductDialog])
+  // useEffect(() => {
+  //   setProducts([])
+  // }, [showSearchProductDialog])
 
   const debounceSearch = useCallback(
     debounce((value) => {
@@ -39,18 +38,23 @@ const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog 
     []
   );
 
-  useEffect(() => {
-    if (!searchValue) return;
+  const { products } = useSearchProducts({ search: searchValue, limit: 6 })
+  // setProducts(data?.products ?? [])
+  // console.log('dauphaihau debug: products', products)
 
-    async function handleSearch() {
-      const data = await productService.getProductByName({ search: searchValue, limit: 6 })
-      if (data) {
-        setProducts(data.products)
-      }
-    }
-
-    handleSearch()
-  }, [searchValue])
+  // useEffect(() => {
+  //   if (!searchValue) return;
+  //
+  //   async function handleSearch() {
+  //     const data = await productService.getProductByName({ search: searchValue, limit: 6 })
+  //     // const data = await productService.getProductByName({ search: searchValue, limit: 6 })
+  //     if (data) {
+  //       setProducts(data.products)
+  //     }
+  //   }
+  //
+  //   handleSearch()
+  // }, [searchValue])
 
   const handleSearch = (searchValue) => {
     debounceSearch(searchValue);
@@ -76,10 +80,13 @@ const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog 
           showSearchProductDialog={showSearchProductDialog}
           onChange={e => handleSearch(e.target.value)}
         />
-        <ResultSearch
-          searchValue={searchValue}
-          products={products}
-        />
+        {
+          products &&
+          <ResultSearch
+            searchValue={searchValue}
+            products={products}
+          />
+        }
       </Box>
     </Portal>
   );

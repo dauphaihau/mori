@@ -16,6 +16,7 @@ import { AddressDialog, SubscribeDialog } from 'components/dialog';
 import { clns } from 'core/helpers';
 import AcceptCookie from "./AcceptCookie";
 import FreeShip from "./FreeShip";
+import LoadingBar from "react-top-loading-bar";
 
 interface LayoutProps {
   children: ReactNode;
@@ -23,6 +24,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, categories }: LayoutProps) => {
+  const { progress, setProgress } = useUIController();
   const [isMobileScreen, setIsMobileScreen] = useState(false)
   const [accountLayout, setAccountLayout] = useState(false)
   const router = useRouter();
@@ -43,12 +45,18 @@ const Layout = ({ children, categories }: LayoutProps) => {
 
   return (
     <>
+      <LoadingBar
+        color='#000000'
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+        height={2}
+      />
       <Toaster
         position={isMobileScreen ? 'top-center' : 'bottom-right'}
         reverseOrder={false}
       />
 
-      <SubscribeDialog/>
+      {/*<SubscribeDialog/>*/}
       <AddressDialog/>
       {/*<ChatBox/>*/}
 

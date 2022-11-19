@@ -6,28 +6,23 @@ import { config } from "config";
 
 const ResultSearch = ({ searchValue, products }) => {
 
-  const renderResult = () => {
-    if (!searchValue) return null;
+  const Result = () => {
+    // if (!searchValue) return null;
     if (products.length === 0) {
       return (
         <Box classes='laptop:pt-4'>
           <Text classes='mb-2'>Products</Text>
-          <Text classes='border-t py-4'
-                data-testid="noResultsText"
-          >
+          <Text classes='border-t py-4' data-testid="noResultsText">
             No results could be found
           </Text>
         </Box>
       )
     }
     if (products.length) {
-    // if (products && products.length > 0) {
       return (
         <Box classes='relative'>
           <Text classes='pb-2 border-b sticky top-0 py-4 bg-white z-10'>{products.length} result</Text>
-          <Box
-            data-testid="productsList"
-          >
+          <Box data-testid="productsList">
             {
               products.map((item, index) => {
                 return (
@@ -99,7 +94,7 @@ const ResultSearch = ({ searchValue, products }) => {
 
   return (
     <Col classes='max-h-[650px] overflow-y-auto overflow-x-hidden bg-white px-4 laptop:rounded-lg laptop:mt-4'>
-      {renderResult()}
+      <Result/>
     </Col>
   );
 }

@@ -13,20 +13,24 @@ export const productService = {
   //     console.log('err', err)
   //   }
   // },
+
+  getProductSale: async (names) => {
+    try {
+      const res = await api.post(config.api.product._, {
+        names,
+      })
+      console.log('dauphaihau debug: res', res)
+      return await res.data
+    } catch (err) {
+      console.log('err', err)
+    }
+  },
   getProductByIds: async (ids) => {
     try {
       const res = await api.post(config.api.product._, {
         ids,
       })
       return await res.data
-    } catch (err) {
-      console.log('err', err)
-    }
-  },
-  getCategories: async () => {
-    try {
-      const res = await api.get(config.api.product.categories)
-      return res.data.categories
     } catch (err) {
       console.log('err', err)
     }
@@ -47,6 +51,38 @@ export const productService = {
       console.log('err', err)
     }
   },
+}
+
+export function useCategories() {
+  const fetcher = url => api.get(url).then(res => res.data)
+  const { data, error } = useSWR(config.api.product.categories, fetcher)
+  return {
+    categories: data?.categories,
+    isLoading: !data,
+    isError: !!error,
+  };
+}
+
+export function useColors() {
+  const fetcher = url => api.get(url).then(res => res.data)
+  const { data, error } = useSWR(config.api.product.categories, fetcher)
+  return {
+    categories: data?.categories,
+    isLoading: !data,
+    isError: !!error,
+  };
+}
+
+export function useSearchProducts(params) {
+  const fetcher = url => api.get(url, { params }).then(res => res.data)
+  const { data, error, mutate } = useSWR(params.search ? [config.api.product.search, params] : null, fetcher)
+  return {
+    // data,
+    products: data?.products,
+    isLoading: !data,
+    isError: !!error,
+    mutate
+  };
 }
 
 export function useProducts(params) {
@@ -78,6 +114,32 @@ export function useRelatedProducts(category) {
   const { data, error, mutate } = useSWR(category ? config.api.product.related : null, fetcher)
   return {
     relatedProducts: data?.products,
+    isLoading: !data,
+    isError: !!error,
+    mutate
+  };
+}
+
+export function useProductsSale(names) {
+  // try {
+  //   const res = await api.post(config.api.product._, {
+  //     names,
+  //   })
+  //   console.log('dauphaihau debug: res', res)
+  //   return await res.data
+  // } catch (err) {
+  //   console.log('err', err)
+  // }
+
+  const fetcher = url => api.get(url).then(res => res.data)
+  const { data, error, mutate } = useSWR(config.api.product.sale, fetcher)
+
+  // const fetcher = url => api.get(url, { params: { names } }).then(res => res.data)
+  // const { data, error, mutate } = useSWR(names ? config.api.product.sale : null, fetcher)
+
+  console.log('dauphaihau debug: data', data)
+  return {
+    products: data?.products,
     isLoading: !data,
     isError: !!error,
     mutate

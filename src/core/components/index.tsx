@@ -12,6 +12,7 @@ export { default as Table} from './Table'
 
 
 export * from './Loading'
+export * from './Skeleton'
 export * from './Layout'
 // export * from './Table'
 export * from './Next'

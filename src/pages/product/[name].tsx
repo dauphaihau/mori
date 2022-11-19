@@ -1,14 +1,15 @@
+import { useRouter } from "next/router";
+
 import { cn, titleIfy } from 'core/helpers';
 import { ProductInfo, ProductRelated } from 'components/pages/product';
 import { Box } from 'core/components';
-import { useDetailProduct, useRelatedProducts } from "../../services/product";
-import { useRouter } from "next/router";
+import { useDetailProduct, useRelatedProducts } from "services/product";
 import { Loading } from "core/components";
 
 export default function ProductPage() {
   const router = useRouter()
   const name = titleIfy(router.query.name)
-  const { product, isError, isLoading } = useDetailProduct(name)
+  const { product, isLoading } = useDetailProduct(name)
   const { relatedProducts } = useRelatedProducts(product?.category)
 
   // console.log('dauphaihau debug: product', product)
