@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { clns } from "../helpers";
+import { cn } from "../helpers";
 
 interface TooltipType {
   content: string,
@@ -12,7 +12,7 @@ const Tooltip = (props: TooltipType) => {
   return (
     <div className="relative flex flex-row group w-full">
       <div
-        className={clns('hidden group-hover:block ',
+        className={cn('hidden group-hover:block ',
           // 'z-10 absolute mx-auto left-0 right-0 text-center',
           'z-10 absolute top-0 left-0',
           // 'z-10 absolute right-[-6px] bottom-[110%]',

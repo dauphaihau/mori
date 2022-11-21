@@ -5,7 +5,7 @@ import { ChevronUpIcon } from "@heroicons/react/solid";
 
 import { Box, Skeleton } from 'core/components';
 import { filterSearch } from "./Filters";
-import { clns, titleIfy } from 'core/helpers';
+import { cn, titleIfy } from 'core/helpers';
 import { useCategories } from "services/product";
 import Enums from "config/enums";
 import { Color } from "./Color";
@@ -16,14 +16,19 @@ export const Categories = memo(() => {
   const [category, setCategory] = useState('')
 
   useEffect(() => {
+    // console.log('dauphaihau debug: router-as-path', router.query)
     if (router.asPath === Enums.PATH.PRODUCT._) {
       setCategory('')
     }
+    // if (router.query.category === category) {
+    //   router.push('/product')
+    // }
   }, [router.asPath])
 
   const handleCategory = (e) => {
     const value = e.target.textContent.toLowerCase();
     setCategory(category === value ? '' : value)
+    // console.log('dauphaihau debug: router-as-path', router.query)
     filterSearch({ router, category: value })
   }
 
@@ -50,7 +55,7 @@ export const Categories = memo(() => {
               {/*>*/}
               <span className='text-base font-bold md:text-[18px] tracking-wide'>Categories</span>
               <ChevronUpIcon
-                className={clns('h-5 w-5 text-primary-gray',
+                className={cn('h-5 w-5 text-primary-gray',
                   open ? '' : 'transform rotate-180',
                 )}
               />
@@ -71,7 +76,7 @@ export const Categories = memo(() => {
                       <button
                         key={idx}
                         type='button'
-                        className={clns('filter__btn hover:text-black', category === name && 'is-selected')}
+                        className={cn('filter__btn hover:text-black', category === name && 'is-selected')}
                         name='category'
                         onClick={handleCategory}
                         // onClick={updateFilters}

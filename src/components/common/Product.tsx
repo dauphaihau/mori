@@ -1,5 +1,5 @@
 import { NextImage, Link, Box, Text, Badge, Row } from 'core/components';
-import { clns, formatDollarUS, slugify } from "core/helpers";
+import { cnn, formatDollarUS, slugify } from "core/helpers";
 import Enums from "config/enums";
 import { config } from "config";
 import { IProduct } from "types/product";
@@ -66,7 +66,7 @@ const Product = ({ data, dataFade }: ProductProps) => {
           justify='center'
         >
           <Text
-            classes={clns(' text-sm laptop:text-lg text-center text-primary-gray mb-4',
+            classes={cnn(' text-sm laptop:text-lg text-center text-primary-gray mb-4',
               data.salePrice && 'line-through',
             )}
           >

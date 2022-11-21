@@ -27,9 +27,10 @@ export default function ProductListPage<NextPage>() {
   const params = {
     page: router.query.page || 1,
     category: router.query.category || 'all',
-    brand: router.query.brand || 'all',
+    material: router.query.material || 'all',
     color: router.query.color || 'all',
-    sort: router.query.sort || '-createdAt',
+    sort: router.query.sort || '-sold',
+    // sort: router.query.sort || '-createdAt',
     price: router.query.price || '',
   }
   const { data, isLoading } = useProducts(params)

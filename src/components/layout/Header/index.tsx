@@ -4,7 +4,7 @@ import LeftNavbar from "./LeftNavbar";
 import React, { useEffect, useState } from "react";
 import Enums from "config/enums";
 import { useRouter } from "next/router";
-import { clns } from "core/helpers";
+import { cnn } from "core/helpers";
 import { useScrollPosition } from "core/hooks";
 
 const routeHasBanner = [Enums.PATH.DEFAULT, Enums.PATH.ABOUT._]
@@ -25,7 +25,7 @@ const Header = ({ categories }) => {
     <>
       <Box
         header
-        classes={clns('header',
+        classes={cnn('header',
           scrollPositionY < 15 && pageHasBanner && 'border-none',
           scrollPositionY > 15 && 'scrolling'
         )}
@@ -38,7 +38,7 @@ const Header = ({ categories }) => {
           />
           <Link
             href={Enums.PATH.HOME}
-            classes={clns('logo text-2xl font-bold uppercase',
+            classes={cnn('logo text-2xl font-bold uppercase',
               pageHasBanner && 'text-white',
               pageHasBanner && scrollPositionY > 15 && '!text-primary-black'
             )}

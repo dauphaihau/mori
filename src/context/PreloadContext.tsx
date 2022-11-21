@@ -1,4 +1,4 @@
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 import * as React from 'react';
 
 const PreloadContext = React.createContext<boolean>(false);
@@ -16,7 +16,7 @@ export function PreloadProvider({ children }: {children: React.ReactNode}) {
   return (
     <PreloadContext.Provider value={preloaded}>
       <div
-        className={clns(
+        className={cn(
           'fixed inset-0 flex items-center justify-center bg-white transition-opacity dark:bg-dark',
           preloaded && 'pointer-events-none opacity-0'
         )}

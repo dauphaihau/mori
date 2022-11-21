@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Box, Grid, Row, Text, Button } from 'core/components';
-import { clns } from "core/helpers";
+import { cn } from "core/helpers";
 import { ProductListView } from "./index";
 import Product from 'components/common/Product';
 import { useFilterContext } from "context/filterContext";
@@ -117,7 +117,7 @@ const Products = ({ data }) => {
         <>
           <Grid
             gap={4} sx={1} md={2} lg={3}
-            classes={clns(isLoaded && 'fade-in-start', 'product-list')}
+            classes={cn(isLoaded && 'fade-in-start', 'product-list')}
           >
             {
               products?.map((item, index) => (
@@ -143,7 +143,7 @@ const Products = ({ data }) => {
     return (
       <Grid
         sx={1}
-        classes={clns(isLoaded && 'fade-in-start')}
+        classes={cn(isLoaded && 'fade-in-start')}
       >
         {
           products?.map((item, index) => (

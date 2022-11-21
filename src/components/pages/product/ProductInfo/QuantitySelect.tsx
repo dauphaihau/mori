@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { Box, clns, Row } from "../../../../core";
+import { Box, cn, Row } from "../../../../core";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 
 const quantityOptions = new Array(10).fill('').map((_, i) => ({
@@ -47,7 +47,7 @@ export default function QuantitySelect({ onSelect }) {
                   <Listbox.Option
                     key={index}
                     value={option}
-                    className={({ active }) => clns(
+                    className={({ active }) => cn(
                       active ? 'text-gray-700 bg-light-200 dark:hover:bg-gray-custom-502 dark:text-white' : 'text-black dark:text-white',
                       'cursor-default select-none relative py-2 rounded-[5px] pl-3 pr-0'
                     )}
@@ -58,7 +58,7 @@ export default function QuantitySelect({ onSelect }) {
                           justify='between'
                           align='center'
                         >
-                            <span className={clns(' block truncate')}>
+                            <span className={cn(' block truncate')}>
                             {/*<span className={clns(selected ? 'font-semibold' : 'font-normal', ' block truncate')}>*/}
                               {option.label}
                             </span>

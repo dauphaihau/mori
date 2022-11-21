@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { EyeIcon, EyeOffIcon, XCircleIcon } from '@heroicons/react/outline';
 
-import { clns, isEmpty } from 'core/helpers';
+import { cn, isEmpty } from 'core/helpers';
 import { InputType } from "./Input";
 
 const InputPassword = forwardRef<HTMLInputElement, InputType>((props: InputType) => {
@@ -38,12 +38,12 @@ const InputPassword = forwardRef<HTMLInputElement, InputType>((props: InputType)
   return (
     <div className='form-input'>
       {label && <label htmlFor={name}>{label}</label>}
-      <div className={clns('input group', classesSpace)}>
+      <div className={cn('input group', classesSpace)}>
         <div className='input__contentLeft'>{contentLeft}</div>
         <input
           type={showPassword ? '' : 'password'}
           // onChange={handleOnChange}
-          className={clns('peer p-4', className, classes,
+          className={cn('peer p-4', className, classes,
             contentLeft && '!pl-7'
           )}
 

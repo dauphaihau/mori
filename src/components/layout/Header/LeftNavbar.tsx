@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { MenuIcon } from '@heroicons/react/outline';
 
-import { clns } from 'core/helpers';
+import { cnn } from 'core/helpers';
 import navbarData from 'assets/data/navbarData';
 import { Link, Text, Box, List, Row } from 'core/components';
 import { NavMobileDrawer } from 'components/drawer';
@@ -27,7 +27,7 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
         classes='navbar__leftSide flex-1'
       >
         <MenuIcon
-          className={clns('menu-mobile stroke-1',
+          className={cnn('menu-mobile stroke-1',
             !pageHasBanner && '!text-primary-black',
             pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
           )}
@@ -57,14 +57,14 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
                 return (
                   <Box
                     key={index}
-                    classes={clns('single-link',
+                    classes={cnn('single-link',
                       router.route === path ? pageHasBanner && scrollPositionY < 15 ? 'active--white' : 'active' : 'default',
                     )}
                   >
                     <Link
                       hideIf={!pageHasBanner}
                       href={path}
-                      classes={clns('single-link__title',
+                      classes={cnn('single-link__title',
                         scrollPositionY > 15 ? 'scrolling' : 'non-scroll'
                       )}
                     >
@@ -73,7 +73,7 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
                     <Link
                       hideIf={pageHasBanner}
                       href={path}
-                      classes={clns('single-link__title',
+                      classes={cnn('single-link__title',
                         // 'group-hover:text-black',
                         router.route !== path ? 'default' : 'active',
                       )}

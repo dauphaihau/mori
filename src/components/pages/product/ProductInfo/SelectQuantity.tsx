@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 
 
 enum QUANTIY_PRODUCT {
@@ -78,7 +78,7 @@ function SelectQuantity<Type extends OptionValue>(props: SelectType<Type>) {
         <div className={`form-select-input ${classesSpace}`}>
           {label && <Listbox.Label className='form-select-input__title'>{label}</Listbox.Label>}
           <Listbox.Button
-            className={clns('form-select-input__btn',
+            className={cn('form-select-input__btn',
               classesBtn,
               borderLight && 'border-none shadow-none focus:ring-0 focus:border-gray-200',
               size === 'medium' ? 'py-[10px]' : 'py-2',
@@ -109,7 +109,7 @@ function SelectQuantity<Type extends OptionValue>(props: SelectType<Type>) {
                 options.map((option, index) => (
                   <Listbox.Option
                     key={index}
-                    className={({ active }) => clns(
+                    className={({ active }) => cn(
                       active ? 'text-gray-700 bg-light-200 dark:hover:bg-gray-custom-502 dark:text-white' : 'text-black dark:text-white',
                       'cursor-default select-none relative py-2 rounded-[5px] pl-3 pr-0'
                     )
@@ -121,7 +121,7 @@ function SelectQuantity<Type extends OptionValue>(props: SelectType<Type>) {
                       <>
                         <div className='flex items-center'>
                           <span
-                            className={clns(selected ? 'font-semibold' : 'font-normal', ' block truncate')}
+                            className={cn(selected ? 'font-semibold' : 'font-normal', ' block truncate')}
                           >
                             {option.label}
                           </span>
@@ -132,7 +132,7 @@ function SelectQuantity<Type extends OptionValue>(props: SelectType<Type>) {
                             {
                               selected ? (
                                 <span
-                                  className={clns(
+                                  className={cn(
                                     active ? 'text-black dark:text-white' : 'text-black dark:text-white',
                                     'absolute inset-y-0 right-0 flex items-center pr-4'
                                   )}

@@ -1,4 +1,4 @@
-import { clns, Text } from "../../index";
+import { cn, Text } from "../../index";
 import { ReactNode } from "react";
 
 interface PropsStepLabel {
@@ -30,7 +30,7 @@ const Label = ({ labels, step }: PropsStepLabel) => {
             key={item.id}
           >
             <div
-              className={clns('step-border',
+              className={cn('step-border',
                 step !== 1 ? '!border-black' : ''
               )}
             ></div>
@@ -41,7 +41,7 @@ const Label = ({ labels, step }: PropsStepLabel) => {
                   : <i className="fa-solid fa-circle step-content__icon"/>
                 }
                 <Text
-                  classes={clns('step-content__text',
+                  classes={cn('step-content__text',
                     step === item.id ? '!text-black' : '')}
                 >
                   {item.heading}
@@ -56,7 +56,7 @@ const Label = ({ labels, step }: PropsStepLabel) => {
             key={item.id}
           >
             <div
-              className={clns('step-border',
+              className={cn('step-border',
                 step === 3 ? '!border-black' : '')}
             ></div>
             <div className='step-content'>
@@ -67,7 +67,7 @@ const Label = ({ labels, step }: PropsStepLabel) => {
                     ? <i className="fa-solid fa-check step-content__icon"/>
                     : <i className="fa-solid fa-circle step-content__icon"/>
                 }
-                <Text classes={clns('step-content__text', step === item.id ? '!text-black' : '')}>
+                <Text classes={cn('step-content__text', step === item.id ? '!text-black' : '')}>
                   {item.heading}
                 </Text>
               </>
@@ -88,7 +88,7 @@ const Label = ({ labels, step }: PropsStepLabel) => {
                       : <i className="fa-solid fa-circle step-content__icon--gray"/>
                   }
                   <Text
-                    classes={clns('step-content__text',
+                    classes={cn('step-content__text',
                       step === item.id ? '!text-black' : ''
                     )}
                   >

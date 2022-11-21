@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Box, NextImage, Text } from 'core/components';
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useFadeIn, useMediaQuery } from 'core/hooks';
@@ -48,7 +48,7 @@ const RealLifeImages: FC = () => {
       <button
         onClick={scrollPrev}
         // disabled={!prevBtnEnabled}
-        className={clns(' text-primary-black rounded-full p-4 flex-center absolute z-10 top-[35%] left-0 animate hover:-translate-x-2')}
+        className={cn(' text-primary-black rounded-full p-4 flex-center absolute z-10 top-[35%] left-0 animate hover:-translate-x-2')}
       >
         <ChevronLeftIcon className='w-10 h-10 p-2 text-base rounded-full bg-white shadow text-black'/>
       </button>

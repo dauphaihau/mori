@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { classNames } from 'core/helpers';
+import { cn } from 'core/helpers';
 
 enum GAP {
   FIRST = 1,
@@ -65,7 +65,7 @@ const Col = ({
 }: Partial<ColType>) => {
   return (
     <div
-      className={classNames('flex flex-col',
+      className={cn('flex flex-col',
         GAP_MAPS[gap],
         JUSTIFY_MAPS[justify],
         ALIGN_ITEM_MAPS[align],

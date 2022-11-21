@@ -1,5 +1,5 @@
 import { forwardRef, ForwardRefRenderFunction, ReactNode } from "react";
-import { clns } from "../../helpers";
+import { cn } from "../../helpers";
 
 interface BoxProps {
   // sx: number,
@@ -34,7 +34,7 @@ const Box = forwardRef((props: Partial<BoxProps>, ref: any) => {
     ...others
   } = props
 
-  const allClass = clns(
+  const allClass = cn(
     classes,
   )
 

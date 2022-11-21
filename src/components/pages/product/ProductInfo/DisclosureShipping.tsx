@@ -2,7 +2,7 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon, GiftIcon } from '@heroicons/react/solid'
 import { Box, Col, NextImage, Row } from 'core/components';
 // import { Col, NextImage, Row, Tooltip } from 'core/components';
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 
 import {
   Tooltip,
@@ -31,7 +31,7 @@ export default function DisclosureShipping() {
               >
                 <span className='text-base font-bold md:text-[18px] tracking-wide'>Shipping and return policies</span>
                 <ChevronUpIcon
-                  className={clns('h-5 w-5 text-primary-gray',
+                  className={cn('h-5 w-5 text-primary-gray',
                     open ? '' : 'transform rotate-180',
                   )}
                 />

@@ -13,7 +13,7 @@ import ChatBox from './ChatBox';
 import BannerSlogan from '../pages/home/BannerSlogan';
 import { Box } from 'core/components';
 import { AddressDialog, SubscribeDialog } from 'components/dialog';
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 import AcceptCookie from "./AcceptCookie";
 import FreeShip from "./FreeShip";
 import LoadingBar from "react-top-loading-bar";

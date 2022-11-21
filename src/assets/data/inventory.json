@@ -102,6 +102,7 @@
   {
     "category": "traditional coffin",
     "name": "Shannon",
+    "material":"oak",
     "price": 895,
     "images": [
       "/product/coffin-traditional-shannon_uuwxlu.png"
@@ -303,6 +304,7 @@
   {
     "category": "baby coffin",
     "name": "Baby Crib Casket",
+    "material": "willow",
     "color": "pale",
     "price": 160,
     "images": [
@@ -319,6 +321,7 @@
   {
     "category": "baby coffin",
     "name": "Cane Infant Coffin",
+    "material": "cane",
     "color": "pale",
     "price": 450,
     "images": [
@@ -351,6 +354,7 @@
     "category": "cremation urns",
     "name": "Pandanus Round Upright",
     "price": 65,
+    "material": "pandanus",
     "color": "pale",
     "images": [
       "/product/cremation-urn3_thv7jv.png"
@@ -365,6 +369,7 @@
   {
     "category": "cremation urns",
     "name": "Traditional Octagonal",
+    "material": "oak",
     "price": 65,
     "images": [
       "/product/cremation-urn4_ds53na.png"
@@ -412,6 +417,7 @@
   {
     "category": "coffin",
     "name": "Buff Rounded",
+    "material": "willow",
     "price": 750,
     "color": "pale-brown",
     "images": [
@@ -477,6 +483,7 @@
   {
     "category": "child coffin",
     "name": "Cane Coffins",
+    "material": "cane",
     "price": 290,
     "salePrice": 280,
     "images": [
@@ -512,6 +519,7 @@
   {
     "category": "baby coffin",
     "name": "Banana Leaf Coffins",
+    "material": "banana left",
     "price": 182,
     "salePrice": 150.4,
     "images": [
@@ -547,6 +555,7 @@
   {
     "category": "child coffin",
     "name": "Banana Leaf Curved",
+    "material": "banana left",
     "price": 543,
     "salePrice": null,
     "images": [
@@ -617,10 +626,12 @@
   {
     "category": "child coffin",
     "name": "Water Hyacinth Coffin",
+    "material": "hyacinth",
     "price": 680,
     "salePrice": null,
     "images": [
-      "/product/coffin-willow-water-hyacinth_kf40j1.png"
+      "/product/coffin-willow-water-hyacinth_kf40j1.png",
+      "/product/coffin-willow-water-hyacinth-2_wqjxtc.png"
     ],
     "color": "pale",
     "description": "A natural hand-crafted biodegradable coffin, half round in shape – or can be traditional shape (see alternative photo), made from environmentally friendly Water Hyacinth. Traidcraft Fair Trade, Plastic Free and FFMA certified",
@@ -633,6 +644,7 @@
   {
     "category": "cremation urns",
     "name": "Pure Black Modern Urn",
+    "material": "ceramic",
     "price": 199,
     "color": "black",
     "images": [
@@ -682,6 +694,7 @@
   {
     "category": "memorial",
     "name": "Lawn Memorial",
+    "material": "granite",
     "price": 1500,
     "color": "black",
     "images": [
@@ -697,6 +710,7 @@
   {
     "category": "memorial",
     "name": "Memorial with Mother and Child",
+    "material": "granite",
     "price": 4940,
     "color": "black",
     "images": [
@@ -712,6 +726,7 @@
   {
     "category": "memorial",
     "name": "Headstone with Cross",
+    "material": "marble ",
     "price": 1610,
     "color": "pale",
     "images": [
@@ -727,6 +742,7 @@
   {
     "category": "memorial",
     "name": "Sacred Heart and Gates Kerbed Memorial",
+    "material": "granite",
     "price": 5752,
     "color": "pale",
     "images": [
@@ -742,6 +758,7 @@
   {
     "category": "coffin",
     "name": "The Diamant 32",
+    "material": "wood",
     "price": 2500,
     "color": "black",
     "images": [

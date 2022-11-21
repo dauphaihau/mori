@@ -8,7 +8,7 @@ import { Button, Text, Link, Checkbox, Input, Box, Row } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
 import { accountService } from 'services/account';
 import Enums from "config/enums";
-import { cn } from "core/helpers";
+import { cnn } from "core/helpers";
 import { IUserAuthSchema as FormData } from "lib/validation/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -65,7 +65,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
     <Box
       form
       onSubmit={handleSubmit(onSubmit)}
-      classes={cn('space-y-4', className)}
+      classes={cnn('space-y-4', className)}
     >
       <Input
         name='email'

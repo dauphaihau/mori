@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from "react";
 import { XIcon } from "@heroicons/react/solid";
 import Portal from "./Portal";
-import { clns } from "core/helpers";
+import { cn } from "core/helpers";
 
 let blackTheme = false;
 
@@ -37,12 +37,12 @@ const Drawer = ({
     <Portal>
       <div
         onClick={() => onClose()}
-        className={clns('backdrop',
+        className={cn('backdrop',
           !show && 'hidden',
         )}
       />
       <aside
-        className={clns('drawer',
+        className={cn('drawer',
           show && 'open',
           classes,
           blackTheme && 'bg-primary-black',
@@ -67,14 +67,14 @@ const Head = ({ title, children, classes, onClose }: Partial<HeadProps>) => {
   if (children) return <>{children}</>;
   return (
     <>
-      <div className={clns('drawer__header', classes)}>
+      <div className={cn('drawer__header', classes)}>
         <h1 className={blackTheme ? 'text-white' : ''}>{title}</h1>
         <XIcon
           className={`${blackTheme ? 'text-white' : ''} btn-icon`}
           onClick={() => onClose()}
         />
       </div>
-      <div className={clns('border-b', blackTheme ? 'border-gray-200' : '')}></div>
+      <div className={cn('border-b', blackTheme ? 'border-gray-200' : '')}></div>
     </>
   );
 }
@@ -85,7 +85,7 @@ interface FooterProps {
 }
 
 const Body = ({ children, classes }: FooterProps) => {
-  return <div className={clns('drawer__body', classes)}>{children}</div>;
+  return <div className={cn('drawer__body', classes)}>{children}</div>;
 }
 const Footer = ({ children }) => <div className='drawer__footer'>{children}</div>;
 

@@ -1,6 +1,6 @@
 import Pagination from './Pagination';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
-import { clns, filterRows, sortRows } from '../../helpers';
+import { cn, filterRows, sortRows } from '../../helpers';
 import { Checkbox, Input } from '../Input';
 import TableRow from './TableRow';
 
@@ -158,7 +158,7 @@ const Table = (props: ITable) => {
 
   return (
     <div className='table-container'>
-      <div className={clns('table-wrapper', res.fitContent && 'w-fit')}>
+      <div className={cn('table-wrapper', res.fitContent && 'w-fit')}>
         {searchInputSelection &&
           <div className='w-1/4'>
             <Input

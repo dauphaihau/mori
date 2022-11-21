@@ -1,6 +1,6 @@
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 import { Button } from "./Button";
 
 interface DisclosureProps {
@@ -36,13 +36,13 @@ export default function DisclosureCustom({ data }: DisclosureProps) {
                   >
                     <span className='text-base font-bold md:text-[18px] tracking-wide'>{obj.title}</span>
                     <ChevronUpIcon
-                      className={clns('h-5 w-5 text-primary-gray',
+                      className={cn('h-5 w-5 text-primary-gray',
                         open ? 'rotate-180 transform' : '',
                       )}
                     />
                   </Disclosure.Button>
                   <Disclosure.Panel
-                    className={clns('px-4 pt-4 pb-2 text-base text-primary-gray',
+                    className={cn('px-4 pt-4 pb-2 text-base text-primary-gray',
                       'overflow-hidden ease-in-out duration-500 pl-4',
                       open ? 'max-h-60' : 'max-h-0',
                     )}

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { cn, createMaps } from "core/helpers";
+import { cnn, createMaps } from "core/helpers";
 
 const FONT_WEIGHT_MAP = createMaps({
   bold: 'font-bold',
@@ -39,7 +39,7 @@ const Text = (props: Partial<TextProps>) => {
     weight = '', h1, h2, h3, h4, h5, h6, span, label, i, text, ...others
   } = props
 
-  const allClass = cn(
+  const allClass = cnn(
     transforms,
     FONT_WEIGHT_MAP[weight],
     as === 'button' ? 'cursor-pointer': '',

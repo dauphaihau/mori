@@ -1,6 +1,6 @@
 import { Box, Divider, Row, Text } from 'core/components';
 import { useCallback } from 'react';
-import { clns } from "core/helpers";
+import { cn } from "core/helpers";
 import Carousel, { useCarousel } from 'context/carouselContext';
 import { config } from "../../../config";
 
@@ -15,7 +15,7 @@ const Dots = () => {
     {
       scrollSnaps.map((_, index) => (
         <button
-          className={clns('carousel__dot',
+          className={cn('carousel__dot',
             index === selectedIndex ? "active" : ''
           )}
           type="button"
@@ -49,7 +49,7 @@ export default function BannerSlogan() {
               >
                 <Box
                   style={{backgroundImage: `url(${config.hostStaticSource + item.bannerImg})`}}
-                  classes={clns(
+                  classes={cn(
                     `
                     tablet:bg-fixed
                     relative 

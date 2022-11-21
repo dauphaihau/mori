@@ -22,7 +22,8 @@
       "related": "/api/product/related",
       "search": "/api/product/search",
       "sale": "/api/product/sale",
-      "color": "/api/product/color"
+      "color": "/api/product/color",
+      "filters": "/api/product/filters"
     }
   },
   "cookies": {

@@ -1,18 +1,27 @@
-import { useState } from 'react';
 import { Box, Button } from 'core/components';
 import { useRouter } from 'next/router';
 import { Price } from "./Price";
 import { Color } from "./Color";
 import { Categories } from "./Categories";
-import { useColors } from "../../../../services/product";
+import { useFilters } from "services/product";
+import { Material } from "./Material";
 
-export const filterSearch = ({ router, ...res }) => {
-  const { pathname, query } = router
+export const filterSearch = ({ router, ...res }): void => {
+  let { pathname, query } = router
 
   const isSame = (key, value) => {
     if (query[key] === value) {
+      if (key === 'category') {
+        query = {}
+        return
+      }
       delete query[key]
+
     } else {
+      if (key === 'category') {
+        query = { category: value }
+        return
+      }
       query[key] = value
     }
   }
@@ -25,50 +34,20 @@ export const filterSearch = ({ router, ...res }) => {
 }
 
 export default function Filters() {
-  const [brand, setBrand] = useState('')
   const router = useRouter()
-  // console.log('dauphaihau debug: router-query', router.query)
-  const { colors } = useColors(router.query?.category)
-  // console.log('dauphaihau debug: colors', colors)
-
-  const handleBrand = (e) => {
-    const value = e.target.textContent;
-    setBrand(brand === value ? '' : value)
-    filterSearch({ router, brand: value })
-  }
+  const { colors, materials, prices } = useFilters(router.query?.category)
 
   const handleReset = () => {
     router.query = {}
-    setBrand('')
     router.push('/product', undefined, { scroll: false })
   }
 
   return (
     <Box classes='filters sticky top-[80px] h-auto max-h-[700px] desktop:max-h-[900px] overflow-scroll pl-1'>
       <Categories/>
-      {/*<Box classes='filters__item'>*/}
-      {/*  <Text*/}
-      {/*    h3*/}
-      {/*    classes='filters__title'*/}
-      {/*  >Brands</Text>*/}
-      {/*  <Box>*/}
-      {/*    {['Batesville', 'Aurora', 'Astral'].map((name, idz) => (*/}
-      {/*      <button*/}
-      {/*        key={idz}*/}
-      {/*        type='button'*/}
-      {/*        className={clns('filter__btn', brand === name && 'is-selected')}*/}
-      {/*        name='brand'*/}
-      {/*        onClick={handleBrand}*/}
-      {/*        // onClick={updateFilters}*/}
-      {/*      >*/}
-      {/*        {name}*/}
-      {/*      </button>*/}
-      {/*    ))}*/}
-      {/*  </Box>*/}
-      {/*</Box>*/}
-
+      <Material data={materials}/>
       <Color data={colors}/>
-      <Price/>
+      <Price data={prices}/>
       <Button
         classes='w-fit hidden laptop:block'
         onClick={handleReset}

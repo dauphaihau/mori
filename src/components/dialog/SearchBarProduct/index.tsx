@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { clns, debounce } from 'core/helpers';
+import { cnn, debounce } from 'core/helpers';
 import { Box, Portal } from 'core/components';
 import SearchInput from './SearchInput';
 import ResultSearch from './ResultSearch';
@@ -65,11 +65,11 @@ const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog 
       <Box
         hideIf={!showSearchProductDialog}
         onClick={() => setShowSearchProductDialog(false)}
-        classes={clns('backdrop overflow-y-auto overflow-y-hidden',
+        classes={cnn('backdrop overflow-y-auto overflow-y-hidden',
         )}
       />
       <Box
-        classes={clns('fixed inset-0 ',
+        classes={cnn('fixed inset-0 ',
           'mx-auto h-12 bg-white laptop:w-1/2 laptop:mt-6 laptop:rounded-lg',
           'transition duration-300 ease-out',
           !showSearchProductDialog ? 'opacity-0 z-20' : 'opacity-100 z-40',

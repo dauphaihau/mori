@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import { Link, Text, Box, List, Row } from 'core/components';
 import { useScrollPosition } from "core/hooks";
-import { clns } from 'core/helpers';
+import { cnn } from 'core/helpers';
 import Enums from "config/enums";
 import { useFilterContext } from "context/filterContext";
 
@@ -29,13 +29,13 @@ const MegaMenu = ({ categories, pageHasBanner, path, title }) => {
   return (
     <Box classes='multi-link group'>
       <Box
-        classes={clns('trigger border-b-2 border-transparent',
+        classes={cnn('trigger border-b-2 border-transparent',
           router.route === path ? !pageHasBanner ? 'border-black' : 'border-white' : 'border-white',
         )}
       >
         <Link
           href={path}
-          classes={clns('trigger__title',
+          classes={cnn('trigger__title',
             'group-hover:text-primary-black group-hover:bg-gray-custom-52',
             pageHasBanner && 'text-white',
             pageHasBanner && scrollPositionY > 15 && '!text-primary-gray',
@@ -48,7 +48,7 @@ const MegaMenu = ({ categories, pageHasBanner, path, title }) => {
 
       <Box
         hideIf={!showDropdown}
-        classes={clns(
+        classes={cnn(
           'transition-all duration-300 ease-in-out ',
           'absolute bg-white min-w-[500px] shadow-2xl rounded-lg ',
           'invisible opacity-0 mt-4 p-8',

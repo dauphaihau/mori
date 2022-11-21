@@ -3,7 +3,7 @@ import Pagination from 'core/components/Table/Pagination';
 import RatingStars from './ProductInfo/RatingStars';
 import React, { Fragment, HTMLAttributes, useEffect, useState } from 'react';
 import { Listbox, Menu, Transition } from '@headlessui/react'
-import { clns, cn } from 'core/helpers';
+import { cn } from 'core/helpers';
 import { CheckIcon, ChevronDownIcon, SelectorIcon } from '@heroicons/react/solid';
 
 const sortReviews = [
@@ -181,7 +181,7 @@ const SortSelect = () => {
                   <Listbox.Option
                     key={index}
                     value={option}
-                    className={({ active }) => clns(
+                    className={({ active }) => cn(
                       active ? 'dark:text-white' : 'text-black dark:text-white',
                       ' hover:bg-gray-custom-50  cursor-default select-none relative py-2 rounded-[5px] pl-3 pr-0'
                     )}
@@ -192,7 +192,7 @@ const SortSelect = () => {
                           justify='between'
                           align='center'
                         >
-                            <span className={clns(' block truncate')}>
+                            <span className={cn(' block truncate')}>
                             {/*<span className={clns(selected ? 'font-semibold' : 'font-normal', ' block truncate')}>*/}
                               {option.label}
                             </span>
@@ -272,7 +272,7 @@ function MyDropdown() {
                         onClick={() => setSelected(item.value)}
                         justify='between'
                         align='center'
-                        classes={clns('rounded-md',
+                        classes={cn('rounded-md',
                           active ? 'bg-gray-custom-52' : '',
                         )}
                       >

@@ -1,4 +1,4 @@
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 import * as React from 'react';
 import { Tooltip as TippyTooltip, TooltipProps } from 'react-tippy';
 
@@ -26,7 +26,7 @@ export default function TooltipCustom({
       // arrow={true}
       html={
         <div
-          className={clns(
+          className={cn(
             className,
             'inline-block rounded-md bg-white p-2 text-gray-600 shadow-md dark:bg-dark dark:text-gray-200',
             'border dark:border-gray-600 '
@@ -39,7 +39,7 @@ export default function TooltipCustom({
     >
       {withUnderline ? (
         <span
-          className={clns(spanClassName, 'underline')}
+          className={cn(spanClassName, 'underline')}
           style={{ textDecorationStyle: 'dotted' }}
         >
           {children}

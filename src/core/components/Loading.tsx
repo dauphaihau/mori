@@ -1,11 +1,11 @@
-import { clns } from "../helpers";
+import { cnn } from "../helpers";
 
 export const Loading = ({ className }: any) => {
   return (
     <svg
       role="status"
       // className={clns('inline w-4 h-4 text-black ', className)}
-      className={clns('inline w-4 h-4 text-black animate-spin ', className)}
+      className={cnn('inline w-4 h-4 text-black animate-spin ', className)}
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { NextImage, Text, Link, Box, Row, Col, Badge } from 'core/components';
-import { clns, sliceText, slugify } from 'core/helpers';
+import { cn, sliceText, slugify } from 'core/helpers';
 import { useHover } from 'core/hooks';
 import Enums from "config/enums";
 
@@ -61,7 +61,7 @@ const ProductCard = ({ data }) => {
         }
       </Box>
 
-      <Box classes={clns('text-right hidden desktop:flex', !salePrice && 'items-center')}>
+      <Box classes={cn('text-right hidden desktop:flex', !salePrice && 'items-center')}>
         {
           salePrice ?
             <Box classes=''>
@@ -93,7 +93,7 @@ const ProductCard = ({ data }) => {
           >
             <Box
               data-displacement='/images/hover-effect/distortion.jpeg'
-              classes={clns('product-card__images',
+              classes={cn('product-card__images',
                 'w-[10rem] h-[8.3rem] desktop:w-[12.1rem] desktop:h-[11rem]'
               )}
             >

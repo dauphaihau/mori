@@ -4,7 +4,7 @@ import { useAuth } from 'context/authContext';
 import { Link, Button, Box, Row } from 'core/components';
 import { CartDrawer } from 'components/drawer';
 import { LoginRegisterDialog, SearchProductDialog } from 'components/dialog';
-import { clns } from 'core/helpers';
+import { cnn } from 'core/helpers';
 import Enums from 'config/enums';
 import { useScrollPosition } from "core/hooks";
 import { Icons } from "components/common/Icons";
@@ -37,7 +37,7 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
           onClick={() => setShowSearchBar(true)}
         >
           <Icons.search
-            className={clns('stroke-1',
+            className={cnn('stroke-1',
               pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
               !pageHasBanner && '!text-primary-black'
             )}
@@ -56,7 +56,7 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
             classes='flex-1 relative'
           >
             <Icons.bag
-              className={clns('stroke-1',
+              className={cnn('stroke-1',
                 pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
                 !pageHasBanner && '!text-primary-black'
               )}
@@ -66,7 +66,7 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
             {
               user?.numberAllOfItemsInCart > 0 && (
                 <Box
-                  classes={clns('absolute inset-0 left-4 flex-center rounded-2xl h-[15px] w-[44%]  text-[10px]',
+                  classes={cnn('absolute inset-0 left-4 flex-center rounded-2xl h-[15px] w-[44%]  text-[10px]',
                     pageHasBanner && scrollPositionY > 15 ? 'text-white bg-primary-black' : 'bg-white text-primary-black',
                     !pageHasBanner && 'text-white bg-primary-black',
                     user.numberAllOfItemsInCart >= 10 && 'h-[13px] px-[10px]',
@@ -84,7 +84,7 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
             user?.role === Enums.ROLE.ACCOUNT ?
               <Link href={Enums.PATH.ACCOUNT._}>
                 <Icons.userSolid
-                  className={clns('stroke-1',
+                  className={cnn('stroke-1',
                     pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
                     !pageHasBanner && '!text-primary-black'
                   )}
@@ -95,7 +95,7 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
               </Link>
               : <Icons.user
                 width={35}
-                className={clns('stroke-1',
+                className={cnn('stroke-1',
                   pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
                   !pageHasBanner && '!text-primary-black'
                 )}

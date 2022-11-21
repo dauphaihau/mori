@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { XCircleIcon } from '@heroicons/react/outline';
 
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 import Password from './InputPassword';
 import { FieldError } from "react-hook-form";
 
@@ -72,7 +72,7 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
     return (
       <div className='form-input'>
         {label && <label htmlFor={name}>{label}</label>}
-        <div className={clns('input group', classesSpace)}>
+        <div className={cn('input group', classesSpace)}>
           <div className='input__contentLeft'>{contentLeft}</div>
           <div className='input__contentRight'>{contentRight}</div>
           <Clear/>
@@ -87,7 +87,7 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
               onChange: (e) => handleOnChange(e),
               // onBlur: (e) => {},
             })}
-            className={clns('p-2.5 md:pr-5',
+            className={cn('p-2.5 md:pr-5',
               contentLeft ? 'pl-10' : '',
               classes
             )}

@@ -1,5 +1,5 @@
 import { Link } from 'core/components';
-import { clns } from "core/helpers";
+import { cn } from "core/helpers";
 
 interface BreadcrumbType {
   data: {
@@ -14,7 +14,7 @@ const Breadcrumb = ({ data, classes }: BreadcrumbType) => {
   return (
     <nav
       // className='flex'
-      className={clns('flex', classes)}
+      className={cn('flex', classes)}
       aria-label='Breadcrumb'
     >
       <ul className='inline-flex items-center space-x-1 md:space-x-3'>

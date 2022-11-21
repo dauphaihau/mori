@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Text, Link, Box, Row, Col, NextImage, Badge } from 'core/components';
-import { clns, sliceText, slugify } from 'core/helpers';
+import { cn, sliceText, slugify } from 'core/helpers';
 import Enums from "config/enums";
 import { Loading } from "../../../../core/components/Loading";
 import { BlurringImage } from "../../../../core/components/Next/BlurringImage";
@@ -72,7 +72,7 @@ const BigProductCard = ({ data }) => {
         }
       </Box>
 
-      <Box classes={clns('text-right hidden desktop:flex', !salePrice && 'items-center')}>
+      <Box classes={cn('text-right hidden desktop:flex', !salePrice && 'items-center')}>
         {salePrice ?
           <Box classes=''>
             <Text classes='ml-3 line-through font-light text-gray-700 text-sm tablet:text-base'>
@@ -100,7 +100,7 @@ const BigProductCard = ({ data }) => {
         >
           <Box
             data-displacement='/images/hover-effect/distortion.jpeg'
-            classes={clns('product-card__images',
+            classes={cn('product-card__images',
               'w-[25rem] h-[22rem] desktop:w-[25rem] desktop:h-[23rem]',
               'hidden'
             )}

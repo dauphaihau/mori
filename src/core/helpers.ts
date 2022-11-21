@@ -1,8 +1,8 @@
-export function clns(...classes: (false | null | undefined | string)[]) {
+export function cn(...classes: (false | null | undefined | string)[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function cn(...classes: (false | null | undefined | string)[]) {
+export function cnn(...classes: (false | null | undefined | string)[]) {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -15,7 +15,7 @@ export const sliceText = (text, quantity) => {
   return text
 }
 
-export function debounce(callback, interval) {
+export function debounce(callback, interval: number) {
   let debounceTimeoutId;
   return function (...args) {
     clearTimeout(debounceTimeoutId);
@@ -30,10 +30,6 @@ export const isDarkMode = () => {
   if (typeof window !== 'undefined') {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
   }
-}
-
-export function classNames(...classes: (false | null | undefined | string)[]) {
-  return classes.filter(Boolean).join(" ");
 }
 
 export const uniqElement = (arr) => {

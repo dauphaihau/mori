@@ -1,6 +1,6 @@
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 import { Button, Text } from "core/components";
 import { useRef, useState } from "react";
 
@@ -54,7 +54,7 @@ export default function DisclosureDescription({ description, limit = 500 }) {
               >
                 <span className='text-base font-bold md:text-[18px] tracking-wide'>Description</span>
                 <ChevronUpIcon
-                  className={clns('h-5 w-5 text-primary-gray',
+                  className={cn('h-5 w-5 text-primary-gray',
                     open ? '' : 'transform rotate-180',
                     'ui-open:rotate-90 ui-open:transform'
                   )}
@@ -91,14 +91,14 @@ export default function DisclosureDescription({ description, limit = 500 }) {
                 <Disclosure.Panel
 
                   ref={contentRef}
-                  className={clns('p-4 pb-2 text-base text-primary-gray',
+                  className={cn('p-4 pb-2 text-base text-primary-gray',
                     'transition-[height] overflow-hidden ease-in-out duration-500',
                     // open ? 'max-h-[1500px] from-inherit' : 'max-h-60 from-white',
                   )}
                 >
                   <div
                     ref={contentRef}
-                    className={clns('overflow-hidden  transition-all ease-in-out duration-500',
+                    className={cn('overflow-hidden  transition-all ease-in-out duration-500',
                       // className={clns('overflow-hidden transition-[height] ease-in-out duration-500 ',
 
                       longDescription && `

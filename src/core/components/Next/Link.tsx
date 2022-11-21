@@ -1,6 +1,6 @@
 import NextLink, { LinkProps } from 'next/link';
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 
 type LinkType = {
   href: string,
@@ -34,7 +34,7 @@ const Link = (props: LinkType) => {
         target='_blank'
         rel='noopener noreferrer'
         href={href}
-        className={clns('cursor-newTab',
+        className={cn('cursor-newTab',
           underline && 'underline underline-offset-4 hover:opacity-80',
           classes,
         )}
@@ -53,7 +53,7 @@ const Link = (props: LinkType) => {
       scroll={scroll}
     >
       <a {...others} target={target}
-         className={clns(
+         className={cn(
            underline && 'hover:underline underline-offset-4 decoration-1 hover:opacity-80',
            hideIf && 'hidden',
            classes || className

@@ -2,7 +2,7 @@ import React, { ReactNode, useCallback, useContext, useEffect, useRef, useState 
 import { SizeContext } from "context/sliderContext";
 import { useAnimationFrame } from "core/hooks";
 import { Box } from "core/components";
-import { clns } from "core/helpers";
+import { cn } from "core/helpers";
 
 interface Props {
   initialOffsetX: number,
@@ -81,7 +81,7 @@ const SliderContainer: React.FC<Props> = ({
   return (
     <Box
       ref={refContainer}
-      classes={clns('overflow-y-hidden whitespace-nowrap max-h-full max-w-full pointer-events-none',
+      classes={cn('overflow-y-hidden whitespace-nowrap max-h-full max-w-full pointer-events-none',
       // classes={clns(' overflow-x-hidden whitespace-nowrap max-w-full pointer-events-none',
         className)}
     >

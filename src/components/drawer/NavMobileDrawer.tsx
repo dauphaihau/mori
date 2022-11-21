@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import { XIcon } from '@heroicons/react/outline';
 
-import { clns } from 'core/helpers';
+import { cnn } from 'core/helpers';
 import { Drawer, List, Button, Box, Row, Link, Text, Divider } from 'core/components';
 import Enums from 'config/enums';
 import navbarData from 'assets/data/navbarData';
@@ -37,9 +37,9 @@ const Dropdown = ({ subMenus, dropdown, depthLevel }) => {
 
   return (
     <List
-      classes={clns('overflow-hidden ease-in-out duration-500 pl-4',
+      classes={cnn('overflow-hidden ease-in-out duration-500 pl-4',
         dropdown ? 'max-h-96' : 'max-h-0',
-        // classes={clns('overflow-hidden ease-in duration-500 pl-4 max-h-full',
+        // classes={cn('overflow-hidden ease-in duration-500 pl-4 max-h-full',
         //   dropdown ? 'max-h-96' : 'h-0',
 
         depthLevel === 1 && dropdown && 'py-4',
@@ -69,12 +69,12 @@ const MenuItems = ({ items, depthLevel }) => {
               justify='between'
               align='center'
               onClick={() => setDropdown((prev) => !prev)}
-              classes={clns('cursor-pointer ',
+              classes={cnn('cursor-pointer ',
                 depthLevel === 0 && 'py-4'
               )}
             >
               <Text
-                classes={clns(
+                classes={cnn(
                   '',
                   depthLevel === 0 && 'text-[12px] text-white uppercase tracking-[.20em]',
                   depthLevel === 1 && 'text-[11px] text-[#777676] uppercase tracking-[.20em]',
@@ -92,7 +92,7 @@ const MenuItems = ({ items, depthLevel }) => {
                   height={15}
                   width={15}
                 />}
-                classes={clns('',
+                classes={cnn('',
                   'text-white p-0 text-xl px-[0.7rem]',
                   depthLevel === 1 && 'text-[#777676]',
                   depthLevel === 2 && 'text-[#797978]',
@@ -112,7 +112,7 @@ const MenuItems = ({ items, depthLevel }) => {
             href={items.path}
             text={items.title}
             // onClick={() => items.childDiscover ? handleDiscover(items.title) : {}}
-            classes={clns(
+            classes={cnn(
               'transition duration-700 ease-in-out rounded-lg',
               'text-[#fbfbfb]',
               depthLevel === 0 && 'py-4 text-white text-[12px] uppercase tracking-widest',

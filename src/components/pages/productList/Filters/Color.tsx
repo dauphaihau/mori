@@ -6,7 +6,7 @@ import { ChevronUpIcon } from "@heroicons/react/solid";
 import { Box, Skeleton } from "core/components";
 import { filterSearch } from "./Filters";
 import Enums, { PRODUCT_COLORS } from "config/enums";
-import { cn } from "core/helpers";
+import { cnn } from "core/helpers";
 
 // const PRODUCT_COLORS2 = {
 //   'all': 'all',
@@ -28,29 +28,29 @@ const PRODUCT_COLORS3 = {
 
 // const colorsData = Object.values(PRODUCT_COLORS)
 
-export const Color = memo((props) => {
-  // console.log('dauphaihau debug: props', props.data)
+
+interface ColorProps {
+  data: string[]
+}
+
+export const Color = memo((props: ColorProps) => {
   const router = useRouter()
   const [color, setColor] = useState('')
 
   useEffect(() => {
-    if (router.asPath === Enums.PATH.PRODUCT._) {
-      setColor('')
+    if (router.asPath === Enums.PATH.PRODUCT._ || !router.query.hasOwnProperty('color')) {
+      // setColor('')
+      setColor('all')
     }
   }, [router.asPath])
 
   const handleColor = (e) => {
     const value = e.target.dataset.color;
-    console.log('dauphaihau debug: value', value)
-    console.log('dauphaihau debug: router-query', router.query)
     setColor(color === value ? '' : value)
     filterSearch({ router, color: value })
   }
 
   const colorsData = props?.data ? props?.data : []
-  // const colorsData = props?.data ? props?.data.unshift('all') : []
-
-  console.log('dauphaihau debug: colors-data', colorsData)
 
   return (
     <Box classes='filters__item'>
@@ -73,9 +73,9 @@ export const Color = memo((props) => {
               {/*       px-4 py-2 text-[13px]*/}
               {/*       '*/}
               {/*>*/}
-              <span className='text-base font-bold md:text-[18px] tracking-wide'>Colors</span>
+              <span className='text-base font-bold md:text-[18px] tracking-wide'>Color</span>
               <ChevronUpIcon
-                className={cn('h-5 w-5 text-primary-gray',
+                className={cnn('h-5 w-5 text-primary-gray',
                   open ? '' : 'transform rotate-180',
                 )}
               />
@@ -93,46 +93,35 @@ export const Color = memo((props) => {
                 {/*<Disclosure.Panel className='p-4 pb-2 text-base text-primary-gray'>*/}
                 <Box classes='grid grid-cols-4 gap-4 ml-[5px] w-[45%]'>
                   {/*<Box classes='flex gap-x-4 ml-[5px]'>*/}
-                  <button
-                    name='color'
-                    onClick={handleColor}
-                    data-color='all'
-                    className={color === 'all' ? 'filters__colorBtn filters__colorBtn--all active' : 'filters__colorBtn filters__colorBtn--all'}
-                  />
-
-                  {colorsData ? colorsData?.map((c, index) => {
-                      // {colors.map((c, index) => {
-                      // if (c === 'all') {
-                      //   return (
-                      //     <button
-                      //       key={index}
-                      //       name='color'
-                      //       onClick={updateFilters}
-                      //       data-color='all'
-                      //       className={color === 'all' ? 'filters__colorBtn filters__colorBtn--all active' : 'filters__colorBtn filters__colorBtn--all'}
-                      //     />
-                      //   );
-                      // }
-                      return (
-                        <button
-                          key={index}
-                          name='color'
-                          style={{ background: PRODUCT_COLORS3[c] }}
-                          // style={{ background: c }}
-                          className={color === c ? 'filters__colorBtn active' : 'filters__colorBtn'}
-                          data-color={c}
-                          onClick={handleColor}
-                        />
-                      );
-                    })
-                    : <Skeleton
-                      circle
-                      quantity={6}
-                      width={28}
-                      height={28}
-                      classes='rounded mb-4'
+                  {
+                    colorsData.length > 0 &&
+                    <button
+                      name='color'
+                      onClick={handleColor}
+                      data-color='all'
+                      className={color === 'all' ? 'filters__colorBtn filters__colorBtn--all active' : 'filters__colorBtn filters__colorBtn--all'}
                     />
                   }
+                  {colorsData.length > 0 ? colorsData?.map((c, index) => {
+                    return (
+                      <button
+                        key={index}
+                        name='color'
+                        style={{ background: PRODUCT_COLORS3[c] }}
+                        // style={{ background: c }}
+                        className={color === c ? 'filters__colorBtn active' : 'filters__colorBtn'}
+                        data-color={c}
+                        onClick={handleColor}
+                      />
+                    );
+                  }) : <Skeleton
+                    circle
+                    classesWrapper='flex gap-4'
+                    quantity={5}
+                    width={16}
+                    height={16}
+                    classes='mb-4'
+                  />}
                 </Box>
               </Disclosure.Panel>
             </Transition>

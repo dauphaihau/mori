@@ -24,7 +24,7 @@ class APIFeatures {
     // excludeFields.forEach(el => delete (queryObj[el]))
 
     if (queryObj.category !== 'all') this.query.find({ category: queryObj.category })
-    if (queryObj.brand !== 'all') this.query.find({ brand: queryObj.brand })
+    if (queryObj.material !== 'all') this.query.find({ material: queryObj.material })
     if (queryObj.color !== 'all') this.query.find({ color: queryObj.color })
     // if (queryObj.color !== 'all') this.query.find({ colors: queryObj.color })
 

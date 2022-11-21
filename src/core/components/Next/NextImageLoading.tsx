@@ -1,6 +1,6 @@
 import Image, { ImageProps } from 'next/image';
 import { useState } from "react";
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 import { Loading } from "../Loading";
 import { LoadingOverlay } from '@mantine/core';
 
@@ -35,7 +35,7 @@ const NextImageLoading = ({
   return (
     <figure
       style={!widthIsSet ? { width: `${width}px` } : undefined}
-      className={clns(className,
+      className={cn(className,
         'overflow-hidden rounded relative',
       )}
     >
@@ -48,7 +48,7 @@ const NextImageLoading = ({
         />
       }
       <Image
-        className={clns(
+        className={cn(
           imgClassName,
         )}
         // src={URL.createObjectURL(src)}

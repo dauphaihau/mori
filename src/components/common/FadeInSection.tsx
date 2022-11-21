@@ -1,5 +1,5 @@
 import { Box } from "core/components";
-import { clns } from "core/helpers";
+import { cn } from "core/helpers";
 import { useFadeIn } from "core/hooks";
 import { ReactNode } from "react";
 
@@ -11,7 +11,7 @@ export default function FadeInSection(
     <Box
       ref={ref}
       section
-      classes={clns('fade-in-section',
+      classes={cn('fade-in-section',
         isVisible ? 'visible' : '',
         classes
       )}

@@ -2,7 +2,7 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { CubeTransparentIcon, HandIcon } from '@heroicons/react/outline';
 import { ChevronUpIcon } from '@heroicons/react/solid'
 import { Row } from 'core/components';
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 
 export default function DisclosureHighlights() {
   return (
@@ -20,7 +20,7 @@ export default function DisclosureHighlights() {
               >
                 <span className='text-base font-bold md:text-[18px] tracking-wide'>Highlights</span>
                 <ChevronUpIcon
-                  className={clns('h-5 w-5 text-primary-gray',
+                  className={cn('h-5 w-5 text-primary-gray',
                     open ? '' : 'transform rotate-180',
                   )}
                 />

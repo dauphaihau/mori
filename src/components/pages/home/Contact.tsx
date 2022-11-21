@@ -1,12 +1,12 @@
 import { Button, Box, Col, Text } from "core/components";
 import { FC } from "react";
-import { clns } from "core/helpers";
+import { cn } from "core/helpers";
 import FadeInSection from "components/common/FadeInSection";
 
 const Contact: FC = () => {
   return (
     <FadeInSection
-      classes={clns('layout py-8 px-4 mt-12 text-center laptop:text-left bg-gray-custom-50 tablet:p-16 rounded-lg',
+      classes={cn('layout py-8 px-4 mt-12 text-center laptop:text-left bg-gray-custom-50 tablet:p-16 rounded-lg',
         'flex flex-col laptop:flex-row gap-x-4 justify-between items-center',
       )}
     >

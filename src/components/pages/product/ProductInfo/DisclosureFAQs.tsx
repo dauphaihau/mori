@@ -1,6 +1,6 @@
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 
 interface FAQsProps {
   data: {
@@ -31,7 +31,7 @@ function FAQs() {
                   >
                     <span className='text-base font-bold md:text-[18px] tracking-wide'>{faq.title}</span>
                     <ChevronUpIcon
-                      className={clns('h-5 w-5 text-primary-gray',
+                      className={cn('h-5 w-5 text-primary-gray',
                         open ? '' : 'transform rotate-180',
                       )}
                     />
@@ -76,7 +76,7 @@ export default function DisclosureFAQs() {
               >
                 <span className='text-base font-bold md:text-[18px] tracking-wide'>FAQs</span>
                 <ChevronUpIcon
-                  className={clns('h-5 w-5 text-primary-gray',
+                  className={cn('h-5 w-5 text-primary-gray',
                     open ? '' : 'transform rotate-180',
                   )}
                 />

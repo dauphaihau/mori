@@ -1,6 +1,6 @@
 import Image, { ImageProps } from 'next/image';
 import { useState } from "react";
-import { clns } from 'core/helpers';
+import { cn } from 'core/helpers';
 
 type NextImageType = {
   useSkeleton?: boolean;
@@ -32,15 +32,15 @@ const NextImage = ({
   return (
     <figure
       style={!widthIsSet ? { width: `${width}px` } : undefined}
-      className={clns(className,
+      className={cn(className,
         'overflow-hidden rounded relative'
       )}
     >
       <Image
-        className={clns(
+        className={cn(
           imgClassName,
           // text-gray to hide alt text
-          status === 'loading' && clns('animate-pulse', blurClassName)
+          status === 'loading' && cn('animate-pulse', blurClassName)
         )}
         src={src}
         width={width}

@@ -1,5 +1,5 @@
 import React, { ComponentPropsWithoutRef, forwardRef } from "react";
-import { clns } from "core/helpers";
+import { cn } from "core/helpers";
 
 enum GAP {
   FIRST = 1,
@@ -81,7 +81,7 @@ const Row = forwardRef(({
   return (
     <div
       ref={ref}
-      className={clns('flex',
+      className={cn('flex',
         GAP_MAPS[gap],
         JUSTIFY_MAPS[justify],
         ALIGN_ITEM_MAPS[align],

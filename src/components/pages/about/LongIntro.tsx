@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Col, Text } from "core/components";
-import { clns } from "core/helpers";
+import { cnn } from "core/helpers";
 import { config } from "config";
 
 const LongIntro = () => {
@@ -34,14 +34,14 @@ const LongIntro = () => {
           return (
             <Box
               key={idx}
-              classes={clns('flex flex-col laptop:flex-row',
+              classes={cnn('flex flex-col laptop:flex-row',
                 'laptop:gap-12 justify-around flex-col-reverse',
                 idx % 2 == 0 && 'laptop:flex-row-reverse'
               )}
             >
               <Content data={o}/>
               <Box
-                classes={clns('image-frame mb-20 flex-1',
+                classes={cnn('image-frame mb-20 flex-1',
                   idx % 2 === 0 ?
                     `before:bg-[url('/images/about/image-frame-left.png')]`
                     : `before:bg-[url('/images/about/image-frame-right.png')]`

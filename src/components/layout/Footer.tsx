@@ -1,7 +1,7 @@
 import { Link, NextImage, Box, Text, Col, Grid, List } from 'core/components';
 import { data as footerData } from 'assets/data/FooterData';
 import Enums from 'config/enums';
-import { clns } from "core/helpers";
+import { cn } from "core/helpers";
 import { config } from "../../config";
 
 const Footer = () => {
@@ -35,7 +35,7 @@ const Footer = () => {
                             <Text
                               i
                               hideIf={!item.hasOwnProperty('icon')}
-                              classes={clns('fa-brands topic__item--logo', item.icon)}
+                              classes={cn('fa-brands topic__item--logo', item.icon)}
                             />
                             {item.title}
                           </Link>
