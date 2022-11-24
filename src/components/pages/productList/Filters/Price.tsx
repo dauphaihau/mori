@@ -3,17 +3,10 @@ import { ChevronUpIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { memo, useEffect, useState } from "react";
 
-import { Box, Checkbox } from "core/components";
+import { Box, Checkbox, Skeleton } from "core/components";
 import { filterSearch } from "./Filters";
-import Enums from "config/enums";
+import Const from "config/const";
 import { cn } from "core/helpers";
-
-const priceData = [
-  { id: '0-500', title: '$0-$500' },
-  { id: '500-1000', title: '$500-$1000' },
-  { id: '1000-5000', title: '$1000-$5000' },
-  { id: '5000', title: "Over $5000" },
-]
 
 interface PriceProps {
   data: {
@@ -41,7 +34,7 @@ export const Price = memo((props: PriceProps) => {
     }
 
     useEffect(() => {
-      if (router.asPath === Enums.PATH.PRODUCT._ || !router.query.hasOwnProperty('price')) {
+      if (router.asPath === Const.PATH.PRODUCT._ || !router.query.hasOwnProperty('price')) {
         setPriceListChecked([])
       }
     }, [router.asPath])
@@ -88,25 +81,28 @@ export const Price = memo((props: PriceProps) => {
                 <Disclosure.Panel className='pb-2 text-base text-primary-gray'>
                   {/*<Disclosure.Panel className='p-4 pb-2 text-base text-primary-gray'>*/}
                   {
-                    priceData.map((item, index) => (
-                      <Checkbox
-                        key={index}
-                        classesForm='mb-2'
-                        defaultChecked={priceListChecked.includes(item.id)}
-                        onChange={handlePrice}
-                        value={item.id}
-                        name={item.id.toString()}
-                        label={item.title}
+                    priceData.length ? priceData.map((item, index) => (
+                        <Checkbox
+                          key={index}
+                          classesForm='mb-2'
+                          defaultChecked={priceListChecked.includes(item.id)}
+                          onChange={handlePrice}
+                          value={item.id}
+                          name={item.id.toString()}
+                          label={item.title}
+                        />
+                      )) : <Skeleton
+                        quantity={5}
+                        width={105}
+                        height={24}
+                        classes='rounded mb-4'
                       />
-                    ))
                   }
                 </Disclosure.Panel>
               </Transition>
             </>
           )}
         </Disclosure>
-
-
       </Box>
     );
   }

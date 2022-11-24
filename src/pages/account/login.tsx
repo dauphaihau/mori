@@ -1,5 +1,5 @@
 import { Text, Link, Box, Row } from 'core/components';
-import Enums from "config/enums";
+import Const from "config/const";
 import UserAuthForm from "components/pages/account/user-auth-form";
 
 export default function LoginPage() {
@@ -28,7 +28,7 @@ export default function LoginPage() {
         >Don&apos;t have an account?</Text>
 
         <Link
-          href={Enums.PATH.ACCOUNT.REGISTER}
+          href={Const.PATH.ACCOUNT.REGISTER}
           classes='hover:underline hover:decoration-black'
         >Create one</Link>
       </Row>

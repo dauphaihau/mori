@@ -5,29 +5,8 @@ import { ChevronUpIcon } from "@heroicons/react/solid";
 
 import { Box, Skeleton } from "core/components";
 import { filterSearch } from "./Filters";
-import Enums, { PRODUCT_COLORS } from "config/enums";
+import { PATH, PRODUCT_COLOR } from "config/const";
 import { cnn } from "core/helpers";
-
-// const PRODUCT_COLORS2 = {
-//   'all': 'all',
-//   '#cfcdcb': 'silver',
-//   '#7a6255': 'greyish-brown',
-//   '#b99374': 'pale-brown',
-//   '#f3eed7': 'pale',
-//   '#000000': 'black',
-// }
-
-const PRODUCT_COLORS3 = {
-  'all': 'all',
-  'silver': '#cfcdcb',
-  'greyish-brown': '#7a6255',
-  'pale-brown': '#b99374',
-  'pale': '#f3eed7',
-  'black': '#000000',
-}
-
-// const colorsData = Object.values(PRODUCT_COLORS)
-
 
 interface ColorProps {
   data: string[]
@@ -38,7 +17,7 @@ export const Color = memo((props: ColorProps) => {
   const [color, setColor] = useState('')
 
   useEffect(() => {
-    if (router.asPath === Enums.PATH.PRODUCT._ || !router.query.hasOwnProperty('color')) {
+    if (router.asPath === PATH.PRODUCT._ || !router.query.hasOwnProperty('color')) {
       // setColor('')
       setColor('all')
     }
@@ -91,7 +70,7 @@ export const Color = memo((props: ColorProps) => {
             >
               <Disclosure.Panel className='pb-2 text-base text-primary-gray'>
                 {/*<Disclosure.Panel className='p-4 pb-2 text-base text-primary-gray'>*/}
-                <Box classes='grid grid-cols-4 gap-4 ml-[5px] w-[45%]'>
+                <Box classes='grid grid-cols-4 gap-4 ml-[5px] w-1/2'>
                   {/*<Box classes='flex gap-x-4 ml-[5px]'>*/}
                   {
                     colorsData.length > 0 &&
@@ -107,7 +86,7 @@ export const Color = memo((props: ColorProps) => {
                       <button
                         key={index}
                         name='color'
-                        style={{ background: PRODUCT_COLORS3[c] }}
+                        style={{ background: PRODUCT_COLOR[c.toUpperCase()] }}
                         // style={{ background: c }}
                         className={color === c ? 'filters__colorBtn active' : 'filters__colorBtn'}
                         data-color={c}

@@ -1,23 +1,21 @@
 import React from "react";
+
 import 'react-tippy/dist/tippy.css'
 import '../assets/styles/global.scss'
+
 import Layout from "components/layout";
-import { data as footerHomePageData } from '../assets/data/FooterData';
-import fetchCategories from 'assets/data/InventoryData/provider/categoryProvider';
 import { AuthProvider } from "context/authContext";
 import { UIControllerProvider } from "context/UIControllerContext";
 import FilterProvider from "context/filterContext";
 import SizeObserver from "context/sliderContext";
-// import axios from 'axios';
-// axios.defaults.baseURL = process.env.BASE_URL;
 
-function EcommerceApp({ categories, Component, pageProps }) {
+function EcommerceApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <UIControllerProvider>
         <FilterProvider>
           <SizeObserver>
-            <Layout categories={categories}>
+            <Layout>
               <Component {...pageProps} />
             </Layout>
           </SizeObserver>
@@ -27,13 +25,10 @@ function EcommerceApp({ categories, Component, pageProps }) {
   )
 }
 
-EcommerceApp.getInitialProps = async () => {
-
-  const categories = await fetchCategories()
-  return {
-    categories,
-    footerData: footerHomePageData
-  }
-}
+// EcommerceApp.getInitialProps = async () => {
+//   return {
+//     footerData: footerHomePageData
+//   }
+// }
 
 export default EcommerceApp

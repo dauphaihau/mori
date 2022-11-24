@@ -2,7 +2,7 @@ import { FC, Reducer, useEffect, useReducer, useState } from 'react';
 import reducer, { FilterActions, FilterState, filterType } from './reducers/filterReducer';
 import { fetchInventory } from 'assets/data/InventoryData/provider/inventoryProvider';
 import { IProduct } from "types/product";
-import Enums from "../config/enums";
+import { SORT_PRODUCT } from "../config/const";
 import useSafeContext from "../core/hooks/useSafeContext";
 
 const initialState: FilterState = {
@@ -10,7 +10,7 @@ const initialState: FilterState = {
   filtered_products: [],
   all_products: [],
   gridView: true,
-  sort: Enums.SORT_PRODUCT.PRICE_LOWEST,
+  sort: SORT_PRODUCT.PRICE_LOWEST,
   filters: {
     text: '',
     brand: 'all',

@@ -5,6 +5,7 @@ import { titleIfy } from "core/helpers";
 import FadeInSection from 'components/common/FadeInSection';
 import { config } from "config";
 import { useCategories } from "services/product";
+import { useUIController } from "../../../../context/UIControllerContext";
 
 const mapImage = {
   ['casket']: '/product/casket-trinity-oak_swipzi.png',
@@ -22,9 +23,12 @@ type Category = {
   count: number
 }
 
-// const ShopByCategories = ({ categories = [] }) => {
 export default function ShopByCategories () {
-  const { categories } = useCategories();
+  // const { categories } = useCategories();
+  const { categories } = useUIController();
+  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:3000' : process.env.NEXT_PUBLIC_BASE_URL
+  // console.log('dauphaihau debug: process-env-base-url', process.env.BASE_URL)
+  // console.log('dauphaihau debug: base-url', baseUrl)
 
   return (
     <FadeInSection classes='my-20 layout laptop:w-9/12 text-center'>
@@ -41,7 +45,7 @@ export default function ShopByCategories () {
               key={index}
             >
               <Link
-                href={`${process.env.NEXT_PUBLIC_BASE_URL}/product?category=${name.replace(' ', '+')}`}
+                href={`${baseUrl}/product?category=${name.replace(' ', '+')}`}
                 openNewTab={false}
               >
                 <NextImage
@@ -70,7 +74,7 @@ export default function ShopByCategories () {
         {/*    <Box classes='mb-4 laptop:mb-0 bg-product p-6 relative' key={index}>*/}
         {/*      <Link*/}
         {/*        onClick={() => handleUpdateFilters(category.name.charAt(0) + category.name.slice(1))}*/}
-        {/*        href={Enums.PATH.PRODUCT._}*/}
+        {/*        href={Const.PATH.PRODUCT._}*/}
         {/*      >*/}
         {/*        <NextImage*/}
         {/*          alt={titleIfy(category.name)}*/}

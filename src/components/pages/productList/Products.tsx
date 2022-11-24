@@ -4,22 +4,25 @@ import { Box, Grid, Row, Text, Button } from 'core/components';
 import { cn } from "core/helpers";
 import { ProductListView } from "./index";
 import Product from 'components/common/Product';
-import { useFilterContext } from "context/filterContext";
 import { useRouter } from "next/router";
 import { filterSearch } from "./Filters/Filters";
 import useIntersectionObserver from 'core/hooks/useIntersectionObserver';
 
-const Products = ({ data }) => {
-  const { gridView } = useFilterContext()
-  // const { gridView, filtered_products: products } = useFilterContext()
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [page, setPage] = useState(1)
+const Products = ({ data, gridView }) => {
   const router = useRouter();
-  const [pageNum, setPageNum] = useState(1);
+  const [isLoaded, setIsLoaded] = useState(false);
 
+  // const { gridView, filtered_products: products } = useFilterContext()
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(6)
+  const itemsInView = 6
+
+  // console.log('dauphaihau debug: data', data)
   const { products, total } = data
+  // console.log('dauphaihau debug: products', products)
 
-  const [pageNumber, setPageNumber] = useState(0);
+  // const [productInView, setProductInView] = useState([])
+
   const loadingRef = useRef(null);
   const listInnerRef = useRef(null);
   const ref = useRef<HTMLDivElement | null>(null)
@@ -31,24 +34,28 @@ const Products = ({ data }) => {
 
   useEffect(() => {
     setTimeout(() => setIsLoaded(true), 300);
+    // setProductInView([...productInView, ...products])
+    // console.log('dauphaihau debug: product-in-view', productInView)
   }, [products]);
 
-  useEffect(() => {
-    const el = document.querySelector(".myElement")
+  const productInView = products ? [].concat(...products) : []
 
-    const observer = new IntersectionObserver(
-      ([e]) => {
-        console.log('dauphaihau debug: e-intersection-ratio', e.intersectionRatio)
-        e.target.classList.toggle("is-pinned", e.intersectionRatio < 1)
-      },
-      { threshold: [1] }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-  }, [ref.current])
+  // useEffect(() => {
+  //   const el = document.querySelector(".myElement")
+  //
+  //   const observer = new IntersectionObserver(
+  //     ([e]) => {
+  //       console.log('dauphaihau debug: e-intersection-ratio', e.intersectionRatio)
+  //       e.target.classList.toggle("is-pinned", e.intersectionRatio < 1)
+  //     },
+  //     { threshold: [1] }
+  //   );
+  //
+  //   if (ref.current) {
+  //     observer.observe(ref.current);
+  //   }
+  //
+  // }, [ref.current])
 
   // observing dom node
   // useEffect(() => {
@@ -105,10 +112,14 @@ const Products = ({ data }) => {
   }
 
   const handleLoadMore = () => {
-    setPage((page) => page + 1)
-    console.log('dauphaihau debug: page', page)
+    // setPage((page) => page + 1)
+    setPage( page + 1)
+    setLimit( limit + itemsInView)
+    // console.log('dauphaihau debug: page', page)
     // setPage(page + 1)
-    filterSearch({ router, page: page + 1 })
+    // setProductInView(prev  => [...prev, ...products])
+    filterSearch({ router, limit: limit + itemsInView })
+    // filterSearch({ router, page: page + 1 })
   }
 
   const ProductList = () => {
@@ -120,7 +131,7 @@ const Products = ({ data }) => {
             classes={cn(isLoaded && 'fade-in-start', 'product-list')}
           >
             {
-              products?.map((item, index) => (
+              productInView?.map((item, index) => (
                 <Product
                   dataFade={index}
                   data={item}
@@ -131,12 +142,11 @@ const Products = ({ data }) => {
           </Grid>
 
           {/*<Box*/}
-          {/*  hideIf={products.length < 12}*/}
+          {/*  hideIf={productInView.length < 12}*/}
           {/*  ref={loadingRef}*/}
           {/*>*/}
           {/*  <h3>Loading....</h3>*/}
           {/*</Box>*/}
-
         </>
       )
     }
@@ -146,7 +156,7 @@ const Products = ({ data }) => {
         classes={cn(isLoaded && 'fade-in-start')}
       >
         {
-          products?.map((item, index) => (
+          productInView?.map((item, index) => (
             <ProductListView
               dataFade={index}
               data={item}
@@ -160,6 +170,7 @@ const Products = ({ data }) => {
 
   const ButtonLoadMore = () => {
     return <Row
+      hideIf={total < itemsInView}
       // hideIf={products.length < 9 || products.length < endSlice}
       justify='center'
       classes='mt-8'
@@ -183,7 +194,8 @@ const Products = ({ data }) => {
     <>
       {
         products && products.length < 1
-          ? <Text>Sorry, no products matched your search...</Text>
+          ? <Text>Loading....</Text>
+          // ? <Text>Sorry, no products matched your search...</Text>
           : <>
             {ProductList()}
             {/*<ProductList/>*/}

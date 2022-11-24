@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { NextImage, Text, Link, Box, Row, Col, Badge } from 'core/components';
 import { cn, sliceText, slugify } from 'core/helpers';
 import { useHover } from 'core/hooks';
-import Enums from "config/enums";
+import Const from "config/const";
 
 const hoverEffect = typeof window !== `undefined` ? require('hover-effect').default : null;
 
@@ -127,7 +127,7 @@ const ProductCard = ({ data }) => {
 
   return (
     <Box classes='product-card'>
-      <Link classes='' href={`${Enums.PATH.PRODUCT._}/${slugify(data?.name)}`}>
+      <Link classes='' href={`${Const.PATH.PRODUCT._}/${slugify(data?.name)}`}>
         <Col classes='h-full relative' justify='between'>
           <Badge hideIf={!salePrice} classes='absolute z-10'>
             {(((price - salePrice) / price) * 100).toFixed()}%

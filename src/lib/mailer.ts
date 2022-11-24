@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import Enums from 'config/enums';
+import Const from 'config/const';
 
 function sendEmail(message) {
   return new Promise((res, rej) => {
@@ -54,7 +54,7 @@ export const sendResetPasswordEmail = ({toUser, token}) => {
               onmouseover="this.style.color='white'"
               onmouseout="this.style.opacity='0.8'"
       >
-            <a target="_" href="${process.env.DOMAIN}/${Enums.PATH.ACCOUNT.RESET_PASSWORD}/?token=${token}&id=${toUser._id}">Reset Password Link</a></p>
+            <a target="_" href="${process.env.DOMAIN}/${Const.PATH.ACCOUNT.RESET_PASSWORD}/?token=${token}&id=${toUser._id}">Reset Password Link</a></p>
 <!--            <a target="_" href="${process.env.DOMAIN}/account/reset-password/?token=${token}&id=${toUser._id}">Reset Password Link</a></p>-->
       </button>
       <p>If you didn't request a password reset, you can ignore this email.</p>

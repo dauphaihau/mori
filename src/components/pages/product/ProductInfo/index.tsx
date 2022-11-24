@@ -1,5 +1,5 @@
 import { Box, Col, Breadcrumb, } from 'core/components';
-import Enums from "config/enums";
+import Const from "config/const";
 import ProductLongInfo from "../ProductLongInfo";
 import CustomerReview from "../CustomerReview";
 import ProductImages from "./ProductImages";
@@ -8,8 +8,8 @@ import ProductMainInfo from "./ProductMainInfo";
 const ProductInfo = ({ product }) => {
 
   const dataBreadcrumb = [
-    { path: Enums.PATH.DEFAULT, name: 'Home' },
-    { path: Enums.PATH.PRODUCT._, name: 'Product' },
+    { path: Const.PATH.DEFAULT, name: 'Home' },
+    { path: Const.PATH.PRODUCT._, name: 'Product' },
     { name: product?.name },
   ];
 

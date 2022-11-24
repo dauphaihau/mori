@@ -1,5 +1,5 @@
 import React, { createContext, Component } from 'react'
-import { STORAGE_KEY } from "config/enums";
+import { STORAGE_KEY } from "config/const";
 
 const initialState = {
   cart: [],

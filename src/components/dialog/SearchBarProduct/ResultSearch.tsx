@@ -1,7 +1,7 @@
 import React from 'react';
 import { NextImage, Box, Col, Link, Row, Text } from 'core/components';
 import { formatDollarUS, slugify } from 'core/helpers';
-import Enums from "config/enums";
+import Const from "config/const";
 import { config } from "config";
 
 const ResultSearch = ({ searchValue, products }) => {
@@ -45,7 +45,7 @@ const ResultSearch = ({ searchValue, products }) => {
                         justify='center'
                         classes='ml-4 w-[65%]'
                       >
-                        <Link href={`${Enums.PATH.PRODUCT._}/${slugify(item.name)}`}>
+                        <Link href={`${Const.PATH.PRODUCT._}/${slugify(item.name)}`}>
                           <Text
                             h1
                             size={17}

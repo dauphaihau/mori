@@ -40,39 +40,54 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
     { $sort: { _id: 1 } },
   ])
 
-  // console.log('dauphaihau debug: materials', materials)
-  // console.log('dauphaihau debug: colors', colors)
+  // const mateAndColo = await Product.aggregate([
+  //   { $match: req.query.category === 'all' ? {} : { category: req.query.category } },
+  //   { $project: { material: 1, color: 1, _id: 0 } },
+  //   { $group: {
+  //     _id: null,
+  //       materials: { $sort: 1},
+  //       color: { $sort: 1}
+  //      }
+  //   },
+  //   { $sort: { _id: 1 } },
+  // ])
 
+  //<editor-fold desc="Price">
   const price = await Product.aggregate([
     { $match: req.query.category === 'all' ? {} : { category: req.query.category } },
-    { $project: { price: 1, _id: 0 } },
-    { $sort: { _id: 1 } },
-    { $limit: 1 }
+    {
+      $group: {
+        _id: null,
+        max_val: { $max: '$price' },
+        min_val: { $min: '$price' }
+      }
+    }
   ])
 
   // console.log('dauphaihau debug: price', price)
-
-  /*
-  price
-  1. find min-max in cg
-      or just need find max price ( 0 is default )
-  2. map to -> options ( 500, 1000, 1500, .. )
-  case 1800
-  if co so du 300 → over 1500
-   */
-
   // console.log('dauphaihau debug: price-0-price', price[0].price)
 
-  const maxPrice = price[0].price
+  const maxPrice = price[0].max_val
+  const minPrice = price[0].min_val
+  const maxRow = 5
   const perPrice = 500
-  const rounded = Math.ceil(maxPrice / perPrice)
+  const nearest500 = Math.floor(minPrice / perPrice) * perPrice
+  const roundedByMaxPrice = Math.ceil(maxPrice / perPrice)
 
-  const priceDataa = Array(rounded).fill('').map((_, idx) => ({
-    id: `${idx * perPrice}-${(idx + 1) * perPrice}`,
-    title: `$${idx * perPrice} - $${(idx + 1) * perPrice}`,
-  }))
-
+  const priceDataa = Array(roundedByMaxPrice > maxRow ? maxRow : roundedByMaxPrice).fill('').map((_, idx) => {
+    if ((idx + 1) === maxRow) {
+      return {
+        id: `${nearest500 + (idx * perPrice)}`,
+        title: `Over $${nearest500 + (idx * perPrice)}`,
+      }
+    }
+    return {
+      id: `${nearest500 + (idx * perPrice)}-${nearest500 + ((idx + 1) * perPrice)}`,
+      title: `$${nearest500 + (idx * perPrice)} - $${nearest500 + ((idx + 1) * perPrice)}`,
+    }
+  })
   // console.log('dauphaihau debug: price-dataa', priceDataa)
+  //</editor-fold>
 
   await db.disconnect();
   res.json({

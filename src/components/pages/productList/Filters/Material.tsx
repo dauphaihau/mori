@@ -5,7 +5,7 @@ import { ChevronUpIcon } from "@heroicons/react/solid";
 
 import { Box, Skeleton } from "core/components";
 import { filterSearch } from "./Filters";
-import Enums from "config/enums";
+import Const from "config/const";
 import { cn, titleIfy } from "core/helpers";
 
 interface MaterialProps {
@@ -17,7 +17,7 @@ export const Material = memo((props: MaterialProps) => {
   const [material, setMaterial] = useState('')
 
   useEffect(() => {
-    if (router.asPath === Enums.PATH.PRODUCT._ || !router.query.hasOwnProperty('material')) {
+    if (router.asPath === Const.PATH.PRODUCT._ || !router.query.hasOwnProperty('material')) {
       setMaterial('')
     }
   }, [router.asPath])

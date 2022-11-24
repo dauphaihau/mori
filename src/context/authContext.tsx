@@ -5,7 +5,7 @@ import { handleGetCookie, handleRemoveCookie, handleSetCookie } from 'lib/cookie
 import { isEmpty } from 'core/helpers';
 import config from 'config/config.json';
 import { IUser } from 'types/user';
-import Enums from "config/enums";
+import Const from "config/const";
 import { useRouter } from "next/router";
 import { signToken, verifyToken } from "lib/jwt";
 import useSafeContext from "../core/hooks/useSafeContext";
@@ -19,7 +19,7 @@ export interface AuthState {
 
 const initialState = {
   user: {
-    role: Enums.ROLE.BASIC
+    role: Const.ROLE.BASIC
   },
   setUser: () => {
   },
@@ -35,7 +35,7 @@ export const [useAuth, Provider] = useSafeContext<AuthState>(initialState)
 
 export const AuthProvider: FC = ({ children }) => {
   const [user, setUser] = useState<IUser | null>();
-  const [role, setRole] = useState(Enums.ROLE.BASIC)
+  const [role, setRole] = useState(Const.ROLE.BASIC)
   const router = useRouter();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export const AuthProvider: FC = ({ children }) => {
         if (dataToken) {
           // console.log('dauphaihau debug: data-token', dataToken)
           setUser({ ...(user as object), ...dataToken })
-          // setRole(Enums.ROLE.ACCOUNT)
+          // setRole(Const.ROLE.ACCOUNT)
         }
       }
       verifyAuth();
@@ -83,10 +83,10 @@ export const AuthProvider: FC = ({ children }) => {
   const handleLogout = () => {
     handleRemoveCookie(config.cookies.auth)
     // setUser({ numberAllOfItemsInCart: user.numberAllOfItemsInCart })
-    // router.push(Enums.PATH.DEFAULT);
-    setRole(Enums.ROLE.BASIC);
-    setUser({ ...user, role: Enums.ROLE.BASIC });
-    // setUser({...user, role: Enums.ROLE.BASIC});
+    // router.push(Const.PATH.DEFAULT);
+    setRole(Const.ROLE.BASIC);
+    setUser({ ...user, role: Const.ROLE.BASIC });
+    // setUser({...user, role: Const.ROLE.BASIC});
   }
 
   const handleToken = async (authData) => {

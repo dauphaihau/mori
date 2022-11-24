@@ -1,5 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { XIcon } from "@heroicons/react/solid";
+
 import Portal from "./Portal";
 import { cn } from "core/helpers";
 
@@ -36,7 +37,8 @@ const Drawer = ({
   return (
     <Portal>
       <div
-        onClick={() => onClose()}
+        onClick={onClose}
+        // onClick={() => onClose()}
         className={cn('backdrop',
           !show && 'hidden',
         )}

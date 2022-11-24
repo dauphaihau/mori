@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Text, Link, Box, Row, Col, NextImage, Badge } from 'core/components';
 import { cn, sliceText, slugify } from 'core/helpers';
-import Enums from "config/enums";
+import Const from "config/const";
 import { Loading } from "../../../../core/components/Loading";
 import { BlurringImage } from "../../../../core/components/Next/BlurringImage";
 
@@ -152,7 +152,7 @@ const BigProductCard = ({ data }) => {
 
   return (
     <Box classes='product-card'>
-      <Link href={`${Enums.PATH.PRODUCT._}/${slugify(data?.name)}`}>
+      <Link href={`${Const.PATH.PRODUCT._}/${slugify(data?.name)}`}>
         <Col
           classes='h-full relative'
           justify='between'

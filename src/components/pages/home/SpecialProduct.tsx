@@ -1,6 +1,6 @@
 import { formatDollarUS, slugify } from 'core/helpers';
 import { Skeleton, NextImage, Col, Text, Button, Box, Row, Link } from 'core/components';
-import Enums from 'config/enums';
+import Const from 'config/const';
 import FadeInSection from "../../common/FadeInSection";
 import { useDetailProduct } from "services/product";
 import { config } from "config";
@@ -43,7 +43,7 @@ export default function SpecialProduct () {
                     height={40}
                     classes='w-[115px] rounded'
                   /> :
-                  <Link href={`${Enums.PATH.PRODUCT._}/${slugify(product?.name)}`}>
+                  <Link href={`${Const.PATH.PRODUCT._}/${slugify(product?.name)}`}>
                     <Button text='Shop Now'/>
                   </Link>
               }

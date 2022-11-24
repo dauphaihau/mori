@@ -3,7 +3,7 @@ import { XIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 
 import { NextImage, Input, Button, Text, Dialog, Box, Col, Grid } from 'core/components';
-import Enums from "config/enums";
+import Const from "config/const";
 import { cn } from "core/helpers";
 
 const SubscribeDialog = () => {
@@ -11,7 +11,7 @@ const SubscribeDialog = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (router.pathname === Enums.PATH.HOME) {
+    if (router.pathname === Const.PATH.HOME) {
       setTimeout(() => setIsOpen(true), 100)
     }
   }, [])

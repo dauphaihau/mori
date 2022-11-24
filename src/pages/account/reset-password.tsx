@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { accountService } from 'services/account';
 import { Col, Button, Input, Link, Text, Box } from 'core/components';
-import Enums from "config/enums";
+import Const from "config/const";
 
 const formType = {
   resetPassword: {
@@ -93,7 +93,7 @@ const ResetPasswordPage = () => {
         </Button>
       </Col>
       <Link
-        href={Enums.PATH.DEFAULT}
+        href={Const.PATH.DEFAULT}
         classes={currentForm === 'resetPassword' ? 'hidden' : 'block'}
       >
         <Button

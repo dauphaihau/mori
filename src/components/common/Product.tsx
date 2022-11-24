@@ -1,6 +1,6 @@
 import { NextImage, Link, Box, Text, Badge, Row } from 'core/components';
-import { cnn, formatDollarUS, slugify } from "core/helpers";
-import Enums from "config/enums";
+import { cn, formatDollarUS, slugify } from "core/helpers";
+import { PATH } from "config/const";
 import { config } from "config";
 import { IProduct } from "types/product";
 import NextImageLoading from "../../core/components/Next/NextImageLoading";
@@ -17,7 +17,7 @@ const Product = ({ data, dataFade }: ProductProps) => {
       classes='w-100 product'
       data-fade={dataFade}
     >
-      <Link href={`${Enums.PATH.PRODUCT._}/${slugify(data?.name)}`}>
+      <Link href={`${PATH.PRODUCT._}/${slugify(data?.name)}`}>
         <Box classes='h-[11rem] laptop:h-72 flex-center rounded-lg bg-product relative'>
           <Badge
             hideIf={!data.salePrice}
@@ -66,7 +66,7 @@ const Product = ({ data, dataFade }: ProductProps) => {
           justify='center'
         >
           <Text
-            classes={cnn(' text-sm laptop:text-lg text-center text-primary-gray mb-4',
+            classes={cn(' text-sm laptop:text-lg text-center text-primary-gray mb-4',
               data.salePrice && 'line-through',
             )}
           >

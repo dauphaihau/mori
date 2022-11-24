@@ -3,14 +3,19 @@ import { useRouter } from "next/router";
 
 import { Link, Text, Box, List, Row } from 'core/components';
 import { useScrollPosition } from "core/hooks";
-import { cnn } from 'core/helpers';
-import Enums from "config/enums";
-import { useFilterContext } from "context/filterContext";
+import { cnn, titleIfy } from 'core/helpers';
+import { PATH, SORT_PRODUCT } from "config/const";
+import { useUIController } from "context/UIControllerContext";
 
-const MegaMenu = ({ categories, pageHasBanner, path, title }) => {
+type Category = {
+  _id: string,
+  count: number
+}
+
+export default function MegaMenu({ pageHasBanner, href, title }) {
   const router = useRouter();
+  const { categories } = useUIController();
   const [showDropdown, setShowDropdown] = useState(true)
-  const { updateFilters, updateSort } = useFilterContext()
   const scrollPositionY = useScrollPosition();
 
   useEffect(() => {
@@ -22,24 +27,20 @@ const MegaMenu = ({ categories, pageHasBanner, path, title }) => {
     }
   }, [router.asPath]);
 
-  const handleUpdateFilters = (name, value) => {
-    updateFilters({ target: { name, value } })
-  }
-
   return (
     <Box classes='multi-link group'>
       <Box
         classes={cnn('trigger border-b-2 border-transparent',
-          router.route === path ? !pageHasBanner ? 'border-black' : 'border-white' : 'border-white',
+          router.route === href ? !pageHasBanner ? 'border-black' : 'border-white' : 'border-white',
         )}
       >
         <Link
-          href={path}
+          href={href}
           classes={cnn('trigger__title',
             'group-hover:text-primary-black group-hover:bg-gray-custom-52',
             pageHasBanner && 'text-white',
             pageHasBanner && scrollPositionY > 15 && '!text-primary-gray',
-            !pageHasBanner && router.route !== path && 'text-primary-gray',
+            !pageHasBanner && router.route !== href && 'text-primary-gray',
           )}
         >
           {title}
@@ -63,34 +64,24 @@ const MegaMenu = ({ categories, pageHasBanner, path, title }) => {
               classes='mb-4 tracking-widest text-[10px] text-primary-gray'
             >discover</Text>
             <List>
-              <List.Item>
-                <Link href={Enums.PATH.PRODUCT._}>
-                  <Text classes='hover:text-primary-gray text-primary-black mb-4'>
-                    All Products
-                  </Text>
-                </Link>
-              </List.Item>
-              <List.Item onClick={() => updateSort(Enums.SORT_PRODUCT.DATE_NEW)}>
-                <Link href={Enums.PATH.PRODUCT._}>
-                  <Text classes='hover:text-primary-gray text-primary-black mb-4'>
-                    New in
-                  </Text>
-                </Link>
-              </List.Item>
-              <List.Item onClick={() => updateSort(Enums.SORT_PRODUCT.BEST_SELLING)}>
-                <Link href={Enums.PATH.PRODUCT._}>
-                  <Text classes='hover:text-primary-gray text-primary-black mb-4'>
-                    Best Sellers
-                  </Text>
-                </Link>
-              </List.Item>
-              <List.Item onClick={() => handleUpdateFilters('lastPiece', true)}>
-                <Link href={Enums.PATH.PRODUCT._}>
-                  <Text classes='hover:text-primary-gray text-primary-black mb-4'>
-                    Last piece
-                  </Text>
-                </Link>
-              </List.Item>
+              {
+                discoverData.map((item, index) => (
+                  <List.Item key={index}>
+                    <Link href={item.url}>
+                      <Text classes='hover:text-primary-gray text-primary-black mb-4'>
+                        {item.title}
+                      </Text>
+                    </Link>
+                  </List.Item>
+                ))
+              }
+              {/*<List.Item onClick={() => handleUpdateFilters('lastPiece', true)}>*/}
+              {/*  <Link href={PATH.PRODUCT._}>*/}
+              {/*    <Text classes='hover:text-primary-gray text-primary-black mb-4'>*/}
+              {/*      Last piece*/}
+              {/*    </Text>*/}
+              {/*  </Link>*/}
+              {/*</List.Item>*/}
             </List>
           </Box>
 
@@ -102,18 +93,15 @@ const MegaMenu = ({ categories, pageHasBanner, path, title }) => {
             >categories</Text>
             <List>
               {
-                categories?.map((category, index) => {
-                  return <List.Item key={index}>
-                    <Link
-                      href={Enums.PATH.PRODUCT._}
-                      onClick={() => handleUpdateFilters('category', category.charAt(0) + category.slice(1))}
-                    >
+                categories && categories.length > 0 && categories?.map(({ _id: name }: Category, index) => (
+                  <List.Item key={index}>
+                    <Link href={`${PATH.PRODUCT._}?category=${name.replace(' ', '+')}`}>
                       <Text classes='hover:text-primary-gray text-primary-black mb-4'>
-                        {category.charAt(0).toUpperCase() + category.slice(1)}
+                        {titleIfy(name)}
                       </Text>
                     </Link>
                   </List.Item>
-                })
+                ))
               }
             </List>
           </Box>
@@ -123,4 +111,22 @@ const MegaMenu = ({ categories, pageHasBanner, path, title }) => {
   )
 }
 
-export default MegaMenu
+const discoverData = [
+  {
+    title: 'All Products',
+    url: PATH.PRODUCT._
+  },
+  {
+    title: 'New in',
+    url: `${PATH.PRODUCT._}?sort=${SORT_PRODUCT.DATE_NEW}`
+  },
+  {
+    title: 'Best Sellers',
+    url: `${PATH.PRODUCT._}?sort=${SORT_PRODUCT.BEST_SELLING}`
+  },
+  // find all item quantity = 0
+  // {
+  //   title: 'Last piece',
+  //   url: PATH.PRODUCT._
+  // },
+]

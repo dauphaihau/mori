@@ -5,7 +5,7 @@ import RatingStars from "./RatingStars";
 import { CartContext, CartProvider } from "context/cartContext";
 import { useAuth } from "context/authContext";
 import { CartDrawer } from "../../../drawer";
-import { STORAGE_KEY } from "config/enums";
+import { STORAGE_KEY } from "config/const";
 import QuantitySelect from "./QuantitySelect";
 import moment from "moment";
 

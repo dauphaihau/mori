@@ -5,7 +5,7 @@ import { CartProvider, CartContext } from 'context/cartContext';
 import { useAuth } from 'context/authContext';
 import { formatDollarUS, slugify, } from 'core/helpers';
 import { Button, QuantityPicker, Drawer, Link, Box, Col, Row, Text, NextImage } from 'core/components';
-import Enums from "config/enums";
+import Const from "config/const";
 import getStripe from "../../lib/get-stripejs";
 import { config } from "config";
 
@@ -205,7 +205,7 @@ export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
             classes='hidden lg:block'
             disabled={cartEmpty}
             onClick={handleCheckout}
-            // onClick={() => router.push(Enums.PATH.CHECKOUT._)}
+            // onClick={() => router.push(Const.PATH.CHECKOUT._)}
           >
             <Row
               justify='between'

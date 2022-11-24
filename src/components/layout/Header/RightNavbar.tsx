@@ -5,9 +5,9 @@ import { Link, Button, Box, Row } from 'core/components';
 import { CartDrawer } from 'components/drawer';
 import { LoginRegisterDialog, SearchProductDialog } from 'components/dialog';
 import { cnn } from 'core/helpers';
-import Enums from 'config/enums';
 import { useScrollPosition } from "core/hooks";
 import { Icons } from "components/common/Icons";
+import { ROLE, PATH } from "config/const";
 
 function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
   const [showLoginDialog, setShowLoginDialog] = useState(false)
@@ -30,7 +30,10 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
         setShowCartDrawer={setShowCartDrawer}
       />
 
-      <Row classes='flex-1' justify='end'>
+      <Row
+        classes='flex-1'
+        justify='end'
+      >
         <Button
           light
           classes='mr-4 p-0'
@@ -81,8 +84,8 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
         </Button>
         <Box classes='hidden tablet:block cursor-pointer'>
           {
-            user?.role === Enums.ROLE.ACCOUNT ?
-              <Link href={Enums.PATH.ACCOUNT._}>
+            user?.role === ROLE.ACCOUNT ?
+              <Link href={PATH.ACCOUNT._}>
                 <Icons.userSolid
                   className={cnn('stroke-1',
                     pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',

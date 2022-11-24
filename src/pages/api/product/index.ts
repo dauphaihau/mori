@@ -61,7 +61,6 @@ class APIFeatures {
     } else {
       this.query = this.query.sort('-createdAt')
     }
-
     return this;
   }
 
@@ -72,6 +71,11 @@ class APIFeatures {
     this.query = this.query.skip(skip).limit(limit)
     return this;
   }
+
+  count() {
+    this.query = this.query.countDocuments()
+    return this;
+  }
 }
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
@@ -80,19 +84,21 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   .filtering()
   .sorting()
   .paginating()
+
   const products = await features.query
-  // const countQuery = await features.query.count()
+  // console.log('dauphaihau debug: products-', products)
 
-  // features.query.countDocuments(features.queryString, function countResults(err, result) {
-  //   if (err) {
-  //     //handle error
-  //   }
-  //   console.log(result);
-  // });
+  // total w filter, sort (count without paginate )
+  const features2 = new APIFeatures(Product.find(), req.query)
+  .filtering()
+  .sorting()
+  .count()
 
-  const total = await Product.countDocuments()
+  const total = await features2.query
+  console.log('dauphaihau debug: total', total)
+
   await db.disconnect();
-  // console.log('dauphaihau debug: products', products)
+
   res.json({
     code: '200',
     message: 'OK',
@@ -120,7 +126,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   // console.log('dauphaihau debug: mapped', mapped)
   // console.log('dauphaihau debug: data', data)
 
-  const result = await Product.find({ 'name': { $in: [ 'Autumn Oak Hardwood', 'Clarksburg Wooden Casket' ] } });
+  const result = await Product.find({ 'name': { $in: ['Autumn Oak Hardwood', 'Clarksburg Wooden Casket'] } });
   // const result = await Product.find({ '_id': { $in: mapped } });
 
   // console.log('dauphaihau debug: result', result)

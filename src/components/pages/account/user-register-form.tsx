@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Text, Link, Checkbox, Input, Box, Row } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
 import { accountService } from 'services/account';
-import Enums from "config/enums";
+import Const from "config/const";
 import { IUserAuthSchema } from "lib/validation/auth";
 import { cn } from "core/helpers";
 
@@ -42,7 +42,7 @@ export default function UserRegisterForm({ className }: UserRegisterFormProps) {
     setIsLoading(isLoading)
 
     if (data) {
-      router.push(Enums.PATH.ACCOUNT.LOGIN)
+      router.push(Const.PATH.ACCOUNT.LOGIN)
     } else {
       if (errors) {
         setError('email', {
@@ -90,7 +90,7 @@ export default function UserRegisterForm({ className }: UserRegisterFormProps) {
           name='rememberMe'
           label='Remember me'
         />
-        <Link href={Enums.PATH.ACCOUNT.FORGOT_PASSWORD}>
+        <Link href={Const.PATH.ACCOUNT.FORGOT_PASSWORD}>
           <Text
             as='button'
             classes='text-sm text-black hover:underline pt-[2px]'

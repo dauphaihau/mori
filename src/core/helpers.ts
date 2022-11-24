@@ -175,7 +175,8 @@ export const slugify = (string) => {
   .replace(/-+$/, '') // Trim - from end of text
 }
 
-export function titleIfy(slug, except = ['and', 'with']) {
+export function titleIfy(slug: string, except = ['and', 'with']) {
+  if (!slug) return
   let words = slug.split('-')
   for (let i = 0; i < words.length; i++) {
     let word = words[i]

@@ -8,7 +8,8 @@ import { Loading } from "core/components";
 
 export default function ProductPage() {
   const router = useRouter()
-  const name = titleIfy(router.query.name)
+  const name = titleIfy(router.query?.name as string)
+  console.log('dauphaihau debug: name', name)
   const { product, isLoading } = useDetailProduct(name)
   const { relatedProducts } = useRelatedProducts(product?.category)
 

@@ -1,20 +1,21 @@
 import { Box, Breadcrumb, Grid, Row, Text } from 'core/components';
 import { FilterDrawer } from 'components/drawer';
 import Seo from 'components/common/Seo';
-import Enums from "config/enums";
+import Const from "config/const";
 import Products from "../../components/pages/productList/Products";
 import { productService, useProducts } from "services/product";
 import { IProduct } from "../../types/product";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import FiltersSortMobile from "../../components/pages/productList/FiltersSortMobile";
+import MobileTabletVersion from "../../components/pages/productList/MobileTabletVersion";
 import { Filters, Sorter } from "../../components/pages/productList";
 import { cn } from 'core/helpers';
 import { useUIController } from "context/UIControllerContext";
+import View from 'components/pages/productList/View';
 
 const dataBreadcrumb = [
-  { path: Enums.PATH.DEFAULT, name: 'Home' },
-  { path: Enums.PATH.PRODUCT._, name: 'Product' },
+  { path: Const.PATH.DEFAULT, name: 'Home' },
+  { path: Const.PATH.PRODUCT._, name: 'Product' },
 ];
 
 interface ProductListPageProps {
@@ -23,6 +24,7 @@ interface ProductListPageProps {
 
 export default function ProductListPage<NextPage>() {
   const { progress, setProgress } = useUIController();
+  const [gridView, setGridView] = useState(false)
   const router = useRouter()
   const params = {
     page: router.query.page || 1,
@@ -32,6 +34,7 @@ export default function ProductListPage<NextPage>() {
     sort: router.query.sort || '-sold',
     // sort: router.query.sort || '-createdAt',
     price: router.query.price || '',
+    limit: router.query.limit || '',
   }
   const { data, isLoading } = useProducts(params)
   // setProgress(progress + 30)
@@ -43,7 +46,6 @@ export default function ProductListPage<NextPage>() {
     <>
       <Seo description='Mori ECommerce - All products'/>
 
-      <FilterDrawer/>
       <Box classes='hidden laptop:block layout desktop:w-[96%] pt-16'>
         <Breadcrumb
           classes='mb-6 pl-1'
@@ -67,18 +69,21 @@ export default function ProductListPage<NextPage>() {
               <Text
                 h1
                 classes={cn('text-3xl laptop:text-xl font-light', isLoading && 'invisible')}
-              >{data?.products.length} results found</Text>
+              >{data?.total} results found</Text>
               {/*>{total} results found</Text>*/}
-              <Sorter/>
+
+              <Row classes='gap-x-8'>
+                <View setGridView={setGridView} gridView={gridView}/>
+                <Sorter/>
+              </Row>
             </Row>
-            {data && <Products data={data}/>}
+            {data && <Products gridView={gridView} data={data}/>}
           </Box>
         </Grid>
-
       </Box>
 
       {/*Mobile - Tablet version*/}
-      <FiltersSortMobile/>
+      {data && <MobileTabletVersion data={data}/>}
     </>
   );
 }

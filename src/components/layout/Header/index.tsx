@@ -1,15 +1,16 @@
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
 import { Box, Link } from 'core/components';
 import RightNavbar from './RightNavbar';
 import LeftNavbar from "./LeftNavbar";
-import React, { useEffect, useState } from "react";
-import Enums from "config/enums";
-import { useRouter } from "next/router";
+import Const from "config/const";
 import { cnn } from "core/helpers";
 import { useScrollPosition } from "core/hooks";
 
-const routeHasBanner = [Enums.PATH.DEFAULT, Enums.PATH.ABOUT._]
+const routeHasBanner = [Const.PATH.DEFAULT, Const.PATH.ABOUT._]
 
-const Header = ({ categories }) => {
+export default function Header() {
   const [pageHasBanner, setPageHasBanner] = useState(false)
   const [showSearchBar, setShowSearchBar] = useState(false)
   const scrollPositionY = useScrollPosition();
@@ -34,10 +35,9 @@ const Header = ({ categories }) => {
           <LeftNavbar
             showSearchBar={showSearchBar}
             pageHasBanner={pageHasBanner}
-            categories={categories}
           />
           <Link
-            href={Enums.PATH.HOME}
+            href={Const.PATH.HOME}
             classes={cnn('logo text-2xl font-bold uppercase',
               pageHasBanner && 'text-white',
               pageHasBanner && scrollPositionY > 15 && '!text-primary-black'
@@ -54,5 +54,3 @@ const Header = ({ categories }) => {
     </>
   );
 }
-
-export default Header;

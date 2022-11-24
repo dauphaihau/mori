@@ -1,5 +1,5 @@
 import { IProduct } from 'types/product';
-import Enums from "config/enums";
+import { SORT_PRODUCT } from "config/const";
 
 export enum filterType {
   LOAD_PRODUCTS = 'LOAD_PRODUCTS',
@@ -72,26 +72,26 @@ const filterReducer = (state: FilterState, action: FilterActions): FilterState =
     const { sort, filtered_products } = state;
     let tempProducts = [...filtered_products];
 
-    if (sort === Enums.SORT_PRODUCT.BEST_SELLING) {
+    if (sort === SORT_PRODUCT.BEST_SELLING) {
       tempProducts = tempProducts.sort((a, b) => Number(b.bestSelling) - Number(a.bestSelling));
     }
-    if (sort === Enums.SORT_PRODUCT.DATE_NEW) {
+    if (sort === SORT_PRODUCT.DATE_NEW) {
       tempProducts = tempProducts.sort((a, b) => {
         return new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
       });
     }
-    if (sort === Enums.SORT_PRODUCT.PRICE_LOWEST) {
+    if (sort === SORT_PRODUCT.PRICE_LOWEST) {
       tempProducts = tempProducts.sort((a, b) => Number(a.price) - Number(b.price));
     }
-    if (sort === Enums.SORT_PRODUCT.PRICE_HIGHEST) {
+    if (sort === SORT_PRODUCT.PRICE_HIGHEST) {
       tempProducts = tempProducts.sort((a, b) => Number(b.price) - Number(a.price));
     }
-    if (sort === Enums.SORT_PRODUCT.NAME_A) {
+    if (sort === SORT_PRODUCT.NAME_A) {
       tempProducts = tempProducts.sort((a, b) => {
         return a.name.localeCompare(b.name);
       });
     }
-    if (sort === Enums.SORT_PRODUCT.NAME_Z) {
+    if (sort === SORT_PRODUCT.NAME_Z) {
       tempProducts = tempProducts.sort((a, b) => {
         return b.name.localeCompare(a.name);
       });

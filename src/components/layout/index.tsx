@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/router';
+import LoadingBar from "react-top-loading-bar";
 import dynamic from 'next/dynamic';
 
 import { useUIController } from '../../context/UIControllerContext';
@@ -16,14 +17,8 @@ import { AddressDialog, SubscribeDialog } from 'components/dialog';
 import { cn } from 'core/helpers';
 import AcceptCookie from "./AcceptCookie";
 import FreeShip from "./FreeShip";
-import LoadingBar from "react-top-loading-bar";
 
-interface LayoutProps {
-  children: ReactNode;
-  categories: [],
-}
-
-const Layout = ({ children, categories }: LayoutProps) => {
+const Layout = ({ children }: {children: ReactNode}) => {
   const { progress, setProgress } = useUIController();
   const [isMobileScreen, setIsMobileScreen] = useState(false)
   const [accountLayout, setAccountLayout] = useState(false)
@@ -61,7 +56,7 @@ const Layout = ({ children, categories }: LayoutProps) => {
       {/*<ChatBox/>*/}
 
       {/*<FreeShip/>*/}
-      <Header categories={categories}/>
+      <Header/>
 
       <Box>
         <Box

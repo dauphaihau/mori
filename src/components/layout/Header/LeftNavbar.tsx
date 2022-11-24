@@ -2,16 +2,15 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { MenuIcon } from '@heroicons/react/outline';
 
-import { cnn } from 'core/helpers';
-import navbarData from 'assets/data/navbarData';
+import { cn } from 'core/helpers';
 import { Link, Text, Box, List, Row } from 'core/components';
 import { NavMobileDrawer } from 'components/drawer';
 import { useScrollPosition } from "core/hooks";
-import Enums from "config/enums";
-import { useFilterContext } from "context/filterContext";
+import { PATH } from "config/const";
 import MegaMenu from "./MegaMenu";
+import { headerConfig } from 'config/header';
 
-const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
+const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
   const [showNavMobileDrawer, setShowNavMobileDrawer] = useState(false)
   const scrollPositionY = useScrollPosition();
   const router = useRouter();
@@ -27,7 +26,7 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
         classes='navbar__leftSide flex-1'
       >
         <MenuIcon
-          className={cnn('menu-mobile stroke-1',
+          className={cn('menu-mobile stroke-1',
             !pageHasBanner && '!text-primary-black',
             pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
           )}
@@ -38,18 +37,17 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
 
         <Box classes='hidden laptop:block'>
           <Row classes='mt-1 '>
-                    {/*<span*/}
-                    {/*  className={`bg-gray-custom-52  px-10 rounded-[4px] mt-2*/}
-                    {/*absolute h-10 w-10 -top-1 duration-500 translate-x-0 z-[-1]*/}
-                    {/*`}*/}
-                    {/*></span>*/}
+            {/*<span*/}
+            {/*  className={`bg-gray-custom-52  px-10 rounded-[4px] mt-2*/}
+            {/*absolute h-10 w-10 -top-1 duration-500 translate-x-0 z-[-1]*/}
+            {/*`}*/}
+            {/*></span>*/}
             {
-              navbarData.map(({ path, title }, index) => {
-                if (path === Enums.PATH.PRODUCT._) {
+              headerConfig.mainNav.map(({ href, title }, index) => {
+                if (href === PATH.PRODUCT._) {
                   return <MegaMenu
                     key={index}
-                    path={path}
-                    categories={categories}
+                    href={href}
                     title={title}
                     pageHasBanner={pageHasBanner}
                   />
@@ -57,14 +55,14 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
                 return (
                   <Box
                     key={index}
-                    classes={cnn('single-link',
-                      router.route === path ? pageHasBanner && scrollPositionY < 15 ? 'active--white' : 'active' : 'default',
+                    classes={cn('single-link',
+                      router.route === href ? pageHasBanner && scrollPositionY < 15 ? 'active--white' : 'active' : 'default',
                     )}
                   >
                     <Link
                       hideIf={!pageHasBanner}
-                      href={path}
-                      classes={cnn('single-link__title',
+                      href={href}
+                      classes={cn('single-link__title',
                         scrollPositionY > 15 ? 'scrolling' : 'non-scroll'
                       )}
                     >
@@ -72,10 +70,10 @@ const LeftNavbar = ({ categories, pageHasBanner, showSearchBar }) => {
                     </Link>
                     <Link
                       hideIf={pageHasBanner}
-                      href={path}
-                      classes={cnn('single-link__title',
+                      href={href}
+                      classes={cn('single-link__title',
                         // 'group-hover:text-black',
-                        router.route !== path ? 'default' : 'active',
+                        router.route !== href ? 'default' : 'active',
                       )}
                     >
                       {title}

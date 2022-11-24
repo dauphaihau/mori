@@ -1,6 +1,7 @@
 import { config } from "config";
 import api from "lib/axios";
 import useSWR from "swr";
+import useSWRInfinite from 'swr/infinite'
 
 export const productService = {
   // getProductByName: async (list = []) => {
@@ -88,9 +89,41 @@ export function useSearchProducts(params) {
   };
 }
 
+// export function useProducts(params) {
+//   const fetcher = url => api.get(url, { params }).then(res => res.data)
+//   const { data, error, mutate, size, setSize } = useSWRInfinite((pageIndex, previousPageData) => {
+//       console.log('dauphaihau debug: page-index', pageIndex)
+//       console.log('dauphaihau debug: previous-page-data', previousPageData)
+//       if (!params) return null;
+//
+//       // reached the end
+//       if (previousPageData && !previousPageData.data) return null;
+//
+//       // first page, we don't have `previousPageData`
+//       // if (pageIndex === 0) return [config.api.product._, params]
+//
+//       return [config.api.product._, {...params, page: pageIndex + 1}]
+//     },
+//     fetcher
+//   )
+//
+//   console.log('dauphaihau debug: size', size)
+//   // console.log('dauphaihau debug: data', data)
+//   // console.log('dauphaihau debug: error', error)
+//   console.log('dauphaihau debug: data', data && data[0])
+//   return {
+//     data: data && data[0] ,
+//     // products: data?.products,
+//     isLoading: !data,
+//     isError: !!error,
+//     mutate
+//   };
+// }
+
 export function useProducts(params) {
   const fetcher = url => api.get(url, { params }).then(res => res.data)
   const { data, error, mutate } = useSWR([config.api.product._, params], fetcher)
+  // console.log('dauphaihau debug: error', error)
   return {
     data,
     // products: data?.products,
@@ -102,7 +135,7 @@ export function useProducts(params) {
 
 export function useDetailProduct(name) {
   const fetcher = url => api.get(url, { params: { name } }).then(res => res.data)
-  const { data, error, mutate } = useSWR(config.api.product.detail, fetcher)
+  const { data, error, mutate } = useSWR(name ? config.api.product.detail : null, fetcher)
   return {
     // data,
     product: data?.product,

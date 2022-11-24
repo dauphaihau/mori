@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ROLE, USER_STATUS } from 'config/enums';
-import Enums from 'config/enums';
+import { ROLE, USER_STATUS } from 'config/const';
+import Const from 'config/const';
 import { hashMD5 } from 'lib/crypto';
 import configJson from 'config/config.json';
 import { isEmpty, parseJson } from 'core/helpers';
@@ -9,10 +9,10 @@ import { verifyToken } from 'lib/jwt';
 export async function middleware(req: NextRequest) {
 
   const url = req.nextUrl.clone();
-  url.pathname = Enums.PATH.DEFAULT;
+  url.pathname = Const.PATH.DEFAULT;
 
   const urlCurrent = req.nextUrl.pathname
-  const routePrivate = [Enums.PATH.ACCOUNT._, Enums.PATH.ACCOUNT.ADDRESS]
+  const routePrivate = [Const.PATH.ACCOUNT._, Const.PATH.ACCOUNT.ADDRESS]
 
   const cookies = req.cookies;
   const auth = parseJson(cookies[hashMD5(configJson.cookies.auth)])

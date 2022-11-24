@@ -8,7 +8,7 @@ import { useAuth } from 'context/authContext';
 import { Dialog, Button, Text, Link, Checkbox, Input, Box, Row } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
 import { accountService } from 'services/account';
-import Enums from "config/enums";
+import Const from "config/const";
 import { Icons } from 'components/common/Icons';
 import { IUserAuthSchema } from "lib/validation/auth";
 
@@ -95,7 +95,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
 
     if (data) {
       if (currentForm === 'login') {
-        router.push(Enums.PATH.ACCOUNT._)
+        router.push(Const.PATH.ACCOUNT._)
         setShowLoginDialog(false);
       }
       setCurrentForm('login')

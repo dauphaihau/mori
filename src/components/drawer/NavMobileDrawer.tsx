@@ -2,34 +2,12 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import { XIcon } from '@heroicons/react/outline';
 
-import { cnn } from 'core/helpers';
+import { cn } from 'core/helpers';
 import { Drawer, List, Button, Box, Row, Link, Text, Divider } from 'core/components';
-import Enums from 'config/enums';
-import navbarData from 'assets/data/navbarData';
+import  { PATH } from 'config/const';
 import { MinusIcon, PlusIcon } from "@heroicons/react/solid";
-import { useFilterContext } from "../../context/filterContext";
-
-const handleDiscover = (type) => {
-
-  // const { updateFilters, updateSort } = useFilterContext()
-  //
-  // const handleUpdateFilters = (name, value) => {
-  //   updateFilters({ target: { name, value } })
-  // }
-
-  const logg = () => {
-    console.log('dauphaihau debug: log ne')
-  }
-
-  const discover = {
-    // ['All Products']: han
-    // ['New in']: updateSort(Enums.SORT_PRODUCT.DATE_NEW),
-    ['New in']: logg,
-    // ['Last piece']: handleUpdateFilters('lastPiece', true),
-  }
-
-  return discover[type] ? discover[type]() : ''
-}
+import { headerConfig } from "config/header";
+import { MainNavItem } from "types";
 
 const Dropdown = ({ subMenus, dropdown, depthLevel }) => {
   depthLevel += 1
@@ -37,7 +15,7 @@ const Dropdown = ({ subMenus, dropdown, depthLevel }) => {
 
   return (
     <List
-      classes={cnn('overflow-hidden ease-in-out duration-500 pl-4',
+      classes={cn('overflow-hidden ease-in-out duration-500 pl-4',
         dropdown ? 'max-h-96' : 'max-h-0',
         // classes={cn('overflow-hidden ease-in duration-500 pl-4 max-h-full',
         //   dropdown ? 'max-h-96' : 'h-0',
@@ -57,7 +35,7 @@ const Dropdown = ({ subMenus, dropdown, depthLevel }) => {
   )
 }
 
-const MenuItems = ({ items, depthLevel }) => {
+const MenuItems = ({ items, depthLevel }: {items: MainNavItem, depthLevel: number}) => {
   const [dropdown, setDropdown] = useState(false);
 
   return (
@@ -69,12 +47,12 @@ const MenuItems = ({ items, depthLevel }) => {
               justify='between'
               align='center'
               onClick={() => setDropdown((prev) => !prev)}
-              classes={cnn('cursor-pointer ',
+              classes={cn('cursor-pointer ',
                 depthLevel === 0 && 'py-4'
               )}
             >
               <Text
-                classes={cnn(
+                classes={cn(
                   '',
                   depthLevel === 0 && 'text-[12px] text-white uppercase tracking-[.20em]',
                   depthLevel === 1 && 'text-[11px] text-[#777676] uppercase tracking-[.20em]',
@@ -92,7 +70,7 @@ const MenuItems = ({ items, depthLevel }) => {
                   height={15}
                   width={15}
                 />}
-                classes={cnn('',
+                classes={cn('',
                   'text-white p-0 text-xl px-[0.7rem]',
                   depthLevel === 1 && 'text-[#777676]',
                   depthLevel === 2 && 'text-[#797978]',
@@ -109,10 +87,10 @@ const MenuItems = ({ items, depthLevel }) => {
           </>
         ) : (
           <Link
-            href={items.path}
+            href={items.href}
             text={items.title}
             // onClick={() => items.childDiscover ? handleDiscover(items.title) : {}}
-            classes={cnn(
+            classes={cn(
               'transition duration-700 ease-in-out rounded-lg',
               'text-[#fbfbfb]',
               depthLevel === 0 && 'py-4 text-white text-[12px] uppercase tracking-widest',
@@ -152,7 +130,7 @@ const NavMobileDrawer = ({ showNavMobileDrawer, setShowNavMobileDrawer }) => {
           classes='pt-8 pl-5 pr-[27px] h-[4%] tablet:py-10 laptop:py-4 tablet:h-[6.6%] laptop:h-[8.4%] desktop:h-[5.6%]'
         >
           <Link
-            href={Enums.PATH.DEFAULT}
+            href={PATH.HOME}
             classes='logo text-2xl font-bold text-white'
             text='MORI'
           />
@@ -171,7 +149,7 @@ const NavMobileDrawer = ({ showNavMobileDrawer, setShowNavMobileDrawer }) => {
         >
           <List>
             {
-              navbarData.map((menu, idx) => {
+              headerConfig.mainNav.map((menu, idx) => {
                 const depthLevel = 0;
                 return <MenuItems
                   key={idx}
@@ -182,26 +160,27 @@ const NavMobileDrawer = ({ showNavMobileDrawer, setShowNavMobileDrawer }) => {
             }
             <List.Item classes='mt-4'>
               <Link
-                href={Enums.PATH.ACCOUNT.LOGIN}
+                href={PATH.ACCOUNT.LOGIN}
                 classes='text-[15px] text-[#797978] '
                 text='Account'
               />
             </List.Item>
             <List.Item classes='mt-4'>
               <Link
-                href={Enums.PATH.ABOUT._}
+                href={PATH.ABOUT._}
                 classes='text-[15px] text-[#797978] '
                 text='Contact'
               />
             </List.Item>
             <List.Item classes='mt-4'>
               <Link
-                href={Enums.PATH.ABOUT._}
+                href={PATH.ABOUT._}
                 classes='text-[15px] text-[#797978] '
                 text='Retailers'
               />
             </List.Item>
           </List>
+
         </Box>
       </Drawer.Body>
     </Drawer>

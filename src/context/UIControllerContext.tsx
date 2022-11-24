@@ -6,9 +6,9 @@ import reducer, {
 } from "./reducers/uiControllerReducer";
 import * as React from "react";
 import { useRouter } from "next/router";
-import { STORAGE_KEY } from "../config/enums";
 import useSafeContext from "../core/hooks/useSafeContext";
 import { FilterState } from "./reducers/filterReducer";
+import { useCategories } from "../services/product";
 
 const initialState = {
   openAddressModal: false,
@@ -19,12 +19,13 @@ const initialState = {
   progress: 0,
 };
 
+// const pageNeedCategories = []
 
 export const [useUIController, Provider] = useSafeContext<uiControllerState>({})
 
 export const UIControllerProvider: FC = ({ children }) => {
   const [controller, dispatch] = useReducer<Reducer<uiControllerState, uiControllerActions>>(reducer, initialState);
-  const [categories, setCategories] = useState([])
+  const { categories } = useCategories();
   const [progress, setProgress] = useState(0)
   const [recentlyViewedProduct, setRecentlyViewedProduct] = useState([])
   const router = useRouter();
@@ -48,8 +49,7 @@ export const UIControllerProvider: FC = ({ children }) => {
   return (
     <Provider
       value={{
-        ...(controller as object), dispatch,
-        setCategories, categories,
+        ...(controller as object), dispatch, categories,
         closeDrawerModal, recentlyViewedProduct,
         progress, setProgress,
       }}

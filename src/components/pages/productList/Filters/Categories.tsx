@@ -7,28 +7,26 @@ import { Box, Skeleton } from 'core/components';
 import { filterSearch } from "./Filters";
 import { cn, titleIfy } from 'core/helpers';
 import { useCategories } from "services/product";
-import Enums from "config/enums";
-import { Color } from "./Color";
+import Const from "config/const";
 
 export const Categories = memo(() => {
-  const { categories } = useCategories();
   const router = useRouter()
+  const { categories } = useCategories();
   const [category, setCategory] = useState('')
 
   useEffect(() => {
-    // console.log('dauphaihau debug: router-as-path', router.query)
-    if (router.asPath === Enums.PATH.PRODUCT._) {
+    setCategory(router.query?.category as string ?? '')
+  }, [])
+
+  useEffect(() => {
+    if (router.asPath === Const.PATH.PRODUCT._) {
       setCategory('')
     }
-    // if (router.query.category === category) {
-    //   router.push('/product')
-    // }
   }, [router.asPath])
 
   const handleCategory = (e) => {
     const value = e.target.textContent.toLowerCase();
     setCategory(category === value ? '' : value)
-    // console.log('dauphaihau debug: router-as-path', router.query)
     filterSearch({ router, category: value })
   }
 
@@ -36,7 +34,6 @@ export const Categories = memo(() => {
     <Box classes='filters__item'>
       <Disclosure
         as='div'
-        className='mt-3'
         defaultOpen
       >
         {({ open }) => (
@@ -60,7 +57,6 @@ export const Categories = memo(() => {
                 )}
               />
             </Disclosure.Button>
-
             <Transition
               enter="transition-opacity ease-linear duration-200"
               enterFrom="opacity-0"
@@ -79,7 +75,6 @@ export const Categories = memo(() => {
                         className={cn('filter__btn hover:text-black', category === name && 'is-selected')}
                         name='category'
                         onClick={handleCategory}
-                        // onClick={updateFilters}
                       >
                         {titleIfy(name)}
                       </button>
@@ -98,7 +93,6 @@ export const Categories = memo(() => {
           </>
         )}
       </Disclosure>
-
     </Box>
   );
 })

@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react'
+import { useRouter } from "next/router";
+
 import Filters from "../pages/productList/Filters/Filters";
-import { useFilterContext } from "context/filterContext";
 import { Drawer, Button, Col } from "core/components";
 
-const FiltersDrawer = ({}) => {
-// const FiltersDrawer = ({ showFiltersDrawer, setShowFiltersDrawer }) => {
+const FiltersDrawer = ({ showFiltersDrawer, setShowFiltersDrawer }) => {
+  const router = useRouter()
   const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
-  const { clearFilters, showFiltersDrawer, setShowFiltersDrawer } = useFilterContext()
 
   useEffect(() => {
     setRenderClientSideComponent(true)
   }, [])
+
+  const handleReset = () => {
+    router.query = {}
+    router.push('/product', undefined, { scroll: false })
+  }
 
   if (!renderClientSideComponent) return null
   return (
@@ -32,7 +37,7 @@ const FiltersDrawer = ({}) => {
         <Drawer.Footer>
           <Button
             classes='w-fit'
-            onClick={() => clearFilters()}
+            onClick={handleReset}
           >clear all</Button>
         </Drawer.Footer>
       </Drawer>
