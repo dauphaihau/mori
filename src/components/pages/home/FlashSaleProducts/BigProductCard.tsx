@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react';
 import { Text, Link, Box, Row, Col, NextImage, Badge } from 'core/components';
 import { cn, sliceText, slugify } from 'core/helpers';
-import Const from "config/const";
+import { PATH } from "config/const";
+import { config } from "config";
 import { Loading } from "../../../../core/components/Loading";
 import { BlurringImage } from "../../../../core/components/Next/BlurringImage";
+import NextImageLoading from "../../../../core/components/Next/NextImageLoading";
 
 const hoverEffect = typeof window !== `undefined` ? require('hover-effect').default : null;
 
 const BigProductCard = ({ data }) => {
-  const {  name, price, salePrice, description, link , images } = data;
+  if (!data) return null
+  console.log('dauphaihau debug: data', data)
+  const { name, price, salePrice, description, link, images } = data;
 
   // useEffect(() => {
   //   Array.from(document.querySelectorAll('.product-card__images')).forEach(
@@ -107,35 +111,21 @@ const BigProductCard = ({ data }) => {
           >
             <img
               className='img-effect'
-              src={images[0]}
+              // src={images[0]}
+              src={config.hostStaticSource + images[0]}
               alt={name}
             />
             <img
               className='img-effect'
-              src={images[1]}
+              src={config.hostStaticSource + images[1]}
+              // src={images[1]}
               alt={name}
             />
           </Box>
         </Col>
 
-
-        {/*<Loading/>*/}
-
-        {/*<BlurringImage*/}
-        {/*  src={images[0]}*/}
-        {/*  alt={name}*/}
-        {/*  className='w-auto'*/}
-        {/*  // className='laptop:hidden w-auto'*/}
-        {/*  width={200}*/}
-        {/*  // elaceholder='blur'*/}
-        {/*  // blurDataURL='/images/loading.gif'*/}
-        {/*  height={200}*/}
-        {/*  objectFit='contain'*/}
-        {/*/>*/}
-
-        <NextImage
-          // src='https://res.cloudinary.com/duiehrbms/image/upload/v1667916502/cld-sample-4.jpg'
-          src={images[0]}
+        <NextImageLoading
+          src={config.hostStaticSource + images[0]}
           alt={name}
           className='w-auto'
           // className='laptop:hidden w-auto'
@@ -152,12 +142,15 @@ const BigProductCard = ({ data }) => {
 
   return (
     <Box classes='product-card'>
-      <Link href={`${Const.PATH.PRODUCT._}/${slugify(data?.name)}`}>
+      <Link href={`${PATH.PRODUCT._}/${slugify(data?.name)}`}>
         <Col
           classes='h-full relative'
           justify='between'
         >
-          <Badge hideIf={!salePrice} classes='absolute z-10'>
+          <Badge
+            hideIf={!salePrice}
+            classes='absolute z-10'
+          >
             {(((price - salePrice) / price) * 100).toFixed()}%
           </Badge>
           <Images/>

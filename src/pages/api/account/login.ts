@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
 
-import User from 'server/models/User';
-import db from 'server/config/db';
+import User from 'lib/models/User';
+import db from 'lib/db';
 import { signToken } from 'lib/jwt';
 import config from "config/config.json";
 

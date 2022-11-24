@@ -5,9 +5,9 @@ import bcrypt from 'bcryptjs';
 
 import { sendResetPasswordEmail } from "lib/mailer";
 const bcryptSalt = process.env.BCRYPT_SALT;
-import User from 'server/models/User';
-import Token from 'server/models/Token';
-import db from 'server/config/db';
+import User from 'lib/models/User';
+import Token from 'lib/models/Token';
+import db from 'lib/db';
 
 const handler = nc();
 

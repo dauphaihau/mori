@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
 
-import User from 'server/models/User';
+import User from 'lib/models/User';
 import { signToken } from 'lib/jwt';
-import db from 'server/config/db';
+import db from 'lib/db';
 import { ROLE, USER_STATUS } from 'config/const';
 import { sendResultRegister } from 'lib/mailer';
 

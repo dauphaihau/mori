@@ -3,8 +3,8 @@ import nc from 'next-connect';
 import bcrypt from 'bcryptjs';
 
 const bcryptSalt = process.env.BCRYPT_SALT;
-import Token from 'server/models/Token';
-import User from 'server/models/User';
+import Token from 'lib/models/Token';
+import User from 'lib/models/User';
 import { encryptPassword } from "lib/crypto";
 import config from "config/config.json";
 

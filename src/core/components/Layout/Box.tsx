@@ -34,9 +34,7 @@ const Box = forwardRef((props: Partial<BoxProps>, ref: any) => {
     ...others
   } = props
 
-  const allClass = cn(
-    classes,
-  )
+  const allClass = cn(classes)
 
   if (hideIf) return null
 

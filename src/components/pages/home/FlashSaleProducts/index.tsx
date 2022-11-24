@@ -3,28 +3,11 @@ import { ProductCard } from '../index';
 import CountdownTimer from '../CountdownTimer';
 import BigProductCard from './BigProductCard';
 import FadeInSection from 'components/common/FadeInSection';
-import { productService, useProductsSale } from "../../../../services/product";
-import { useEffect } from "react";
+import {  useProductsSale } from "services/product";
 
-const data = [
-  'Autumn Oak Hardwood',
-  'Clarksburg Wooden Casket',
-]
-
-const FlashSaleProducts = ({ inventoryData }) => {
-
-  // const { products } = useProductsSale(data)
-  const { products } = useProductsSale(data)
-
-  // useEffect(() => {
-  //   async function initialLoad() {
-  //     // const products = await productService.getProductSale(data)
-  //     const products = await useProductsSale(data)
-  //     console.log('dauphaihau debug: products', products)
-  //   }
-  //
-  //   initialLoad()
-  // }, [])
+export default function FlashSaleProducts () {
+  const { products } = useProductsSale()
+  // console.log('dauphaihau debug: products', products)
 
   return (
     <FadeInSection classes='my-12 mb-24 layout'>
@@ -36,35 +19,28 @@ const FlashSaleProducts = ({ inventoryData }) => {
         <Text h2>Flash Sale</Text>
         <CountdownTimer/>
       </Row>
-      <Grid
-        sx={1}
-        lg={2}
-        gap={8}
-        classes=''
-      >
+      <Grid sx={1} lg={2} gap={8}>
         <Box classes='hidden laptop:block'>
-          <BigProductCard data={inventoryData[26]}/>
+          <BigProductCard data={products && products[2]}/>
         </Box>
         <Grid gap={4}>
           <Grid
             md={2}
             gap={8}
           >
-            <ProductCard data={inventoryData[12]}/>
-            <ProductCard data={inventoryData[25]}/>
+            <ProductCard data={products && products[1]}/>
+            <ProductCard data={products && products[2]}/>
           </Grid>
           <Grid
             md={2}
             gap={8}
             classes='mt-4'
           >
-            <ProductCard data={inventoryData[26]}/>
-            <ProductCard data={inventoryData[28]}/>
+            <ProductCard data={products && products[3]}/>
+            <ProductCard data={products && products[4]}/>
           </Grid>
         </Grid>
       </Grid>
     </FadeInSection>
   )
 }
-
-export default FlashSaleProducts;

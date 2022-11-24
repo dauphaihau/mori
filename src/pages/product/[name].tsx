@@ -10,7 +10,10 @@ export default function ProductPage() {
   const router = useRouter()
   const name = titleIfy(router.query?.name as string)
   const { product, isLoading } = useDetailProduct(name)
-  const { relatedProducts } = useRelatedProducts(product?.category)
+  const { relatedProducts } = useRelatedProducts({
+    category: product?.category,
+    name
+  })
 
   // console.log('dauphaihau debug: product', product)
   // console.log('dauphaihau debug: related-products', relatedProducts)

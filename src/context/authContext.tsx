@@ -1,16 +1,16 @@
-import { createContext, useContext, useState, useEffect, FC } from 'react';
+import { useState, useEffect, PropsWithChildren } from 'react';
 
 import { accountService } from 'services/account';
 import { handleGetCookie, handleRemoveCookie, handleSetCookie } from 'lib/cookie';
 import { isEmpty } from 'core/helpers';
 import config from 'config/config.json';
 import { IUser } from 'types/user';
-import Const from "config/const";
+import { ROLE } from "config/const";
 import { useRouter } from "next/router";
 import { signToken, verifyToken } from "lib/jwt";
 import useSafeContext from "../core/hooks/useSafeContext";
 
-export interface AuthState {
+export interface AuthProps {
   user: IUser
   setUser: (prevState) => void,
   handleLogout: () => void,
@@ -19,23 +19,17 @@ export interface AuthState {
 
 const initialState = {
   user: {
-    role: Const.ROLE.BASIC
+    role: ROLE.BASIC
   },
   setUser: () => {
   },
 };
 
-export const [useAuth, Provider] = useSafeContext<AuthState>(initialState)
+export const [useAuth, Provider] = useSafeContext<AuthProps>(initialState)
 
-// const AuthContext = createContext<Partial<AuthState>>(initialState);
-//
-// export function useAuth() {
-//   return useContext(AuthContext);
-// }
-
-export const AuthProvider: FC = ({ children }) => {
+export function AuthProvider({ children }: PropsWithChildren<{}>) {
   const [user, setUser] = useState<IUser | null>();
-  const [role, setRole] = useState(Const.ROLE.BASIC)
+  const [role, setRole] = useState(ROLE.BASIC)
   const router = useRouter();
 
   useEffect(() => {
@@ -55,7 +49,7 @@ export const AuthProvider: FC = ({ children }) => {
         if (dataToken) {
           // console.log('dauphaihau debug: data-token', dataToken)
           setUser({ ...(user as object), ...dataToken })
-          // setRole(Const.ROLE.ACCOUNT)
+          // setRole(ROLE.ACCOUNT)
         }
       }
       verifyAuth();
@@ -83,10 +77,10 @@ export const AuthProvider: FC = ({ children }) => {
   const handleLogout = () => {
     handleRemoveCookie(config.cookies.auth)
     // setUser({ numberAllOfItemsInCart: user.numberAllOfItemsInCart })
-    // router.push(Const.PATH.DEFAULT);
-    setRole(Const.ROLE.BASIC);
-    setUser({ ...user, role: Const.ROLE.BASIC });
-    // setUser({...user, role: Const.ROLE.BASIC});
+    // router.push(PATH.DEFAULT);
+    setRole(ROLE.BASIC);
+    setUser({ ...user, role: ROLE.BASIC });
+    // setUser({...user, role: ROLE.BASIC});
   }
 
   const handleToken = async (authData) => {
@@ -135,12 +129,11 @@ export const AuthProvider: FC = ({ children }) => {
     return null
   }
 
-  const providerValues: AuthState = {
+  const providerValues: AuthProps = {
     user, handleLogout, setUser, role
   };
 
   return (
     <Provider value={providerValues}>{children}</Provider>
-    // <AuthContext.Provider value={providerValues}>{children}</AuthContext.Provider>
   );
 }

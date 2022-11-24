@@ -1,15 +1,14 @@
-import { useEffect } from 'react';
 import { NextImage, Text, Link, Box, Row, Col, Badge } from 'core/components';
-import { cn, sliceText, slugify } from 'core/helpers';
+import { cn, formatDollarUS, sliceText, slugify } from 'core/helpers';
 import { useHover } from 'core/hooks';
-import Const from "config/const";
+import { PATH } from "config/const";
+import { config } from "config";
 
 const hoverEffect = typeof window !== `undefined` ? require('hover-effect').default : null;
 
-const ProductCard = ({ data }) => {
-  const { name, price, salePrice, description, images } = data;
-
-  const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+const ProductFlashSale = ({ data }) => {
+  if (!data) return null
+  // const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
   // useEffect(() => {
   //   Array.from(document.querySelectorAll('.product-card__images')).forEach(
@@ -35,46 +34,47 @@ const ProductCard = ({ data }) => {
   const Content = () => (
     <Box classes='product-card__content'>
       <Box>
-        <Text classes='title'>{name.slice(0, 23)}</Text>
+        <Text classes='title'>{data?.name.slice(0, 23)}</Text>
         <Text classes='describe'>
-          {sliceText(description, 25)}
+          {sliceText(data?.description, 25)}
         </Text>
       </Box>
 
       <Box classes='text-right desktop:hidden'>
         {
-          salePrice ?
+          data?.salePrice ?
             <Row classes='desktop:flex-col'>
               <Text classes='text-xl tracking-wide'>
-                ${salePrice}
+                ${data?.salePrice}
               </Text>
               <Text classes='ml-[10px] line-through font-light text-gray-700 text-sm tablet:text-base'>
-                ${price}
+                ${data?.price}
               </Text>
             </Row>
             :
             <Row>
               <Text classes='text-xl font-bold tracking-wide'>
-                ${price}
+                ${data?.price}
               </Text>
             </Row>
         }
       </Box>
 
-      <Box classes={cn('text-right hidden desktop:flex', !salePrice && 'items-center')}>
+      <Box classes={cn('text-right hidden desktop:flex', !data?.salePrice && 'items-center')}>
         {
-          salePrice ?
+          data?.salePrice ?
             <Box classes=''>
               <Text classes='ml-[10px] line-through font-light text-gray-700 text-sm tablet:text-base'>
-                ${price}
+                {formatDollarUS(data?.price)}
+                {/*${data?.price}*/}
               </Text>
               <Text classes='text-xl  tracking-wide'>
-                ${salePrice}
+                ${data?.salePrice}
               </Text>
             </Box>
             :
             <Text classes='text-xl font-bold tracking-wide'>
-              ${price}
+              {formatDollarUS(data?.price)}
             </Text>
         }
       </Box>
@@ -99,21 +99,24 @@ const ProductCard = ({ data }) => {
             >
               <img
                 className='img-effect object-contain'
-                src={images[0]}
-                // alt={name}
+                // src={data?.images[0]}
+                src={config.hostStaticSource + data?.images[0]}
+                // alt={data?.name}
               />
               <img
                 className='img-effect object-contain'
-                src={images[1]}
-                alt={name}
+                // src={data?.images[1]}
+                src={config.hostStaticSource + data?.images[1]}
+                alt={data?.name}
               />
             </Box>
           </Col>
         </Box>
 
         <NextImage
-          src={images[0]}
-          alt={name}
+          src={config.hostStaticSource + data?.images[0]}
+          // src={data?.images[0]}
+          alt={data?.name}
           useSkeleton
           className='w-auto'
           // className='laptop:hidden w-auto'
@@ -127,10 +130,19 @@ const ProductCard = ({ data }) => {
 
   return (
     <Box classes='product-card'>
-      <Link classes='' href={`${Const.PATH.PRODUCT._}/${slugify(data?.name)}`}>
-        <Col classes='h-full relative' justify='between'>
-          <Badge hideIf={!salePrice} classes='absolute z-10'>
-            {(((price - salePrice) / price) * 100).toFixed()}%
+      <Link
+        classes=''
+        href={`${PATH.PRODUCT._}/${slugify(data?.name)}`}
+      >
+        <Col
+          classes='h-full relative'
+          justify='between'
+        >
+          <Badge
+            hideIf={!data?.salePrice}
+            classes='absolute z-10'
+          >
+            {(((data?.price - data?.salePrice) / data?.price) * 100).toFixed()}%
           </Badge>
           <Images/>
           <Content/>
@@ -140,4 +152,4 @@ const ProductCard = ({ data }) => {
   )
 }
 
-export default ProductCard;
+export default ProductFlashSale;

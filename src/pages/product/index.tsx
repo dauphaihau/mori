@@ -1,30 +1,25 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
+
 import { Box, Breadcrumb, Grid, Row, Text } from 'core/components';
-import { FilterDrawer } from 'components/drawer';
 import Seo from 'components/common/Seo';
 import Const from "config/const";
 import Products from "../../components/pages/productList/Products";
-import { productService, useProducts } from "services/product";
-import { IProduct } from "../../types/product";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useProducts } from "services/product";
 import MobileTabletVersion from "../../components/pages/productList/MobileTabletVersion";
 import { Filters, Sorter } from "../../components/pages/productList";
 import { cn } from 'core/helpers';
 import { useUIController } from "context/UIControllerContext";
-import View from 'components/pages/productList/View';
+import Viewer from 'components/pages/productList/Viewer';
 
 const dataBreadcrumb = [
   { path: Const.PATH.DEFAULT, name: 'Home' },
   { path: Const.PATH.PRODUCT._, name: 'Product' },
 ];
 
-interface ProductListPageProps {
-  products: IProduct[]
-}
-
 export default function ProductListPage<NextPage>() {
   const { progress, setProgress } = useUIController();
-  const [gridView, setGridView] = useState(false)
+  const [gridView, setGridView] = useState(true)
   const router = useRouter()
   const params = {
     page: router.query.page || 1,
@@ -73,11 +68,17 @@ export default function ProductListPage<NextPage>() {
               {/*>{total} results found</Text>*/}
 
               <Row classes='gap-x-8'>
-                <View setGridView={setGridView} gridView={gridView}/>
+                <Viewer
+                  setGridView={setGridView}
+                  gridView={gridView}
+                />
                 <Sorter/>
               </Row>
             </Row>
-            {data && <Products gridView={gridView} data={data}/>}
+            {data && <Products
+              gridView={gridView}
+              data={data}
+            />}
           </Box>
         </Grid>
       </Box>

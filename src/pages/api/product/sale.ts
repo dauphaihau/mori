@@ -1,28 +1,28 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import Product from "../../../server/models/Product";
-import db from "../../../server/config/db";
+import Product from "lib/models/Product";
+import db from "lib/db";
 import nc from 'next-connect';
 
 const handler = nc();
 
+const arrNames = [
+  'Willow Pod Coffin',
+  'Wicker Coffin',
+  'Seagrass Coffin',
+  'Cane Coffin',
+  'Bamboo Coffin',
+]
+
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-// handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-//   console.log('dauphaihau debug: req-body', req.body)
-  // const mapped = req.body.ids.map(item => mongoose.Types.ObjectId(item))
-
-  // console.log('dauphaihau debug: mapped', mapped)
-  // console.log('dauphaihau debug: data', data)
-  // console.log('dauphaihau debug: req-query', req.query)
-
-  const result = await Product.find({ 'name': { $in: [ 'Autumn Oak Hardwood', 'Clarksburg Wooden Casket' ] } });
-  // const result = await Product.find({ '_id': { $in: mapped } });
-
-  console.log('dauphaihau debug: result', result)
-
+  await db.connect();
+  const products = await Product.find({ 'name': { $in: arrNames } });
+  console.log('dauphaihau debug: products', products)
+  await db.disconnect();
   res.json({
     code: '200',
     message: 'OK',
-    result
+    products
   });
-  await db.disconnect();
 });
+
+export default handler;

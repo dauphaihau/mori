@@ -1,25 +1,23 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from 'next-connect';
 
-import Product from '../../../server/models/Product';
-import db from "../../../server/config/db";
+import Product from 'lib/models/Product';
+import db from "lib/db";
 
 const handler = nc();
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   await db.connect();
-  console.log('dauphaihau debug: value', req.query)
-  console.log('dauphaihau debug: req-body', req.body)
-  console.log('dauphaihau debug: req-query', req.query.category)
+  // console.log('dauphaihau debug: req-query', req.query.category)
+  // console.log('dauphaihau debug: req-query', req.query.name)
 
-  // const products = await Product.find();
-
-  // productByCategory
-  const products = await Product.find({categories: req.query.category }).limit(4);
-  // const products = await Product.find({category: req.query.category }).limit(4);
-
-  // const products = await Product.find({ categories: product.category }).limit(4);
-  console.log('dauphaihau debug: products', products)
+  const products = await Product.find({
+    $and: [
+      { category: {$eq: req.query.category} },
+      { name: { $ne: req.query.name } }
+    ]
+  }).limit(4);
+  // console.log('dauphaihau debug: products', products)
 
   await db.disconnect();
   res.json({

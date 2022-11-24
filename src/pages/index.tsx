@@ -8,17 +8,15 @@ import RealLifeImages from "../components/pages/home/RealLifeImages";
 import BannerSlogan from "../components/pages/home/BannerSlogan";
 import FeedBack from "../components/pages/home/FeedBack";
 
-const HomePage = ({ inventoryData = [] }) => {
-
+export default function HomePage() {
   return (
     <>
       <Seo/>
 
       <BannerSlogan/>
       <SpecialProduct/>
-      <FlashSaleProducts inventoryData={inventoryData}/>
+      <FlashSaleProducts/>
       <ShopByCategories/>
-
       <RealLifeImages/>
       <ClientLogo/>
       <FeedBack/>
@@ -43,5 +41,3 @@ export async function getStaticProps() {
     }
   }
 }
-
-export default HomePage

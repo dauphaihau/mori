@@ -268,7 +268,7 @@
   },
   {
     "category": "child coffin",
-    "name": "Wicker Coffins",
+    "name": "Wicker Coffin",
     "material": "wicker",
     "price": 200,
     "salePrice": 180,
@@ -286,7 +286,7 @@
   },
   {
     "category": "child coffin",
-    "name": "Child’s Curved Painted",
+    "name": "Child Curved Painted",
     "material": "willow",
     "price": 220,
     "color": "silver",
@@ -482,7 +482,7 @@
   },
   {
     "category": "child coffin",
-    "name": "Cane Coffins",
+    "name": "Cane Coffin",
     "material": "cane",
     "price": 290,
     "salePrice": 280,
@@ -500,7 +500,7 @@
   },
   {
     "category": "child coffin",
-    "name": "Seagrass Coffins",
+    "name": "Seagrass Coffin",
     "material": "seagrass",
     "price": 270,
     "salePrice": 200,
@@ -518,7 +518,7 @@
   },
   {
     "category": "baby coffin",
-    "name": "Banana Leaf Coffins",
+    "name": "Banana Leaf Coffin",
     "material": "banana left",
     "price": 182,
     "salePrice": 150.4,
@@ -536,7 +536,7 @@
   },
   {
     "category": "child coffin",
-    "name": "Bamboo Coffins",
+    "name": "Bamboo Coffin",
     "material": "bamboo",
     "price": 220,
     "salePrice": 202.5,

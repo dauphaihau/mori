@@ -37,8 +37,8 @@ const Drawer = ({
   return (
     <Portal>
       <div
-        onClick={onClose}
-        // onClick={() => onClose()}
+        // onClick={onClose}
+        onClick={() => onClose()}
         className={cn('backdrop',
           !show && 'hidden',
         )}

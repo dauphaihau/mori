@@ -1,70 +1,10 @@
 import { config } from "config";
 import api from "lib/axios";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import useSWRInfinite from 'swr/infinite'
+import useSWRImmutable from "swr/immutable";
 
-export const productService = {
-  // getProductByName: async (list = []) => {
-  //   try {
-  //     const res = await api.post(config.api.product._, {
-  //       list,
-  //     })
-  //     return await res.data
-  //   } catch (err) {
-  //     console.log('err', err)
-  //   }
-  // },
-
-  getProductSale: async (names) => {
-    try {
-      const res = await api.post(config.api.product._, {
-        names,
-      })
-      console.log('dauphaihau debug: res', res)
-      return await res.data
-    } catch (err) {
-      console.log('err', err)
-    }
-  },
-  getProductByIds: async (ids) => {
-    try {
-      const res = await api.post(config.api.product._, {
-        ids,
-      })
-      return await res.data
-    } catch (err) {
-      console.log('err', err)
-    }
-  },
-  getProductByName: async (params) => {
-    try {
-      const res = await api.delete(config.api.product._, { params })
-      return await res.data
-    } catch (err) {
-      console.log('err', err)
-    }
-  },
-  getProductsByCategory: async (params) => {
-    try {
-      const res = await api.delete(config.api.product._, { params })
-      return await res.data
-    } catch (err) {
-      console.log('err', err)
-    }
-  },
-}
-
-export function useCategories() {
-  const fetcher = url => api.get(url).then(res => res.data)
-  const { data, error } = useSWR(config.api.product.categories, fetcher)
-  return {
-    categories: data?.categories,
-    isLoading: !data,
-    isError: !!error,
-  };
-}
-
-// get data depend category ( color, price, material, ... )
+// get data ( color, price, material, ... ) depend category
 export function useFilters(category) {
   const fetcher = url => api.get(url, { params: { category: category ?? 'all' } }).then(res => res.data)
   const { data, error } = useSWR([config.api.product.filters, { params: { category: category ?? 'all' } }], fetcher)
@@ -135,7 +75,19 @@ export function useProducts(params) {
 
 export function useDetailProduct(name) {
   const fetcher = url => api.get(url, { params: { name } }).then(res => res.data)
-  const { data, error, mutate } = useSWR(name ? config.api.product.detail : null, fetcher)
+
+  // const { cache } = useSWRConfig()
+  //
+  // cache.get(config.) // Get the current data for a key.
+  // cache.clear()  // ⚠️ Clear all the cache. SWR will revalidate upon re-render.
+
+  const { data, error, mutate } = useSWR(name ? [config.api.product.detail, name] : null, fetcher, {
+    // revalidateOnMount: true
+    // revalidateIfStale: true,
+    // revalidateOnFocus: true,
+    // revalidateOnReconnect: false
+  })
+
   return {
     // data,
     product: data?.product,
@@ -145,9 +97,9 @@ export function useDetailProduct(name) {
   };
 }
 
-export function useRelatedProducts(category) {
-  const fetcher = url => api.get(url, { params: { category } }).then(res => res.data)
-  const { data, error, mutate } = useSWR(category ? config.api.product.related : null, fetcher)
+export function useRelatedProducts(params) {
+  const fetcher = url => api.get(url, { params }).then(res => res.data)
+  const { data, error, mutate } = useSWR(params?.category ? [config.api.product.related, params] : null, fetcher)
   return {
     relatedProducts: data?.products,
     isLoading: !data,
@@ -156,28 +108,22 @@ export function useRelatedProducts(category) {
   };
 }
 
-export function useProductsSale(names) {
-  // try {
-  //   const res = await api.post(config.api.product._, {
-  //     names,
-  //   })
-  //   console.log('dauphaihau debug: res', res)
-  //   return await res.data
-  // } catch (err) {
-  //   console.log('err', err)
-  // }
-
+export function useProductsSale() {
   const fetcher = url => api.get(url).then(res => res.data)
-  const { data, error, mutate } = useSWR(config.api.product.sale, fetcher)
-
-  // const fetcher = url => api.get(url, { params: { names } }).then(res => res.data)
-  // const { data, error, mutate } = useSWR(names ? config.api.product.sale : null, fetcher)
-
-  console.log('dauphaihau debug: data', data)
+  const { data, error } = useSWR(config.api.product.sale, fetcher)
   return {
     products: data?.products,
     isLoading: !data,
     isError: !!error,
-    mutate
+  };
+}
+
+export function useCategories() {
+  const fetcher = url => api.get(url).then(res => res.data)
+  const { data, error } = useSWRImmutable(config.api.product.categories, fetcher)
+  return {
+    categories: data?.categories,
+    isLoading: !data,
+    isError: !!error,
   };
 }

@@ -16,7 +16,6 @@ export interface uiControllerState {
   categories: [],
   progress: number,
   setProgress: (progress) => void
-  setCategories: (categories) => void
   dispatch: (p: {type: string}) => object
 }
 

@@ -160,12 +160,13 @@ export const paginateRows = (sortedRows, currentPage, rowsPerPage) => {
 
 // ---------- others
 
-export const slugify = (string) => {
+export const slugify = (text: string) => {
+  if (!text) return
   const a = 'àáäâãåăæąçćčđďèéěėëêęğǵḧìíïîįłḿǹńňñòóöôœøṕŕřßşśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;'
   const b = 'aaaaaaaaacccddeeeeeeegghiiiiilmnnnnooooooprrsssssttuuuuuuuuuwxyyzzz------'
   const p = new RegExp(a.split('').join('|'), 'g')
 
-  return string.toString().toLowerCase()
+  return text.toString().toLowerCase()
   .replace(/\s+/g, '-') // Replace spaces with -
   .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
   .replace(/&/g, '-and-') // Replace & with 'and'
@@ -187,7 +188,7 @@ export function titleIfy(slug: string, except = ['and', 'with']) {
   return words.join(' ')
 }
 
-export const formatDollarUS = (price, newOptions = {}) => {
+export const formatDollarUS = (amount = 0, newOptions = {}) => {
   let options = {
     style: "currency",
     currency: "USD",
@@ -195,7 +196,7 @@ export const formatDollarUS = (price, newOptions = {}) => {
     maximumSignificantDigits: 3,
   }
   options = { ...options, ...newOptions }
-  return new Intl.NumberFormat("en-US", options).format(price / 1);
+  return new Intl.NumberFormat("en-US", options).format(amount);
 };
 
 export const getUniqueValues = (data, type) => {

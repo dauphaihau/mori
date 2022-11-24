@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { NextImage, Box, Row } from 'core/components';
 import useEmblaCarousel from 'embla-carousel-react';
 import { config } from "../../../../config";
+import NextImageLoading from "../../../../core/components/Next/NextImageLoading";
 
 const SLIDE_COUNT = 5;
 const slides = Array.from(Array(SLIDE_COUNT).keys());
@@ -46,11 +47,11 @@ const ProductImages = ({ product }) => {
   }, [embla, setScrollSnaps, onSelect]);
 
   return (
-    <div>
-      <NextImage
+    <Box>
+      <NextImageLoading
+        useSkeleton
         src={config.hostStaticSource + main}
-        // src={image}
-        alt='product'
+        alt={name}
         width={300}
         height={300}
         objectFit='contain'
@@ -129,7 +130,7 @@ const ProductImages = ({ product }) => {
         ))}
       </div>
 
-    </div>
+    </Box>
   );
 }
 

@@ -5,7 +5,7 @@ import { cnn, debounce } from 'core/helpers';
 import { Box, Portal } from 'core/components';
 import SearchInput from './SearchInput';
 import ResultSearch from './ResultSearch';
-import { productService, useProducts, useSearchProducts } from "../../../services/product";
+import { useSearchProducts } from "services/product";
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable'
 

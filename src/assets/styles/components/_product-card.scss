@@ -28,6 +28,7 @@
 
     .img-effect {
       @apply hidden laptop:block w-full  bg-gray-custom-50;
+      //@apply laptop:block w-full  bg-gray-custom-50;
 
       &:hover {
         &:nth-child(2) {
