@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Text, Link, Box, Row, Col, NextImage, Badge } from 'core/components';
-import { cn, sliceText, slugify } from 'core/helpers';
+import { cn, formatDollarUS, sliceText, slugify } from 'core/helpers';
 import { PATH } from "config/const";
 import { config } from "config";
 import { Loading } from "../../../../core/components/Loading";
@@ -11,7 +11,7 @@ const hoverEffect = typeof window !== `undefined` ? require('hover-effect').defa
 
 const BigProductCard = ({ data }) => {
   if (!data) return null
-  console.log('dauphaihau debug: data', data)
+  // console.log('dauphaihau debug: data', data)
   const { name, price, salePrice, description, link, images } = data;
 
   // useEffect(() => {
@@ -50,28 +50,22 @@ const BigProductCard = ({ data }) => {
 
   const Content = () => (
     <Box classes='product-card__content'>
-      <Box>
+      <Col>
         <Text classes='title'>{name.slice(0, 23)}</Text>
-        <Text classes='describe'>
-          {sliceText(description, 40)}
-        </Text>
-      </Box>
+        <Text classes='describe'>{sliceText(description, 40)}</Text>
+      </Col>
 
       <Box classes='text-right desktop:hidden'>
         {salePrice ?
           <Row classes='desktop:flex-col'>
-            <Text classes='text-xl tracking-wide'>
-              ${salePrice}
-            </Text>
+            <Text classes='text-xl tracking-wide'>{formatDollarUS(salePrice)}</Text>
             <Text classes='ml-[10px] line-through text-gray-700 text-sm tablet:text-base'>
-              ${price}
+              {formatDollarUS(price)}
             </Text>
           </Row>
           :
           <Row>
-            <Text classes='text-xl font-bold tracking-wide'>
-              ${price}
-            </Text>
+            <Text classes='text-xl font-bold tracking-wide'>{formatDollarUS(price)}</Text>
           </Row>
         }
       </Box>

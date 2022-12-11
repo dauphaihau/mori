@@ -33,12 +33,10 @@ const ProductFlashSale = ({ data }) => {
 
   const Content = () => (
     <Box classes='product-card__content'>
-      <Box>
+      <Col>
         <Text classes='title'>{data?.name.slice(0, 23)}</Text>
-        <Text classes='describe'>
-          {sliceText(data?.description, 25)}
-        </Text>
-      </Box>
+        <Text classes='describe'>{sliceText(data?.description, 25)}</Text>
+      </Col>
 
       <Box classes='text-right desktop:hidden'>
         {
