@@ -1,6 +1,6 @@
 import { Link, NextImage, Box, Text, Col, Grid, List } from 'core/components';
 import { data as footerData } from 'assets/data/FooterData';
-import Const from 'config/const';
+import  { PATH } from 'config/const';
 import { cn } from "core/helpers";
 import { config } from "../../config";
 
@@ -29,7 +29,7 @@ const Footer = () => {
                         >
                           <Link
                             underline
-                            href={Const.PATH.DEFAULT}
+                            href={PATH.DEFAULT}
                             classes='topic__link'
                           >
                             <Text
@@ -67,7 +67,7 @@ const Footer = () => {
                     key={index}
                   >
                     <Link
-                      href={Const.PATH.DEFAULT}
+                      href={PATH.DEFAULT}
                       target='_blank'
                     >
                       <NextImage

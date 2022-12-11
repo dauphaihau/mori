@@ -17,6 +17,7 @@ const ProductInfo = ({ product }) => {
   // if (!product) {
   //   return null
   // }
+
   const items = [
     { title: 'Mantine', href: '#' },
     { title: 'Mantine hooks', href: '#' },
@@ -26,15 +27,6 @@ const ProductInfo = ({ product }) => {
       {item.title}
     </Anchor>
   ));
-
-  function Demo() {
-    return (
-      <>
-        <Breadcrumbs>{items}</Breadcrumbs>
-        <Breadcrumbs separator="→">{items}</Breadcrumbs>
-      </>
-    );
-  }
 
   const Left = () => {
     return (

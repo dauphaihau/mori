@@ -202,6 +202,7 @@ module.exports = {
           'custom-51': '#e9ecef',
           'custom-52a': '#fafafa',
           'custom-53': '#f3f4f5',
+
           'custom-497': '#f3f4f6',
           'custom-498': '#f8f9fa',
           'custom-499': '#a6a6a6',
@@ -230,25 +231,12 @@ module.exports = {
           300: '#e4e6ef',
           400: '#5C607B',
         },
-        red: {
-          'custom-400': '#f74c77',
-          // 'custom-500': '#dc5f4d',
-          'custom-500': '#f21361',
-        },
 
         primary: {
           'black': '#1c1b1b',
           'gray': '#6a6a6a',
           'red': '#e65a4c',
         },
-      },
-
-      black: {
-        'custom-900': '#1f2023',
-        'custom-901': '#111111',
-        'custom-902': '#151515',
-        'custom-903': '#242424',
-        'custom-904': '#2b2b2b',
       },
       lineHeight: {
         'large': '54px'

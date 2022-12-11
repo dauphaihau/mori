@@ -1,7 +1,7 @@
 import React from 'react';
 import { NextImage, Box, Col, Link, Row, Text, Divider } from 'core/components';
 import { formatDollarUS, slugify } from 'core/helpers';
-import Const from "config/const";
+import { PATH } from "config/const";
 import { config } from "config";
 
 const ResultSearch = ({ products }) => {
@@ -53,7 +53,7 @@ const ResultSearch = ({ products }) => {
                         justify='center'
                         classes='ml-4 w-[65%]'
                       >
-                        <Link href={`${Const.PATH.PRODUCT._}/${slugify(item.name)}`}>
+                        <Link href={`${PATH.PRODUCT._}/${slugify(item.name)}`}>
                           <Text
                             h5
                             size={17}

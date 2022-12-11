@@ -15,19 +15,20 @@
     focus-visible:ring-opacity-75;
   }
 
+    //dark:bg-gray-custom-901
   .menu-items {
     @apply focus:outline-none absolute z-30
     right-0 mt-2 w-36 origin-top-right divide-y
     divide-gray-100 rounded-md bg-white
-    dark:bg-gray-custom-901
     shadow-lg ring-1 ring-black ring-opacity-5;
 
+    //dark:text-gray-custom-500
+    //dark:hover:bg-gray-custom-504
     &__item {
       @apply flex w-full items-center rounded-md p-2
       transition-all duration-200 ease-in-out
       text-sm
-      dark:text-gray-custom-500
-      dark:hover:text-white dark:hover:bg-gray-custom-504
+      dark:hover:text-white
       ;
     }
   }

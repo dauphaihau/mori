@@ -4,10 +4,10 @@
 
 .dialog-content {
   //max-w-md
+  //dark:bg-gray-custom-902
   @apply
   max-w-[700px]
   transform overflow-hidden rounded-2xl
-  dark:bg-gray-custom-902
   bg-white
   text-left align-middle shadow-xl transition-all;
 }

@@ -10,9 +10,10 @@
     &__contentRight {
       @apply flex absolute inset-y-0 right-0 items-center pr-3 pointer-events-none;
 
+      //dark:text-gray-custom-900
       .clear-icon {
         @apply h-6 w-6 text-[#939393]
-        hover:text-[#111111] dark:text-gray-custom-900
+        hover:text-[#111111]
         dark:hover:text-white
         transition-all duration-500 ease-in-out;
       }

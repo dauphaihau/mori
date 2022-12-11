@@ -1,7 +1,7 @@
 import { Col, Row, Link, Text, NextImage } from 'core/components';
 import { formatDollarUS, sliceText, slugify } from 'core/helpers';
-import Const from "config/const";
-import { config } from "../../../config";
+import { PATH } from "config/const";
+import { config } from "config";
 
 const ProductListView = ({ data, dataFade }) => {
 
@@ -10,7 +10,7 @@ const ProductListView = ({ data, dataFade }) => {
       data-fade={dataFade}
       classes='w-full tablet:w-1/2 mb-8 laptop:w-full'
     >
-      <Link href={`${Const.PATH.PRODUCT._}/${slugify(data?.name)}`}>
+      <Link href={`${PATH.PRODUCT._}/${slugify(data?.name)}`}>
         <Col
           justify='center'
           align='center'
@@ -26,7 +26,7 @@ const ProductListView = ({ data, dataFade }) => {
         </Col>
       </Link>
       <Col classes='text-left pl-4'>
-        <Link href={`${Const.PATH.PRODUCT._}/${slugify(data?.name)}`}>
+        <Link href={`${PATH.PRODUCT._}/${slugify(data?.name)}`}>
           <Text
             weight='semibold'
             classes='mb-1'
@@ -37,7 +37,7 @@ const ProductListView = ({ data, dataFade }) => {
           {sliceText(data.description, 400)}
         </Text>
         <Link
-          href={`${Const.PATH.PRODUCT._}/${slugify(data?.name)}`}
+          href={`${PATH.PRODUCT._}/${slugify(data?.name)}`}
           className='inline-flex items-center
           text-sm font-medium text-center
           text-black underline underline-offset-4 hover:no-underline

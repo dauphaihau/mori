@@ -7,7 +7,7 @@ import { useAuth } from 'context/authContext';
 import { Button, Text, Link, Checkbox, Input, Box, Row } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
 import { accountService } from 'services/account';
-import Const from "config/const";
+import { PATH } from "config/const";
 import { cnn } from "core/helpers";
 import { IUserAuthSchema as FormData } from "lib/validation/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -60,7 +60,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
 
 
     if (data) {
-      router.push(Const.PATH.ACCOUNT._)
+      router.push(PATH.ACCOUNT._)
       // setUser({ ...user, ...data.profile })
     } else {
       if (errors) {
@@ -101,7 +101,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
           name='rememberMe'
           label='Remember me'
         />
-        <Link href={Const.PATH.ACCOUNT.FORGOT_PASSWORD}>
+        <Link href={PATH.ACCOUNT.FORGOT_PASSWORD}>
           <Text
             as='button'
             classes='text-sm text-black hover:underline pt-[2px]'

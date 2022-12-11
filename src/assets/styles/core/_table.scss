@@ -1,11 +1,13 @@
+//dark:bg-gray-custom-901
+//border-gray-custom-500
+
 .table-container {
   @apply min-w-full w-[5px]
   rounded-lg p-4 laptop:drop-shadow-xl
   rounded-[19px]
   bg-white
-  dark:bg-gray-custom-901
 
-  border-gray-custom-500 border-[0.4px]
+  border-[0.4px]
   dark:border-0
 
   laptop:border-gray-custom-50;
@@ -21,13 +23,13 @@
       //@apply sticky top-0;
       @apply top-0;
       th {
+        //dark:border-gray-custom-901 dark:bg-gray-custom-901
+        //dark:text-gray-custom-906;
         @apply
-        bg-gray-custom-50 dark:border-gray-custom-901
+        bg-gray-custom-50
         py-3 px-6 text-xs font-medium tracking-wider
         hover:bg-gray-custom-hover animate cursor-pointer
         text-gray-700 uppercase
-        dark:bg-gray-custom-901
-        dark:text-gray-custom-906;
       }
 
       th:first-child {
@@ -43,8 +45,9 @@
       @apply min-h-[400px] overflow-y-auto
       lg:overflow-x-visible;
 
+      //dark:bg-gray-custom-901
       tr {
-        @apply bg-white dark:bg-gray-custom-901 ;
+        @apply bg-white  ;
         //@apply bg-white dark:bg-black ;
         //@apply bg-white dark:bg-black hover:bg-gray-custom-50 hover:rounded-2xl;
         td {
@@ -76,16 +79,16 @@
   &__buttons {
     @apply flex items-center;
 
+    //dark:bg-gray-custom-901 dark:hover:bg-gray-custom-502
     button {
       @apply flex-center rounded-xl
       bg-gray-custom-50 hover:bg-gray-custom-52
-      dark:bg-gray-custom-901 dark:hover:bg-gray-custom-502
-      h-[36px] w-[36px]  animate
+      h-[16px] w-[16px]  animate
       cursor-pointer dark:text-white mx-[2px] p-[9px];
     }
 
+    //@apply text-gray-custom-499;
     button.disabled {
-      @apply text-gray-custom-499;
     }
 
     button.selected {

@@ -4,6 +4,8 @@ import { BASE_URL } from "config/const";
 // import getConfig from 'next/config';
 // const { publicRuntimeConfig } = getConfig();
 
+console.log('dauphaihau debug: base-url', BASE_URL)
+
 const api = axios.create({
   // baseURL: publicRuntimeConfig.backendUrl,
   // baseURL: process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",

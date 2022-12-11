@@ -1,9 +1,8 @@
 import { Text, Link, Box, Row } from 'core/components';
-import Const from "config/const";
+import { PATH } from "config/const";
 import UserAuthForm from "components/pages/account/user-auth-form";
 import { Fragment } from "react";
 import { Menu } from '@headlessui/react';
-
 
 const links = [
   { href: '/account-settings', label: 'Account settings' },
@@ -29,7 +28,6 @@ export default function LoginPage() {
       </Box>
 
 
-
       <UserAuthForm/>
       <Row
         justify='center'
@@ -41,7 +39,7 @@ export default function LoginPage() {
         >Don&apos;t have an account?</Text>
 
         <Link
-          href={Const.PATH.ACCOUNT.REGISTER}
+          href={PATH.ACCOUNT.REGISTER}
           classes='hover:underline hover:decoration-black'
         >Create one</Link>
       </Row>

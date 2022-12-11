@@ -1,5 +1,5 @@
 import { Text, Link, Box, Row } from 'core/components';
-import Const from "config/const";
+import { PATH } from "config/const";
 import UserRegisterForm from "components/pages/account/user-register-form";
 
 export default function RegisterPage() {
@@ -29,7 +29,7 @@ export default function RegisterPage() {
           classes='mr-1 text-primary-gray'
         >Already have an account?</Text>
         <Link
-          href={Const.PATH.ACCOUNT.LOGIN}
+          href={PATH.ACCOUNT.LOGIN}
           classes='hover:underline hover:decoration-black'
           text='Login'
         />

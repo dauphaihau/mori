@@ -5,7 +5,7 @@ import { memo, useEffect, useState } from "react";
 
 import { Box, Checkbox, Skeleton } from "core/components";
 import { filterSearch } from "./Filters";
-import Const from "config/const";
+import { PATH } from "config/const";
 import { cn } from "core/helpers";
 
 interface PriceProps {
@@ -34,7 +34,7 @@ export const Price = memo((props: PriceProps) => {
     }
 
     useEffect(() => {
-      if (router.asPath === Const.PATH.PRODUCT._ || !router.query.hasOwnProperty('price')) {
+      if (router.asPath === PATH.PRODUCT._ || !router.query.hasOwnProperty('price')) {
         setPriceListChecked([])
       }
     }, [router.asPath])

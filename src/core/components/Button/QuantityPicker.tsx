@@ -36,7 +36,7 @@ const QuantityPicker = (props: QuantityPickerProps) => {
       >
         {theme === 'black' ? '-' : <span className={`${setHover}`}>-</span>}
       </button>
-      <p className={`${setTheme} ${setSize} `}>{numberOfItems}</p>
+      <p className={`${setTheme} ${setSize}`}>{numberOfItems}</p>
       <button
         className={`${setTheme} ${setSize} ${!bordered && '!border-l-0'} `}
         onClick={increment}

@@ -28,7 +28,8 @@
   }
 
   &__footer {
-    @apply flex flex-col w-full py-2 px-5 lg:py-0 max-h-[12%];
+    //@apply flex flex-col w-full py-2 px-5 lg:py-0 max-h-[12%];
+    @apply flex flex-col w-full py-2 lg:py-0 max-h-[12%];
   }
 
   //&__links {

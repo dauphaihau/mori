@@ -89,7 +89,9 @@ interface FooterProps {
 const Body = ({ children, classes }: FooterProps) => {
   return <div className={cn('drawer__body', classes)}>{children}</div>;
 }
-const Footer = ({ children }) => <div className='drawer__footer'>{children}</div>;
+const Footer = ({ children, classes }: FooterProps) => {
+  return <div className={cn('drawer__footer', classes)}>{children}</div>;
+}
 
 Drawer.Head = Head;
 Drawer.Body = Body;

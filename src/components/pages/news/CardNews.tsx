@@ -1,11 +1,11 @@
 import { NextImage, Box, Link, Text } from 'core/components';
-import Const from 'config/const';
+import { PATH } from 'config/const';
 import { sliceText } from "core/helpers";
 
 const CardNews = ({ data }) => {
   return (
     <Box classes='max-w-sm'>
-      <Link href={Const.PATH.DEFAULT}>
+      <Link href={PATH.DEFAULT}>
         <NextImage
           alt={data.title}
           // useSkeleton
@@ -16,7 +16,7 @@ const CardNews = ({ data }) => {
         />
       </Link>
       <Box classes='mt-6'>
-        <Link href={Const.PATH.DEFAULT}>
+        <Link href={PATH.DEFAULT}>
           <Text
             h2
             weight='bold'
@@ -33,7 +33,7 @@ const CardNews = ({ data }) => {
         </Text>
         <div className='no-underline'></div>
         <Link
-          href={Const.PATH.DEFAULT}
+          href={PATH.DEFAULT}
           classes='inline-flex items-center py-2
           text-sm font-medium text-center
           underline underline-offset-4 decoration-1 hover:opacity-80

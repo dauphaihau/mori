@@ -7,7 +7,7 @@ import LeftNavbar from "./LeftNavbar";
 import { PATH } from "config/const";
 import { cn } from "core/helpers";
 import { useScrollPosition } from "core/hooks";
-// import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 
 const routeHasBanner = [PATH.DEFAULT, PATH.ABOUT._]
 

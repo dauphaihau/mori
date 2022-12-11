@@ -5,7 +5,7 @@ import { ChevronLeftIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline
 import { useAuth } from 'context/authContext';
 import { Text, Grid, Button, Box, Link } from 'core/components';
 import ProfileLayout from 'components/pages/profile/AccountLayout';
-import Const from "../../config/const";
+import { PATH } from "config/const";
 import { AddressAccountPageDialog } from 'components/dialog';
 
 const AddressPage = () => {
@@ -38,7 +38,7 @@ const AddressPage = () => {
             h1
             classes='text-3xl font-bold mb-6'
           >My addresses</Text>
-          <Link href={Const.PATH.ACCOUNT._}>
+          <Link href={PATH.ACCOUNT._}>
             <Button
               classes='pl-0'
               light

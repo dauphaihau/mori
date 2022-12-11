@@ -5,8 +5,7 @@ import { CartProvider, CartContext } from 'context/cartContext';
 import { useAuth } from 'context/authContext';
 import { formatDollarUS, slugify, } from 'core/helpers';
 import { Button, QuantityPicker, Drawer, Link, Box, Col, Row, Text, NextImage } from 'core/components';
-import Const from "config/const";
-import getStripe from "../../lib/get-stripejs";
+import getStripe from "lib/get-stripejs";
 import { config } from "config";
 
 export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
@@ -174,42 +173,40 @@ export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
           onClose={setShowCartDrawer}
           title='Your Cart'
         />
-        <Drawer.Body classes=''>
-          {/*<Drawer.Body classes='h-[81%] tablet:h-[85%] desktop:h-[86%]'>*/}
+        <Drawer.Body>
           <ItemList/>
         </Drawer.Body>
-        <Drawer.Footer>
+        <Drawer.Footer classes='w-[90%] mx-auto'>
           {/* mobile - tablet*/}
 
-          <form
-            action='/api/checkout_sessions'
-            method='POST'
-            className='lg:hidden'
-          >
-            <section>
-              <Button
-                type='submit'
-                classes='mt-4 font-bold'
-                width='full'
-                shadow
-                size='lg'
-                text='Complete Order'
-              />
-            </section>
-          </form>
+          {/*<form*/}
+          {/*  action='/api/checkout_sessions'*/}
+          {/*  method='POST'*/}
+          {/*  className='lg:hidden'*/}
+          {/*>*/}
+          {/*  <section>*/}
+          {/*    <Button*/}
+          {/*      type='submit'*/}
+          {/*      classes='mt-4 font-bold'*/}
+          {/*      width='full'*/}
+          {/*      shadow*/}
+          {/*      size='lg'*/}
+          {/*      text='Complete Order'*/}
+          {/*    />*/}
+          {/*  </section>*/}
+          {/*</form>*/}
 
-          {/* laptop */}
           <Button
             size='lg'
-            width='full'
-            classes='hidden lg:block'
+            classes=''
+            // classes='hidden lg:block'
             disabled={cartEmpty}
             onClick={handleCheckout}
-            // onClick={() => router.push(Const.PATH.CHECKOUT._)}
+            // onClick={() => router.push(PATH.CHECKOUT._)}
           >
             <Row
               justify='between'
-              classes='cursor-pointer text-base '
+              classes='cursor-pointer text-base'
             >
               <Text classes='text-white text-base mr-2'>Proceed to check out</Text>
               <Text classes='text-white text-base border-l pl-4'>{formatDollarUS(total)}</Text>

@@ -8,6 +8,7 @@ import { Tooltip } from 'react-tippy';
 import TooltipCustom from "../../../../core/components/TooltipCustom";
 import * as React from "react";
 import moment from "moment";
+import { Icons } from 'components/common/Icons';
 // import { MdOutlineLocalShipping } from "react-icons/all";
 
 export default function DisclosureShipping() {
@@ -44,13 +45,13 @@ export default function DisclosureShipping() {
                 leaveTo="opacity-0"
               >
                 <Disclosure.Panel className='px-4'>
-                  {/*<Box classes='mt-2'>*/}
                   <Box classes='mt-2'>
                     <Tooltip
                       html={
                         <Box classes='text-left'>
                           <Text span classes='text-white'>
-                            &quot;This is an estimate based on the purchase date, the seller&apos;s location, and processing time,
+                            &quot;This is an estimate based on the purchase date, the seller&apos;s location, and
+                            processing time,
                             and the shipping destination and carrier.
                             <br/>
                             <br/>
@@ -61,7 +62,7 @@ export default function DisclosureShipping() {
                       }
                       animation='fade'
                       position="right"
-                      arrow={true}
+                      arrow
                       arrowSize='big'
                       interactive
                     >
@@ -77,7 +78,8 @@ export default function DisclosureShipping() {
                     <Row align='center'>
                       <Box classes='w-1/3'>
                         <Row align="center" gap={2}>
-                          <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
+                          <Icons.hand className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
+                          {/*<GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>*/}
                           <Box classes='flex-auto h-1/2 w-auto  border-0 border-b-2 border-gray-custom-52'></Box>
                         </Row>
                         <Col>
@@ -101,7 +103,7 @@ export default function DisclosureShipping() {
                       <Box classes='w-1/3'>
                         <Row justify='center' align="center" gap={2}>
                           <Box classes='flex-auto h-1/2 w-auto  border-0 border-b-2 border-gray-custom-52'></Box>
-                          <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
+                          <Icons.truck className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
                           <Box classes='flex-auto h-1/2 w-auto  border-0 border-b-2 border-gray-custom-52'></Box>
                           {/*<Box classes='flex-auto h-1/2  border-0 border-b-2 border-gray-custom-52 mx-2'></Box>*/}
                         </Row>
@@ -128,7 +130,7 @@ export default function DisclosureShipping() {
                       <Box classes='w-1/3'>
                         <Row align="center" gap={2}>
                           <Box classes='flex-auto h-1/2 w-auto  border-0 border-b-2 border-gray-custom-52'></Box>
-                          <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
+                          <Icons.gift className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
                           {/*<Box classes='flex-auto h-1/2  border-0 border-b-2 border-gray-custom-52 mx-2'></Box>*/}
                         </Row>
                         <Col classes='text-right'>
@@ -162,58 +164,40 @@ export default function DisclosureShipping() {
                   </Box>
 
                   <Box classes='mt-10 mb-2'>
-                    <Text classes='text-xs text-primary-gray'>
-                      Cost to ship
-                    </Text>
-                    <h3 className=''>
-                      Free
-                    </h3>
+                    <Text classes='text-xs text-primary-gray'>Cost to ship</Text>
+                    <Text h3>Free</Text>
                   </Box>
 
                   <Text classes='p-4 bg-gray-custom-52 my-6 rounded-lg text-sm'>
                     Mori offsets carbon emissions from shipping and packaging on this purchase.
                   </Text>
+
                   <Box classes='mt-10 space-y-3'>
                     <Row classes='gap-x-4 mb-8' justify='between'>
                       <Box>
-                        <Text classes='text-xs text-primary-gray'>
-                          Returns & exchanges
-                        </Text>
-                        <h3 className=''>
-                          Accepted
-                        </h3>
+                        <Text classes='text-xs text-primary-gray'>Returns & exchanges</Text>
+                        <Text h3>Accepted</Text>
                       </Box>
                       <Box>
-                        <Text classes='text-xs text-primary-gray'>
-                          Return & exchange window
-                        </Text>
-                        <h3 className=''>
-                          21 days
-                        </h3>
+                        <Text classes='text-xs text-primary-gray'>Return & exchange window</Text>
+                        <Text h3>21 days</Text>
                       </Box>
                     </Row>
-                    {/*<Text classes='text-primary-gray'>*/}
-                    {/*  Exceptions may apply*/}
-                    {/*</p>*/}
-
-                    <Row
-                      gap={4}
-                      align='center'
-                    >
-
+                    <Row gap={4} align='center'>
                       <NextImage
                         src='/images/product/hand.png'
                         height={48}
                         width={48}
                       />
-
                       <Text classes='w-full text-xs leading-5'>
-                      <Text b>Mori Purchase Protection:</Text> Shop confidently on Etsy knowing if something goes wrong with an
+                        <Text b>Mori Purchase Protection:</Text> Shop confidently on Etsy knowing if something goes
+                        wrong with an
                         order,
                         we&apos;ve got your back for all eligible purchases — see program terms
                       </Text>
                     </Row>
                   </Box>
+
                 </Disclosure.Panel>
               </Transition>
             </>

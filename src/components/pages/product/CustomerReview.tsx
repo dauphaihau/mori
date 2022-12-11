@@ -2,9 +2,8 @@ import { Text, Divider, Box, Col, Grid, Row, NextImage, Select } from 'core/comp
 import Pagination from 'core/components/Table/Pagination';
 import RatingStars from './ProductInfo/RatingStars';
 import React, { Fragment, HTMLAttributes, useEffect, useState } from 'react';
-import { Listbox, Menu, Transition } from '@headlessui/react'
+import { Listbox, Transition } from '@headlessui/react'
 import { cn } from 'core/helpers';
-import { CheckIcon, ChevronDownIcon, SelectorIcon } from '@heroicons/react/solid';
 import { Icons } from 'components/common/Icons';
 
 const sortReviews = [

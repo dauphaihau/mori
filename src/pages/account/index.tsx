@@ -6,7 +6,7 @@ import { useAuth } from 'context/authContext';
 import AccountLayout from 'components/pages/profile/AccountLayout';
 import ChangePasswordDialog from 'components/dialog/ChangePasswordDialog';
 import config from 'config/config.json';
-import Const from 'config/const';
+import { PATH } from 'config/const';
 
 const AccountPage = () => {
   const { handleLogout, setUser, user } = useAuth();
@@ -17,7 +17,7 @@ const AccountPage = () => {
   //   handleRemoveCookie(config.cookies.profile)
   //   handleRemoveCookie(config.cookies.auth)
   //   setUser({ numberAllOfItemsInCart: user.numberAllOfItemsInCart })
-  //   router.push(Const.PATH.DEFAULT);
+  //   router.push(PATH.DEFAULT);
   //   setIsAuthorize(false);
   // }
 
@@ -39,7 +39,7 @@ const AccountPage = () => {
             light
             data-testid='logoutBtn'
             onClick={() => {
-              router.push(Const.PATH.DEFAULT);
+              router.push(PATH.DEFAULT);
               handleLogout()
             }}
             // onClick={() => logout()}
@@ -64,7 +64,7 @@ const AccountPage = () => {
             <Box>
               <Text>Hau Tran</Text>
               <Text classes='mb-4'>United States</Text>
-              <Link href={Const.PATH.ACCOUNT.ADDRESS}>
+              <Link href={PATH.ACCOUNT.ADDRESS}>
                 <Button>
                   View Address
                 </Button>

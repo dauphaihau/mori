@@ -7,7 +7,7 @@ import { Box, Skeleton, Text } from 'core/components';
 import { filterSearch } from "./Filters";
 import { cn, titleIfy } from 'core/helpers';
 import { useCategories } from "services/product";
-import Const from "config/const";
+import { PATH } from "config/const";
 
 export const Categories = memo(() => {
   const router = useRouter()
@@ -19,7 +19,7 @@ export const Categories = memo(() => {
   }, [])
 
   useEffect(() => {
-    if (router.asPath === Const.PATH.PRODUCT._) {
+    if (router.asPath === PATH.PRODUCT._) {
       setCategory('')
     }
   }, [router.asPath])

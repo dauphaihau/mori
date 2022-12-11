@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { accountService } from 'services/account';
 import { Col, Button, Input, Link, Text, Box } from 'core/components';
-import Const from "config/const";
+import { PATH } from "config/const";
 
 const formType = {
   resetPassword: {
@@ -51,7 +51,8 @@ const ResetPasswordPage = () => {
   } = useForm({ resolver: yupResolver(validationSchema) });
 
   return (
-    <Box form
+    <Box
+      form
       onSubmit={handleSubmit(onSubmit)}
       classes='px-6 pb-4 space-y-6 pt-4 lg:px-8 pb-6 xl:pb-8 mx-auto max-w-md'
     >
@@ -93,7 +94,7 @@ const ResetPasswordPage = () => {
         </Button>
       </Col>
       <Link
-        href={Const.PATH.DEFAULT}
+        href={PATH.DEFAULT}
         classes={currentForm === 'resetPassword' ? 'hidden' : 'block'}
       >
         <Button

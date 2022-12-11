@@ -111,8 +111,6 @@ const BigProductFlashSaleCard = ({ data }) => {
           className='w-auto'
           // className='laptop:hidden w-auto'
           width={200}
-          // placeholder='blur'
-          // blurDataURL='/images/loading.gif'
           useSkeleton
           height={200}
           objectFit='contain'

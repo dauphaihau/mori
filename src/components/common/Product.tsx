@@ -32,7 +32,7 @@ const Product = ({ data, dataFade }: ProductProps) => {
           </Badge>
           <Box classes='flex-center flex-column'>
             <NextImage
-              useLoading
+              useSkeleton
               alt={data?.title}
               src={config.hostStaticSource + data?.images[0]}
               className='w-3/5'
@@ -41,22 +41,12 @@ const Product = ({ data, dataFade }: ProductProps) => {
               objectFit='contain'
               layout='intrinsic'
             />
-            {/*<NextImage*/}
-            {/*  alt={data?.title}*/}
-            {/*  src={config.hostStaticSource + data?.images[0]}*/}
-            {/*  className='w-3/5'*/}
-            {/*  width={300}*/}
-            {/*  height={300}*/}
-            {/*  objectFit='contain'*/}
-            {/*  layout='intrinsic'*/}
-            {/*/>*/}
             <Box classes='my-div'></Box>
           </Box>
         </Box>
       </Link>
       <Box>
         <Text
-          // transforms='uppercase'
           data-testid={data?.name}
           classes='m-4 text-center text-sm laptop:text-lg mb-1'
         >{data?.name}</Text>
@@ -65,24 +55,24 @@ const Product = ({ data, dataFade }: ProductProps) => {
           justify='center'
         >
           <Text
+            hideIf={!data.salePrice}
+            classes={cn('text-sm laptop:text-lg text-center mb-4',
+              data.salePrice ? 'text-primary-red' : 'text-primary-black'
+            )}
+          >
+            {formatDollarUS(data.salePrice)}
+          </Text>
+          <Text
             classes={cn(' text-sm laptop:text-lg text-center text-primary-gray mb-4',
               data.salePrice && 'line-through',
             )}
           >
             {formatDollarUS(data?.price)}
           </Text>
-
-          <Text
-            hideIf={!data.salePrice}
-            classes='text-sm laptop:text-lg text-center text-primary-black mb-4'
-          >
-            {formatDollarUS(data.salePrice)}
-          </Text>
         </Row>
       </Box>
     </Box>
   );
-
 }
 
 export default Product
