@@ -17,6 +17,7 @@
 @import "src/assets/styles/components/filters";
 @import "src/assets/styles/components/carousel";
 @import "src/assets/styles/components/about";
+@import "src/assets/styles/components/navigation-menu-radix";
 @tailwind components;
 
 @tailwind utilities;
@@ -69,9 +70,12 @@
   .body {
     @apply text-sm md:text-base;
   }
+
+  p {
+    display: block;
+  }
+
   /* #endregion  /**======== Default Typography =========== */
-
-
   p, h1, h2, h3, h4, h5, label, span, a {
     @apply text-primary-black;
     //@apply text-black-primary;
@@ -92,7 +96,8 @@
   }
 
   .cursor-newTab {
-    cursor: url('/images/new-tab.png') 10 10, pointer;
+    cursor: url(404.png) 10 10, pointer;
+    //cursor: url('/images/new-tab.png') 10 10, pointer;
   }
 
   .cursor-question {

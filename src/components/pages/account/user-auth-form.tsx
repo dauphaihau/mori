@@ -11,6 +11,9 @@ import Const from "config/const";
 import { cnn } from "core/helpers";
 import { IUserAuthSchema as FormData } from "lib/validation/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAccount } from "../../../services/accountt";
+import { encryptPassword } from "../../../lib/crypto";
+import { config } from "../../../config";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -24,11 +27,12 @@ const validationSchema = Yup.object().shape({
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
 export default function UserAuthForm({ className }: UserAuthFormProps) {
-
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { setUser, user } = useAuth();
+  const [values, setValues] = useState(null)
   const emailInputRef = useAutoFocus();
+  // const { data, mutate } = useAccount(values)
 
   const {
     register, handleSubmit,
@@ -44,9 +48,16 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
   // }, [])
 
   async function onSubmit(values: FormData) {
-    setIsLoading(true)
+    // setIsLoading(true)
+    const { password } = values
+    const modifiedValues = { ...values, password: encryptPassword(password, config.cryptoKey) }
+    setValues(modifiedValues)
+
+    // const { data, isLoading, mutate } = useAccount(modifiedValues)
+    // const { data, isLoading, mutate } = useAccount(values)
     const { data, isLoading, message } = await accountService.login(values)
-    setIsLoading(isLoading)
+    // setIsLoading(isLoading)
+
 
     if (data) {
       router.push(Const.PATH.ACCOUNT._)

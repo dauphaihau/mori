@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import moment from "moment";
+
 import { Box, Button, Col, NextImage, Row, Text } from "core/components";
 import { formatDollarUS } from "core/helpers";
 import RatingStars from "./RatingStars";
@@ -7,7 +9,6 @@ import { useAuth } from "context/authContext";
 import { CartDrawer } from "../../../drawer";
 import { STORAGE_KEY } from "config/const";
 import QuantitySelect from "./QuantitySelect";
-import moment from "moment";
 
 const ProductMainInfo = ({ product, context }) => {
   const { name, salePrice, price } = product;
@@ -52,8 +53,6 @@ const ProductMainInfo = ({ product, context }) => {
   }
 
   const handleSelectQuantityItem = (quantitySelected) => {
-    // console.log('dauphaihau debug: quantity-val', quantitySelected)
-
     const status1 = product.quantity >= quantitySelected
     const status2 = handleValidCheckInCart(quantitySelected)
 
@@ -90,38 +89,25 @@ const ProductMainInfo = ({ product, context }) => {
       />
       <Text
         h1
-        weight='light'
-        // weight='light'
         classes='text-xl tablet:text-2xl laptop:text-4xl mt-2 mb-5'
         text={name}
       />
-      <Row
-        align='center'
-        classes='mb-5'
-      >
+      <Row align='center' classes='mb-5'>
         <RatingStars initialValue={product.rating}/>
-        <Text
-          // weight='medium'
-          classes='mt-2 ml-4 mt-0'
-          text='11 reviews'
-        />
+        <Text classes='mt-2 ml-4 mt-0' text='11 reviews'/>
       </Row>
-      <Text
-        weight='bold'
-        classes='text-2xl tablet:text-3xl laptop:text-[22px] relative tracking-wide  mb-5'
-      >
+      <Text classes='text-2xl tablet:text-3xl laptop:text-[22px] text-primary-red relative tracking-wide  mb-5'>
         {salePrice ? formatDollarUS(salePrice) : formatDollarUS(price)}
         <Text
           hideIf={!price || !salePrice}
           span
-          weight='light'
-          classes='text-[18px] absolute top-[-1%] tablet:top-[-2px] ml-[10px] line-through'
+          classes='text-lg ml-2.5 line-through text-primary-gray'
         >
           {formatDollarUS(price)}
         </Text>
       </Text>
 
-      <Text classes='mb-5'>Available: {product.quantity}</Text>
+      <Text classes='mb-5 block mt-4'>Available: {product.quantity}</Text>
 
       <Row
         align='center'
@@ -139,14 +125,6 @@ const ProductMainInfo = ({ product, context }) => {
           text={product.quantity === 0 ? 'Sold out' : 'Add to Cart'}
         />
       </Row>
-
-      {/*<ShowMoreTextToggler*/}
-      {/*  limit={400}*/}
-      {/*  classes='text-primary-gray laptop:hidden text-sm leading-7 pb-6 '*/}
-      {/*  text={description}*/}
-      {/*/>*/}
-      {/*<Text classes='text-primary-gray my-6 leading-7 hidden laptop:block'>{description}</Text>*/}
-
       <Col gap={2}>
         <Row
           gap={4}
@@ -159,7 +137,7 @@ const ProductMainInfo = ({ product, context }) => {
             objectFit='contain'
           />
           <Text classes='w-full text-sm'>
-            <b>Other people want this.</b> 6 people have this in their carts right now.
+            <Text b>Other people want this.</Text> 6 people have this in their carts right now.
           </Text>
         </Row>
         <Row
@@ -188,7 +166,7 @@ const ProductMainInfo = ({ product, context }) => {
             objectFit='contain'
           />
           <Text classes='w-full text-sm'>
-            Arrives by {moment().add(3,'days').format("MMM")} {' '}
+            Arrives by {moment().add(3, 'days').format("MMM")} {' '}
             {new Date().getDate() + 3} - {new Date().getDate() + 8} if you order today.
           </Text>
         </Row>

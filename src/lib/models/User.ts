@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
+import { IUser } from "types/user";
 
 // const bcrypt = require("bcryptjs");
 // const bcryptSalt = process.env.BCRYPT_SALT;
 
-const userSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema<IUser>(
   {
     name: { type: String, required: true },
     avatar: { type: String },
@@ -29,5 +30,5 @@ const userSchema = new mongoose.Schema(
 //   next();
 // });
 
-const User = mongoose.models.User || mongoose.model('User', userSchema);
+const User = ( mongoose.models.User as mongoose.Model<IUser> ) || mongoose.model('User', userSchema);
 export default User;

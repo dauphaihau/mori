@@ -9,6 +9,7 @@ import { useScrollPosition } from "core/hooks";
 import { PATH } from "config/const";
 import MegaMenu from "./MegaMenu";
 import { headerConfig } from 'config/header';
+import MegaMenu2 from './MegaMenu2';
 
 const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
   const [showNavMobileDrawer, setShowNavMobileDrawer] = useState(false)
@@ -23,6 +24,7 @@ const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
       />
       <Row
         align='center'
+        // classes='navbar__leftSide'
         classes='navbar__leftSide flex-1'
       >
         <MenuIcon
@@ -36,7 +38,7 @@ const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
         />
 
         <Box classes='hidden laptop:block'>
-          <Row classes='mt-1 '>
+          <Row classes='mt-1'>
             {/*<span*/}
             {/*  className={`bg-gray-custom-52  px-10 rounded-[4px] mt-2*/}
             {/*absolute h-10 w-10 -top-1 duration-500 translate-x-0 z-[-1]*/}
@@ -45,12 +47,20 @@ const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
             {
               headerConfig.mainNav.map(({ href, title }, index) => {
                 if (href === PATH.PRODUCT._) {
-                  return <MegaMenu
-                    key={index}
-                    href={href}
-                    title={title}
-                    pageHasBanner={pageHasBanner}
-                  />
+                  return <>
+                    <MegaMenu
+                      key={index}
+                      href={href}
+                      title={title}
+                      pageHasBanner={pageHasBanner}
+                    />
+                    {/*<MegaMenu2*/}
+                    {/*  key={index}*/}
+                    {/*  href={href}*/}
+                    {/*  title={title}*/}
+                    {/*  pageHasBanner={pageHasBanner}*/}
+                    {/*/>*/}
+                  </>
                 }
                 return (
                   <Box
@@ -82,6 +92,9 @@ const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
                 )
               })}
           </Row>
+          {/*<div className="ViewportPosition">*/}
+          {/*  <div className="NavigationMenuViewport"/>*/}
+          {/*</div>*/}
         </Box>
       </Row>
     </>

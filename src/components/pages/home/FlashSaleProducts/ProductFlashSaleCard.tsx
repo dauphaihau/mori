@@ -3,12 +3,14 @@ import { cn, formatDollarUS, sliceText, slugify } from 'core/helpers';
 import { useHover } from 'core/hooks';
 import { PATH } from "config/const";
 import { config } from "config";
+import React from "react";
 
 const hoverEffect = typeof window !== `undefined` ? require('hover-effect').default : null;
 
-const ProductFlashSale = ({ data }) => {
+const ProductFlashSaleCard = ({ data }) => {
   if (!data) return null
   // const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+  const { name, price, salePrice, description, link, images } = data;
 
   // useEffect(() => {
   //   Array.from(document.querySelectorAll('.product-card__images')).forEach(
@@ -34,48 +36,32 @@ const ProductFlashSale = ({ data }) => {
   const Content = () => (
     <Box classes='product-card__content'>
       <Col>
-        <Text classes='title'>{data?.name.slice(0, 23)}</Text>
-        <Text classes='describe'>{sliceText(data?.description, 25)}</Text>
+        <Text h4 classes='title'>{name.slice(0, 23)}</Text>
+        <Text classes='describe'>{sliceText(description, 25)}</Text>
       </Col>
 
       <Box classes='text-right desktop:hidden'>
-        {
-          data?.salePrice ?
-            <Row classes='desktop:flex-col'>
-              <Text classes='text-xl tracking-wide'>
-                ${data?.salePrice}
-              </Text>
-              <Text classes='ml-[10px] line-through font-light text-gray-700 text-sm tablet:text-base'>
-                ${data?.price}
-              </Text>
-            </Row>
-            :
-            <Row>
-              <Text classes='text-xl font-bold tracking-wide'>
-                ${data?.price}
-              </Text>
-            </Row>
-        }
+        <Row classes='desktop:flex-col'>
+          <Text classes='text-xl tracking-wide text-primary-red'>
+            {formatDollarUS(salePrice)}
+          </Text>
+          <Text classes='ml-2.5 line-through font-light text-primary-gray tablet:text-base'>
+            {formatDollarUS(price)}
+          </Text>
+        </Row>
       </Box>
 
       <Box classes={cn('text-right hidden desktop:flex', !data?.salePrice && 'items-center')}>
-        {
-          data?.salePrice ?
-            <Box classes=''>
-              <Text classes='ml-[10px] line-through font-light text-gray-700 text-sm tablet:text-base'>
-                {formatDollarUS(data?.price)}
-                {/*${data?.price}*/}
-              </Text>
-              <Text classes='text-xl  tracking-wide'>
-                ${data?.salePrice}
-              </Text>
-            </Box>
-            :
-            <Text classes='text-xl font-bold tracking-wide'>
-              {formatDollarUS(data?.price)}
-            </Text>
-        }
+        <Col>
+          <Text classes='ml-[10px] line-through font-light text-gray-700 text-sm tablet:text-base'>
+            {formatDollarUS(data?.price)}
+          </Text>
+          <Text classes='text-xl tracking-wide text-primary-red'>
+            {formatDollarUS(salePrice)}
+          </Text>
+        </Col>
       </Box>
+
     </Box>
   )
 
@@ -128,10 +114,7 @@ const ProductFlashSale = ({ data }) => {
 
   return (
     <Box classes='product-card'>
-      <Link
-        classes=''
-        href={`${PATH.PRODUCT._}/${slugify(data?.name)}`}
-      >
+      <Link href={`${PATH.PRODUCT._}/${slugify(data?.name)}`}>
         <Col
           classes='h-full relative'
           justify='between'
@@ -150,4 +133,4 @@ const ProductFlashSale = ({ data }) => {
   )
 }
 
-export default ProductFlashSale;
+export default ProductFlashSaleCard;

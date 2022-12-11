@@ -12,7 +12,6 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-
       backdropFilter: {
         'none': 'none',
         'blur': 'blur(20px)',
@@ -240,6 +239,7 @@ module.exports = {
         primary: {
           'black': '#1c1b1b',
           'gray': '#6a6a6a',
+          'red': '#e65a4c',
         },
       },
 
@@ -257,7 +257,6 @@ module.exports = {
         'height': 'height',
       }
     },
-
     screens: {
       sm: '640px',
       md: '768px',
@@ -273,7 +272,6 @@ module.exports = {
       'desktop': '1536px',
       'monitor': '2000px',
     },
-
   },
   plugins: [],
 }

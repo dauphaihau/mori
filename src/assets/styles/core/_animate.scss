@@ -1,6 +1,7 @@
 /* #region  /**=========== Fade In =========== */
 [data-fade] {
-  @apply translate-y-10 opacity-0 transition duration-[400ms] ease-out
+  //@apply translate-y-10 opacity-0 transition duration-[400ms] ease-out
+  @apply translate-y-10 opacity-0 transition duration-300 ease-out
   motion-reduce:translate-y-0 motion-reduce:opacity-100;
 }
 

@@ -3,7 +3,6 @@ import { cn, formatDollarUS, slugify } from "core/helpers";
 import { PATH } from "config/const";
 import { config } from "config";
 import { IProduct } from "types/product";
-import NextImageLoading from "../../core/components/Next/NextImageLoading";
 
 type ProductProps = {
   data: IProduct
@@ -32,8 +31,8 @@ const Product = ({ data, dataFade }: ProductProps) => {
             Sold out
           </Badge>
           <Box classes='flex-center flex-column'>
-            <NextImageLoading
-              useSkeleton
+            <NextImage
+              useLoading
               alt={data?.title}
               src={config.hostStaticSource + data?.images[0]}
               className='w-3/5'

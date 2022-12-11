@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ROLE, USER_STATUS } from 'config/const';
-import Const from 'config/const';
+import { PATH, ROLE, USER_STATUS } from 'config/const';
 import { hashMD5 } from 'lib/crypto';
 import configJson from 'config/config.json';
 import { isEmpty, parseJson } from 'core/helpers';
@@ -9,10 +8,10 @@ import { verifyToken } from 'lib/jwt';
 export async function middleware(req: NextRequest) {
 
   const url = req.nextUrl.clone();
-  url.pathname = Const.PATH.DEFAULT;
+  url.pathname = PATH.DEFAULT;
 
   const urlCurrent = req.nextUrl.pathname
-  const routePrivate = [Const.PATH.ACCOUNT._, Const.PATH.ACCOUNT.ADDRESS]
+  const routePrivate = [PATH.ACCOUNT._, PATH.ACCOUNT.ADDRESS]
 
   const cookies = req.cookies;
   const auth = parseJson(cookies[hashMD5(configJson.cookies.auth)])

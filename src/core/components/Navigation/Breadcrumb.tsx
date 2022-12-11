@@ -42,9 +42,9 @@ const Breadcrumb = ({ data, classes }: BreadcrumbType) => {
               return (
                 <li key={index}>
                   <div className='flex items-center'>
-                    <p className='pt-1'>/</p>
+                    <p className=''>/</p>
                     <div
-                      className='dark:text-gray-custom-501 text-primary-black dark:text-white ml-1 text-sm font-medium md:ml-2'
+                      className='dark:text-gray-custom-501  text-primary-black dark:text-white ml-1 text-sm font-medium md:ml-2'
                     >
                       {name}
                     </div>
@@ -56,11 +56,11 @@ const Breadcrumb = ({ data, classes }: BreadcrumbType) => {
             return (
               <li key={index}>
                 <div className='flex items-center'>
-                  <p className='pt-1'>/</p>
+                  <p className=''>/</p>
                   <Link
                     underline
-                    href={path}
                     className='dark:text-gray-custom-52 text-primary-gray ml-1 text-sm  hover:text-primary-black md:ml-2'
+                    href={path}
                   >
                     {name}
                   </Link>

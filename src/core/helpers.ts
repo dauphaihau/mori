@@ -189,11 +189,13 @@ export function titleIfy(slug: string, except = ['and', 'with']) {
 }
 
 export const formatDollarUS = (amount = 0, newOptions = {}) => {
+  const pattern = /\d{1,2}[\,\.]{1}\d{1,2}/
+  const isContainDot = pattern.test(String(amount))
   let options = {
     style: "currency",
     currency: "USD",
     useGrouping: true,
-    maximumSignificantDigits: 3,
+    maximumSignificantDigits: !isContainDot ? 3 : undefined,
   }
   options = { ...options, ...newOptions }
   return new Intl.NumberFormat("en-US", options).format(amount);

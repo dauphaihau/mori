@@ -43,7 +43,7 @@ export default function Filters() {
   }
 
   return (
-    <Box classes='filters sticky top-[80px] h-auto max-h-[700px] desktop:max-h-[900px] overflow-scroll pl-1'>
+    <Box classes='filters sticky'>
       <Categories/>
       <Material data={materials}/>
       <Color data={colors}/>

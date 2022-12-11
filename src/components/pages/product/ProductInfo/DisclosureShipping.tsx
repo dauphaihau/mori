@@ -1,12 +1,10 @@
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon, GiftIcon } from '@heroicons/react/solid'
-import { Box, Col, NextImage, Row } from 'core/components';
+import { Box, Col, NextImage, Row, Text } from 'core/components';
 // import { Col, NextImage, Row, Tooltip } from 'core/components';
 import { cn } from 'core/helpers';
 
-import {
-  Tooltip,
-} from 'react-tippy';
+import { Tooltip } from 'react-tippy';
 import TooltipCustom from "../../../../core/components/TooltipCustom";
 import * as React from "react";
 import moment from "moment";
@@ -15,8 +13,9 @@ import moment from "moment";
 export default function DisclosureShipping() {
 
   return (
-    <div className='w-full laptop:w-[110%]'>
-      <div className='mx-auto w-full max-w-4xl mx-auto rounded-2xl bg-white laptop:p-2'>
+    // <Box classes='w-full laptop:w-[110%]'>
+    <Box classes='w-full'>
+      <Box classes='mx-auto w-full max-w-4xl mx-auto rounded-2xl bg-white laptop:p-2'>
         <Disclosure
           as='div'
           className='mt-3'
@@ -25,7 +24,7 @@ export default function DisclosureShipping() {
             <>
               <Disclosure.Button
                 className='flex w-full justify-between rounded-lg
-                     hover:bg-gray-custom-50
+                     hover:bg-gray-custom-50 cursor-pointer
                      laptop:px-4 py-2 font-medium
                      '
               >
@@ -45,43 +44,47 @@ export default function DisclosureShipping() {
                 leaveTo="opacity-0"
               >
                 <Disclosure.Panel className='px-4'>
-
-                  <div className='mt-10 space-y-3'>
-                    <p className='text-sm text-primary-gray underline decoration-dashed underline-offset-4'>
-                      Estimated arrival
-                    </p>
-                    <h2 className=''>
+                  {/*<Box classes='mt-2'>*/}
+                  <Box classes='mt-2'>
+                    <Tooltip
+                      html={
+                        <Box classes='text-left'>
+                          <Text span classes='text-white'>
+                            &quot;This is an estimate based on the purchase date, the seller&apos;s location, and processing time,
+                            and the shipping destination and carrier.
+                            <br/>
+                            <br/>
+                            Other factors—such as shipping carrier delays or placing an order on weekend/holiday—may
+                            push the arrival of your item beyond this date.&quot;
+                          </Text>
+                        </Box>
+                      }
+                      animation='fade'
+                      position="right"
+                      arrow={true}
+                      arrowSize='big'
+                      interactive
+                    >
+                      <Text classes='text-sm text-primary-gray w-fit underline decoration-dashed underline-offset-4 cursor-help mb-3'>
+                        Estimated arrival
+                      </Text>
+                    </Tooltip>
+                    <Text classes='text-[26px] block mb-8'>
                       {moment().add(3, 'days').format("MMM")} {' '}
                       {new Date().getDate() + 3}-{new Date().getDate() + 8}
-                    </h2>
+                    </Text>
 
                     <Row align='center'>
-                      <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
-                      <div className='flex-auto h-1/2  border-0 border-b-2 border-gray-custom-52 mx-2'></div>
-                      <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
-                      {/*<MdOutlineLocalShipping/>*/}
-
-                      <div className='flex-auto h-1/2  border-0 border-b-2 border-gray-custom-52 mx-2'></div>
-                      <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
-                    </Row>
-
-                    <Row
-                      justify='between'
-                      classes='gap-1'
-                    >
-                      <Col gap={2}>
-                        <div className=''>
-                          <p className={'font-semibold'}>
+                      <Box classes='w-1/3'>
+                        <Row align="center" gap={2}>
+                          <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
+                          <Box classes='flex-auto h-1/2 w-auto  border-0 border-b-2 border-gray-custom-52'></Box>
+                        </Row>
+                        <Col>
+                          <Text classes='text-xs mt-2 font-bold'>
                             {moment().subtract(1, 'days').format("MMM")} {' '}
                             {new Date().getDate() - 1}
-                          </p>
-                          {/*<Tooltip content={'cahkcakchkaclkahlca'}>*/}
-
-                          {/*<TooltipCustom content={<p>ackanckanc</p>}>*/}
-                          {/*<li className='text-xl text-gray-700 dark:text-gray-200'>*/}
-                          {/*  <current.icon />*/}
-                          {/*</li>*/}
-
+                          </Text>
                           <Tooltip
                             title="After you place your order, Mori will take 1-2 business days to prepare it for shipment."
                             animation='fade'
@@ -89,109 +92,107 @@ export default function DisclosureShipping() {
                             arrow={true}
                             arrowSize='big'
                             interactive
-                            className={`bg-black p-0`}
-                            // html={
-                            //   <Box
-                            //     classes={clns(
-                            //       'inline-block rounded-md',
-                            //       'max-w-[300px]'
-                            //     )}
-                            //   >
-                            //     After you place your order, Mori will take 1-2 business days to prepare it for shipment.
-                            //   </Box>
-                            // }
-                            // trigger="click"
                           >
-                            <p className={'underline decoration-dashed underline-offset-4'}>Order placed</p>
-                            {/*</TooltipCustom>*/}
-
+                            <Text span classes='text-sm underline decoration-dashed underline-offset-4 cursor-help'>Order
+                              placed</Text>
                           </Tooltip>
-                        </div>
-                      </Col>
-                      {/*<div className='w-44 h-1/2 pb-4 border-0 border-b-2 border-white mx-4'></div>*/}
-
-                      <Col classes='text-center ml-[-1rem]'>
-                        <p className={'font-semibold'}>
-
-                          {moment().format("MMM")} {' '}
-                          {new Date().getDate()}
-                          -
-                          {new Date().getDate() + 1}
-                        </p>
-                        <Tooltip
-                          title="Mori puts your order in the mail. "
-                          animation='fade'
-                          position="bottom"
-                          arrow={true}
-                          arrowSize='big'
-                          interactive
-                        >
-                          <p className='underline decoration-dashed underline-offset-4'>Order ships</p>
-                        </Tooltip>
-                      </Col>
-
-                      {/*<div className='w-44 h-1/2 pb-4 border-0 border-b-2 border-white mx-4'></div>*/}
-
-                      <Col classes='text-right'>
-                        <p className={'font-semibold'}>
-                          {moment().add(3, 'days').format("MMM")} {' '}
-                          {new Date().getDate() + 3} - {new Date().getDate() + 8}
-                        </p>
-                        <Tooltip
-                          html={
-                            <p className='text-white'>
-                              Estimated to arrive at your doorstep
-                              {moment().add(3, 'days').format("MMM")} {' '}
-                              {new Date().getDate() + 3} - {new Date().getDate() + 8}!
-                            </p>
-                          }
-                          animation='fade'
-                          position="bottom"
-                          arrow={true}
-                          arrowSize='big'
-                          interactive
-                          // className={`bg-black p-0`}
-                        >
-                          <p className='underline decoration-dashed underline-offset-4 cursor-newTab'>Delivered!</p>
-                        </Tooltip>
-                      </Col>
+                        </Col>
+                      </Box>
+                      <Box classes='w-1/3'>
+                        <Row justify='center' align="center" gap={2}>
+                          <Box classes='flex-auto h-1/2 w-auto  border-0 border-b-2 border-gray-custom-52'></Box>
+                          <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
+                          <Box classes='flex-auto h-1/2 w-auto  border-0 border-b-2 border-gray-custom-52'></Box>
+                          {/*<Box classes='flex-auto h-1/2  border-0 border-b-2 border-gray-custom-52 mx-2'></Box>*/}
+                        </Row>
+                        <Col classes='text-center'>
+                          <Text classes='text-xs mt-2 font-bold'>
+                            {moment().format("MMM")} {' '}
+                            {new Date().getDate()}
+                            -
+                            {new Date().getDate() + 1}
+                          </Text>
+                          <Tooltip
+                            title="Mori puts your order in the mail. "
+                            animation='fade'
+                            position="bottom"
+                            arrow={true}
+                            arrowSize='big'
+                            interactive
+                          >
+                            <Text span classes='underline decoration-dashed underline-offset-4 text-sm cursor-help'>Order
+                              ships</Text>
+                          </Tooltip>
+                        </Col>
+                      </Box>
+                      <Box classes='w-1/3'>
+                        <Row align="center" gap={2}>
+                          <Box classes='flex-auto h-1/2 w-auto  border-0 border-b-2 border-gray-custom-52'></Box>
+                          <GiftIcon className='rounded-full bg-gray-custom-52 p-4 w-6 h-6 p-1.5'/>
+                          {/*<Box classes='flex-auto h-1/2  border-0 border-b-2 border-gray-custom-52 mx-2'></Box>*/}
+                        </Row>
+                        <Col classes='text-right'>
+                          <Text classes='text-xs mt-2 font-bold'>
+                            {moment().add(3, 'days').format("MMM")} {' '}
+                            {new Date().getDate() + 3} - {new Date().getDate() + 8}
+                          </Text>
+                          <Tooltip
+                            html={
+                              <Text classes='text-white'>
+                                Estimated to arrive at your doorstep {' '}
+                                {moment().add(3, 'days').format("MMM")} {' '}
+                                {new Date().getDate() + 3} - {new Date().getDate() + 8}!
+                              </Text>
+                            }
+                            animation='fade'
+                            position="bottom"
+                            arrow={true}
+                            arrowSize='big'
+                            interactive
+                          >
+                            <Text
+                              span
+                              classes='text-sm underline decoration-dashed underline-offset-4 cursor-help'
+                            >Delivered!</Text>
+                            {/*<Text span classes='text-sm underline decoration-dashed underline-offset-4 cursor-help'>Delivered!</Text>*/}
+                          </Tooltip>
+                        </Col>
+                      </Box>
                     </Row>
-                  </div>
+                  </Box>
 
-                  <div className='mt-10 space-y-3'>
-                    <p className='text-sm text-primary-gray'>
+                  <Box classes='mt-10 mb-2'>
+                    <Text classes='text-xs text-primary-gray'>
                       Cost to ship
-                    </p>
-                    <h2 className=''>
+                    </Text>
+                    <h3 className=''>
                       Free
-                    </h2>
+                    </h3>
+                  </Box>
 
-                    <p className='p-4 bg-gray-custom-52 my-6 rounded-lg'>
-                      Mori offsets carbon emissions from shipping and packaging on this purchase.
-                    </p>
-                  </div>
-
-                  <div className='mt-10 space-y-3'>
-                    <Row classes='gap-x-28 mb-8'>
+                  <Text classes='p-4 bg-gray-custom-52 my-6 rounded-lg text-sm'>
+                    Mori offsets carbon emissions from shipping and packaging on this purchase.
+                  </Text>
+                  <Box classes='mt-10 space-y-3'>
+                    <Row classes='gap-x-4 mb-8' justify='between'>
                       <Box>
-                        <p className='text-sm text-primary-gray'>
+                        <Text classes='text-xs text-primary-gray'>
                           Returns & exchanges
-                        </p>
-
+                        </Text>
                         <h3 className=''>
                           Accepted
                         </h3>
                       </Box>
                       <Box>
-                        <p className='text-sm text-primary-gray'>
+                        <Text classes='text-xs text-primary-gray'>
                           Return & exchange window
-                        </p>
+                        </Text>
                         <h3 className=''>
                           21 days
                         </h3>
                       </Box>
                     </Row>
-                    {/*<p className='text-primary-gray'>*/}
+                    {/*<Text classes='text-primary-gray'>*/}
                     {/*  Exceptions may apply*/}
                     {/*</p>*/}
 
@@ -206,21 +207,19 @@ export default function DisclosureShipping() {
                         width={48}
                       />
 
-                      <p className='w-full text-sm'>
-                        Mori Purchase Protection: Shop confidently on Etsy knowing if something goes wrong with an
+                      <Text classes='w-full text-xs leading-5'>
+                      <Text b>Mori Purchase Protection:</Text> Shop confidently on Etsy knowing if something goes wrong with an
                         order,
                         we&apos;ve got your back for all eligible purchases — see program terms
-                      </p>
+                      </Text>
                     </Row>
-                  </div>
-
-
+                  </Box>
                 </Disclosure.Panel>
               </Transition>
             </>
           )}
         </Disclosure>
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }

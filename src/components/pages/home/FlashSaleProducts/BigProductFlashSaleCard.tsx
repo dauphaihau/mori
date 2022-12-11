@@ -3,13 +3,10 @@ import { Text, Link, Box, Row, Col, NextImage, Badge } from 'core/components';
 import { cn, formatDollarUS, sliceText, slugify } from 'core/helpers';
 import { PATH } from "config/const";
 import { config } from "config";
-import { Loading } from "../../../../core/components/Loading";
-import { BlurringImage } from "../../../../core/components/Next/BlurringImage";
-import NextImageLoading from "../../../../core/components/Next/NextImageLoading";
 
 const hoverEffect = typeof window !== `undefined` ? require('hover-effect').default : null;
 
-const BigProductCard = ({ data }) => {
+const BigProductFlashSaleCard = ({ data }) => {
   if (!data) return null
   // console.log('dauphaihau debug: data', data)
   const { name, price, salePrice, description, link, images } = data;
@@ -56,35 +53,25 @@ const BigProductCard = ({ data }) => {
       </Col>
 
       <Box classes='text-right desktop:hidden'>
-        {salePrice ?
-          <Row classes='desktop:flex-col'>
-            <Text classes='text-xl tracking-wide'>{formatDollarUS(salePrice)}</Text>
-            <Text classes='ml-[10px] line-through text-gray-700 text-sm tablet:text-base'>
-              {formatDollarUS(price)}
-            </Text>
-          </Row>
-          :
-          <Row>
-            <Text classes='text-xl font-bold tracking-wide'>{formatDollarUS(price)}</Text>
-          </Row>
-        }
+        <Row classes='desktop:flex-col'>
+          <Text classes='text-xl tracking-wide text-primary-red'>
+            {formatDollarUS(salePrice)}
+          </Text>
+          <Text classes='ml-2.5 line-through text-primary-gray text-sm tablet:text-base'>
+            {formatDollarUS(price)}
+          </Text>
+        </Row>
       </Box>
 
       <Box classes={cn('text-right hidden desktop:flex', !salePrice && 'items-center')}>
-        {salePrice ?
-          <Box classes=''>
-            <Text classes='ml-3 line-through font-light text-gray-700 text-sm tablet:text-base'>
-              ${price}
-            </Text>
-            <Text classes='text-xl tracking-wide'>
-              ${salePrice}
-            </Text>
-          </Box>
-          :
-          <Text classes='text-xl font-bold tracking-wide'>
-            ${price}
+        <Col>
+          <Text classes='ml-3 line-through font-light text-gray-700 text-sm tablet:text-base'>
+            {formatDollarUS(data?.price)}
           </Text>
-        }
+          <Text classes='text-xl tracking-wide text-primary-red'>
+            {formatDollarUS(data?.salePrice)}
+          </Text>
+        </Col>
       </Box>
     </Box>
   )
@@ -118,7 +105,7 @@ const BigProductCard = ({ data }) => {
           </Box>
         </Col>
 
-        <NextImageLoading
+        <NextImage
           src={config.hostStaticSource + images[0]}
           alt={name}
           className='w-auto'
@@ -155,4 +142,4 @@ const BigProductCard = ({ data }) => {
   )
 }
 
-export default BigProductCard;
+export default BigProductFlashSaleCard;

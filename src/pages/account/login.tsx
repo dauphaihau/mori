@@ -1,6 +1,16 @@
 import { Text, Link, Box, Row } from 'core/components';
 import Const from "config/const";
 import UserAuthForm from "components/pages/account/user-auth-form";
+import { Fragment } from "react";
+import { Menu } from '@headlessui/react';
+
+
+const links = [
+  { href: '/account-settings', label: 'Account settings' },
+  { href: '/support', label: 'Support' },
+  { href: '/license', label: 'License' },
+  { href: '/sign-out', label: 'Sign out' },
+]
 
 export default function LoginPage() {
   return (
@@ -17,6 +27,9 @@ export default function LoginPage() {
         >Login</Text>
         <Text classes='text-sm'>Please enter your e-mail and password:</Text>
       </Box>
+
+
+
       <UserAuthForm/>
       <Row
         justify='center'

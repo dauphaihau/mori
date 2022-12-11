@@ -24,16 +24,17 @@ const formType = {
   }
 }
 
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+  .email('Email is invalid')
+});
+
 const ForgotPasswordPage = () => {
   const { dispatch } = useUIController();
   const [isBtnLoading, setIsBtnLoading] = useState(false)
   const [email, setEmail] = useState(null)
   const [currentForm, setCurrentForm] = useState('forgotPassword')
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-    .email('Email is invalid')
-    .required('Email is required'),
-  });
+
   const { register, handleSubmit, setError, formState: { errors }, } = useForm({
     resolver: yupResolver(validationSchema),
   });
@@ -84,6 +85,7 @@ const ForgotPasswordPage = () => {
           {formType[currentForm].textButton}
         </Button>
       </Col>
+
       <Link
         href='/'
         classes={currentForm === 'forgotPassword' ? 'hidden' : 'block'}

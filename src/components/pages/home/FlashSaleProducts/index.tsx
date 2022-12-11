@@ -1,9 +1,9 @@
 import { Box, Grid, Row, Text } from 'core/components';
-import { ProductCard } from '../index';
 import CountdownTimer from '../CountdownTimer';
-import BigProductCard from './BigProductCard';
 import FadeInSection from 'components/common/FadeInSection';
 import {  useProductsSale } from "services/product";
+import BigProductFlashSaleCard from './BigProductFlashSaleCard';
+import ProductFlashSaleCard from "./ProductFlashSaleCard";
 
 export default function FlashSaleProducts () {
   const { products } = useProductsSale()
@@ -21,23 +21,20 @@ export default function FlashSaleProducts () {
       </Row>
       <Grid sx={1} lg={2} gap={8}>
         <Box classes='hidden laptop:block'>
-          <BigProductCard data={products && products[2]}/>
+          <BigProductFlashSaleCard data={products && products[2]}/>
         </Box>
         <Grid gap={4}>
-          <Grid
-            md={2}
-            gap={8}
-          >
-            <ProductCard data={products && products[1]}/>
-            <ProductCard data={products && products[2]}/>
+          <Grid md={2} gap={8}>
+            <ProductFlashSaleCard data={products && products[1]}/>
+            <ProductFlashSaleCard data={products && products[2]}/>
           </Grid>
           <Grid
             md={2}
             gap={8}
             classes='mt-4'
           >
-            <ProductCard data={products && products[3]}/>
-            <ProductCard data={products && products[4]}/>
+            <ProductFlashSaleCard data={products && products[3]}/>
+            <ProductFlashSaleCard data={products && products[4]}/>
           </Grid>
         </Grid>
       </Grid>

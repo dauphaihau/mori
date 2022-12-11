@@ -14,15 +14,19 @@ const arrNames = [
 ]
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-  await db.connect();
-  const products = await Product.find({ 'name': { $in: arrNames } });
-  console.log('dauphaihau debug: products', products)
-  await db.disconnect();
-  res.json({
-    code: '200',
-    message: 'OK',
-    products
-  });
+  try {
+    await db.connect();
+    const products = await Product.find({ 'name': { $in: arrNames } });
+    // console.log('dauphaihau debug: products', products)
+    await db.disconnect();
+    res.json({
+      code: '200',
+      message: 'OK',
+      products
+    });
+  } catch (error) {
+    return res.status(500).end()
+  }
 });
 
 export default handler;

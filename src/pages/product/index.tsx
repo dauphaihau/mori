@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import { Box, Breadcrumb, Grid, Row, Text } from 'core/components';
 import Seo from 'components/common/Seo';
-import Const from "config/const";
+import { PATH } from "config/const";
 import Products from "../../components/pages/productList/Products";
 import { useProducts } from "services/product";
 import MobileTabletVersion from "../../components/pages/productList/MobileTabletVersion";
@@ -13,8 +13,8 @@ import { useUIController } from "context/UIControllerContext";
 import Viewer from 'components/pages/productList/Viewer';
 
 const dataBreadcrumb = [
-  { path: Const.PATH.DEFAULT, name: 'Home' },
-  { path: Const.PATH.PRODUCT._, name: 'Product' },
+  { path: PATH.DEFAULT, name: 'Home' },
+  { path: PATH.PRODUCT._, name: 'Product' },
 ];
 
 export default function ProductListPage<NextPage>() {

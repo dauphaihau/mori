@@ -60,7 +60,8 @@ function FAQs() {
 
 export default function DisclosureFAQs() {
   return (
-    <div className='w-full laptop:w-[110%]'>
+    <div className='w-full'>
+    {/*<div className='w-full laptop:w-[110%]'>*/}
       <div className='mx-auto w-full max-w-4xl mx-auto rounded-2xl bg-white laptop:p-2'>
         <Disclosure
           as='div'
@@ -70,7 +71,7 @@ export default function DisclosureFAQs() {
             <>
               <Disclosure.Button
                 className='flex w-full justify-between rounded-lg
-                     hover:bg-gray-custom-50
+                     hover:bg-gray-custom-50 cursor-pointer
                      laptop:px-4 py-2 font-medium
                      '
               >

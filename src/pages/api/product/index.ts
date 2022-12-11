@@ -2,9 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import nc from 'next-connect';
 import mongoose from "mongoose";
 
-import Product from '../../../lib/models/Product';
-import db from "../../../lib/db";
-import { IProduct } from "../../../types/product";
+import Product from 'lib/models/Product';
+import db from "lib/db";
 
 const handler = nc();
 
@@ -12,7 +11,7 @@ class APIFeatures {
   queryString: any;
   query: any;
 
-  constructor(query: IProduct, queryString) {
+  constructor(query, queryString) {
     this.query = query;
     this.queryString = queryString;
   }
@@ -79,44 +78,52 @@ class APIFeatures {
 }
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-  await db.connect();
-  const features = new APIFeatures(Product.find(), req.query)
-  .filtering()
-  .sorting()
-  .paginating()
+  try {
+    await db.connect();
+    const features = new APIFeatures(Product.find(), req.query)
+    .filtering()
+    .sorting()
+    .paginating()
 
-  const products = await features.query
-  // console.log('dauphaihau debug: products-', products)
+    const products = await features.query
+    // console.log('dauphaihau debug: products-', products)
 
-  // total w filter, sort (count without paginate )
-  const features2 = new APIFeatures(Product.find(), req.query)
-  .filtering()
-  .sorting()
-  .count()
+    // total w filter, sort (count without paginate )
+    const features2 = new APIFeatures(Product.find(), req.query)
+    .filtering()
+    .sorting()
+    .count()
 
-  const total = await features2.query
-  console.log('dauphaihau debug: total', total)
+    const total = await features2.query
+    // console.log('dauphaihau debug: total', total)
 
-  await db.disconnect();
+    await db.disconnect();
 
-  res.json({
-    code: '200',
-    message: 'OK',
-    products,
-    total
-  })
+    res.json({
+      code: '200',
+      message: 'OK',
+      products,
+      total
+    })
+  } catch (error) {
+    return res.status(500).end()
+  }
 });
 
 handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
-  await db.connect();
-  const products = await Product.find({ name: { $regex: req.query.search, $options: 'i' } })
-  await db.disconnect();
-  res.json({
-    code: '200',
-    message: 'OK',
-    result: products.length,
-    products
-  });
+  try {
+    await db.connect();
+    const products = await Product.find({ name: { $regex: req.query.search, $options: 'i' } })
+    await db.disconnect();
+    res.json({
+      code: '200',
+      message: 'OK',
+      result: products.length,
+      products
+    });
+  } catch (error) {
+    return res.status(500).end()
+  }
 })
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {

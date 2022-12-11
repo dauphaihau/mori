@@ -18,10 +18,6 @@ class MyDocument extends Document {
             rel="icon"
             href="data:;base64,="
           />
-          {/*<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"/>*/}
-          {/*<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>*/}
-          {/*<Script src="https://cdn.quilljs.com/1.3.6/quill.snow.css"></Script>*/}
-          {/*<Script src="https://cdn.quilljs.com/1.3.6/quill.js"></Script>*/}
         </Head>
         <body>
         <Main/>

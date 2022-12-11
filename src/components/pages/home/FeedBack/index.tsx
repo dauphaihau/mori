@@ -20,7 +20,7 @@ const CartTwitter = ({ data }) => {
             />
           </div>
           <div className="flex-grow pl-3">
-            <h6 className="font-bold text-md">{data.author}</h6>
+            <h6 className="text-md">{data.author}</h6>
             <p className="text-xs text-gray-600">@joe.blow</p>
           </div>
           <div className="w-12 text-right">

@@ -5,6 +5,7 @@ import React, { Fragment, HTMLAttributes, useEffect, useState } from 'react';
 import { Listbox, Menu, Transition } from '@headlessui/react'
 import { cn } from 'core/helpers';
 import { CheckIcon, ChevronDownIcon, SelectorIcon } from '@heroicons/react/solid';
+import { Icons } from 'components/common/Icons';
 
 const sortReviews = [
   {
@@ -24,19 +25,13 @@ export default function CustomerReview({ className }: CustomerReviewProps) {
   return (
     <Box classes={cn('mt-12 laptop:w-11/12', className)}>
       <Row justify='between'>
-        <Text
-          weight='bold'
-          classes='text-lg tablet:text-2xl mb-4'
-        >Customer Reviews</Text>
+        <Text classes='text-lg tablet:text-2xl mb-4'>Customer Reviews</Text>
         <Box classes='hidden tablet:block'>
-          {/*<MyDropdown/>*/}
           <SortSelect/>
         </Box>
-        {/*<Select*/}
-        {/*  classesBtn='w-42'*/}
-        {/*  options={sortReviews}  />*/}
       </Row>
 
+      {/* static data */}
       <Row align='center'>
         <Text>3.8<Text
           span
@@ -137,36 +132,30 @@ const SortSelect = () => {
         focusReviews();
         setSelected(option)
       }}
-      // onChange={(option) => goToTop()}
-      // onChange={(option) => setSelected(option)}
     >
       {({ open }) => (
         <div className='form-select-input m-0'>
           <Listbox.Button
             className='
-    relative
-    bg-white text-sm
-    w-full
-    pl-3 pr-10 tablet:pr-8 text-left cursor-default
-    dark:bg-black dark:text-white
-     rounded-md
-
-           hover:bg-gray-custom-52 w-46 py-2'
+            relative
+            bg-white text-sm
+            pl-3 pr-10 tablet:pr-8 text-left cursor-pointer
+            dark:bg-black dark:text-white
+            rounded-md
+            hover:bg-gray-custom-52 py-2'
           >
-            <span className='flex items-center'>
-              <span className='block truncate'>Sort by: {selected.label}</span>
-            </span>
+            <Text span weight='bold' classes=''>Sort by: {selected.label}</Text>
             <span className='ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
-
-            <ChevronDownIcon
-              className='ml-2 -mr-1 h-5 w-5'
+            <Icons.chevronDown
+              className='h-3 w-3 font-bold'
               aria-hidden='true'
             />
+
               {/*<SelectorIcon*/}
               {/*  className='h-5 w-5 text-gray-400'*/}
               {/*  aria-hidden='true'*/}
               {/*/>*/}
-                  </span>
+            </span>
           </Listbox.Button>
           <Transition
             show={open}
@@ -197,8 +186,8 @@ const SortSelect = () => {
                               {option.label}
                             </span>
                           {selected ? (
-                            <CheckIcon
-                              className='mr-2 h-5 w-5 text-black'
+                            <Icons.check
+                              className='mr-2 h-4 w-4 text-black'
                               aria-hidden='true'
                             />
                           ) : null}
@@ -213,89 +202,6 @@ const SortSelect = () => {
         </div>
       )}
     </Listbox>
-  )
-}
-
-function MyDropdown() {
-  const [selected, setSelected] = useState(sortReviews[0].value)
-
-  return (
-    <div className=' top-16 w-56 text-right'>
-      <Menu
-        as='div'
-        className='relative inline-block text-left'
-      >
-        <div>
-          <Menu.Button
-            className='inline-flex w-full justify-center rounded-md
-          {/*bg-black bg-opacity-20 */}
-            hover:bg-gray-custom-52
-
-          px-4 py-2
-           text-sm font-medium
-            {/*text-white*/}
-            {/*hover:bg-opacity-30*/}
-            {/* focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75*/}
-             '
-          >
-            Sort by: Most recent
-            <ChevronDownIcon
-              className='ml-2 -mr-1 h-5 w-5'
-              aria-hidden='true'
-            />
-          </Menu.Button>
-        </div>
-        <Transition
-          as={Fragment}
-          enter='transition ease-out duration-100'
-          enterFrom='transform opacity-0 scale-95'
-          enterTo='transform opacity-100 scale-100'
-          leave='transition ease-in duration-75'
-          leaveFrom='transform opacity-100 scale-100'
-          leaveTo='transform opacity-0 scale-95'
-        >
-          <Menu.Items
-            className='absolute right-0 mt-2 w-48 origin-top-right  rounded-md bg-white
-             shadow-lg
-             {/*ring-1 ring-black ring-opacity-5 focus:outline-none*/}
-             '
-          >
-            {
-              sortReviews.map((item, index) => (
-                <div
-                  className='p-1'
-                  key={index}
-                >
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Row
-                        onClick={() => setSelected(item.value)}
-                        justify='between'
-                        align='center'
-                        classes={cn('rounded-md',
-                          active ? 'bg-gray-custom-52' : '',
-                        )}
-                      >
-                        <button className='group flex w-full items-center p-2 text-sm'>
-                          {item.label}
-                        </button>
-
-                        {selected === item.value ? (
-                          <CheckIcon
-                            className='mr-2 h-5 w-5 text-black'
-                            aria-hidden='true'
-                          />
-                        ) : null}
-                      </Row>
-                    )}
-                  </Menu.Item>
-                </div>
-              ))
-            }
-          </Menu.Items>
-        </Transition>
-      </Menu>
-    </div>
   )
 }
 

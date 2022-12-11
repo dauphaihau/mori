@@ -7,6 +7,7 @@ import ShopByCategories from "../components/pages/home/ShopByCategories";
 import RealLifeImages from "../components/pages/home/RealLifeImages";
 import BannerSlogan from "../components/pages/home/BannerSlogan";
 import FeedBack from "../components/pages/home/FeedBack";
+import React from "react";
 
 export default function HomePage() {
   return (

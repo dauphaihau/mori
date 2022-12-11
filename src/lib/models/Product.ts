@@ -5,10 +5,9 @@ const productSchema = new mongoose.Schema<IProduct>(
   {
     // slug: { type: String, required: true, unique: true },
     name: { type: String, required: true },
-    categories: { type: [String], required: true },
     category: { type: String, required: true },
     material: { type: String, required: true },
-    price: { type: Number, required: true , default: 0},
+    price: { type: Number, required: true, default: 0 },
     colors: { type: [String], required: true },
     color: { type: String, required: true },
     salePrice: { type: Number, required: true },
@@ -27,5 +26,5 @@ const productSchema = new mongoose.Schema<IProduct>(
   }
 );
 
-const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
+const Product = (mongoose.models.Product as mongoose.Model<IProduct>) || mongoose.model('Product', productSchema);
 export default Product;

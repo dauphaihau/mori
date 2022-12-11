@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { cnn, createMaps } from "core/helpers";
+import { cn, createMaps } from "core/helpers";
 
 const FONT_WEIGHT_MAP = createMaps({
   bold: 'font-bold',
@@ -39,7 +39,7 @@ const Text = (props: Partial<TextProps>) => {
     weight = '', h1, h2, h3, h4, h5, h6, span, label, i, text, ...others
   } = props
 
-  const allClass = cnn(
+  const allClass = cn(
     transforms,
     FONT_WEIGHT_MAP[weight],
     as === 'button' ? 'cursor-pointer': '',
@@ -59,7 +59,7 @@ const Text = (props: Partial<TextProps>) => {
   if (label) return <label style={{ fontSize: size }} className={allClass} {...others}>{children || text}</label>
   if (span) return <span style={{ fontSize: size }} className={allClass} {...others}>{children || text}</span>
   if (b) return <b style={{ fontSize: size }} className={allClass} {...others}>{children || text}</b>
-  return (<p style={{ fontSize: size }} className={allClass} {...others}>{children || text}</p>);
+  return (<p style={{ fontSize: size, display: "block" }} className={allClass} {...others}>{children || text}</p>);
 }
 
 export default Text;

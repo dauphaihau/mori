@@ -1,18 +1,20 @@
 import React from 'react';
-import { NextImage, Box, Col, Link, Row, Text } from 'core/components';
+import { NextImage, Box, Col, Link, Row, Text, Divider } from 'core/components';
 import { formatDollarUS, slugify } from 'core/helpers';
 import Const from "config/const";
 import { config } from "config";
 
-const ResultSearch = ({ searchValue, products }) => {
+const ResultSearch = ({ products }) => {
 
   const Result = () => {
-    // if (!searchValue) return null;
     if (products.length === 0) {
       return (
-        <Box classes='laptop:pt-4'>
-          <Text classes='mb-2'>Products</Text>
-          <Text classes='border-t py-4' data-testid="noResultsText">
+        <Box>
+          <Col>
+            <Text size={13} classes='text-primary-gray py-2 border-b sticky top-0 bg-white z-10'>Products</Text>
+            <Divider classes='border-primary-gray opacity-20'/>
+          </Col>
+          <Text size={14} classes='border-t py-3 block' data-testid="noResultsText">
             No results could be found
           </Text>
         </Box>
@@ -21,7 +23,13 @@ const ResultSearch = ({ searchValue, products }) => {
     if (products.length) {
       return (
         <Box classes='relative'>
-          <Text classes='pb-2 border-b sticky top-0 py-4 bg-white z-10'>{products.length} result</Text>
+          <Col>
+            <Text
+              size={13}
+              classes='text-primary-gray py-2 border-b sticky top-0 bg-white z-10'
+            >{products.length} result</Text>
+            <Divider classes='border-primary-gray opacity-20'/>
+          </Col>
           <Box data-testid="productsList">
             {
               products.map((item, index) => {
@@ -31,7 +39,7 @@ const ResultSearch = ({ searchValue, products }) => {
                     key={index}
                   >
                     <Row>
-                      <Box classes='cursor-pointer ipad:w-auto  relative bg-light rounded-lg p-1'>
+                      <Box classes='cursor-pointer tablet:w-auto relative bg-light rounded-lg p-1'>
                         <NextImage
                           height={90}
                           width={100}
@@ -47,10 +55,9 @@ const ResultSearch = ({ searchValue, products }) => {
                       >
                         <Link href={`${Const.PATH.PRODUCT._}/${slugify(item.name)}`}>
                           <Text
-                            h1
+                            h5
                             size={17}
                             classes='m-0 '
-                            // classes='m-0 text-gray-600'
                             data-testid={item.name}
                           >
                             {item.name}
@@ -60,23 +67,18 @@ const ResultSearch = ({ searchValue, products }) => {
                           {item.salePrice ?
                             <>
                               <Text
-                                weight='bold'
-                                size={12}
+                                classes='text-primary-red'
+                                size={14}
                               >{formatDollarUS(item.salePrice)}</Text>
-                              {
-                                item.price
-                                &&
-                                <Text
-                                  size={12}
-                                  classes='ml-2 line-through'
-                                  // classes='ml-2 line-through text-gray-400'
-                                >
-                                  {formatDollarUS(item.price)}</Text>
-                              }
+                              <Text
+                                hideIf={!item.price}
+                                size={14}
+                                classes='ml-2 line-through text-primary-gray'
+                              >{formatDollarUS(item.price)}</Text>
                             </>
                             : <Text
-                              size={12}
-                              classes='tracking-wide'
+                              size={14}
+                              classes='tracking-wide text-primary-gray'
                             >{formatDollarUS(item.price)}</Text>
                           }
                         </Row>

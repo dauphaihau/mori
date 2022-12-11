@@ -6,7 +6,8 @@ import { cn } from 'core/helpers';
 
 export default function DisclosureHighlights() {
   return (
-    <div className='w-full laptop:w-[110%]'>
+    <div className='w-full laptop:w-full'>
+    {/*<div className='w-full laptop:w-[110%]'>*/}
     {/*<div className='w-[110%]'>*/}
       <div className='mx-auto w-full max-w-4xl mx-auto rounded-2xl bg-white laptop:p-2'>
         <Disclosure
@@ -16,7 +17,7 @@ export default function DisclosureHighlights() {
           {({ open }) => (
             <>
               <Disclosure.Button
-                className='flex w-full justify-between rounded-lg hover:bg-gray-custom-50 laptop:px-4 py-2 font-medium'
+                className='flex w-full justify-between rounded-lg hover:bg-gray-custom-50 laptop:px-4 py-2 font-medium cursor-pointer'
               >
                 <span className='text-base font-bold md:text-[18px] tracking-wide'>Highlights</span>
                 <ChevronUpIcon

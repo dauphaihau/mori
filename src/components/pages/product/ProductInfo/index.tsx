@@ -1,26 +1,46 @@
 import { Box, Col, Breadcrumb, } from 'core/components';
-import Const from "config/const";
+import { PATH } from "config/const";
 import ProductLongInfo from "../ProductLongInfo";
 import CustomerReview from "../CustomerReview";
 import ProductImages from "./ProductImages";
 import ProductMainInfo from "./ProductMainInfo";
 
+import { Breadcrumbs, Anchor } from '@mantine/core';
 const ProductInfo = ({ product }) => {
 
   const dataBreadcrumb = [
-    { path: Const.PATH.DEFAULT, name: 'Home' },
-    { path: Const.PATH.PRODUCT._, name: 'Product' },
+    { path: PATH.DEFAULT, name: 'Home' },
+    { path: PATH.PRODUCT._, name: 'Product' },
     { name: product?.name },
   ];
 
   // if (!product) {
   //   return null
   // }
+  const items = [
+    { title: 'Mantine', href: '#' },
+    { title: 'Mantine hooks', href: '#' },
+    { title: 'use-id', href: '#' },
+  ].map((item, index) => (
+    <Anchor href={item.href} key={index}>
+      {item.title}
+    </Anchor>
+  ));
+
+  function Demo() {
+    return (
+      <>
+        <Breadcrumbs>{items}</Breadcrumbs>
+        <Breadcrumbs separator="→">{items}</Breadcrumbs>
+      </>
+    );
+  }
 
   const Left = () => {
     return (
       <Box classes='w-full laptop:w-8/12 h-120 pt-2 pb-8'>
         <Breadcrumb data={dataBreadcrumb}/>
+        {/*<Breadcrumbs>{items}</Breadcrumbs>*/}
         <ProductImages product={product}/>
         <CustomerReview className='hidden laptop:block'/>
       </Box>

@@ -1,7 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { Box, cn, Row } from "../../../../core";
-import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+
+import { Box, Row } from "core/components";
+import { cn } from "core/helpers";
+import { Icons } from "components/common/Icons";
 
 const quantityOptions = new Array(10).fill('').map((_, i) => ({
   label: i + 1,
@@ -23,16 +25,16 @@ export default function QuantitySelect({ onSelect }) {
     >
       {({ open }) => (
         <Box classes='form-select-input m-0'>
-          <Listbox.Button className='form-select-input__btn w-20 py-2'>
-                  <span className='flex items-center'>
-                                                     <span className='block truncate'>{selected.label}</span>
-                                                       </span>
+          <Listbox.Button className='form-select-input__btn w-20 py-2 cursor-pointer'>
+            <span className='flex items-center'>
+              <span className='block truncate'>{selected.label}</span>
+            </span>
             <span className='ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
-                    <SelectorIcon
-                      className='h-5 w-5 text-gray-400'
-                      aria-hidden='true'
-                    />
-                  </span>
+              <Icons.select
+                className='h-5 w-5 text-gray-400'
+                aria-hidden='true'
+              />
+           </span>
           </Listbox.Button>
           <Transition
             show={open}
@@ -49,7 +51,7 @@ export default function QuantitySelect({ onSelect }) {
                     value={option}
                     className={({ active }) => cn(
                       active ? 'text-gray-700 bg-light-200 dark:hover:bg-gray-custom-502 dark:text-white' : 'text-black dark:text-white',
-                      'cursor-default select-none relative py-2 rounded-[5px] pl-3 pr-0'
+                      ' select-none relative py-2 rounded-[5px] pl-3 pr-0'
                     )}
                   >
                     {({ selected, active }) => (
@@ -63,7 +65,7 @@ export default function QuantitySelect({ onSelect }) {
                               {option.label}
                             </span>
                           {selected ? (
-                            <CheckIcon
+                            <Icons.check
                               className='mr-2 h-5 w-5 text-black'
                               aria-hidden='true'
                             />

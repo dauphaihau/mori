@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { NextImage, Box, Row } from 'core/components';
 import useEmblaCarousel from 'embla-carousel-react';
 import { config } from "../../../../config";
-import NextImageLoading from "../../../../core/components/Next/NextImageLoading";
 
 const SLIDE_COUNT = 5;
 const slides = Array.from(Array(SLIDE_COUNT).keys());
@@ -48,7 +47,7 @@ const ProductImages = ({ product }) => {
 
   return (
     <Box>
-      <NextImageLoading
+      <NextImage
         useSkeleton
         src={config.hostStaticSource + main}
         alt={name}
@@ -57,7 +56,7 @@ const ProductImages = ({ product }) => {
         objectFit='contain'
         // className='mx-auto'
         // className='tablet:w-[500px] tablet:h-[500px] mx-auto'
-        className='w-[300px] h-[300px] laptop:w-[400px] laptop:h-[400px] mx-auto mb-8'
+        className='w-[300px] h-[300px] laptop:w-[400px] laptop:h-[400px] mx-auto mb-8 cursor-zoom-in'
       />
       {
         images.length > 1 && (
@@ -70,7 +69,7 @@ const ProductImages = ({ product }) => {
                     classes='h-20 laptop:h-20 flex-center rounded-lg bg-product cursor-pointer'
                     onClick={() => setMain(images[index])}
                   >
-                    <Box classes='flex flex-column justify-center items-center'>
+                    <Box classes='flex flex-column justify-center items-center '>
                       <NextImage
                         alt={name}
                         src={config.hostStaticSource + o}

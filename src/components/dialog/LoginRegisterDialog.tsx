@@ -8,9 +8,9 @@ import { useAuth } from 'context/authContext';
 import { Dialog, Button, Text, Link, Checkbox, Input, Box, Row } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
 import { accountService } from 'services/account';
-import Const from "config/const";
 import { Icons } from 'components/common/Icons';
 import { IUserAuthSchema } from "lib/validation/auth";
+import { PATH } from 'config/const';
 
 type FormData = {
   name: string
@@ -92,10 +92,12 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
       message
     } = currentForm === 'register' ? await accountService.register(values) : await accountService.login(values)
     setIsLoading(isLoading)
-
+    console.log('dauphaihau debug: is-loading', isLoading)
+    // console.log('dauphaihau debug: data', data)
     if (data) {
+      console.log('dauphaihau debug: data', data)
       if (currentForm === 'login') {
-        router.push(Const.PATH.ACCOUNT._)
+        router.push(PATH.ACCOUNT._)
         setShowLoginDialog(false);
       }
       setCurrentForm('login')

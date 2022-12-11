@@ -15,13 +15,6 @@ interface MenuDropdownProps {
 
 const MenuDropdownCustom = forwardRef((props: MenuDropdownProps, ref) => {
   const {options, trigger} = props;
-  const someInternalRef = useRef('someValue').current;
-
-  useEffect(() => {
-    if (!ref) return;
-    typeof ref === 'function' ? ref(someInternalRef) : (ref.current = someInternalRef);
-    return () => typeof ref === 'function' ? ref(null) : (ref.current = null);
-  }, [someInternalRef, ref])
 
   return (
     <Menu as='div' className='menu'>

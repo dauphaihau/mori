@@ -10,11 +10,11 @@
         @apply mb-8 tablet:mt-0;
 
         &__title {
-          @apply text-[12px] font-bold mb-5 uppercase tracking-[0.25em];
+          @apply text-[12px] mb-5 uppercase tracking-[0.25em];
         }
 
         &__content {
-          @apply list-none;
+          @apply list-none mt-4;
 
           .topic__item {
             @apply mb-3 text-xs laptop:text-sm ;
@@ -36,16 +36,15 @@
     @apply border-solid border-t border-gray-300 py-5 tablet:px-0;
 
     .copyright {
-      //@apply appearance-none block text-gray-700 text-xs laptop:text-sm text-center tablet:pb-0;
       @apply appearance-none block text-primary-black text-xs laptop:text-sm text-center tablet:pb-0;
     }
 
     .payments {
-      @apply justify-end  my-2 laptop:m-0  flex flex-1 flex hidden tablet:block;
+      @apply justify-end my-2 laptop:m-0 flex flex-1 flex hidden tablet:block;
 
       &__list {
         @apply tablet:flex laptop:flex-wrap laptop:justify-end items-center
-        mb-1 md:mb-0 mx-auto md:mx-0;
+        mb-1 mx-auto md:mb-0 md:mx-0;
 
         .payment {
           @apply mb-2 md:mb-0 transition hover:opacity-80 ml-8

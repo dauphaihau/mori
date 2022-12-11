@@ -3,7 +3,7 @@ import { memo, useEffect, useState } from "react";
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
 
-import { Box, Skeleton } from 'core/components';
+import { Box, Skeleton, Text } from 'core/components';
 import { filterSearch } from "./Filters";
 import { cn, titleIfy } from 'core/helpers';
 import { useCategories } from "services/product";
@@ -50,7 +50,7 @@ export const Categories = memo(() => {
               {/*       px-4 py-2 text-[13px]*/}
               {/*       '*/}
               {/*>*/}
-              <span className='text-base font-bold md:text-[18px] tracking-wide'>Categories</span>
+              <Text span classes='text-base font-bold md:text-lg tracking-wide'>Categories</Text>
               <ChevronUpIcon
                 className={cn('h-5 w-5 text-primary-gray',
                   open ? '' : 'transform rotate-180',
@@ -65,14 +65,13 @@ export const Categories = memo(() => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Disclosure.Panel className='pb-2 text-base text-primary-gray'>
-                {/*<Disclosure.Panel className='p-4 pb-2 text-base text-primary-gray'>*/}
+              <Disclosure.Panel className='pb-2'>
                 <Box>
                   {categories ? categories?.map(({ _id: name }, idx) => (
                       <button
                         key={idx}
                         type='button'
-                        className={cn('filter__btn hover:text-black', category === name && 'is-selected')}
+                        className={cn('filter__btn', category === name && 'is-selected')}
                         name='category'
                         onClick={handleCategory}
                       >
@@ -87,7 +86,6 @@ export const Categories = memo(() => {
                     />
                   }
                 </Box>
-
               </Disclosure.Panel>
             </Transition>
           </>

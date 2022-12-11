@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Grid, Link, NextImage, Text } from 'core/components';
+import { Box, Col, Grid, Link, NextImage, Text } from 'core/components';
 import { titleIfy } from "core/helpers";
 import FadeInSection from 'components/common/FadeInSection';
 import { config } from "config";
@@ -57,14 +57,14 @@ export default function ShopByCategories () {
                   objectFit='contain'
                   // imgClassName='w-3/5'
                 />
-                <Box classes='text-left mt-4'>
+                <Col classes='text-left mt-4'>
                   <Text
                     weight='semibold'
                     classes='text-xl mb-1'
                     text={titleIfy(name)}
                   />
                   <Text classes='text-xs text-primary-gray'>{count} items</Text>
-                </Box>
+                </Col>
               </Link>
             </Box>
           ))

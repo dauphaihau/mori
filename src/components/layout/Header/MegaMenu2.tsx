@@ -6,6 +6,7 @@ import { useScrollPosition } from "core/hooks";
 import { cn, titleIfy } from 'core/helpers';
 import { PATH, SORT_PRODUCT } from "config/const";
 import { useUIController } from "context/UIControllerContext";
+import { Transition } from "@headlessui/react";
 
 type Category = {
   _id: string,
@@ -30,6 +31,8 @@ export default function MegaMenu({ pageHasBanner, href, title }) {
   return (
     <Box classes='multi-link group'>
       <Box
+        onMouseEnter={() => setShowDropdown(true)}
+        onMouseLeave={() => setShowDropdown(false)}
         classes={cn('trigger border-b-2 border-transparent',
           router.route === href ? !pageHasBanner ? 'border-black' : 'border-white' : 'border-white',
         )}
@@ -47,68 +50,101 @@ export default function MegaMenu({ pageHasBanner, href, title }) {
         </Link>
       </Box>
 
-      <Box
-        hideIf={!showDropdown}
-        classes={cn(
-          'transition-all duration-300 ease-in-out ',
-          'absolute bg-white min-w-[500px] shadow-2xl rounded-lg ',
-          'invisible opacity-0 mt-0 p-8 translate-x-0',
-          // 'invisible opacity-0 mt-4 p-8 translate-x-0',
-          'group-hover:visible group-hover:opacity-100 group-hover:translate-x-[-80px]  hover:flex',
-          // 'group-hover:visible group-hover:opacity-100 group-hover:mt-0 hover:flex',
-        )}
-      >
-        <Row classes='gap-20'>
-          <Box>
-            <Text
-              transforms='uppercase'
-              noSelect
-              classes='mb-4 tracking-widest text-[10px] text-primary-gray'
-            >discover</Text>
-            <List>
-              {
-                discoverData.map((item, index) => (
-                  <List.Item key={index}>
-                    <Link href={item.url}>
-                      <Text classes='hover:text-primary-gray text-primary-black mb-4'>
-                        {item.title}
-                      </Text>
-                    </Link>
-                  </List.Item>
-                ))
-              }
-              {/*<List.Item onClick={() => handleUpdateFilters('lastPiece', true)}>*/}
-              {/*  <Link href={PATH.PRODUCT._}>*/}
-              {/*    <Text classes='hover:text-primary-gray text-primary-black mb-4'>*/}
-              {/*      Last piece*/}
-              {/*    </Text>*/}
-              {/*  </Link>*/}
-              {/*</List.Item>*/}
-            </List>
-          </Box>
+      <Transition
+        show={showDropdown}
+        onMouseEnter={() => setShowDropdown(true)}
+        onMouseLeave={() => setShowDropdown(false)}
+        as={'div'}
+        // as={Fragment}
 
-          <Box>
-            <Text
-              transforms='uppercase'
-              noSelect
-              classes={`mb-4 tracking-widest text-[10px] text-primary-gray`}
-            >categories</Text>
-            <List>
-              {
-                categories && categories.length > 0 && categories?.map(({ _id: name }: Category, index) => (
-                  <List.Item key={index}>
-                    <Link href={`${PATH.PRODUCT._}?category=${name.replace(' ', '+')}`}>
-                      <Text classes='hover:text-primary-gray text-primary-black mb-4'>
-                        {titleIfy(name)}
-                      </Text>
-                    </Link>
-                  </List.Item>
-                ))
-              }
-            </List>
-          </Box>
-        </Row>
-      </Box>
+        // for viewport
+        // enter='transition ease-out duration-200'
+        // enterFrom='transform opacity-0 scale-90 rotate-[-30deg]'
+        // enterTo='transform opacity-100 scale-100 rotate-0'
+        //
+        // leave='transition ease-in duration-200'
+        // leaveFrom='transform opacity-100 rotate-0 scale-100'
+        // leaveTo='transform opacity-0 rotate-[-10deg] scale-95'
+
+        enter='transition ease-out duration-200'
+        enterFrom='transform opacity-0 translate-x-[200px]'
+        enterTo='transform opacity-100 translate-x-0'
+
+        leave='transition ease-in duration-200'
+        leaveFrom='transform opacity-100 translate-x-0'
+        leaveTo='transform opacity-0 translate-x-[200px]'
+
+        // enter='transition ease-out duration-100'
+        // enterFrom='transform opacity-0 scale-95'
+        // enterTo='transform opacity-100 scale-100'
+        //
+        // leave='transition ease-in duration-75'
+        // leaveFrom='transform opacity-100 scale-100'
+        // leaveTo='transform opacity-0 scale-95'
+      >
+        <Box
+          hideIf={!showDropdown}
+          classes={cn(
+            // 'transition-all duration-300 ease-in-out',
+            'absolute bg-white min-w-[500px] shadow-2xl rounded-lg ',
+            'invisible opacity-0 mt-0 p-8',
+            // 'invisible opacity-0 mt-4 p-8 translate-x-0',
+            'group-hover:visible group-hover:opacity-100  hover:flex',
+            // 'group-hover:visible group-hover:opacity-100 group-hover:mt-0 hover:flex',
+          )}
+        >
+          <Row classes='gap-20'>
+            <Box>
+              <Text
+                transforms='uppercase'
+                noSelect
+                classes='mb-4 tracking-widest text-[10px] text-primary-gray'
+              >discover</Text>
+              <List>
+                {
+                  discoverData.map((item, index) => (
+                    <List.Item key={index}>
+                      <Link href={item.url}>
+                        <Text classes='hover:text-primary-gray text-primary-black mb-4'>
+                          {item.title}
+                        </Text>
+                      </Link>
+                    </List.Item>
+                  ))
+                }
+                {/*<List.Item onClick={() => handleUpdateFilters('lastPiece', true)}>*/}
+                {/*  <Link href={PATH.PRODUCT._}>*/}
+                {/*    <Text classes='hover:text-primary-gray text-primary-black mb-4'>*/}
+                {/*      Last piece*/}
+                {/*    </Text>*/}
+                {/*  </Link>*/}
+                {/*</List.Item>*/}
+              </List>
+            </Box>
+
+            <Box>
+              <Text
+                transforms='uppercase'
+                noSelect
+                classes={`mb-4 tracking-widest text-[10px] text-primary-gray`}
+              >categories</Text>
+              <List>
+                {
+                  categories && categories.length > 0 && categories?.map(({ _id: name }: Category, index) => (
+                    <List.Item key={index}>
+                      <Link href={`${PATH.PRODUCT._}?category=${name.replace(' ', '+')}`}>
+                        <Text classes='hover:text-primary-gray text-primary-black mb-4'>
+                          {titleIfy(name)}
+                        </Text>
+                      </Link>
+                    </List.Item>
+                  )).reverse()
+                }
+              </List>
+            </Box>
+          </Row>
+        </Box>
+      </Transition>
       {/*<div className="ViewportPosition">*/}
       {/*  <div className="NavigationMenuViewport"/>*/}
       {/*</div>*/}
@@ -118,15 +154,15 @@ export default function MegaMenu({ pageHasBanner, href, title }) {
 
 const discoverData = [
   {
-    title: 'All Products',
+    title: 'All User',
     url: PATH.PRODUCT._
   },
   {
-    title: 'New in',
+    title: 'Old in',
     url: `${PATH.PRODUCT._}?sort=${SORT_PRODUCT.DATE_NEW}`
   },
   {
-    title: 'Best Sellers',
+    title: 'Bad Sellers',
     url: `${PATH.PRODUCT._}?sort=${SORT_PRODUCT.BEST_SELLING}`
   },
   // find all item quantity = 0

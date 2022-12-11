@@ -55,7 +55,7 @@
   }
 
   &__content {
-    @apply mt-0  flex flex-col justify-between desktop:flex-row;
+    @apply mt-0 flex flex-col justify-between desktop:flex-row;
 
     .title {
       @apply text-xl lg:text-lg font-bold mb-1;
