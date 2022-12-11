@@ -27,6 +27,7 @@ async function connect() {
   // console.log('testtt', process.env.NEXT_PUBLIC_VAR)
   // const db = await mongoose.connect(publicRuntimeConfig.MONGODB_URI);
 // const db = await mongoose.connect(process.env.MONGODB_URI);
+  console.log('dauphaihau debug: process-env-next-public-mongodb-uri', process.env.NEXT_PUBLIC_MONGODB_URI)
   const db = await mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URI);
   // console.log('process-env-next-public-mongodb-uri', process.env.NEXT_PUBLIC_MONGODB_URI)
 
