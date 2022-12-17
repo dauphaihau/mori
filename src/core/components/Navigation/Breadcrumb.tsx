@@ -1,7 +1,7 @@
 import { Link } from 'core/components';
 import { cn } from "core/helpers";
 
-interface BreadcrumbType {
+interface BreadcrumbProps {
   data: {
     path?: string,
     name: string,
@@ -9,15 +9,14 @@ interface BreadcrumbType {
   classes?: string
 }
 
-const Breadcrumb = ({ data, classes }: BreadcrumbType) => {
+const Breadcrumb = ({ data, classes }: BreadcrumbProps) => {
   if (data.length <= 1) return null
   return (
     <nav
-      // className='flex'
-      className={cn('flex', classes)}
       aria-label='Breadcrumb'
+      className={cn('flex', classes)}
     >
-      <ul className='inline-flex items-center space-x-1 md:space-x-3'>
+      <ul className='inline-flex items-center space-x-1'>
         {
           data.map(({ path, name }, index) => {
             // first link
@@ -30,7 +29,7 @@ const Breadcrumb = ({ data, classes }: BreadcrumbType) => {
                   <Link
                     underline
                     href={path}
-                    className=' inline-flex items-center text-sm text-primary-gray hover:text-gray-900 dark:text-gray-custom-52'
+                    className='inline-flex items-center text-sm'
                   >
                     {name}
                   </Link>
@@ -42,12 +41,8 @@ const Breadcrumb = ({ data, classes }: BreadcrumbType) => {
               return (
                 <li key={index}>
                   <div className='flex items-center'>
-                    <p className=''>/</p>
-                    <div
-                      className='dark:text-gray-custom-501  text-primary-black dark:text-white ml-1 text-sm font-medium md:ml-2'
-                    >
-                      {name}
-                    </div>
+                    <span className='mx-2'>/</span>
+                    <span className='text-sm'>{name}</span>
                   </div>
                 </li>
 
@@ -56,10 +51,10 @@ const Breadcrumb = ({ data, classes }: BreadcrumbType) => {
             return (
               <li key={index}>
                 <div className='flex items-center'>
-                  <p className=''>/</p>
+                  <span className='mx-2'>/</span>
                   <Link
                     underline
-                    className='dark:text-gray-custom-52 text-primary-gray ml-1 text-sm  hover:text-primary-black md:ml-2'
+                    className='text-sm'
                     href={path}
                   >
                     {name}

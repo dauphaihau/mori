@@ -1,15 +1,14 @@
 import { Box, Divider, Text } from 'core/components';
 import { FC } from 'react';
-import { cnn } from "../../../core";
 
 const BannerAboutPage: FC = () => {
   return (
     <Box classes='about-page__banner'>
       <Box
-        classes={
-          cnn('image-banner-frame',
-            "bg-[url('https://res.cloudinary.com/duiehrbms/image/upload/v1668334342/mori-ecommerce/about/banner_rlumwu.webp')]"
-          )}
+        classes={[
+          'image-banner-frame',
+          "bg-[url('https://res.cloudinary.com/duiehrbms/image/upload/v1668334342/mori-ecommerce/about/banner_rlumwu.webp')]"
+        ]}
       >
         <Box classes='slogan'>
           <Text

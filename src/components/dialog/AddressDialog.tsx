@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -6,10 +6,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useUIController } from "context/UIControllerContext";
 import countryOpts from 'assets/data/country.json';
 import { useAuth } from 'context/authContext';
-import { Dialog,Button,Text, Checkbox, Input, Select, Box, Grid, Row } from 'core/components';
+import { Dialog, Button, Text, Checkbox, Input, Select, Box, Grid, Row } from 'core/components';
 
-const AddressDialog = () => {
-// const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
+const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
   const { user, setUser } = useAuth();
   const [address, setAddress] = useState({
     name: '',
@@ -63,135 +62,115 @@ const AddressDialog = () => {
 
   const handleOnchange = (name, value) => {
     setAddress({ ...address, [name]: value })
-    console.log('address', address)
   }
-
-  // console.log('user', user)
-  // console.log('address', address)
-  // console.log('show-address-dialog', showAddressDialog)
 
   return (
     <Dialog
-      isOpen={openAddressModal}
-      closeDialog={closeDrawerModal}
-      // isOpen={showAddressDialog}
-      // closeDialog={() => setShowDialog(false)}
+      isOpen={showAddressDialog}
+      closeDialog={setShowAddressDialog}
+      classes='absolute top-[40%] left-1/2 -translate-x-2/4 -translate-y-2/4'
     >
-      <Dialog.Content>
-        <Box
-          // className='px-6 pb-4 space-y-6 lg:px-8  py-8 xl:pb-8'
-        >
-          {/*<Grid md={2} gapx={12} classes='mt-12'>*/}
-          <Box>
-            <Text
-              h1
-              weight='bold'
-              classes='text-xl mb-8'
-            >Shipping Address</Text>
-            <Grid md={2} lg={2} gapx={4}>
-              <Input
-                label='Full Name *'
-                name='name'
-                onChange={handleOnchange}
-                register={register}
-                defaultValue={address.name}
-                errors={errors}
-              />
-              <Input
-                label='Phone/Mobile *'
-                name='phone'
-                onChange={handleOnchange}
-                register={register}
-                errors={errors}
-                defaultValue={address.phone}
-              />
-            </Grid>
+      <Dialog.Content closeDialog={setShowAddressDialog}>
+        <Box>
+          <Text
+            h1
+            weight='bold'
+            classes='text-xl mb-8'
+          >Shipping Address</Text>
+
+          <Grid md={2} lg={2} gapx={4}>
             <Input
-              label='Address *'
-              name='addressDetail'
+              label='Full Name *'
+              name='name'
+              // onChange={handleOnchange}
+              register={register}
+              defaultValue={address.name}
+              errors={errors}
+            />
+            <Input
+              label='Phone/Mobile *'
+              name='phone'
               onChange={handleOnchange}
               register={register}
               errors={errors}
-              defaultValue={address.addressDetail}
+              defaultValue={address.phone}
             />
-            <Grid md={1} lg={2} gapx={4}>
-              {/*<Input
+          </Grid>
+          <Input
+            label='Address *'
+            name='addressDetail'
+            onChange={handleOnchange}
+            register={register}
+            errors={errors}
+            defaultValue={address.addressDetail}
+          />
+          <Grid md={1} lg={2} gapx={4}>
+            {/*<Input
                label='Email '
                name='email'
                register={register}
                errors={errors}
                />*/}
-            </Grid>
-            <Select
-              name='country'
-              label='Country'
-              size='medium'
-              options={countryOpts}
-              // onChange={(e) => console.log(e.value)}
-              onChange={(e) => handleOnchange('country', e.value)}
+          </Grid>
+          <Select
+            name='country'
+            label='Country'
+            size='medium'
+            options={countryOpts}
+            // onChange={(e) => console.log(e.value)}
+            onChange={(e) => handleOnchange('country', e.value)}
+          />
+          <Grid md={1} lg={3} gapx={4}>
+            <Input
+              label='City/Town *'
+              name='city'
+              onChange={handleOnchange}
+              register={register}
+              errors={errors}
+              defaultValue={address.city}
             />
-            <Grid md={1} lg={3} gapx={4}>
-              <Input
-                label='City/Town *'
-                name='city'
-                onChange={handleOnchange}
-                register={register}
-                errors={errors}
-                defaultValue={address.city}
-              />
-              <Input
-                label='Zip/Postcode *'
-                name='postcode'
-                onChange={handleOnchange}
-                register={register}
-                errors={errors}
-                defaultValue={address.postcode}
-              />
-              <Input
-                label='State *'
-                name='state'
-                onChange={handleOnchange}
-                register={register}
-                errors={errors}
-                defaultValue={address.state}
-              />
-            </Grid>
-            <Checkbox
-              label='Use this address as default.'
-              classesForm='mb-4'
+            <Input
+              label='Zip/Postcode *'
+              name='postcode'
+              onChange={handleOnchange}
+              register={register}
+              errors={errors}
+              defaultValue={address.postcode}
             />
-            {/*<Textarea*/}
-            {/*  register={register} errors={errors}*/}
-            {/*  label='Order Notes (Optional)'*/}
-            {/*  name='note'*/}
-            {/*  rows={5}*/}
-            {/*  className='mb-6'*/}
-            {/*  placeholder='Notes about your order, e.g. special notes for delivery'*/}
-            {/*/>*/}
-            <Row
-              justify='end'
-              classes='mt-2'
-            >
-              <Button
-                type='button'
-                light
-                // onClick={() => setShowDialog(false)}
-                onClick={closeDrawerModal}
-                text='Cancel'
-              />
-              <Button
-                classes='w-fit '
-                onClick={() => {
-                  // localStorage.removeItem('COFFIN_ECOMMERCE');
-                  setUser({ ...user, address, numberAllOfItemsInCart: 0 });
-                  closeDrawerModal();
-                  // setUser({...user, numberAllOfItemsInCart: 0})
-                }}
-                text='Save'
-                // text='Deliver to this Address'
-              />
-            </Row>
-          </Box>
+            <Input
+              label='State *'
+              name='state'
+              onChange={handleOnchange}
+              register={register}
+              errors={errors}
+              defaultValue={address.state}
+            />
+          </Grid>
+          <Checkbox
+            label='Use this address as default.'
+            classesForm='mb-4'
+            name=''
+            onChange={() => {}}
+          />
+          <Row
+            justify='end'
+            classes='mt-2'
+          >
+            <Button
+              type='button'
+              light
+              onClick={() => setShowAddressDialog(false)}
+              text='Cancel'
+            />
+            <Button
+              classes='w-fit '
+              onClick={() => {
+                setUser({ ...user, address, numberAllOfItemsInCart: 0 });
+                closeDrawerModal();
+              }}
+              text='Save'
+            />
+          </Row>
         </Box>
       </Dialog.Content>
     </Dialog>

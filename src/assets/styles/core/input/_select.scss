@@ -7,20 +7,21 @@
 
   &__btn {
     @apply
+    theme-input
     relative
-    bg-white text-sm
+    text-sm
     w-full
     cursor-pointer
-    pl-3 pr-10 tablet:pr-8 text-left cursor-default
+    pl-3 pr-10 tablet:pr-8 text-left
     dark:bg-black dark:text-white
-    border border-gray-300 rounded-md shadow-sm
-    focus:outline-none focus:ring-1
-    focus:ring-black focus:border-black
     ;
   }
 
   &__options {
-    @apply absolute z-30 mt-1 w-full bg-white shadow-lg max-w-[14rem]
+    @apply absolute z-30 mt-1 w-full
+    bg-white
+    shadow-lg
+    max-w-[14rem]
     rounded-md py-1 text-base ring-1 ring-black
     p-[4px]
     ring-opacity-5 overflow-auto focus:outline-none text-sm

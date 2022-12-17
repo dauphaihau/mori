@@ -17,7 +17,7 @@ const AcceptCookie = () => {
           <Text classes='text-white text-[14px] tracking-normal' weight=''>
             We use cookies (and other similar technologies) to collect data to improve your shopping experience. By
             using our website, you&apos;re agreeing to the collection of data as described in our
-            <Link openNewTab underline href='#' classes='ml-1 text-white'>
+            <Link openNewTab underline href='components/layout/RootLayout/AcceptCookie#' classes='ml-1 text-white'>
               Privacy Policy.
             </Link>
           </Text>

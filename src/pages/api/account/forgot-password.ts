@@ -4,6 +4,7 @@ import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 
 import { sendResetPasswordEmail } from "lib/mailer";
+
 const bcryptSalt = process.env.BCRYPT_SALT;
 import User from 'lib/models/User';
 import Token from 'lib/models/Token';
@@ -17,7 +18,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     let user = await User.findOne({ email: req.body.email });
     if (!user) res.status(401).send({
       status: '401',
-      message: 'User does not exists! '
+      message: 'Email does not exists! '
     });
 
     let token = await Token.findOne({ userId: user._id });
@@ -41,7 +42,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     });
   } catch (error) {
     console.log('error', error)
-    return res.status(422).send('Ooops, something went wrong!');
+    return res.status(422).send({ message: 'Ooops, something went wrong!' });
   }
 });
 

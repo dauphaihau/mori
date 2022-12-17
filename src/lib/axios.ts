@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { config } from "../config";
 import { BASE_URL } from "config/const";
-// import getConfig from 'next/config';
-// const { publicRuntimeConfig } = getConfig();
+import { handleGetCookie } from "./cookie";
 
-console.log('dauphaihau debug: base-url', BASE_URL)
+const authData = handleGetCookie(config.cookies.auth)
 
 const api = axios.create({
-  // baseURL: publicRuntimeConfig.backendUrl,
-  // baseURL: process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
   baseURL: BASE_URL,
   timeout: config.request.timeoutRequest
 });
+
+api.defaults.headers.common['authorization'] = `Bearer ${authData?.token}`;
+api.defaults.headers.post['Content-Type'] = 'application/json';
 
 export default api

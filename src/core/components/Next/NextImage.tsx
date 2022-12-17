@@ -13,10 +13,9 @@ type NextImageType = {
 /**
  *
  * @description Must set width using `w-` className
- * @param useSkeleton add background with pulse animation, don't use it if image is transparent
  */
 
-const NextImageLoading = ({
+const NextImage = ({
   useSkeleton = false,
   src,
   width,
@@ -35,8 +34,8 @@ const NextImageLoading = ({
   return (
     <figure
       style={!widthIsSet ? { width: `${width}px` } : undefined}
-      className={cn(className,
-        'overflow-hidden rounded relative',
+      className={cn('overflow-hidden rounded relative',
+        className
       )}
     >
       {
@@ -49,9 +48,7 @@ const NextImageLoading = ({
         />
       }
       <Image
-        className={cn(
-          imgClassName,
-        )}
+        className={imgClassName}
         src={src}
         width={width}
         height={height}
@@ -68,4 +65,4 @@ const NextImageLoading = ({
   );
 }
 
-export default NextImageLoading
+export default NextImage

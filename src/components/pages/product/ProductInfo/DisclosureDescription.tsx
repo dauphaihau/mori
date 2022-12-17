@@ -1,7 +1,6 @@
 import { Disclosure, Transition } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/solid'
 import { cn } from 'core/helpers';
-import { Button, Text } from "core/components";
+import { Button, Text, Icons } from "core/components";
 import { useRef, useState } from "react";
 
 const description = `Our Willow Coffins have a slightly pink and golden look, they are hand-worked by traditional
@@ -32,17 +31,16 @@ back to the same height within a year. Willow has been known to grow up to 3 met
 and
 has the ability to degrade much more quickly than conventional hardwood.`
 
-export default function DisclosureDescription({ description, limit = 500 }) {
-// export default function DisclosureDescription({ limit = 500 }) {
+// export default function DisclosureDescription({ description, limit = 500 }) {
+export default function DisclosureDescription({ limit = 500 }) {
 
   const [showMore, setShowMore] = useState(false)
   const contentRef = useRef(null)
   const longDescription = description.length > limit
 
-
   return (
     <div className='w-full'>
-    {/*<div className='w-full laptop:w-[110%]'>*/}
+      {/*<div className='w-full laptop:w-[110%]'>*/}
       <div className='mx-auto w-full max-w-4xl mx-auto rounded-2xl bg-white laptop:p-2'>
         <Disclosure
           as='div'
@@ -54,10 +52,10 @@ export default function DisclosureDescription({ description, limit = 500 }) {
                 className='flex w-full justify-between rounded-lg hover:bg-gray-custom-50 laptop:px-4 py-2 font-medium cursor-pointer'
               >
                 <span className='text-base font-bold md:text-[18px] tracking-wide'>Description</span>
-                <ChevronUpIcon
+                <Icons.chevronUp
                   className={cn('h-5 w-5 text-primary-gray',
-                    open ? '' : 'transform rotate-180',
-                    'ui-open:rotate-90 ui-open:transform'
+                    'ui-open:rotate-90 ui-open:transform',
+                    { 'transform rotate-180': !open },
                   )}
                 />
               </Disclosure.Button>
@@ -120,7 +118,6 @@ export default function DisclosureDescription({ description, limit = 500 }) {
                       {description}
                     </Text>
                   </div>
-
                   {
                     longDescription &&
                     <div className="flex-center">

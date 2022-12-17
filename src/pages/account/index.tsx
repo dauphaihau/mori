@@ -1,25 +1,16 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 
 import { Link, Text, Box, Button, Grid } from 'core/components';
 import { useAuth } from 'context/authContext';
-import AccountLayout from 'components/pages/profile/AccountLayout';
 import ChangePasswordDialog from 'components/dialog/ChangePasswordDialog';
-import config from 'config/config.json';
 import { PATH } from 'config/const';
+import AccountLayout from 'components/layout/AccountLayout';
+import { getPackageProfile } from "lib/cookie";
 
-const AccountPage = () => {
-  const { handleLogout, setUser, user } = useAuth();
+export default function AccountPage() {
+  const { handleLogout } = useAuth();
+  const profile = getPackageProfile()
   const [showDialog, setShowDialog] = useState(false)
-  const router = useRouter();
-
-  // const logout = () => {
-  //   handleRemoveCookie(config.cookies.profile)
-  //   handleRemoveCookie(config.cookies.auth)
-  //   setUser({ numberAllOfItemsInCart: user.numberAllOfItemsInCart })
-  //   router.push(PATH.DEFAULT);
-  //   setIsAuthorize(false);
-  // }
 
   return (
     <>
@@ -29,20 +20,13 @@ const AccountPage = () => {
       />
       <AccountLayout>
         <Box classes='mb-12'>
-          <Text
-            h1
-            classes='text-3xl font-bold mb-6'
-          >My account</Text>
-          <Text classes='mb-4'>Welcome back, {user?.name}!</Text>
+          <Text h2 classes='mb-6'>My account</Text>
+          <Text classes='mb-4'>Welcome back, {profile?.name}!</Text>
           <Button
-            classes='pl-0'
             light
+            classes='pl-0'
             data-testid='logoutBtn'
-            onClick={() => {
-              router.push(PATH.DEFAULT);
-              handleLogout()
-            }}
-            // onClick={() => logout()}
+            onClick={() => handleLogout()}
             text='Log out'
           />
           <Button onClick={() => setShowDialog(true)}>
@@ -56,14 +40,14 @@ const AccountPage = () => {
           classes='gap-16'
         >
           <Box classes='laptop:col-span-4'>
-            <Text h1 classes='text-2xl font-bold mb-6'>My orders</Text>
+            <Text h3 classes='mb-6'>My orders</Text>
             <Text>You haven&apos;t placed any orders yet</Text>
           </Box>
           <Box classes='laptop:col-span-2'>
-            <Text h1 classes='text-2xl font-bold mb-6'>Primary address</Text>
+            <Text h3 classes='mb-6'>Primary address</Text>
             <Box>
               <Text>Hau Tran</Text>
-              <Text classes='mb-4'>United States</Text>
+              <Text classes='mb-4'>111 George Street, Sydney, Australia</Text>
               <Link href={PATH.ACCOUNT.ADDRESS}>
                 <Button>
                   View Address
@@ -76,5 +60,3 @@ const AccountPage = () => {
     </>
   );
 }
-
-export default AccountPage;

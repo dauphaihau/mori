@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { MenuIcon } from '@heroicons/react/outline';
 
 import { cn } from 'core/helpers';
-import { Link, Text, Box, List, Row } from 'core/components';
+import { Link, Text, Box, List, Row, Icons } from 'core/components';
 import { NavMobileDrawer } from 'components/drawer';
 import { useScrollPosition } from "core/hooks";
 import { PATH } from "config/const";
@@ -27,7 +26,7 @@ const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
         // classes='navbar__leftSide'
         classes='navbar__leftSide flex-1'
       >
-        <MenuIcon
+        <Icons.menu
           className={cn('menu-mobile stroke-1',
             !pageHasBanner && '!text-primary-black',
             pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
@@ -47,9 +46,8 @@ const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
             {
               headerConfig.mainNav.map(({ href, title }, index) => {
                 if (href === PATH.PRODUCT._) {
-                  return <>
+                  return <Fragment key={index}>
                     <MegaMenu
-                      key={index}
                       href={href}
                       title={title}
                       pageHasBanner={pageHasBanner}
@@ -60,7 +58,7 @@ const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
                     {/*  title={title}*/}
                     {/*  pageHasBanner={pageHasBanner}*/}
                     {/*/>*/}
-                  </>
+                  </Fragment>
                 }
                 return (
                   <Box
@@ -96,6 +94,7 @@ const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
           {/*  <div className="NavigationMenuViewport"/>*/}
           {/*</div>*/}
         </Box>
+
       </Row>
     </>
   );

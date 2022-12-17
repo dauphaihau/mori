@@ -1,7 +1,4 @@
 import mongoose from 'mongoose';
-import getConfig from 'next/config';
-
-const { publicRuntimeConfig } = getConfig();
 
 type ConnectProps = {
   isConnected?: number | boolean
@@ -22,15 +19,7 @@ async function connect() {
     }
     await mongoose.disconnect();
   }
-
-  // console.log('process-env', process.env.MONGODB_URI)
-  // console.log('testtt', process.env.NEXT_PUBLIC_VAR)
-  // const db = await mongoose.connect(publicRuntimeConfig.MONGODB_URI);
-// const db = await mongoose.connect(process.env.MONGODB_URI);
-  console.log('dauphaihau debug: process-env-next-public-mongodb-uri', process.env.NEXT_PUBLIC_MONGODB_URI)
   const db = await mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URI);
-  // console.log('process-env-next-public-mongodb-uri', process.env.NEXT_PUBLIC_MONGODB_URI)
-
   connection.isConnected = db.connections[0].readyState;
 }
 
@@ -48,7 +37,7 @@ async function disconnect() {
 function convertDocToObj(doc) {
   doc._id = doc._id.toString();
   doc.createdAt = doc.createdAt.toString();
-  // doc.updatedAt = doc.updatedAt.toString();
+  doc.updatedAt = doc.updatedAt.toString();
   return doc;
 }
 

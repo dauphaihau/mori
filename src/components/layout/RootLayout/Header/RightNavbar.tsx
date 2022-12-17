@@ -6,7 +6,7 @@ import { CartDrawer } from 'components/drawer';
 import { LoginRegisterDialog, SearchProductDialog } from 'components/dialog';
 import { cn } from 'core/helpers';
 import { useScrollPosition } from "core/hooks";
-import { Icons } from "components/common/Icons";
+import { Icons } from "core/components/Icons";
 import { ROLE, PATH } from "config/const";
 
 function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
@@ -33,16 +33,18 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
       <Row
         classes='flex-1'
         justify='end'
+        align='center'
+        gap={3}
       >
         <Button
           light
-          classes='mr-4 p-0'
+          classes='!p-0'
           onClick={() => setShowSearchBar(true)}
         >
           <Icons.search
             className={cn('stroke-1 cursor-pointer',
               pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
-              !pageHasBanner && '!text-primary-black'
+              !pageHasBanner && 'text-primary-black'
             )}
             data-testid='searchIcon'
             width={35}
@@ -51,20 +53,21 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
         </Button>
         <Button
           light
-          classes='tablet:mr-4 p-0'
+          classes='!p-0'
           onClick={() => setShowCartDrawer(true)}
         >
           <Row
             justify='end'
             classes='flex-1 relative'
+            align='center'
           >
             <Icons.bag
-              className={cn('stroke-1 cursor-pointer',
-                pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
-                !pageHasBanner && '!text-primary-black'
-              )}
               width={35}
               height={25}
+              className={cn('stroke-1 cursor-pointer',
+                pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
+                !pageHasBanner && 'text-primary-black'
+              )}
             />
             {
               user?.numberAllOfItemsInCart > 0 && (
@@ -89,7 +92,7 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
                 <Icons.userSolid
                   className={cn('stroke-1',
                     pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
-                    !pageHasBanner && '!text-primary-black'
+                    !pageHasBanner && 'text-primary-black'
                   )}
                   width={35}
                   height={25}
@@ -100,7 +103,7 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
                 width={35}
                 className={cn('stroke-1',
                   pageHasBanner && scrollPositionY > 15 ? 'text-primary-black' : 'text-white',
-                  !pageHasBanner && '!text-primary-black'
+                  !pageHasBanner && 'text-primary-black'
                 )}
                 height={25}
                 data-testid='userIcon-login'

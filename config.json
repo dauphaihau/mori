@@ -9,7 +9,7 @@
       "register": "/api/account/register",
       "forgotPassword": "/api/account/forgot-password",
       "resetPassword": "/api/account/reset-password",
-      "changePassword": "/api/account/change-pass",
+      "changePassword": "/api/account/change-password",
       "address": "/api/account/address",
       "me": "/api/account/me",
       "logout": "/user/backoffice/logout",
@@ -24,6 +24,9 @@
       "sale": "/api/product/sale",
       "color": "/api/product/color",
       "filters": "/api/product/filters"
+    },
+    "checkout": {
+      "_": "/api/checkout_sessions"
     }
   },
   "cookies": {
@@ -39,5 +42,6 @@
     "timeoutView": 35000,
     "timeoutRequest": 30000
   },
-  "hostStaticSource": "https://res.cloudinary.com/duiehrbms/image/upload/v1668264431/mori-ecommerce"
+  "hostStaticSource": "https://res.cloudinary.com/duiehrbms/image/upload/v1668264431/mori-ecommerce",
+  "hostStaticSource2": "https://res.cloudinary.com/duiehrbms/image/upload"
 }

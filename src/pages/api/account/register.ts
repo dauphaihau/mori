@@ -10,9 +10,9 @@ import { sendResultRegister } from 'lib/mailer';
 const handler = nc();
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, name, password } = req.body
-
   try {
+    const { email, name, password } = req.body
+
     await db.connect();
     if (await User.findOne({ email })) {
       res.status(409).send({ message: `Email '${email}' already exists` });
@@ -48,7 +48,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       });
   } catch (error) {
     console.log('error', error)
-    return res.status(422).send('Ooops, something went wrong!');
+    return res.status(422).send({ message: 'Ooops, something went wrong!' });
   }
 });
 

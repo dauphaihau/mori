@@ -10,6 +10,7 @@ import { accountService } from 'services/account';
 import { PATH } from "config/const";
 import { IUserAuthSchema } from "lib/validation/auth";
 import { cn } from "core/helpers";
+import ErrorServer from "components/common/ErrorServer";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().min(6, 'Name must be at least 6 characters'),
@@ -25,10 +26,12 @@ type FormData = {
   name: string
 } & IUserAuthSchema
 
-interface UserRegisterFormProps extends HTMLAttributes<HTMLDivElement> {}
+interface UserRegisterFormProps extends HTMLAttributes<HTMLDivElement> {
+}
 
 export default function UserRegisterForm({ className }: UserRegisterFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const [errorServer, setErrorServer] = useState('')
   const emailInputRef = useAutoFocus();
   const router = useRouter();
 
@@ -38,18 +41,21 @@ export default function UserRegisterForm({ className }: UserRegisterFormProps) {
 
   async function onSubmit(values: FormData) {
     setIsLoading(true)
-    const { isLoading, data, message } = await accountService.register(values)
+    const { isLoading, message, status } = await accountService.register(values)
     setIsLoading(isLoading)
 
-    if (data) {
-      router.push(PATH.ACCOUNT.LOGIN)
-    } else {
-      if (errors) {
+    switch (status) {
+      case 200:
+        router.push(PATH.ACCOUNT.LOGIN)
+        break
+      case 409:
         setError('email', {
           type: 'server',
           message
         });
-      }
+        break
+      default:
+        setErrorServer(message)
     }
   }
 
@@ -61,46 +67,36 @@ export default function UserRegisterForm({ className }: UserRegisterFormProps) {
     >
       {/*<Text>{contentForm.message}</Text>*/}
       {/*<div className={`-mt-4`}>*/}
-      <Input
-        name='name'
-        label='Name'
-        register={register}
-        helperText={errors?.name?.message}
-      />
-      <Input
-        name='email'
-        type='email'
-        label='Email'
-        register={register}
-        helperText={errors?.email?.message}
-        ref={emailInputRef}
-      />
-      <Input.Password
-        name='password'
-        label='Password'
-        register={register}
-        helperText={errors?.password?.message}
-      />
-      <Row
-        justify='between'
-        align='center'
-        classes='!mt-3'
-      >
-        <Checkbox
-          name='rememberMe'
-          label='Remember me'
-        />
-        <Link href={PATH.ACCOUNT.FORGOT_PASSWORD}>
-          <Text
-            as='button'
-            classes='text-sm text-black hover:underline pt-[2px]'
-          >Forgot Password?</Text>
-        </Link>
-      </Row>
 
+      <ErrorServer
+        message={errorServer}
+        onClick={() => setErrorServer('')}
+      />
+      <Box classes='space-y-5 mb-8'>
+        <Input
+          name='name'
+          label='Name'
+          register={register}
+          helperText={errors?.name?.message}
+        />
+        <Input
+          name='email'
+          type='email'
+          label='Email'
+          register={register}
+          helperText={errors?.email?.message}
+          ref={emailInputRef}
+        />
+        <Input.Password
+          name='password'
+          label='Password'
+          register={register}
+          helperText={errors?.password?.message}
+        />
+      </Box>
       <Button
         type='submit'
-        width='full'
+        classes='w-[calc(100%-3rem)] laptop:w-[calc(100%-2rem)] font-bold'
         size='lg'
         isLoading={isLoading}
         text='Sign up'

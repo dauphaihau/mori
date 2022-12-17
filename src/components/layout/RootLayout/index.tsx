@@ -4,21 +4,21 @@ import { useRouter } from 'next/router';
 import LoadingBar from "react-top-loading-bar";
 import dynamic from 'next/dynamic';
 
-import { useUIController } from '../../context/UIControllerContext';
+import { useUIController } from '../../../context/UIControllerContext';
 import Header from './Header';
 import Footer from './Footer';
 
 import ChatBox from './ChatBox';
 // const ChatBox = dynamic(() => import('./ChatBox'), { ssr: false });
 
-import BannerSlogan from '../pages/home/BannerSlogan';
+import BannerSlogan from '../../pages/home/BannerSlogan';
 import { Box } from 'core/components';
 import { AddressDialog, SubscribeDialog } from 'components/dialog';
 import { cn } from 'core/helpers';
 import AcceptCookie from "./AcceptCookie";
 import FreeShip from "./FreeShip";
 
-const Layout = ({ children }: {children: ReactNode}) => {
+export default function RootLayout({ children }: {children: ReactNode}) {
   const { progress, setProgress } = useUIController();
   const [isMobileScreen, setIsMobileScreen] = useState(false)
   const [accountLayout, setAccountLayout] = useState(false)
@@ -61,7 +61,7 @@ const Layout = ({ children }: {children: ReactNode}) => {
       <Box>
         <Box
           main
-          classes={accountLayout ? 'flex items-center h-screen' : ''}
+          // classes={accountLayout ? 'flex items-center h-screen' : ''}
         >{children}</Box>
         <Footer/>
       </Box>
@@ -69,5 +69,3 @@ const Layout = ({ children }: {children: ReactNode}) => {
     </>
   );
 }
-
-export default Layout

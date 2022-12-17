@@ -1,45 +1,50 @@
-import { useForm } from 'react-hook-form';
-import * as Yup from 'yup';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { useAuth } from 'context/authContext';
-import { Dialog, Button, Text, Input, Box, Row } from 'core/components';
+import { Dialog, Button, Text, Input, Box } from 'core/components';
 import { accountService } from 'services/account';
-import { XIcon } from "@heroicons/react/solid";
+import { IUserAuthSchema } from "lib/validation/auth";
+
+type FormData = {
+  confirmPassword: string
+  newPassword: string
+} & Pick<IUserAuthSchema, 'password'>
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
   .min(6, 'Password must be at least 6 characters')
   .required('Password is required'),
+  newPassword: Yup.string().when(['password'], (password, schema) => {
+    return schema.notOneOf([password], "password must be differ from old password")
+  }),
   confirmPassword: Yup.string()
   .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
   .required('Confirm Password is required'),
 });
+
 const formOptions = { resolver: yupResolver(validationSchema) };
 
-const ChangePasswordDialog = ({ showDialog, setShowDialog }) => {
+export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
   const [isBtnLoading, setIsBtnLoading] = useState(false)
-  const { user } = useAuth();
-  const { register, handleSubmit, reset, formState, setError } = useForm(formOptions);
-  const { errors } = formState;
+  const { register, handleSubmit, reset, formState: { errors }, setError } = useForm<FormData>(formOptions);
 
-  const onSubmit = async (values) => {
+  async function onSubmit(values: FormData) {
     delete values.confirmPassword
-    const formatData = { ...values, email: user.email }
 
     setIsBtnLoading(true)
-    const { isLoading, isSuccess, message } = await accountService.changePassword(formatData)
+    const { isLoading, isSuccess, message } = await accountService.changePassword(values)
     setIsBtnLoading(isLoading)
 
     if (isSuccess) {
       toast.success('Update success!')
-      reset();
+      reset({ password: '', confirmPassword: '', newPassword: '' });
       setShowDialog(false)
     } else {
       if (errors) {
-        setError('email', {
+        setError('password', {
           type: 'server',
           message
         });
@@ -51,58 +56,44 @@ const ChangePasswordDialog = ({ showDialog, setShowDialog }) => {
     <Dialog
       isOpen={showDialog}
       closeDialog={setShowDialog}
-      classes='w-[390px]'
+      classes='w-[390px] absolute top-[35%] left-1/2 -translate-x-2/4 -translate-y-2/4'
       noPadding
     >
-      <Dialog.Content>
-        <Row
-          justify='end'
-          classes='p-2 mb-[-44px]'
-        >
-          <XIcon
-            className='btn-icon'
-            onClick={() => setShowDialog(false)}
-          />
-        </Row>
-        <Box
-          classes='px-6 space-y-6 pt-4 lg:px-8 subscribe-letter-bg'
-        >
-          <Text
-            h1
-            weight='medium'
-            color='gray-900'
-          >
-            Change your password
-          </Text>
+      <Dialog.Content
+        closeDialog={setShowDialog}
+        classes='px-6 pb-4 pt-4 lg:p-8'
+      >
+        <Box classes=''>
+          <Text h3>Change your password</Text>
           <Box
             form
             onSubmit={handleSubmit(onSubmit)}
-            classes='xl:pb-8 space-y-6 '
+            classes='space-y-6 mt-4'
           >
             <Input
               name='password'
               type='password'
               label='Old Password'
               register={register}
-              errors={errors}
+              helperText={errors?.password?.message}
             />
             <Input
               name='newPassword'
               type='password'
               label='New Password'
               register={register}
-              errors={errors}
+              helperText={errors?.newPassword?.message}
             />
             <Input
               name='confirmPassword'
               type='password'
               label='Confirm New Password'
               register={register}
-              errors={errors}
+              helperText={errors?.confirmPassword?.message}
             />
             <Button
               size='lg'
-              width='full'
+              classes='w-[calc(100%-2rem)]'
               type='submit'
               isLoading={isBtnLoading}
             >Change</Button>
@@ -112,5 +103,3 @@ const ChangePasswordDialog = ({ showDialog, setShowDialog }) => {
     </Dialog>
   );
 }
-
-export default ChangePasswordDialog;

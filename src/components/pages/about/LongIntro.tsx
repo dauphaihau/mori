@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Col, Text } from "core/components";
-import { cnn } from "core/helpers";
+import { cn } from "core/helpers";
 import { config } from "config";
 
-const LongIntro = () => {
+export default function LongIntro() {
 
   const Content = ({ data }) => {
     return (
@@ -17,12 +17,12 @@ const LongIntro = () => {
         >
           {data.title}
         </Text>
-        <p className='text-primary-gray desktop:pr-32 mb-4'>
+        <Text classes='text-primary-gray desktop:pr-32 mb-4'>
           {data.content}
-        </p>
-        <p className='text-primary-gray desktop:pr-32'>
+        </Text>
+        <Text classes='text-primary-gray desktop:pr-32'>
           {data.content2}
-        </p>
+        </Text>
       </Box>
     )
   }
@@ -34,20 +34,20 @@ const LongIntro = () => {
           return (
             <Box
               key={idx}
-              classes={cnn('flex flex-col laptop:flex-row',
+              classes={cn('flex flex-col laptop:flex-row',
                 'laptop:gap-12 justify-around flex-col-reverse',
                 idx % 2 == 0 && 'laptop:flex-row-reverse'
               )}
             >
               <Content data={o}/>
               <Box
-                classes={cnn('image-frame mb-20 flex-1',
+                classes={cn('image-frame mb-20 flex-1',
                   idx % 2 === 0 ?
                     `before:bg-[url('/images/about/image-frame-left.png')]`
                     : `before:bg-[url('/images/about/image-frame-right.png')]`
                 )}
               >
-                <img src={config.hostStaticSource + o.image}/>
+                <img alt='image-frame' src={config.hostStaticSource + o.image}/>
 
                 {/*<NextImage*/}
                 {/*  src='/images/history.jpg'*/}
@@ -64,8 +64,6 @@ const LongIntro = () => {
     </Col>
   );
 }
-
-export default LongIntro;
 
 const data = [
   {

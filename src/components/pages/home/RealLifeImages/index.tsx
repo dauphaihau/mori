@@ -1,8 +1,8 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Box, NextImage, Text } from 'core/components';
-import { cn } from 'core/helpers';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import useEmblaCarousel from 'embla-carousel-react';
+
+import { Box, NextImage, Text, Icons, Row } from 'core/components';
+import { cn } from 'core/helpers';
 import { useFadeIn, useMediaQuery } from 'core/hooks';
 import FadeInSection from "components/common/FadeInSection";
 import { config } from "config";
@@ -50,7 +50,7 @@ const RealLifeImages: FC = () => {
         // disabled={!prevBtnEnabled}
         className={cn(' text-primary-black rounded-full p-4 flex-center absolute z-10 top-[35%] left-0 animate hover:-translate-x-2')}
       >
-        <ChevronLeftIcon className='w-10 h-10 p-2 text-base rounded-full bg-white shadow text-black'/>
+        <Icons.chevronLeft className='w-10 h-10 p-2 text-base rounded-full bg-white shadow text-black cursor-pointer'/>
       </button>
     )
   }
@@ -64,7 +64,7 @@ const RealLifeImages: FC = () => {
       // disabled={!nextBtnEnabled}
       className=' text-primary-black rounded-full p-4 flex-center absolute z-10 top-[35%] right-0 animate hover:translate-x-2'
     >
-      <ChevronRightIcon className='w-10 h-10 p-2 text-base rounded-full bg-white shadow text-black'/>
+      <Icons.chevronRight className='w-10 h-10 p-2 text-base rounded-full bg-white shadow text-black cursor-pointer'/>
     </button>
   }
 
@@ -75,15 +75,15 @@ const RealLifeImages: FC = () => {
         ref={viewportRef}
         classes='w-full relative overflow-hidden'
       >
-        <Box classes='select-none flex gap-4'>
+        <Row classes='select-none' gap={4}>
           {
             data.map((o, idx) => {
-              return <div
-                className='w-auto'
+              return <Box
+                classes='w-auto'
                 key={idx}
                 // onClick={handleClick}
               >
-                <div className='relative'>
+                <Box classes='relative'>
                   <NextImage
                     src={config.hostStaticSource + o.srcImg}
                     // height={284}
@@ -95,17 +95,16 @@ const RealLifeImages: FC = () => {
                       w-[280px] h-auto
                       tablet:h-[300px] tablet:w-[400px]
                       laptop:h-[400px] laptop:w-[480px]
-
                       '
                     // objectFit={'contain'}
                   />
-                  <p className='absolute  bottom-1 right-2 text-white'>{o.author}</p>
-                </div>
-                <p className='text-sm tablet:text-xl mt-2'>{o.productName}</p>
-              </div>
+                  <Text classes='absolute bottom-1 right-2 text-white'>{o.author}</Text>
+                </Box>
+                <Text classes='text-sm tablet:text-xl mt-2'>{o.productName}</Text>
+              </Box>
             })
           }
-        </Box>
+        </Row>
         <PrevBtn/>
         <NextBtn/>
       </Box>
@@ -128,37 +127,37 @@ const data = [
   },
   {
     srcImg: '/real-life/willow-pod-coffin_khtmpb.jpg',
-    author: '@dauphaihau',
+    author: '@dauphaihaudau',
     productName: 'Willow Pod Coffin'
   },
   // {
   //   srcImg: '/images/real-life/willow-pod-coffin.jpeg',
-  //   author: '@dauphaihau',
+  //   author: '@dauphaihauuu',
   //   productName: 'Wicker Coffin'
   // },
   {
     srcImg: '/real-life/white-coffin_oamrxl.jpg',
-    author: '@dauphaihau',
+    author: '@dauphaihan',
     productName: 'Child’s Curved Painted'
   },
   {
     srcImg: '/real-life/willow-rounded-coffin_l5simf.jpg',
-    author: '@dauphaihau',
+    author: '@dauphaihau0',
     productName: 'Willow Rounded Coffin'
   },
   {
     srcImg: '/real-life/buff-willow-coffin_ps2mjo.jpg',
-    author: '@dauphaihau',
+    author: '@dauphaihauu',
     productName: 'Buff – Rounded'
   },
   {
     srcImg: '/real-life/gold-willow-coffin-2_oq8hji.jpg',
-    author: '@dauphaihau',
+    author: '@dauphaihau1',
     productName: 'Gold Willow Coffin'
   },
   {
     srcImg: '/real-life/seagrass-coffin_xqrerq.jpg',
-    author: '@dauphaihau',
+    author: '@dauphaihau11',
     productName: 'Seagrass Coffin'
   },
 ]

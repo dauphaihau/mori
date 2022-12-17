@@ -7,11 +7,14 @@ import Token from 'lib/models/Token';
 import User from 'lib/models/User';
 import { encryptPassword } from "lib/crypto";
 import config from "config/config.json";
+import db from "../../../lib/db";
 
 const handler = nc();
 handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
-  const { userId, token, password } = req.body
   try {
+    const { userId, token, password } = req.body
+
+    await db.connect();
     let tokenUserData = await Token.findOne({ userId });
     if (!tokenUserData) {
       res.send({
@@ -42,6 +45,8 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
       // {$set: {password: hash}},
       { new: true }
     );
+
+    await db.disconnect();
     return res.send({
       status: '200',
       message: 'Password has been reset!'
@@ -53,4 +58,3 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
 });
 
 export default handler
-

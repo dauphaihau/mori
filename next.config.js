@@ -45,14 +45,7 @@ const nextConfig = {
     ignoreBuildErrors: true
   },
   images: {
-    domains: ['i.pravatar.cc', 'coffins-direct.co.uk', 'bellacouche.com',
-      'res.cloudinary.com',
-      'milanomonuments.com',
-      'www.musgrovewillowscoffins.co.uk',
-      'ffma.co.uk',
-      'perfectmemorials.com',
-      'iccm-mosaics.org'
-    ]
+    domains: ['i.pravatar.cc', 'res.cloudinary.com']
   }
 }
 

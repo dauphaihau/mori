@@ -1,4 +1,4 @@
-import { NextImage, Text, Link, Box, Row, Col, Badge } from 'core/components';
+import { NextImage, Text, Link, Box, Row, Col, Badge, Skeleton } from 'core/components';
 import { cn, formatDollarUS, sliceText, slugify } from 'core/helpers';
 import { useHover } from 'core/hooks';
 import { PATH } from "config/const";
@@ -8,7 +8,7 @@ import React from "react";
 const hoverEffect = typeof window !== `undefined` ? require('hover-effect').default : null;
 
 const ProductFlashSaleCard = ({ data }) => {
-  if (!data) return null
+  if (!data) return <Skeleton height={353} width={269} classes='bg-product'/>
   // const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   const { name, price, salePrice, description, link, images } = data;
 

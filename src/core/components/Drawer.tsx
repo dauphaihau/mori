@@ -40,14 +40,16 @@ const Drawer = ({
         // onClick={onClose}
         onClick={() => onClose()}
         className={cn('backdrop',
-          !show && 'hidden',
+          { 'hidden': !show },
         )}
       />
       <aside
         className={cn('drawer',
-          show && 'open',
+          {
+            'open': show,
+            'bg-primary-black': blackTheme
+          },
           classes,
-          blackTheme && 'bg-primary-black',
         )}
       >
         <div className='drawer__container'>
@@ -76,7 +78,7 @@ const Head = ({ title, children, classes, onClose }: Partial<HeadProps>) => {
           onClick={() => onClose()}
         />
       </div>
-      <div className={cn('border-b', blackTheme ? 'border-gray-200' : '')}></div>
+      <div className={cn('border-b', { 'border-gray-200': blackTheme })}></div>
     </>
   );
 }

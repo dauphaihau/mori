@@ -1,7 +1,9 @@
 import { Dialog } from '@headlessui/react'
 import { Transition } from '@headlessui/react'
+import { cn } from 'core/helpers';
 import { Fragment, ReactNode } from 'react'
 import { Box, Row } from './Layout';
+import { Icons } from "./Icons";
 
 interface DialogProps {
   isOpen: boolean,
@@ -20,7 +22,7 @@ export default function DialogCustom({
   children, style,
   isOpen = false,
   noPadding, width, height,
-  nonDarkMode,
+  // nonDarkMode,
   classes,
   closeDialog = () => {},
   preventClose,
@@ -36,7 +38,8 @@ export default function DialogCustom({
     >
       <Dialog
         as='div'
-        className='relative z-30'
+        className='relative z-30 flex justify-center items-center top-0 left-0'
+        // className='relative z-30'
         onClose={preventClose ? () => {
         } : closeDialog}
         {...others}
@@ -69,11 +72,11 @@ export default function DialogCustom({
             >
               <Dialog.Panel
                 style={style}
-                className={`dialog-content gradient-to-tl overflow-visible
-                  ${noPadding ? 'p-0' : 'p-8'}
-                  ${nonDarkMode && 'dialog-content--nonDarkMode'}
-                  ${classes}
-                  `}
+                className={cn('dialog-content gradient-to-tl overflow-visible',
+                  noPadding ? 'p-0' : 'p-8',
+                  // nonDarkMode && 'dialog-content--nonDarkMode',
+                  classes,
+                )}
               >
                 {children}
               </Dialog.Panel>
@@ -85,18 +88,27 @@ export default function DialogCustom({
   )
 }
 
-const Title = ({ title }) => {
+const Title = ({ title }: {title: string}) => {
   return (
-    <Dialog.Title
-      as='h3'
-      className='dialog-title'
-    >
+    <Dialog.Title as='h3' className='dialog-title'>
       {title}
     </Dialog.Title>
   )
 }
 
-const Content = ({ children }) => <>{children}</>;
+const Content = ({ children, classes, closeDialog }: {
+  children: ReactNode,
+  classes?: string,
+  closeDialog: any
+}) => (
+  <div className={cn('relative', classes)}>
+    <Icons.x
+      className='btn-icon--noBg absolute top-3 right-2.5'
+      onClick={() => closeDialog()}
+    />
+    {children}
+  </div>
+)
 
 DialogCustom.Title = Title;
 DialogCustom.Content = Content;

@@ -1,4 +1,4 @@
-import {forwardRef, InputHTMLAttributes, useEffect, useState} from "react";
+import { forwardRef, InputHTMLAttributes, useEffect, useState } from "react";
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string,
@@ -10,9 +10,7 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: string | number,
 }
 
-const Checkbox = forwardRef(
-  (props: CheckboxProps, ref) => {
-
+const Checkbox = forwardRef((props: CheckboxProps, ref) => {
     const {
       value = '',
       checked,

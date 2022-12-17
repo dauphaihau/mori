@@ -7,14 +7,14 @@ import { EyeIcon, EyeOffIcon, XCircleIcon } from '@heroicons/react/outline';
 import { cn, isEmpty } from 'core/helpers';
 import { InputType } from "./Input";
 
-const InputPassword = forwardRef<HTMLInputElement, InputType>((props: InputType) => {
+const InputPassword = forwardRef<HTMLInputElement, InputType>((props: InputType, ref) => {
 
   const {
     label, name = '',
     register = () => {},
     onChange = (name, value) => {},
     helperText, clearable,
-    className, classes, placeholder,
+    className, classes,
     classesSpace, contentLeft,
 
     // contentRight,
@@ -37,10 +37,11 @@ const InputPassword = forwardRef<HTMLInputElement, InputType>((props: InputType)
 
   return (
     <div className='form-input'>
-      {label && <label htmlFor={name}>{label}</label>}
+      {label && <label htmlFor={name} className='font-bold'>{label}</label>}
       <div className={cn('input group', classesSpace)}>
         <div className='input__contentLeft'>{contentLeft}</div>
         <input
+          ref={ref}
           type={showPassword ? '' : 'password'}
           // onChange={handleOnChange}
           className={cn('peer p-4', className, classes,

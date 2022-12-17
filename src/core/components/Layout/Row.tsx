@@ -1,5 +1,6 @@
 import React, { ComponentPropsWithoutRef, forwardRef } from "react";
 import { cn } from "core/helpers";
+import { ClassValue } from "clsx";
 
 enum GAP {
   FIRST = 1,
@@ -69,7 +70,7 @@ type RowProps = {
   wrap: 'wrap' | 'reverse' | 'around'
   hideIf: boolean,
   reverse: boolean
-  classes: string
+  classes: string | ClassValue[],
 } & ComponentPropsWithoutRef<'div'>
 
 const Row = forwardRef(({
@@ -88,7 +89,8 @@ const Row = forwardRef(({
         ALIGN_CONTENT_MAPS[content],
         WRAP_MAPS[wrap],
         reverse && 'flex-row-reverse',
-        classes,
+        cn(classes),
+        // classes,
       )}
       {...others}
     >

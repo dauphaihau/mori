@@ -24,15 +24,15 @@ function sendEmail(message) {
 
 export const sendResetPasswordEmail = ({toUser, token}) => {
   const message = {
-    from: 'customercare@drop.com',
+    from: 'customercare@mori.com',
     // from: process.env.EMAIL_USERNAME,
     to: toUser.email,
     subject: 'Customer profile password reset',
     html: `
-      <h1>Drop</h1>
+      <h1>Mori</h1>
 <!--       <hr style="border-top:1px solid #eaeaea">-->
       <p>Hi ${toUser.name},</p>
-      <p>We've received a request to reset the password for the Drop account asscociated with ${toUser.email}.
+      <p>We've received a request to reset the password for the Mori account asscociated with ${toUser.email}.
        No changes have been made to your account yet.
        </p>
       <p>You can reset your password by click the link below: 
@@ -59,14 +59,14 @@ export const sendResetPasswordEmail = ({toUser, token}) => {
       </button>
       <p>If you didn't request a password reset, you can ignore this email.</p>
       <p>You can find answers to most questions and get in touch with us at 
-      <span style="color: #373530; text-underline: #dfdfde"> support.drop.com </span>.
+      <span style="color: #373530; text-underline: #dfdfde"> support.mori.com </span>.
        We're here
        to help you at any step along the way.
        </p>
-      <p>--- Drop Team</p>
+      <p>--- Mori Team</p>
 <!--       <hr style="border-top:1px solid #eaeaea">-->
 <!--       <p style="font-size: 13px; color: #abb4c1;-->
-<!--       ">Drop, 510 Townsend Street, San Francisco, CA94103</p>-->
+<!--       ">Mori, 510 Townsend Street, San Francisco, CA94103</p>-->
     `
   }
   return sendEmail(message);
@@ -78,12 +78,12 @@ export const sendResultRegister = ({email}) => {
     to: email,
     subject: 'Customer profile confirmation',
     html: `
-      <h1>Drop</h1>
-      <h3>Welcome to Drop store,</h3>
+      <h1>Mori</h1>
+      <h3>Welcome to Mori store,</h3>
       <p>You've activated your customer account. Next time you shop with us, log in for faster checkout. </p>
       <p>If you have any questions, reply to this email or contact us at</p>
-      <p>customercare@drop.com</p>
-      <p>--- Drop Team</p>
+      <p>customercare@mori.com</p>
+      <p>--- Mori Team</p>
     `
   }
   return sendEmail(message);

@@ -4,8 +4,8 @@ import { accountService } from 'services/account';
 import { handleGetCookie, handleRemoveCookie, handleSetCookie } from 'lib/cookie';
 import { isEmpty } from 'core/helpers';
 import config from 'config/config.json';
-import { IUser } from 'types/user';
-import { ROLE } from "config/const";
+import { IToken, IUser } from 'types/user';
+import { PATH, ROLE } from "config/const";
 import { useRouter } from "next/router";
 import { signToken, verifyToken } from "lib/jwt";
 import useSafeContext from "../core/hooks/useSafeContext";
@@ -21,8 +21,7 @@ const initialState = {
   user: {
     role: ROLE.BASIC
   },
-  setUser: () => {
-  },
+  setUser: () => {},
 };
 
 export const [useAuth, Provider] = useSafeContext<AuthProps>(initialState)
@@ -33,13 +32,7 @@ export function AuthProvider({ children }: PropsWithChildren<{}>) {
   const router = useRouter();
 
   useEffect(() => {
-    const authData = handleGetCookie(config.cookies.auth)
-
-    // console.log('dauphaihau debug: run auth Context')
-
-    // console.log('dauphaihau debug: auth', auth)
-    // console.log('dauphaihau debug: profile', profile)
-
+    const authData = handleGetCookie<IToken>(config.cookies.auth)
     if (authData && authData.token && authData.refreshToken) {
       // console.log('dauphaihau debug: has auth data')
 
@@ -54,7 +47,7 @@ export function AuthProvider({ children }: PropsWithChildren<{}>) {
       }
       verifyAuth();
     } else {
-      handleLogout()
+      // handleLogout()
     }
 
     // if (!isEmpty(auth) && !isEmpty(profile)) {
@@ -76,8 +69,9 @@ export function AuthProvider({ children }: PropsWithChildren<{}>) {
 
   const handleLogout = () => {
     handleRemoveCookie(config.cookies.auth)
+    handleRemoveCookie(config.cookies.profile)
     // setUser({ numberAllOfItemsInCart: user.numberAllOfItemsInCart })
-    // router.push(PATH.DEFAULT);
+    router.push(PATH.HOME);
     setRole(ROLE.BASIC);
     setUser({ ...user, role: ROLE.BASIC });
     // setUser({...user, role: ROLE.BASIC});

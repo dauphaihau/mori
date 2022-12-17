@@ -18,12 +18,12 @@
 @import "src/assets/styles/components/carousel";
 @import "src/assets/styles/components/about";
 @import "src/assets/styles/components/navigation-menu-radix";
-@tailwind components;
+@import "src/assets/styles/components/feedback";
 
+@tailwind components;
 @tailwind utilities;
 
 @layer base {
-
   @font-face {
     font-family: "Eina";
     src: url("/fonts/Eina.otf");
@@ -71,20 +71,13 @@
     @apply text-sm md:text-base;
   }
 
-  p {
-    display: block;
+  p, h1, h2, h3, h4, h5, label, span, a {
+    @apply text-primary-black;
+    color: rgba(0, 0, 0, .8);
+    font-family: Eina, serif;
   }
 
   /* #endregion  /**======== Default Typography =========== */
-  p, h1, h2, h3, h4, h5, label, span, a {
-    @apply text-primary-black;
-    //@apply text-black-primary;
-    //color: rgba(0, 0, 0, .8);
-    //color: #1c1b1b;
-    font-family: Eina;
-    //font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
-  }
-
   .layout {
     max-width: 120rem;
     @apply mx-auto w-11/12;
@@ -95,13 +88,17 @@
     @apply bg-gray-custom-50 hover:bg-light-200 rounded-lg;
   }
 
-  .cursor-newTab {
-    cursor: url(404.png) 10 10, pointer;
-    //cursor: url('/images/new-tab.png') 10 10, pointer;
+  .theme-input {
+    //@apply bg-gray-custom-52a focus:bg-white
+    @apply bg-[#f7f7f7] focus:bg-white
+    border border-solid border-gray-300 hover:border-black
+    rounded-lg placeholder-gray-500
+    transition duration-200 ease-in-out
+    focus:ring-black focus:border focus:border-black focus:outline-none
   }
 
-  .cursor-question {
-    cursor: url('/images/question-mark.png') 10 10, pointer;
+  .cursor-newTab {
+    cursor: url('/images/new-tab.png') 10 10, pointer;
   }
 }
 
@@ -111,7 +108,7 @@
   }
 
   .animate {
-    @apply transition-all duration-500 ease-in-out;
+    @apply transition transform duration-500 ease-in-out;
   }
 
   .backdrop {
@@ -123,7 +120,5 @@
   }
 }
 
-.myElement.is-pinned {
-  color: red;
-  display: none;
-}
+
+

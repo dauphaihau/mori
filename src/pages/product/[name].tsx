@@ -15,13 +15,6 @@ export default function ProductPage() {
     name
   })
 
-  // console.log('dauphaihau debug: product', product)
-  // console.log('dauphaihau debug: related-products', relatedProducts)
-
-  // if (!data) {
-  //   return null
-  // }
-
   return (
     <Box
       classes={cn('mx-auto max-w-[120rem] w-full laptop:w-[95%] px-2 tablet:px-6 laptop:px-0 min-h-screen',

@@ -1,4 +1,4 @@
-import { cnn } from "../helpers";
+import { cn } from "core/helpers";
 
 interface SkeletonProps {
   classes: string
@@ -14,27 +14,27 @@ export const Skeleton = ({
 }: Partial<SkeletonProps>) => {
 
   const Main = () => (
-    <div className="animate-pulse">
+    // <div className="animate-pulse">
       <div
         style={{ height, width }}
-        className={cnn('bg-[#dbdbdb]',
+        className={cn('bg-[#dbdbdb]',
           circle ? 'rounded-full' : '',
           classes
         )}
       ></div>
-    </div>
+    // </div>
   )
 
   if (quantity > 1) {
     return (
-      <div className={cnn("animate-pulse", classesWrapper)}>
+      <div className={cn("animate-pulse", classesWrapper)}>
         {Array(quantity).fill('').map((_, index) => <Main key={index}/>)}
       </div>
     )
   }
 
   return (
-    <div className={cnn("animate-pulse", classesWrapper)}>
+    <div className={cn("animate-pulse", classesWrapper)}>
       <Main/>
     </div>
   )

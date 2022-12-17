@@ -22,6 +22,11 @@ export interface IUser extends Document {
   priceTotal: number
 }
 
+export interface IToken {
+  token: string
+  refreshToken: string
+}
+
 // export interface User {
 //   _id: string,
 //   email: string,

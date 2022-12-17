@@ -1,7 +1,8 @@
+import { ReactNode } from "react";
+
 import { Box } from "core/components";
 import { cn } from "core/helpers";
 import { useFadeIn } from "core/hooks";
-import { ReactNode } from "react";
 
 export default function FadeInSection(
   { classes, children }: {classes?: string, children: ReactNode}

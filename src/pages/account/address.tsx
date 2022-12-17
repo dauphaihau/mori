@@ -4,9 +4,9 @@ import { ChevronLeftIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline
 
 import { useAuth } from 'context/authContext';
 import { Text, Grid, Button, Box, Link } from 'core/components';
-import ProfileLayout from 'components/pages/profile/AccountLayout';
 import { PATH } from "config/const";
 import { AddressAccountPageDialog } from 'components/dialog';
+import AccountLayout from 'components/layout/AccountLayout';
 
 const AddressPage = () => {
   const { user } = useAuth();
@@ -32,7 +32,7 @@ const AddressPage = () => {
         showAddressDialog={showAddressDialog}
         setShowAddressDialog={setShowAddressDialog}
       />
-      <ProfileLayout>
+      <AccountLayout>
         <Box classes='mb-12'>
           <Text
             h1
@@ -69,7 +69,7 @@ const AddressPage = () => {
               Hau Tran
             </Text>
             <Text>
-              United States
+              111 George Street, Sydney, Australia
             </Text>
             <PencilIcon className='btn-icon'/>
             <TrashIcon className='btn-icon'/>
@@ -84,7 +84,7 @@ const AddressPage = () => {
               Hau Tran
             </Text>
             <Text>
-              United States
+              111 George Street, Sydney, Australia
             </Text>
             <PencilIcon className='btn-icon'/>
             <TrashIcon className='btn-icon'/>
@@ -99,14 +99,14 @@ const AddressPage = () => {
               Hau Tran
             </Text>
             <Text>
-              United States
+              111 George Street, Sydney, Australia
             </Text>
             <PencilIcon className='btn-icon'/>
             <TrashIcon className='btn-icon'/>
           </Box>
 
         </Grid>
-      </ProfileLayout>
+      </AccountLayout>
       {/*</Box>*/}
       {/*</Box>*/}
     </>

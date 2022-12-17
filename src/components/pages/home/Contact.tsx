@@ -1,5 +1,6 @@
-import { Button, Box, Col, Text } from "core/components";
 import { FC } from "react";
+
+import { Button, Box, Col, Text } from "core/components";
 import { cn } from "core/helpers";
 import FadeInSection from "components/common/FadeInSection";
 
@@ -10,15 +11,9 @@ const Contact: FC = () => {
         'flex flex-col laptop:flex-row gap-x-4 justify-between items-center',
       )}
     >
-      <Col
-        classes='w-full gap-x-4 '
-        justify='center'
-      >
+      <Col classes='w-full gap-x-4' justify='center'>
         <Box classes='mb-6 text-center'>
-          <Text
-            h3
-            classes=' font-black mb-4'
-          >
+          <Text h3 classes=' font-black mb-4'>
             Contact us at any time for funeral assistance
           </Text>
           <Text

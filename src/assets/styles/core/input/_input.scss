@@ -24,14 +24,11 @@
     }
 
     input {
-      @apply border border-gray-300 text-gray-900 text-sm rounded-lg
-      hover:border-black
-      focus:ring-black focus:border focus:border-black focus:outline-none
+      @apply
+      theme-input
       w-full appearance-none
-      text-xs lg:text-sm rounded-md
-      transition duration-200 ease-in-out
-      border-gray-300 h-[42px] placeholder-gray-500
-      bg-white
+      text-gray-900 text-xs lg:text-sm
+      h-[42px]
       dark:bg-[#16161a]
       dark:border-0 dark:text-white;
     }

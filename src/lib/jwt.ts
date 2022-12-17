@@ -1,5 +1,4 @@
 import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
-// const { publicRuntimeConfig } = getConfig();
 
 export async function signToken(
   payload: JWTPayload,

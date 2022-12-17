@@ -3,17 +3,16 @@ import { HTMLAttributes, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
-import { useAuth } from 'context/authContext';
-import { Button, Text, Link, Checkbox, Input, Box, Row } from 'core/components';
+import { Button, Input, Box, Text, Row, Icons } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
-import { accountService } from 'services/account';
+import { useAccount, accountService } from 'services/account';
 import { PATH } from "config/const";
-import { cnn } from "core/helpers";
+import { cn } from "core/helpers";
 import { IUserAuthSchema as FormData } from "lib/validation/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAccount } from "../../../services/accountt";
-import { encryptPassword } from "../../../lib/crypto";
-import { config } from "../../../config";
+import { encryptPassword } from "lib/crypto";
+import { config } from "config";
+import ErrorServer from "components/common/ErrorServer";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -24,13 +23,14 @@ const validationSchema = Yup.object().shape({
   .min(6, 'Password must be at least 6 characters'),
 });
 
-interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
+interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {
+}
 
 export default function UserAuthForm({ className }: UserAuthFormProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { setUser, user } = useAuth();
   const [values, setValues] = useState(null)
+  const [errorServer, setErrorServer] = useState('')
   const emailInputRef = useAutoFocus();
   // const { data, mutate } = useAccount(values)
 
@@ -42,33 +42,25 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
     resolver: yupResolver(validationSchema)
   });
 
-  // useEffect(() => {
-  //     setValue('email', 'customer@mail.com')
-  //     setValue('password', '111111')
-  // }, [])
-
   async function onSubmit(values: FormData) {
-    // setIsLoading(true)
-    const { password } = values
-    const modifiedValues = { ...values, password: encryptPassword(password, config.cryptoKey) }
-    setValues(modifiedValues)
+    setIsLoading(true)
+
+    // const { password } = values
+    // const modifiedValues = { ...values, password: encryptPassword(password, config.cryptoKey) }
+    // setValues(modifiedValues)
 
     // const { data, isLoading, mutate } = useAccount(modifiedValues)
     // const { data, isLoading, mutate } = useAccount(values)
-    const { data, isLoading, message } = await accountService.login(values)
-    // setIsLoading(isLoading)
 
+    const { isLoading, message, status } = await accountService.login(values)
+    setIsLoading(isLoading)
 
-    if (data) {
-      router.push(PATH.ACCOUNT._)
-      // setUser({ ...user, ...data.profile })
-    } else {
-      if (errors) {
-        setError('email', {
-          type: 'server',
-          message
-        });
-      }
+    switch (status) {
+      case 200:
+        router.push(PATH.ACCOUNT._)
+        break
+      default:
+        setErrorServer(message)
     }
   }
 
@@ -76,42 +68,33 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
     <Box
       form
       onSubmit={handleSubmit(onSubmit)}
-      classes={cnn('space-y-4', className)}
+      classes={cn('', className)}
     >
-      <Input
-        name='email'
-        type='email'
-        label='Email'
-        register={register}
-        helperText={errors?.email ? errors?.email?.message : ''}
-        ref={emailInputRef}
+      <ErrorServer
+        message={errorServer}
+        onClick={() => setErrorServer('')}
       />
-      <Input.Password
-        name='password'
-        label='Password'
-        register={register}
-        helperText={errors?.password ? errors?.password?.message : ''}
-      />
-      <Row
-        justify='between'
-        align='center'
-        classes='!mt-3'
-      >
-        <Checkbox
-          name='rememberMe'
-          label='Remember me'
+      <Box classes='space-y-5 mb-8'>
+        <Input
+          name='email'
+          type='email'
+          placeholder='Email Address'
+          register={register}
+          helperText={errors?.email?.message}
+          ref={emailInputRef}
         />
-        <Link href={PATH.ACCOUNT.FORGOT_PASSWORD}>
-          <Text
-            as='button'
-            classes='text-sm text-black hover:underline pt-[2px]'
-          >Forgot Password?</Text>
-        </Link>
-      </Row>
+        <Input.Password
+          name='password'
+          placeholder='Password'
+          register={register}
+          helperText={errors?.password?.message}
+        />
+      </Box>
       <Button
         type='submit'
-        width='full'
+        classes='w-[calc(100%-3rem)] laptop:w-[calc(100%-2rem)] font-bold'
         size='lg'
+        shadow
         isLoading={isLoading}
         text='Login to your account'
       />

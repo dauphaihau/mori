@@ -4,7 +4,7 @@ import RatingStars from './ProductInfo/RatingStars';
 import React, { Fragment, HTMLAttributes, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react'
 import { cn } from 'core/helpers';
-import { Icons } from 'components/common/Icons';
+import { Icons } from 'core/components/Icons';
 
 const sortReviews = [
   {

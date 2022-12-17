@@ -36,7 +36,7 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
       register = () => {},
       onChange = (n, v) => {},
       helperText = '', clearable,
-      defaultValue,
+      defaultValue = '',
       className, classes,
       classesSpace, contentLeft, contentRight,
       ...others
@@ -71,7 +71,7 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
 
     return (
       <div className='form-input'>
-        {label && <label htmlFor={name}>{label}</label>}
+        {label && <label htmlFor={name} className='font-bold'>{label}</label>}
         <div className={cn('input group', classesSpace)}>
           <div className='input__contentLeft'>{contentLeft}</div>
           <div className='input__contentRight'>{contentRight}</div>
@@ -88,7 +88,7 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
               // onBlur: (e) => {},
             })}
             className={cn('p-2.5 md:pr-5',
-              contentLeft ? 'pl-10' : '',
+              { 'pl-10': contentLeft },
               classes
             )}
             {...others}

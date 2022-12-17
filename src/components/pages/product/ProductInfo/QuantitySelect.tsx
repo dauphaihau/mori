@@ -3,7 +3,7 @@ import { Listbox, Transition } from "@headlessui/react";
 
 import { Box, Row } from "core/components";
 import { cn } from "core/helpers";
-import { Icons } from "components/common/Icons";
+import { Icons } from "core/components/Icons";
 
 const quantityOptions = new Array(10).fill('').map((_, i) => ({
   label: i + 1,

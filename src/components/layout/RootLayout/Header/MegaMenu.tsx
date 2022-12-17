@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { Link, Text, Box, List, Row } from 'core/components';
@@ -34,7 +34,7 @@ export default function MegaMenu({ pageHasBanner, href, title }) {
         onMouseEnter={() => setShowDropdown(true)}
         onMouseLeave={() => setShowDropdown(false)}
         className={cn('trigger border-b-2 border-transparent',
-          router.route === href ? !pageHasBanner ? 'border-black' : 'border-white' : 'border-white',
+          !pageHasBanner && router.route === href ? 'border-black' : 'border-transparent',
         )}
       >
         <Link

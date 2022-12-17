@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { cn } from 'core/helpers';
+import { ClassValue } from "clsx";
 
 enum GAP {
   FIRST = 1,
@@ -57,7 +58,7 @@ type ColType = {
   self: 'center' | 'start' | 'end',
   wrap: 'wrap' | 'reverse' | 'around',
   reverse: boolean
-  classes: string,
+  classes: string | ClassValue[],
 } & ComponentPropsWithoutRef<'div'>
 
 const Col = ({
@@ -71,7 +72,7 @@ const Col = ({
         ALIGN_ITEM_MAPS[align],
         ALIGN_SELF_MAPS[self],
         reverse && 'flex-col-reverse',
-        classes
+        cn(classes)
       )}
       {...others}
     >

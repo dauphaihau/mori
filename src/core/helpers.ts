@@ -1,14 +1,13 @@
-export function cn(...classes: (false | null | undefined | string)[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge"
 
-export function cnn(...classes: (false | null | undefined | string)[]) {
-  return classes.filter(Boolean).join(" ");
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }
 
 export const capitalize = s => (s && s[0].toUpperCase() + s.slice(1)) || ""
 
-export const sliceText = (text, quantity) => {
+export const sliceText = (text: string, quantity: number): string => {
   if (text && text.length > quantity) {
     return text.slice(0, quantity) + '...'
   }
@@ -51,7 +50,7 @@ export const isEmptyObject = (obj = {}) => {
   return Object.keys(obj).length === 0
 }
 
-export function isEmpty(value) {
+export function isEmpty(value): boolean {
   try {
     return typeof value === "undefined" ||
       value === null ||
@@ -59,14 +58,6 @@ export function isEmpty(value) {
       value.length === 0;
   } catch (e) {
     return true;
-  }
-}
-
-export const parseJson = (str) => {
-  try {
-    return JSON.parse(str)
-  } catch (e) {
-    return false;
   }
 }
 
@@ -160,7 +151,7 @@ export const paginateRows = (sortedRows, currentPage, rowsPerPage) => {
 
 // ---------- others
 
-export const slugify = (text: string) => {
+export const slugify = (text: string): string => {
   if (!text) return
   const a = 'àáäâãåăæąçćčđďèéěėëêęğǵḧìíïîįłḿǹńňñòóöôœøṕŕřßşśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;'
   const b = 'aaaaaaaaacccddeeeeeeegghiiiiilmnnnnooooooprrsssssttuuuuuuuuuwxyyzzz------'

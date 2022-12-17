@@ -2,9 +2,9 @@ import { CartProvider, CartContext } from 'context/cartContext';
 import { renderWithAuthProvider } from 'lib/test/test-utils';
 // import { CartProvider } from 'contexts/cart-context';
 
-import CartDrawer from './CartDrawer';
+import CartDrawer from './index';
 
-describe('[components] - CartDrawer', () => {
+describe('[components] - Index', () => {
   const setup = () => {
     return renderWithAuthProvider(
       <CartProvider>

@@ -1,35 +1,27 @@
 import { Link, NextImage, Box, Text, Col, Grid, List } from 'core/components';
 import { data as footerData } from 'assets/data/FooterData';
-import  { PATH } from 'config/const';
+import { PATH } from 'config/const';
 import { cn } from "core/helpers";
-import { config } from "../../config";
+import { config } from "config";
 
 const Footer = () => {
   return (
-    <Box classes='bg-gray-custom-52a'>
-      <Box
-        footer
-        classes='footer layout'
-      >
+    // <Box classes='bg-gray-custom-52a'>
+    <Box classes=''>
+      <Box footer classes='footer layout'>
         <Box classes='footer__links'>
           <Grid sx={2} md={3} lg={6} classes='wrapper-topics gap-x-12'>
             {
               footerData.links.map((link, index) => (
-                <Box
-                  classes='topic'
-                  key={index}
-                >
+                <Box classes='topic' key={index}>
                   <Text classes='topic__title'>{link.title}</Text>
                   <List classes='topic__content'>
                     {
                       link.data.map((item, idx) => (
-                        <List.Item
-                          key={idx}
-                          classes='topic__item'
-                        >
+                        <List.Item key={idx} classes='topic__item'>
                           <Link
                             underline
-                            href={PATH.DEFAULT}
+                            href={PATH.HOME}
                             classes='topic__link'
                           >
                             <Text
@@ -43,6 +35,7 @@ const Footer = () => {
                       ))
                     }
                   </List>
+
                 </Box>
               ))
             }
@@ -66,10 +59,7 @@ const Footer = () => {
                     classes='payment'
                     key={index}
                   >
-                    <Link
-                      href={PATH.DEFAULT}
-                      target='_blank'
-                    >
+                    <Link href={PATH.DEFAULT} target='_blank'>
                       <NextImage
                         src={config.hostStaticSource + item.srcImg}
                         alt={item.name}

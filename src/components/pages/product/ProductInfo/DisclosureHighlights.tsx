@@ -1,7 +1,6 @@
 import { Disclosure, Transition } from '@headlessui/react'
 import { CubeTransparentIcon, HandIcon } from '@heroicons/react/outline';
-import { ChevronUpIcon } from '@heroicons/react/solid'
-import { Row } from 'core/components';
+import { Icons, Row } from 'core/components';
 import { cn } from 'core/helpers';
 
 export default function DisclosureHighlights() {
@@ -20,9 +19,9 @@ export default function DisclosureHighlights() {
                 className='flex w-full justify-between rounded-lg hover:bg-gray-custom-50 laptop:px-4 py-2 font-medium cursor-pointer'
               >
                 <span className='text-base font-bold md:text-[18px] tracking-wide'>Highlights</span>
-                <ChevronUpIcon
+                <Icons.chevronUp
                   className={cn('h-5 w-5 text-primary-gray',
-                    open ? '' : 'transform rotate-180',
+                    { 'transform rotate-180': !open }
                   )}
                 />
               </Disclosure.Button>
@@ -35,9 +34,7 @@ export default function DisclosureHighlights() {
                 leaveTo="opacity-0"
               >
                 <Disclosure.Panel className='px-4'>
-
                   <div className='mt-1 space-y-3'>
-
                     <Row gap={4} align='center'>
                       <HandIcon width={18} height={18}/>
                       <p className='w-full text-sm'>Handmade</p>
@@ -51,8 +48,6 @@ export default function DisclosureHighlights() {
                       </p>
                     </Row>
                   </div>
-
-
                 </Disclosure.Panel>
               </Transition>
             </>

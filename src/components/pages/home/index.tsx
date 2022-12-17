@@ -1,2 +1,8 @@
 export { default as FlashSaleProducts} from './FlashSaleProducts'
 export { default as Contact} from './Contact'
+export { default as SpecialProduct} from './SpecialProduct'
+export { default as RealLifeImages} from './RealLifeImages'
+export { default as BannerSlogan} from './BannerSlogan'
+export { default as ClientLogo} from './ClientLogo'
+export { default as ShopByCategories} from './ShopByCategories'
+export { default as FeedBack} from './FeedBack'

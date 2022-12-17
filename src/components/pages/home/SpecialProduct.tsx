@@ -1,11 +1,11 @@
 import { formatDollarUS, slugify } from 'core/helpers';
 import { Skeleton, NextImage, Col, Text, Button, Box, Row, Link } from 'core/components';
 import { PATH } from 'config/const';
-import FadeInSection from "../../common/FadeInSection";
+import FadeInSection from "components/common/FadeInSection";
 import { useDetailProduct } from "services/product";
 import { config } from "config";
 
-export default function SpecialProduct () {
+export default function SpecialProduct() {
   const { product, isLoading } = useDetailProduct('Child’s Curved Painted')
 
   return (

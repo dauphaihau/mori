@@ -3,18 +3,11 @@ import { NextImage, Text, Box, Col, Grid, Row, Link } from 'core/components';
 
 const Intro: FC = () => {
   return (
-    <Grid
-      classes='layout mb-24'
-      sx={1}
-      lg={2}
-    >
-      <Box classes=''>
+    <Grid sx={1} lg={2} classes='layout mb-24'>
+      <Box>
         {/*<Box classes='p-8'>*/}
         {/*  <Text weight='light'>FAMILY RUN BUSINESS</Text>*/}
-        <Text
-          h1
-          classes='text-[36px] my-4'
-        >WHO ARE WE?</Text>
+        <Text h1 classes='text-[36px] my-4'>WHO ARE WE?</Text>
         <Text
           weight='light'
           classes='mb-6 leading-7 pr-26 desktop:pr-32'
@@ -35,7 +28,8 @@ const Intro: FC = () => {
 
           <Link
             href='/'
-            classes='underline decoration-black mx-1 '
+            underline
+            classes='mx-1 '
             openNewTab
           >
             willow,
@@ -43,7 +37,8 @@ const Intro: FC = () => {
 
           <Link
             href='/'
-            classes='underline decoration-black mx-1 '
+            underline
+            classes='mx-1 '
             openNewTab
           >
             specialist weaving tools,
@@ -53,7 +48,8 @@ const Intro: FC = () => {
 
           <Link
             href='/'
-            classes='underline decoration-black mx-1 '
+            underline
+            classes='mx-1 '
             openNewTab
           >
             willow products.
@@ -62,11 +58,7 @@ const Intro: FC = () => {
       </Box>
       <Box classes='p-8'>
         <Box>
-          <Grid
-            md={2}
-            gap={8}
-            classes='tablet:mb-8'
-          >
+          <Grid md={2} gap={8} classes='tablet:mb-8'>
             <Box classes='mb-6 tablet:mb-0'>
               <Row>
                 <NextImage
@@ -98,10 +90,7 @@ const Intro: FC = () => {
               </Row>
             </Box>
           </Grid>
-          <Grid
-            md={2}
-            gap={8}
-          >
+          <Grid md={2} gap={8}>
             <Box classes='mb-6 tablet:mb-0'>
               <Row>
                 <NextImage

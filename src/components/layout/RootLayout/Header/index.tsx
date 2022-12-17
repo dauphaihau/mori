@@ -41,7 +41,7 @@ export default function Header() {
           href={PATH.HOME}
           classes={cn('logo text-2xl font-bold uppercase',
             pageHasBanner && 'text-white',
-            pageHasBanner && scrollPositionY > 15 && '!text-primary-black'
+            pageHasBanner && scrollPositionY > 15 && 'text-primary-black'
           )}
         >
           Mori
@@ -52,7 +52,7 @@ export default function Header() {
           setShowSearchBar={setShowSearchBar}
           pageHasBanner={pageHasBanner}
         />
-
+      </Box>
 
         {/*<NavigationMenu.Root className="NavigationMenuRoot">*/}
         {/*  <Box classes='w-full'>*/}
@@ -155,18 +155,19 @@ export default function Header() {
         {/*    </div>*/}
         {/*  </Box>*/}
         {/*</NavigationMenu.Root>*/}
-      </Box>
     </Box>
   );
 }
 
-// const ListItem = React.forwardRef(({ className, children, title, ...props }, forwardedRef) => (
-//   <li>
-//     <NavigationMenu.Link asChild>
-//       <a className={cn('ListItemLink', className)} {...props} ref={forwardedRef}>
-//         <div className="ListItemHeading">{title}</div>
-//         <p className="ListItemText">{children}</p>
-//       </a>
-//     </NavigationMenu.Link>
-//   </li>
-// ));
+const ListItem = React.forwardRef(({ className, children, title, ...props }, forwardedRef) => (
+  <li>
+    <NavigationMenu.Link asChild>
+      <a className={cn('ListItemLink', className)} {...props} ref={forwardedRef}>
+        <div className="ListItemHeading">{title}</div>
+        <p className="ListItemText">{children}</p>
+      </a>
+    </NavigationMenu.Link>
+  </li>
+));
+
+ListItem.displayName = 'list Item'

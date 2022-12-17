@@ -2,26 +2,33 @@ import { NextRequest, NextResponse } from 'next/server';
 import { PATH, ROLE, USER_STATUS } from 'config/const';
 import { hashMD5 } from 'lib/crypto';
 import configJson from 'config/config.json';
-import { isEmpty, parseJson } from 'core/helpers';
+import { isEmpty, parseJSON } from 'core/helpers';
 import { verifyToken } from 'lib/jwt';
+import { IToken } from "types/user";
 
 export async function middleware(req: NextRequest) {
 
   const url = req.nextUrl.clone();
-  url.pathname = PATH.DEFAULT;
+  url.pathname = PATH.HOME;
 
   const urlCurrent = req.nextUrl.pathname
-  const routePrivate = [PATH.ACCOUNT._, PATH.ACCOUNT.ADDRESS]
+  const routesPrivate = [PATH.ACCOUNT._, PATH.ACCOUNT.ADDRESS]
+  const routesAuth = [PATH.ACCOUNT.LOGIN, PATH.ACCOUNT.REGISTER, PATH.ACCOUNT.FORGOT_PASSWORD, PATH.ACCOUNT.RESET_PASSWORD]
 
   const cookies = req.cookies;
-  const auth = parseJson(cookies[hashMD5(configJson.cookies.auth)])
+  const auth = parseJSON<IToken>(cookies[hashMD5(configJson.cookies.auth)])
 
   let dataToken;
   if (auth && auth.token && auth.refreshToken) {
     dataToken = await handleToken(auth)
   }
 
-  if (routePrivate.includes(urlCurrent)) {
+  if (routesAuth.includes(urlCurrent)) {
+    console.log('dauphaihau debug: data-token', dataToken)
+    if (!isEmpty(dataToken)) return NextResponse.redirect(url)
+  }
+
+  if (routesPrivate.includes(urlCurrent)) {
     if (isEmpty(dataToken)) return NextResponse.redirect(url)
 
     if (dataToken.role !== ROLE.ACCOUNT || dataToken.status === USER_STATUS.LOCKED) {

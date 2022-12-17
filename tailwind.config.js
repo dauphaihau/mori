@@ -1,3 +1,5 @@
+const { fontFamily } = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // presets: [],
@@ -40,7 +42,6 @@ module.exports = {
       fontFamily: {
         'light': ['Eina Light'],
         'semibold': ['Eina SemiBold'],
-
         // 'light': ['Eina Light', ...fontFamily.sans],
         // 'semibold': ['Eina SemiBold', ...fontFamily.sans],
         // 'bold': ['Eina Bold', ...fontFamily.sans],
@@ -188,54 +189,17 @@ module.exports = {
         'black-905': '#1c1b1b',
       },
       colors: {
-        // black: {
-        //   'primary': '#1c1b1b',
-        // },
-        gray: {
-          'primary': '#6a6a6a',
-          'custom-50': '#f4f4f4',
-          'custom-52': '#eaeaea',
-
-          'custom-hover': '#eaeaea',
-
-
-          'custom-51': '#e9ecef',
-          'custom-52a': '#fafafa',
-          'custom-53': '#f3f4f5',
-
-          'custom-497': '#f3f4f6',
-          'custom-498': '#f8f9fa',
-          'custom-499': '#a6a6a6',
-          'custom-500': '#939393',
-          'custom-501': '#7e8a88',
-          'custom-502': '#333333',
-          'custom-503': '#5d5d5d',
-          'custom-504': '#333333',
-          'custom-505': '#939eaa',
-          'custom-506': '#657380',
-          'custom-506a': '#6c727f',
-          'custom-507': '#888888',
-          'custom-508': '#333333',
-          'custom-898': '#26292a',
-          'custom-899': '#16161a',
-          'custom-900': '#1f2023',
-          'custom-901': '#111111',
-          'custom-902': '#151515',
-          'custom-903': '#242424',
-          'custom-904': '#2b2b2b',
-          'custom-905': '#838383',
-          'custom-906': '#686969',
-          'custom-907': '#666666',
-          100: '#f3f6f9',
-          200: '#ebedf3',
-          300: '#e4e6ef',
-          400: '#5C607B',
-        },
-
         primary: {
           'black': '#1c1b1b',
           'gray': '#6a6a6a',
           'red': '#e65a4c',
+        },
+        gray: {
+          'custom-50': '#f4f4f4',
+          'custom-52': '#eaeaea',
+          'custom-51': '#e9ecef',
+          'custom-52a': '#fafafa',
+          'custom-53': '#f3f4f5',
         },
       },
       lineHeight: {

@@ -4,9 +4,9 @@ import ProductLongInfo from "../ProductLongInfo";
 import CustomerReview from "../CustomerReview";
 import ProductImages from "./ProductImages";
 import ProductMainInfo from "./ProductMainInfo";
+import { IProduct } from "types/product";
 
-import { Breadcrumbs, Anchor } from '@mantine/core';
-const ProductInfo = ({ product }) => {
+export default function ProductInfo({ product }: {product: IProduct}) {
 
   const dataBreadcrumb = [
     { path: PATH.DEFAULT, name: 'Home' },
@@ -18,21 +18,10 @@ const ProductInfo = ({ product }) => {
   //   return null
   // }
 
-  const items = [
-    { title: 'Mantine', href: '#' },
-    { title: 'Mantine hooks', href: '#' },
-    { title: 'use-id', href: '#' },
-  ].map((item, index) => (
-    <Anchor href={item.href} key={index}>
-      {item.title}
-    </Anchor>
-  ));
-
   const Left = () => {
     return (
       <Box classes='w-full laptop:w-8/12 h-120 pt-2 pb-8'>
         <Breadcrumb data={dataBreadcrumb}/>
-        {/*<Breadcrumbs>{items}</Breadcrumbs>*/}
         <ProductImages product={product}/>
         <CustomerReview className='hidden laptop:block'/>
       </Box>
@@ -57,5 +46,3 @@ const ProductInfo = ({ product }) => {
     </Box>
   )
 }
-
-export default ProductInfo

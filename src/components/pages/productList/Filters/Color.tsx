@@ -1,12 +1,11 @@
 import { useRouter } from "next/router";
 import { memo, useEffect, useState } from "react";
 import { Disclosure, Transition } from "@headlessui/react";
-import { ChevronUpIcon } from "@heroicons/react/solid";
 
-import { Box, Skeleton } from "core/components";
+import { Box, Grid, Icons, Row, Skeleton, Text } from "core/components";
 import { filterSearch } from "./Filters";
 import { PATH, PRODUCT_COLOR } from "config/const";
-import { cnn } from "core/helpers";
+import { cn } from "core/helpers";
 
 interface ColorProps {
   data: string[]
@@ -40,24 +39,15 @@ export const Color = memo((props: ColorProps) => {
       >
         {({ open }) => (
           <>
-            <Disclosure.Button
-              className='flex w-full justify-between rounded-lg
-                      text-left
-                     py-4 pr-16 text-[13px]
-                     '
-            >
-              {/*<Disclosure.Button*/}
-              {/*  className='flex w-full justify-between rounded-lg*/}
-              {/*       hover:bg-gray-custom-50 text-left*/}
-              {/*       px-4 py-2 text-[13px]*/}
-              {/*       '*/}
-              {/*>*/}
-              <span className='text-base font-bold md:text-[18px] tracking-wide'>Color</span>
-              <ChevronUpIcon
-                className={cnn('h-5 w-5 text-primary-gray',
-                  open ? '' : 'transform rotate-180',
-                )}
-              />
+            <Disclosure.Button className='w-full py-4 pr-16 cursor-pointer'>
+              <Row align='center' justify='between'>
+                <Text h4 classes='tracking-wide'>Color</Text>
+                <Icons.chevronUp
+                  className={cn('h-5 w-5 text-primary-gray',
+                    { 'transform rotate-180': !open }
+                  )}
+                />
+              </Row>
             </Disclosure.Button>
 
             <Transition
@@ -70,6 +60,7 @@ export const Color = memo((props: ColorProps) => {
             >
               <Disclosure.Panel className='pb-2 text-base text-primary-gray'>
                 {/*<Disclosure.Panel className='p-4 pb-2 text-base text-primary-gray'>*/}
+                {/*<Grid sx={4} gap={4} classes='ml-[5px] w-1/2'>*/}
                 <Box classes='grid grid-cols-4 gap-4 ml-[5px] w-1/2'>
                   {/*<Box classes='flex gap-x-4 ml-[5px]'>*/}
                   {
@@ -87,7 +78,6 @@ export const Color = memo((props: ColorProps) => {
                         key={index}
                         name='color'
                         style={{ background: PRODUCT_COLOR[c.toUpperCase()] }}
-                        // style={{ background: c }}
                         className={color === c ? 'filters__colorBtn active' : 'filters__colorBtn'}
                         data-color={c}
                         onClick={handleColor}
@@ -102,12 +92,13 @@ export const Color = memo((props: ColorProps) => {
                     classes='mb-4'
                   />}
                 </Box>
+                {/*</Grid>*/}
+
               </Disclosure.Panel>
             </Transition>
           </>
         )}
       </Disclosure>
-
     </Box>
   );
 })

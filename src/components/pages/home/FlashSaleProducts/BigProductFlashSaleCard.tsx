@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text, Link, Box, Row, Col, NextImage, Badge } from 'core/components';
+import { Text, Link, Box, Row, Col, NextImage, Badge, Skeleton } from 'core/components';
 import { cn, formatDollarUS, sliceText, slugify } from 'core/helpers';
 import { PATH } from "config/const";
 import { config } from "config";
@@ -7,7 +7,8 @@ import { config } from "config";
 const hoverEffect = typeof window !== `undefined` ? require('hover-effect').default : null;
 
 const BigProductFlashSaleCard = ({ data }) => {
-  if (!data) return null
+  if (!data) return <Skeleton height={738} width={570} classes='bg-product'/>
+  // if (!data) return null
   // console.log('dauphaihau debug: data', data)
   const { name, price, salePrice, description, link, images } = data;
 

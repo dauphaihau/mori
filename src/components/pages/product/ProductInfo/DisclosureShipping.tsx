@@ -1,6 +1,5 @@
 import { Disclosure, Transition } from '@headlessui/react'
-import { ChevronUpIcon, GiftIcon } from '@heroicons/react/solid'
-import { Box, Col, NextImage, Row, Text } from 'core/components';
+import { Icons, Box, Col, Link, NextImage, Row, Text } from 'core/components';
 // import { Col, NextImage, Row, Tooltip } from 'core/components';
 import { cn } from 'core/helpers';
 
@@ -8,7 +7,6 @@ import { Tooltip } from 'react-tippy';
 import TooltipCustom from "../../../../core/components/TooltipCustom";
 import * as React from "react";
 import moment from "moment";
-import { Icons } from 'components/common/Icons';
 // import { MdOutlineLocalShipping } from "react-icons/all";
 
 export default function DisclosureShipping() {
@@ -30,7 +28,7 @@ export default function DisclosureShipping() {
                      '
               >
                 <span className='text-base font-bold md:text-[18px] tracking-wide'>Shipping and return policies</span>
-                <ChevronUpIcon
+                <Icons.chevronUp
                   className={cn('h-5 w-5 text-primary-gray',
                     open ? '' : 'transform rotate-180',
                   )}
@@ -193,7 +191,10 @@ export default function DisclosureShipping() {
                         <Text b>Mori Purchase Protection:</Text> Shop confidently on Etsy knowing if something goes
                         wrong with an
                         order,
-                        we&apos;ve got your back for all eligible purchases — see program terms
+                        we&apos;ve got your back for all eligible purchases — {' '}
+                        <Link href='/' underline openNewTab>
+                          see program terms
+                        </Link>
                       </Text>
                     </Row>
                   </Box>

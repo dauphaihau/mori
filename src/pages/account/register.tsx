@@ -1,25 +1,22 @@
 import { Text, Link, Box, Row } from 'core/components';
 import { PATH } from "config/const";
 import UserRegisterForm from "components/pages/account/user-register-form";
+import AuthLayout from 'components/layout/AuthLayout';
 
 export default function RegisterPage() {
   return (
-    <Box
-      classes='h-[90vh] max-w-[414px] m-auto px-6 pb-4 space-y-4 pt-4
-       lg:px-8 pb-6 xl:pb-8 subscribe-letter-bg
-      flex flex-col justify-center'
-    >
+    <AuthLayout>
       <Box classes='text-center'>
         <Text
-          h1
+          h3
           transforms='uppercase'
-          classes='mb-4 text-xl tracking-[.17em]'
+          classes='mb-4 tracking-[.17em]'
         >Register</Text>
-        <Text
-          classes='text-sm'
-        >Please fill in the information below:</Text>
+        <Text classes='text-sm'>Please fill in the information below:</Text>
       </Box>
+
       <UserRegisterForm/>
+
       <Row
         justify='center'
         classes='text-base'
@@ -34,6 +31,6 @@ export default function RegisterPage() {
           text='Login'
         />
       </Row>
-    </Box>
+    </AuthLayout>
   );
 }

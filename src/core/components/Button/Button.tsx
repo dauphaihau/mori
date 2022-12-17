@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, forwardRef, ReactNode } from "react";
 import { Loading } from "../Loading";
 import { cn, createMaps } from "core/helpers";
+import { ClassValue } from "clsx";
 
 const VARIANT_MAPS = createMaps({
   gray: 'bg-gray-custom-50 text-primary-black hover:bg-gray-custom-52 animate hover:text-primary-black',
@@ -9,14 +10,14 @@ const VARIANT_MAPS = createMaps({
 })
 
 const SIZE_MAPS = createMaps({
-  sm: 'lg:py-2 lg:px-2',
-  md: '',
-  lg: 'lg:py-4 lg:px-4',
-  xl: 'lg:py-6 lg:px-6',
+  sm: 'lg:p-2',
+  md: 'lg:p-3',
+  lg: 'lg:p-4',
+  xl: 'lg:p-6',
 })
 
 type ButtonProps = {
-  classes: string
+  classes: string | ClassValue[],
   shadow: boolean
   size: keyof typeof SIZE_MAPS
   variant: keyof typeof VARIANT_MAPS
@@ -43,19 +44,20 @@ const Button = forwardRef((props: Partial<ButtonProps>, ref: any) => {
 
   return (
     <button
+      ref={ref}
       disabled={disabled}
       className={cn('btn',
-        shadow ? 'drop-shadow-xl' : '',
-        width === 'fit' ? 'w-fit' : '' || width === 'full' ? 'w-full' : '',
         SIZE_MAPS[size],
         VARIANT_MAPS[variant],
-        isLoading ? 'opacity-30 hover:opacity-30' : '',
-        light && 'bg-transparent text-primary-black hover:text-primary-black hover:opacity-70',
-        disabled ? 'opacity-30 hover:opacity-30' : '',
-        classes,
+        {
+          'bg-transparent text-primary-black hover:text-primary-black hover:opacity-70': light,
+          'opacity-30 hover:opacity-30': disabled || isLoading,
+          'drop-shadow-xl': shadow,
+          [`w-${width}`]: width
+        },
+        cn(classes),
       )}
       {...others}
-      ref={ref}
     >
       {icon && <span className='btn__icon'>{icon}</span>}
       {isLoading && <Loading className='mr-4'/>}

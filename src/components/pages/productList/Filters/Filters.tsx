@@ -1,4 +1,4 @@
-import { Box, Button } from 'core/components';
+import { Box, Button, Divider } from 'core/components';
 import { useRouter } from 'next/router';
 import { Price } from "./Price";
 import { Color } from "./Color";
@@ -42,16 +42,27 @@ export default function Filters() {
     router.push('/product', undefined, { scroll: false })
   }
 
+
   return (
     <Box classes='filters sticky'>
-      <Categories/>
-      <Material data={materials}/>
-      <Color data={colors}/>
-      <Price data={prices}/>
-      <Button
-        classes='w-fit hidden laptop:block'
-        onClick={handleReset}
-      >clear all</Button>
+      <Box classes='w-[170px]'>
+        <Categories/>
+        <Box classes="filters__line"/>
+
+        <Material data={materials}/>
+        <Box classes="filters__line"/>
+
+        <Color data={colors}/>
+        <Box classes="filters__line"/>
+
+        <Price data={prices}/>
+        {/*<Box classes="filters__line"/>*/}
+
+        <Button
+          classes='w-fit hidden laptop:block mt-4'
+          onClick={handleReset}
+        >clear all</Button>
+      </Box>
     </Box>
   );
 }

@@ -3,7 +3,7 @@ import { memo, useEffect, useState } from "react";
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
 
-import { Box, Skeleton, Text } from 'core/components';
+import { Box, Icons, Row, Skeleton, Text } from 'core/components';
 import { filterSearch } from "./Filters";
 import { cn, titleIfy } from 'core/helpers';
 import { useCategories } from "services/product";
@@ -38,24 +38,15 @@ export const Categories = memo(() => {
       >
         {({ open }) => (
           <>
-            <Disclosure.Button
-              className='flex w-full justify-between rounded-lg
-                      text-left
-                     py-4 pr-16 text-[13px]
-                     '
-            >
-              {/*<Disclosure.Button*/}
-              {/*  className='flex w-full justify-between rounded-lg*/}
-              {/*       hover:bg-gray-custom-50 text-left*/}
-              {/*       px-4 py-2 text-[13px]*/}
-              {/*       '*/}
-              {/*>*/}
-              <Text span classes='text-base font-bold md:text-lg tracking-wide'>Categories</Text>
-              <ChevronUpIcon
-                className={cn('h-5 w-5 text-primary-gray',
-                  open ? '' : 'transform rotate-180',
-                )}
-              />
+            <Disclosure.Button className='w-full py-4 pr-16 cursor-pointer'>
+              <Row align='center' justify='between'>
+                <Text h4 classes='tracking-wide'>Categories</Text>
+                <Icons.chevronUp
+                  className={cn('h-5 w-5 text-primary-gray',
+                    { 'transform rotate-180': !open }
+                  )}
+                />
+              </Row>
             </Disclosure.Button>
             <Transition
               enter="transition-opacity ease-linear duration-200"

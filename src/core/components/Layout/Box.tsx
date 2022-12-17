@@ -1,5 +1,7 @@
 import { forwardRef, ForwardRefRenderFunction, ReactNode } from "react";
 import { cn } from "../../helpers";
+import { className } from "postcss-selector-parser";
+import { ClassValue } from "clsx";
 
 interface BoxProps {
   // sx: number,
@@ -9,7 +11,7 @@ interface BoxProps {
   // justify: 'center' | 'between' | 'around',
   // align: 'center' | 'between' | 'around',
   // content: 'center' | 'between' | 'around',
-  classes: string,
+  classes: string | ClassValue[],
   children: ReactNode,
   footer: boolean,
   nav: boolean,
@@ -34,18 +36,18 @@ const Box = forwardRef((props: Partial<BoxProps>, ref: any) => {
     ...others
   } = props
 
-  const allClass = cn(classes)
+  const className = cn(classes)
 
   if (hideIf) return null
 
-  if (header) return <header ref={ref} className={allClass} {...others}>{children}</header>
-  if (nav) return <nav ref={ref} className={allClass} {...others}>{children}</nav>
-  if (footer) return <footer ref={ref} className={allClass} {...others}>{children}</footer>
-  if (main) return <main ref={ref} className={allClass} {...others}>{children}</main>
-  if (form) return <form ref={ref} className={allClass} {...others}>{children}</form>
-  if (aside) return <aside ref={ref} className={allClass} {...others}>{children}</aside>
-  if (blockquote) return <blockquote ref={ref} className={allClass} {...others}>{children}</blockquote>
-  return (<div ref={ref} className={allClass} {...others}>{children}</div>);
+  if (header) return <header ref={ref} className={className} {...others}>{children}</header>
+  if (nav) return <nav ref={ref} className={className} {...others}>{children}</nav>
+  if (footer) return <footer ref={ref} className={className} {...others}>{children}</footer>
+  if (main) return <main ref={ref} className={className} {...others}>{children}</main>
+  if (form) return <form ref={ref} className={className} {...others}>{children}</form>
+  if (aside) return <aside ref={ref} className={className} {...others}>{children}</aside>
+  if (blockquote) return <blockquote ref={ref} className={className} {...others}>{children}</blockquote>
+  return (<div ref={ref} className={className} {...others}>{children}</div>);
 })
 
 export default Box;

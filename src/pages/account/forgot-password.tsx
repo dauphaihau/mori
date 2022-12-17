@@ -5,7 +5,12 @@ import * as Yup from 'yup';
 
 import { Box, Col, Row, Button, Input, Link, Text } from 'core/components';
 import { accountService } from 'services/account';
-import { useUIController } from 'context/UIControllerContext';
+import { IUserAuthSchema } from "lib/validation/auth";
+import { PATH } from 'config/const';
+import AuthLayout from "components/layout/AuthLayout";
+import ErrorServer from "components/common/ErrorServer";
+
+type FormData = Pick<IUserAuthSchema, 'email'>
 
 const formType = {
   forgotPassword: {
@@ -16,7 +21,7 @@ const formType = {
     linkTextFooter: 'Back to login'
   },
   emailSent: {
-    title: 'Email Sent',
+    title: 'Forgot Password',
     message: (email) => `We sent an email to ${email} with a link to reset your password`,
     textButton: 'Continue visit store',
     linkTextFooter: '',
@@ -30,95 +35,102 @@ const validationSchema = Yup.object().shape({
 });
 
 const ForgotPasswordPage = () => {
-  const { dispatch } = useUIController();
+  const [errorServer, setErrorServer] = useState('')
   const [isBtnLoading, setIsBtnLoading] = useState(false)
   const [email, setEmail] = useState(null)
   const [currentForm, setCurrentForm] = useState('forgotPassword')
 
-  const { register, handleSubmit, setError, formState: { errors }, } = useForm({
+  const { register, handleSubmit, setError, formState: { errors }, } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
   });
 
   const onSubmit = async ({ email }) => {
     setIsBtnLoading(true)
     setEmail(email)
-    const { isLoading, status } = await accountService.forgotPassword({ email })
+    const { isLoading, status, message } = await accountService.forgotPassword({ email })
     setIsBtnLoading(isLoading)
-    if (Number(status) === 401) {
-      setError('email', {
-        type: 'server',
-        message: 'No profile found with that email.'
-      })
-      return
+
+    switch (status) {
+      case 200:
+        setCurrentForm('emailSent')
+        break
+      case 401:
+        setError('email', {
+          type: 'server',
+          message
+        });
+        setErrorServer(message)
+        break
+      default:
+        setErrorServer(message)
     }
-    setCurrentForm('emailSent')
   }
 
   return (
-    <Box
-      form
-      onSubmit={handleSubmit(onSubmit)}
-      classes='px-6 pb-4 space-y-6 pt-4 lg:px-8 pb-6 xl:pb-8 mx-auto max-w-md'
-    >
-      <Text
-        h1
-        weight='medium'
-        color='gray-900'
-      >
-        {formType[currentForm].title}
-      </Text>
-      <Text>{formType[currentForm].message(email)}</Text>
-      <Col classes={currentForm === 'emailSent' ? 'hidden' : 'block'}>
-        <Input
-          name='email'
-          type='email'
-          label='Email'
-          register={register}
-          errors={errors}
-        />
-        <Button
-          type='submit'
-          width='full'
-          size='lg'
-          isLoading={isBtnLoading}
-        >
-          {formType[currentForm].textButton}
-        </Button>
-      </Col>
+    <AuthLayout>
+      <Box classes='mb-5'>
+        <Text
+          h1
+          transforms='uppercase'
+          classes='mb-4 text-xl tracking-[.17em]'
+        >{formType[currentForm].title}</Text>
+        <Text>{formType[currentForm].message(email)}</Text>
+      </Box>
 
-      <Link
-        href='/'
-        classes={currentForm === 'forgotPassword' ? 'hidden' : 'block'}
+      <Box
+        form
+        onSubmit={handleSubmit(onSubmit)}
+        classes='space-y-4'
       >
-        <Button
-          type='submit'
-          width='full'
-          classes='mt-5'
-          size='lg'
-          isLoading={isBtnLoading}
+        <ErrorServer
+          message={errorServer}
+          onClick={() => setErrorServer('')}
+        />
+        <Col classes={currentForm === 'emailSent' ? 'hidden' : 'block'}>
+          <Input
+            name='email'
+            type='email'
+            label='Email'
+            register={register}
+            helperText={errors?.email?.message}
+          />
+          <Button
+            type='submit'
+            classes='mt-5 w-[calc(100%-2rem)]'
+            size='lg'
+            isLoading={isBtnLoading}
+          >
+            {formType[currentForm].textButton}
+          </Button>
+        </Col>
+
+        <Link
+          href={PATH.HOME}
+          classes={currentForm === 'forgotPassword' ? 'hidden' : 'block'}
         >
-          {formType[currentForm].textButton}
-        </Button>
-      </Link>
+          <Button
+            type='submit'
+            classes='mt-5 w-[calc(100%-2rem)]'
+            size='lg'
+            isLoading={isBtnLoading}
+          >
+            {formType[currentForm].textButton}
+          </Button>
+        </Link>
+      </Box>
+
       <Row
-        classes={`text-sm font-medium text-gray-500 dark:text-gray-300 ${currentForm === 'emailSent' ? 'hidden' : ''}`}
+        classes={[
+          'text-sm font-medium text-gray-500 dark:text-gray-300',
+          { 'hidden': currentForm === 'emailSent' }
+        ]}
       >
-        <Text
-          span
-          classes='mr-2'
-        >{formType[currentForm].textFooter}</Text>
-        <Text
-          as='button'
-          span
-          color='black'
-          weight='medium'
-          classes='hover:underline'
-          // onClick={() => dispatch({ type: 'OPEN_ADDRESS_MODAL' })}
-        >
+        <Text span classes='mr-2'>{formType[currentForm].textFooter}</Text>
+        <Link underline href={PATH.ACCOUNT.LOGIN}>
           {formType[currentForm].linkTextFooter}
-        </Text>
+        </Link>
       </Row>
-    </Box>
+    </AuthLayout>
   );
 }
 

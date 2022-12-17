@@ -60,12 +60,12 @@ function Select<Type extends OptionValue>(props: SelectType<Type>) {
     >
       {({ open }) => (
         <div className={`form-select-input ${classesSpace}`}>
-          {label && <Listbox.Label className='form-select-input__title'>{label}</Listbox.Label>}
+          {label && <Listbox.Label className='form-select-input__title font-bold'>{label}</Listbox.Label>}
           <Listbox.Button
             className={cn('form-select-input__btn cursor-pointer',
-              classesBtn,
-              borderLight && 'border-none shadow-none focus:ring-0 focus:border-gray-200',
+              // borderLight && 'border-none shadow-none focus:ring-0 focus:border-gray-200',
               size === 'medium' ? 'py-[10px]' : 'py-2',
+              classesBtn,
             )}
           >
               <span className='flex items-center'>

@@ -1,9 +1,8 @@
 import { useRouter } from "next/router";
 import { memo, useEffect, useState } from "react";
 import { Disclosure, Transition } from "@headlessui/react";
-import { ChevronUpIcon } from "@heroicons/react/solid";
 
-import { Box, Skeleton } from "core/components";
+import { Box, Icons, Row, Skeleton, Text } from "core/components";
 import { filterSearch } from "./Filters";
 import { PATH } from "config/const";
 import { cn, titleIfy } from "core/helpers";
@@ -40,24 +39,15 @@ export const Material = memo((props: MaterialProps) => {
       >
         {({ open }) => (
           <>
-            <Disclosure.Button
-              className='flex w-full justify-between rounded-lg
-                      text-left
-                     py-4 pr-16 text-[13px]
-                     '
-            >
-              {/*<Disclosure.Button*/}
-              {/*  className='flex w-full justify-between rounded-lg*/}
-              {/*       hover:bg-gray-custom-50 text-left*/}
-              {/*       px-4 py-2 text-[13px]*/}
-              {/*       '*/}
-              {/*>*/}
-              <span className='text-base font-bold md:text-[18px] tracking-wide'>Material</span>
-              <ChevronUpIcon
-                className={cn('h-5 w-5 text-primary-gray',
-                  open ? '' : 'transform rotate-180',
-                )}
-              />
+            <Disclosure.Button className='w-full py-4 pr-16 cursor-pointer'>
+              <Row align='center' justify='between'>
+                <Text h4 classes='tracking-wide'>Material</Text>
+                <Icons.chevronUp
+                  className={cn('h-5 w-5 text-primary-gray',
+                    { 'transform rotate-180': !open }
+                  )}
+                />
+              </Row>
             </Disclosure.Button>
 
             <Transition
