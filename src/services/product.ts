@@ -1,10 +1,12 @@
-import { config } from "config";
-import api from "lib/axios";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 import useSWRInfinite from 'swr/infinite'
 import useSWRImmutable from "swr/immutable";
 
-// get data ( color, price, material, ... ) depend category
+import { config } from "config";
+import api from "lib/axios";
+import { PATH } from "config/const";
+
+// get data ( color, price, material, ... ) depend on category
 export function useFilters(category) {
   const fetcher = url => api.get(url, { params: { category: category ?? 'all' } }).then(res => res.data)
   const { data, error } = useSWR([config.api.product.filters, { params: { category: category ?? 'all' } }], fetcher)
@@ -29,44 +31,33 @@ export function useSearchProducts(params) {
   };
 }
 
-// export function useProducts(params) {
-//   const fetcher = url => api.get(url, { params }).then(res => res.data)
-//   const { data, error, mutate, size, setSize } = useSWRInfinite((pageIndex, previousPageData) => {
-//       console.log('dauphaihau debug: page-index', pageIndex)
-//       console.log('dauphaihau debug: previous-page-data', previousPageData)
-//       if (!params) return null;
-//
-//       // reached the end
-//       if (previousPageData && !previousPageData.data) return null;
-//
-//       // first page, we don't have `previousPageData`
-//       // if (pageIndex === 0) return [config.api.product._, params]
-//
-//       return [config.api.product._, {...params, page: pageIndex + 1}]
-//     },
-//     fetcher
-//   )
-//
-//   console.log('dauphaihau debug: size', size)
-//   // console.log('dauphaihau debug: data', data)
-//   // console.log('dauphaihau debug: error', error)
-//   console.log('dauphaihau debug: data', data && data[0])
-//   return {
-//     data: data && data[0] ,
-//     // products: data?.products,
-//     isLoading: !data,
-//     isError: !!error,
-//     mutate
-//   };
-// }
+export function useProducts<T>(params) {
+  const PAGE_SIZE = 18
 
-export function useProducts(params) {
+  const getKey = (pageIndex, previousPageData) => {
+    pageIndex = pageIndex + 1
+    if (previousPageData && !previousPageData.products.length) return null // reached the end
+    return `api${PATH.PRODUCT._}?page=${pageIndex}&limit=${PAGE_SIZE}`     // SWR key
+  }
+
   const fetcher = url => api.get(url, { params }).then(res => res.data)
-  const { data, error, mutate } = useSWR([config.api.product._, params], fetcher)
-  // console.log('dauphaihau debug: error', error)
+  const { data, error, isValidating, mutate, size, setSize } = useSWRInfinite(getKey, fetcher)
+
+  const products: T[] = data?.flatMap(({ products }) => products)
+  const total = data && data[0]?.total
+
+  const isReachEnd = data && data[data.length - 1]?.products.length < PAGE_SIZE
+
+  const isLoadingMore = data && typeof data[size - 1] === 'undefined'
+
   return {
-    data,
-    // products: data?.products,
+    products,
+    // products: products ?? [],
+    total,
+    size, setSize,
+    isLoadingMore,
+    isValidating,
+    isReachEnd,
     isLoading: !data,
     isError: !!error,
     mutate
@@ -75,21 +66,8 @@ export function useProducts(params) {
 
 export function useDetailProduct(name) {
   const fetcher = url => api.get(url, { params: { name } }).then(res => res.data)
-
-  // const { cache } = useSWRConfig()
-  //
-  // cache.get(config.) // Get the current data for a key.
-  // cache.clear()  // ⚠️ Clear all the cache. SWR will revalidate upon re-render.
-
-  const { data, error, mutate } = useSWR(name ? [config.api.product.detail, name] : null, fetcher, {
-    // revalidateOnMount: true
-    // revalidateIfStale: true,
-    // revalidateOnFocus: true,
-    // revalidateOnReconnect: false
-  })
-
+  const { data, error, mutate } = useSWR(name ? [config.api.product.detail, name] : null, fetcher)
   return {
-    // data,
     product: data?.product,
     isLoading: !data,
     isError: !!error,

@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { Box, Breadcrumb, Grid, Row, Text } from 'core/components';
+import { Box, Breadcrumb, Grid, Loading, Row, Text } from 'core/components';
 import Seo from 'components/common/Seo';
-import { PATH } from "config/const";
+import { PATH, PRODUCT_COLOR } from "config/const";
 import Products from "../../components/pages/productList/Products";
-import { useProducts } from "services/product";
+import { useFilters, useProducts } from "services/product";
 import MobileTabletVersion from "../../components/pages/productList/MobileTabletVersion";
-import { Filters, Sorter } from "../../components/pages/productList";
-import { cn } from 'core/helpers';
+import { Filters, Sorter } from "components/pages/productList";
+import { capitalizeEachWord, isEmptyObject } from 'core/helpers';
 import { useUIController } from "context/UIControllerContext";
+import InfiniteScroll from 'react-infinite-scroll-component';
 import Viewer from 'components/pages/productList/Viewer';
+import { IProduct } from "types/product";
+import { useScrollDirection, useScrollPosition } from "core/hooks";
 
 const dataBreadcrumb = [
   { path: PATH.DEFAULT, name: 'Home' },
@@ -21,70 +24,113 @@ export default function ProductListPage<NextPage>() {
   const { progress, setProgress } = useUIController();
   const [gridView, setGridView] = useState(true)
   const router = useRouter()
+  const scrollDirection = useScrollDirection()
+  const scrollPositionY = useScrollPosition();
+
+  console.log('dauphaihau debug: router-pathname', router.asPath)
+
   const params = {
-    page: router.query.page || 1,
+    // category: router.asPath === PATH.PRODUCT._ ? 'all' : router.query.category,
     category: router.query.category || 'all',
     material: router.query.material || 'all',
     color: router.query.color || 'all',
     sort: router.query.sort || '-sold',
     // sort: router.query.sort || '-createdAt',
     price: router.query.price || '',
-    limit: router.query.limit || '',
+    // page: router.query.page || 1,
+    // limit: router.query.limit || 18,
   }
-  const { data, isLoading } = useProducts(params)
-  // setProgress(progress + 30)
-  // setProgress(!isLoading && 100)
-  // setProgress(isLoading ? 30 : 100)
-  // console.log('dauphaihau debug: data', data)
+
+  const { products, isValidating, total, isLoading, setSize, size, isReachEnd } = useProducts<IProduct>(params)
+
+  const { colors, materials, prices } = useFilters(router.query?.category)
+
+  useEffect(() => {
+    if (!isEmptyObject(router.query)) {
+      setSize(1)
+    }
+  }, [router.query])
+
+  // useEffect(() => {
+  //   console.log('dauphaihau debug: run ef 2')
+  //   setProgress((prevState) => prevState + 30)
+  //   if (!isValidating) {
+  //     setProgress(100)
+  //   }
+  // }, [isValidating])
+
+  console.log('dauphaihau debug: scroll-position-y', scrollPositionY)
 
   return (
     <>
       <Seo description='Mori ECommerce - All products'/>
 
-      <Box classes='hidden laptop:block layout desktop:w-[96%] pt-16'>
+      <Box classes='hidden laptop:block layout desktop:w-[96%] pt-12'>
         <Breadcrumb
-          classes='mb-6 pl-1'
-          // classes='mb-6 sticky top-20'
+          classes='pl-1'
           data={dataBreadcrumb}
         />
-
-        <Grid
-          sx={5}
-          // classes='min-h-full'
+        <Row
+          justify='between'
+          align='center'
+          classes={['sticky top-0 z-20 pt-3 pb-6 bg-white',
+            'transition-all duration-500',
+            scrollDirection === 'down' ? 'top-0 py-3' : 'top-50 py-6',
+            scrollPositionY > 170 ? 'pb-3' : ''
+          ]}
         >
+          <Text
+            h3 classes={[
+            'animate flex-1',
+            scrollPositionY > 170 ? 'text-lg' : ''
+            // scrollPositionY > 170 ? 'scale-75' : 'scale-none'
+          ]}
+          >
+            {(router.query.price as string)?.split(',').length === 1 && prices?.find(item => item.id === router.query.price)?.title} {' '}
+            {capitalizeEachWord((router.query.color as string)?.replace('-', ' '))} {' '}
+            {capitalizeEachWord(router.query.material as string)} {' '}
+            {router.query.category === 'all' || router.asPath === PATH.PRODUCT._ ? 'Coffin, Casket, Urns, Memorials, Shrouds' : capitalizeEachWord(router.query.category as string)} {' '}
+            ( {total ?? '-'} results )
+          </Text>
+
+          <Row classes='gap-x-8'>
+            <Viewer setGridView={setGridView} gridView={gridView}/>
+            <Sorter/>
+          </Row>
+        </Row>
+
+        <Grid sx={5}>
           <Filters/>
           <Box classes='w-full col-span-4'>
-            <Row
-              // ref={ref}
-              justify='between'
-              // classes='mb-6 sticky top-[80px] z-10 bg-white myElement'
-              classes='mb-6 sticky top-[50px] z-10 pt-[25px] pb-4 bg-white myElement'
-              // classes='mb-6 sticky top-[80px] z-10 bg-white myElement'
-            >
-              <Text
-                h1
-                classes={cn('text-3xl laptop:text-xl font-light', isLoading && 'invisible')}
-              >{data?.total} results found</Text>
-              {/*>{total} results found</Text>*/}
-
-              <Row classes='gap-x-8'>
-                <Viewer
-                  setGridView={setGridView}
-                  gridView={gridView}
-                />
-                <Sorter/>
+            {
+              !isLoading &&
+              <InfiniteScroll
+                next={() => setSize(size + 1)}
+                hasMore={!isReachEnd}
+                loader={
+                  <></>
+                  // <Row justify='center'>
+                  //   <Loading classes='h-10 w-10'/>
+                  // </Row>
+                }
+                // endMessage={<p>ended</p>}
+                dataLength={products.length}
+              >
+                <Products gridView={gridView} products={products}/>
+              </InfiniteScroll>
+            }
+            {
+              !isReachEnd &&
+              <Row justify='center' classes='my-4'>
+                <Loading classes='h-10 w-10'/>
               </Row>
-            </Row>
-            {data && <Products
-              gridView={gridView}
-              data={data}
-            />}
+            }
           </Box>
         </Grid>
       </Box>
 
       {/*Mobile - Tablet version*/}
-      {data && <MobileTabletVersion data={data}/>}
+      {!isLoading && <MobileTabletVersion total={total} products={products}/>}
     </>
   );
 }

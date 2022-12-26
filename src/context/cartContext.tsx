@@ -9,7 +9,6 @@ const initialState = {
   step: 0,
   showAddressDialog: false,
   recentlyViewedProduct: [],
-  setShowAddressDialog: (item: object) => {},
   addToCart: (item: object) => {},
   clearCart: () => {},
   removeFromCart: (item: object) => {},
@@ -29,14 +28,9 @@ const sumAllProduct = (cart) => cart.reduce((total, element) => total + element.
 
 export const CartContext = createContext(initialState)
 
-export class CartProvider extends Component<{}, {step: number, showAddressDialog: boolean}> {
-
+export class CartProvider extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      step: 1,
-      showAddressDialog: false
-    };
   }
 
   componentDidMount() {
@@ -51,7 +45,7 @@ export class CartProvider extends Component<{}, {step: number, showAddressDialog
   setItemQuantity = (item) => {
     const storageState = JSON.parse(window.localStorage.getItem(STORAGE_KEY))
     const { cart } = storageState
-    const index = cart.findIndex(cartItem => cartItem.id === item.id)
+    const index = cart.findIndex(cartItem => cartItem._id === item._id)
     cart[index].quantity = item.quantity
 
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify({
@@ -67,29 +61,7 @@ export class CartProvider extends Component<{}, {step: number, showAddressDialog
     const storageState = JSON.parse(window.localStorage.getItem(STORAGE_KEY))
     const { cart } = storageState
     if (cart.length) {
-      const index = cart.findIndex(cartItem => cartItem.id === item.id)
-      if (index >= Number(0)) {
-        cart[index].quantity = cart[index].quantity + item.quantity
-      } else {
-        cart.push(item)
-      }
-    } else {
-      cart.push(item)
-    }
-
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      cart, numberOfItemsInCart: cart.length,
-      numberAllOfItemsInCart: sumAllProduct(cart),
-      total: calculateTotal(cart)
-    }))
-    this.forceUpdate()
-  }
-
-  addItemToRecentlyViewedProduct = (item) => {
-    const storageState = JSON.parse(window.localStorage.getItem(STORAGE_KEY))
-    const { cart } = storageState
-    if (cart.length) {
-      const index = cart.findIndex(cartItem => cartItem.id === item.id)
+      const index = cart.findIndex(cartItem => cartItem._id === item._id)
       if (index >= Number(0)) {
         cart[index].quantity = cart[index].quantity + item.quantity
       } else {
@@ -110,7 +82,7 @@ export class CartProvider extends Component<{}, {step: number, showAddressDialog
   removeFromCart = (item) => {
     const storageState = JSON.parse(window.localStorage.getItem(STORAGE_KEY))
     let { cart } = storageState
-    cart = cart.filter(c => c.id !== item.id)
+    cart = cart.filter(c => c._id !== item._id)
 
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify({
       cart,
@@ -130,10 +102,6 @@ export class CartProvider extends Component<{}, {step: number, showAddressDialog
     this.setState({ ...this.state, step })
   }
 
-  setShowAddressDialog = (showAddressDialog) => {
-    this.setState({ ...this.state, showAddressDialog })
-  }
-
   render() {
     let state = initialState
     if (typeof window !== 'undefined') {
@@ -147,13 +115,11 @@ export class CartProvider extends Component<{}, {step: number, showAddressDialog
       <CartContext.Provider
         value={{
           ...state,
-          step: this.state.step,
           addToCart: this.addToCart,
           clearCart: this.clearCart,
           removeFromCart: this.removeFromCart,
           setItemQuantity: this.setItemQuantity,
           setStep: this.setStep,
-          setShowAddressDialog: this.setShowAddressDialog,
         }}
       >
         {this.props.children}

@@ -5,14 +5,17 @@ import { Link, Button, Box, Row } from 'core/components';
 import { CartDrawer } from 'components/drawer';
 import { LoginRegisterDialog, SearchProductDialog } from 'components/dialog';
 import { cn } from 'core/helpers';
-import { useScrollPosition } from "core/hooks";
+import { useMediaQuery, useScrollPosition } from "core/hooks";
 import { Icons } from "core/components/Icons";
 import { ROLE, PATH } from "config/const";
+import { useRouter } from "next/router";
 
 function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
   const [showLoginDialog, setShowLoginDialog] = useState(false)
   const [showCartDrawer, setShowCartDrawer] = useState(false)
+  const isMatchLaptopScreen = useMediaQuery('(min-width: 1280px)')
   const scrollPositionY = useScrollPosition();
+  const router = useRouter()
   const { user } = useAuth();
 
   return (
@@ -72,12 +75,12 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
             {
               user?.numberAllOfItemsInCart > 0 && (
                 <Box
-                  classes={cn('absolute inset-0 left-4 flex-center rounded-2xl h-[15px] w-[44%]  text-[10px]',
+                  classes={['absolute inset-0 left-4 flex-center rounded-2xl h-[15px] w-[44%]  text-[10px]',
                     pageHasBanner && scrollPositionY > 15 ? 'text-white bg-primary-black' : 'bg-white text-primary-black',
                     !pageHasBanner && 'text-white bg-primary-black',
                     user.numberAllOfItemsInCart >= 10 && 'h-[13px] px-[10px]',
                     user.numberAllOfItemsInCart >= 100 && 'px-[13px]',
-                  )}
+                  ]}
                 >
                   {user.numberAllOfItemsInCart >= 100 ? '99+' : user.numberAllOfItemsInCart}
                 </Box>
@@ -107,7 +110,13 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
                 )}
                 height={25}
                 data-testid='userIcon-login'
-                onClick={() => setShowLoginDialog(true)}
+                onClick={() => {
+                  if (isMatchLaptopScreen) {
+                    setShowLoginDialog(true)
+                  } else {
+                    router.push(PATH.ACCOUNT.LOGIN)
+                  }
+                }}
               />
           }
         </Box>

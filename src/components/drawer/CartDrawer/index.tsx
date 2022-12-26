@@ -40,7 +40,7 @@ export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
       <Drawer.Body>
         <ProductList context={context}/>
       </Drawer.Body>
-      <Drawer.Footer classes='w-[90%] mx-auto'>
+      <Drawer.Footer classes='mx-auto'>
         <PostCheckoutButton context={context}/>
       </Drawer.Footer>
     </Drawer>

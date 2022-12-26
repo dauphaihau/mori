@@ -1,33 +1,42 @@
 import { useRouter } from "next/router";
 import { memo, useEffect, useState } from "react";
 import { Disclosure, Transition } from "@headlessui/react";
-import { ChevronUpIcon } from "@heroicons/react/solid";
 
 import { Box, Icons, Row, Skeleton, Text } from 'core/components';
 import { filterSearch } from "./Filters";
 import { cn, titleIfy } from 'core/helpers';
 import { useCategories } from "services/product";
-import { PATH } from "config/const";
+import { PATH, PRODUCT_COLOR } from "config/const";
+import { useUIController } from "context/UIControllerContext";
+import { useMediaQuery, useSessionStorage } from "core/hooks";
 
 export const Categories = memo(() => {
+  const { setProgress } = useUIController();
   const router = useRouter()
   const { categories } = useCategories();
   const [category, setCategory] = useState('')
+  const [_, setSession] = useSessionStorage('filters', {})
 
   useEffect(() => {
     setCategory(router.query?.category as string ?? '')
   }, [])
 
   useEffect(() => {
-    if (router.asPath === PATH.PRODUCT._) {
+    // if (router.asPath === PATH.PRODUCT._ || !router.query.hasOwnProperty('category')) {
+    if (router.asPath === PATH.PRODUCT._ || router.query.category === 'all') {
       setCategory('')
     }
   }, [router.asPath])
 
   const handleCategory = (e) => {
+    // setProgress((prevState) => prevState + 30)
     const value = e.target.textContent.toLowerCase();
-    setCategory(category === value ? '' : value)
-    filterSearch({ router, category: value })
+    const categoryValue = category === value ? 'all' : value
+    const session = JSON.parse(sessionStorage.getItem('filters'))
+
+    setCategory(categoryValue)
+    setSession({ ...session, category: categoryValue })
+    filterSearch({ router, category: categoryValue })
   }
 
   return (
@@ -38,7 +47,7 @@ export const Categories = memo(() => {
       >
         {({ open }) => (
           <>
-            <Disclosure.Button className='w-full py-4 pr-16 cursor-pointer'>
+            <Disclosure.Button className='w-full pb-4 pr-16 cursor-pointer'>
               <Row align='center' justify='between'>
                 <Text h4 classes='tracking-wide'>Categories</Text>
                 <Icons.chevronUp

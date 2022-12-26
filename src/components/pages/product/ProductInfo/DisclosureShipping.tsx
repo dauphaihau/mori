@@ -1,5 +1,5 @@
 import { Disclosure, Transition } from '@headlessui/react'
-import { Icons, Box, Col, Link, NextImage, Row, Text } from 'core/components';
+import { Icons, Box, Col, Link, NextImage, Row, Text, Grid } from 'core/components';
 // import { Col, NextImage, Row, Tooltip } from 'core/components';
 import { cn } from 'core/helpers';
 
@@ -171,12 +171,12 @@ export default function DisclosureShipping() {
                   </Text>
 
                   <Box classes='mt-10 space-y-3'>
-                    <Row classes='gap-x-4 mb-8' justify='between'>
-                      <Box>
+                    <Row classes='mb-8'>
+                      <Box classes='w-1/2'>
                         <Text classes='text-xs text-primary-gray'>Returns & exchanges</Text>
                         <Text h3>Accepted</Text>
                       </Box>
-                      <Box>
+                      <Box classes='w-1/2'>
                         <Text classes='text-xs text-primary-gray'>Return & exchange window</Text>
                         <Text h3>21 days</Text>
                       </Box>

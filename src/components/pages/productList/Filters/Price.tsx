@@ -1,5 +1,4 @@
 import { Disclosure, Transition } from "@headlessui/react";
-import { ChevronUpIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { memo, useEffect, useState } from "react";
 
@@ -7,6 +6,7 @@ import { Box, Checkbox, Icons, Row, Skeleton, Text } from "core/components";
 import { filterSearch } from "./Filters";
 import { PATH } from "config/const";
 import { cn } from "core/helpers";
+import { useUIController } from "context/UIControllerContext";
 
 interface PriceProps {
   data: {
@@ -16,22 +16,9 @@ interface PriceProps {
 }
 
 export const Price = memo((props: PriceProps) => {
+  const { setProgress } = useUIController();
     const router = useRouter()
     const [priceListChecked, setPriceListChecked] = useState([])
-
-    const handlePrice = (e) => {
-      const status = e.target.checked
-      const idSelected = e.target.value
-
-      if (!status) {
-        const result = priceListChecked.filter(o => o !== idSelected)
-        setPriceListChecked(result)
-        filterSearch({ router, price: result.length ? result.toString() : idSelected.toString() })
-      } else {
-        setPriceListChecked([...priceListChecked, idSelected])
-        filterSearch({ router, price: [...priceListChecked, idSelected].toString() })
-      }
-    }
 
     useEffect(() => {
       if (router.asPath === PATH.PRODUCT._ || !router.query.hasOwnProperty('price')) {
@@ -39,7 +26,23 @@ export const Price = memo((props: PriceProps) => {
       }
     }, [router.asPath])
 
-    const priceData = props?.data ? props.data : []
+  const handlePrice = (e) => {
+    // setProgress((prevState) => prevState + 30)
+
+    const status = e.target.checked
+    const idSelected = e.target.value
+
+    if (!status) {
+      const result = priceListChecked.filter(o => o !== idSelected)
+      setPriceListChecked(result)
+      filterSearch({ router, price: result.length ? result.toString() : idSelected.toString() })
+    } else {
+      setPriceListChecked([...priceListChecked, idSelected])
+      filterSearch({ router, price: [...priceListChecked, idSelected].toString() })
+    }
+  }
+
+  const priceData = props?.data ? props.data : []
 
     return (
       <Box classes='filters__item'>
@@ -70,7 +73,6 @@ export const Price = memo((props: PriceProps) => {
                 leaveTo="opacity-0"
               >
                 <Disclosure.Panel className='pb-2 text-base text-primary-gray'>
-                  {/*<Disclosure.Panel className='p-4 pb-2 text-base text-primary-gray'>*/}
                   {
                     priceData.length ? priceData.map((item, index) => (
                       <Checkbox

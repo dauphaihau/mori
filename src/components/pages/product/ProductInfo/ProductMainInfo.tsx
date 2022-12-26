@@ -6,7 +6,7 @@ import { formatDollarUS } from "core/helpers";
 import RatingStars from "./RatingStars";
 import { CartContext, CartProvider } from "context/cartContext";
 import { useAuth } from "context/authContext";
-import { CartDrawer } from "../../../drawer";
+import { CartDrawer } from "components/drawer";
 import { STORAGE_KEY } from "config/const";
 import QuantitySelect from "./QuantitySelect";
 
@@ -96,7 +96,11 @@ const ProductMainInfo = ({ product, context }) => {
         <RatingStars initialValue={product.rating}/>
         <Text classes='mt-2 ml-4 mt-0' text='11 reviews'/>
       </Row>
-      <Text classes='text-2xl tablet:text-3xl laptop:text-[22px] text-primary-red relative tracking-wide  mb-5'>
+      <Text
+        classes={['text-2xl tablet:text-3xl laptop:text-[22px] relative tracking-wide mb-5',
+          { 'text-primary-red': salePrice }
+        ]}
+      >
         {salePrice ? formatDollarUS(salePrice) : formatDollarUS(price)}
         <Text
           hideIf={!price || !salePrice}
@@ -122,6 +126,7 @@ const ProductMainInfo = ({ product, context }) => {
           data-testid='addToCartButton'
           // disabled={disableAddItem || product.quantity === 0}
           // disabled={quantityItem === product.quantity}
+          disabled={product.quantity === 0}
           text={product.quantity === 0 ? 'Sold out' : 'Add to Cart'}
         />
       </Row>

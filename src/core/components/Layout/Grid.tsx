@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef } from "react";
 import { cn } from "core/helpers";
+import { ClassValue } from "clsx";
 
 enum COL {
   FIRST = 1,
@@ -85,7 +86,7 @@ type GridProps = {
   gap: number,
   gapx: number,
   gapy: number,
-  classes: string
+  classes: string | ClassValue[],
 } & ComponentPropsWithoutRef<'div'>
 
 const Grid = ({
@@ -104,7 +105,7 @@ const Grid = ({
         COL_XL_MAPS[xl],
         GAP_X_MAPS[gapx],
         GAP_Y_MAPS[gapy],
-        classes
+        cn(classes)
       )}
       {...others}
     >

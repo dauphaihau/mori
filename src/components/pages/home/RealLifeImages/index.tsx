@@ -1,11 +1,12 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 
-import { Box, NextImage, Text, Icons, Row } from 'core/components';
-import { cn } from 'core/helpers';
+import { Box, NextImage, Text, Icons, Row, Link } from 'core/components';
+import { cn, slugify } from 'core/helpers';
 import { useFadeIn, useMediaQuery } from 'core/hooks';
 import FadeInSection from "components/common/FadeInSection";
 import { config } from "config";
+import { PATH } from "config/const";
 
 const RealLifeImages: FC = () => {
   const [viewportRef, embla] = useEmblaCarousel({
@@ -50,7 +51,7 @@ const RealLifeImages: FC = () => {
         // disabled={!prevBtnEnabled}
         className={cn(' text-primary-black rounded-full p-4 flex-center absolute z-10 top-[35%] left-0 animate hover:-translate-x-2')}
       >
-        <Icons.chevronLeft className='w-10 h-10 p-2 text-base rounded-full bg-white shadow text-black cursor-pointer'/>
+        <Icons.chevronLeft className='w-12 h-12 p-2 text-base rounded-full bg-white shadow text-black cursor-pointer'/>
       </button>
     )
   }
@@ -58,13 +59,14 @@ const RealLifeImages: FC = () => {
   const NextBtn = () => {
     if (!mount) return null
     if (!matches) return null
+    if (selectedIndex === 4) return null
     return <button
       onClick={scrollNext}
       disabled={selectedIndex === 4}
       // disabled={!nextBtnEnabled}
       className=' text-primary-black rounded-full p-4 flex-center absolute z-10 top-[35%] right-0 animate hover:translate-x-2'
     >
-      <Icons.chevronRight className='w-10 h-10 p-2 text-base rounded-full bg-white shadow text-black cursor-pointer'/>
+      <Icons.chevronRight className='w-12 h-12 p-2 text-base rounded-full bg-white shadow text-black cursor-pointer'/>
     </button>
   }
 
@@ -75,17 +77,17 @@ const RealLifeImages: FC = () => {
         ref={viewportRef}
         classes='w-full relative overflow-hidden'
       >
-        <Row classes='select-none' gap={4}>
+        <Row classes='select-none gap-8'>
           {
-            data.map((o, idx) => {
-              return <Box
-                classes='w-auto'
+            data.map((item, idx) => (
+              <Link
                 key={idx}
-                // onClick={handleClick}
+                href={`${PATH.PRODUCT._}/${slugify(item.productName)}`}
+                className='w-auto'
               >
                 <Box classes='relative'>
                   <NextImage
-                    src={config.hostStaticSource + o.srcImg}
+                    src={config.hostStaticSource + item.srcImg}
                     // height={284}
                     // width={284}
                     height={350}
@@ -98,11 +100,11 @@ const RealLifeImages: FC = () => {
                       '
                     // objectFit={'contain'}
                   />
-                  <Text classes='absolute bottom-1 right-2 text-white'>{o.author}</Text>
+                  <Text classes='absolute bottom-1 right-2 text-white'>{item.author}</Text>
                 </Box>
-                <Text classes='text-sm tablet:text-xl mt-2'>{o.productName}</Text>
-              </Box>
-            })
+                <Text classes='text-sm tablet:text-xl mt-2'>{item.productName}</Text>
+              </Link>
+            ))
           }
         </Row>
         <PrevBtn/>
@@ -123,7 +125,7 @@ const data = [
   {
     srcImg: '/real-life/coffin-willow-banana_fuvhvw.jpg',
     author: '@dauphaihau',
-    productName: 'Banana Leaf Coffins'
+    productName: 'Banana Leaf Coffin'
   },
   {
     srcImg: '/real-life/willow-pod-coffin_khtmpb.jpg',
@@ -138,7 +140,7 @@ const data = [
   {
     srcImg: '/real-life/white-coffin_oamrxl.jpg',
     author: '@dauphaihan',
-    productName: 'Child’s Curved Painted'
+    productName: 'Curved Painted of Child'
   },
   {
     srcImg: '/real-life/willow-rounded-coffin_l5simf.jpg',

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import LoadingBar from "react-top-loading-bar";
 import dynamic from 'next/dynamic';
 
-import { useUIController } from '../../../context/UIControllerContext';
+import { useUIController } from 'context/UIControllerContext';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -21,7 +21,6 @@ import FreeShip from "./FreeShip";
 export default function RootLayout({ children }: {children: ReactNode}) {
   const { progress, setProgress } = useUIController();
   const [isMobileScreen, setIsMobileScreen] = useState(false)
-  const [accountLayout, setAccountLayout] = useState(false)
   const router = useRouter();
 
   useEffect(() => {
@@ -29,14 +28,6 @@ export default function RootLayout({ children }: {children: ReactNode}) {
       setIsMobileScreen(true)
     }
   }, [])
-
-  useEffect(() => {
-    // window.scrollTo(0, 0);
-    const arrPathAccount = ['forgot-password', 'reset-password']
-    if (arrPathAccount.includes(router.pathname.slice(9))) {
-      setAccountLayout(true)
-    } else setAccountLayout(false)
-  }, [router.asPath])
 
   return (
     <>
@@ -59,10 +50,7 @@ export default function RootLayout({ children }: {children: ReactNode}) {
       <Header/>
 
       <Box>
-        <Box
-          main
-          // classes={accountLayout ? 'flex items-center h-screen' : ''}
-        >{children}</Box>
+        <Box main>{children}</Box>
         <Footer/>
       </Box>
       {/*<AcceptCookie/>*/}

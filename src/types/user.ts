@@ -13,7 +13,7 @@ export interface IUser extends Document {
   order: any;
   payment: string;
   email: string;
-  password: string;
+  password?: string;
   phone: string;
   delivery: string;
   name: string;

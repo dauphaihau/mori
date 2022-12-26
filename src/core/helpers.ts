@@ -65,7 +65,7 @@ export function parseJSON<T>(value: string | null): T | undefined {
   try {
     return JSON.parse(value)
   } catch {
-    console.log('parsing error on', { value })
+    // console.log('parsing error on', { value })
     return undefined
   }
 }
@@ -167,7 +167,7 @@ export const slugify = (text: string): string => {
   .replace(/-+$/, '') // Trim - from end of text
 }
 
-export function titleIfy(slug: string, except = ['and', 'with']) {
+export function titleIfy(slug: string, except = ['and', 'with', 'of']) {
   if (!slug) return
   let words = slug.split('-')
   for (let i = 0; i < words.length; i++) {
@@ -220,4 +220,10 @@ export const convertType = (value) => {
 export const createMaps = <ObjectMapType extends Record<string, string>>(
   obj: ObjectMapType
 ) => obj;
+
+export const capitalizeEachWord = (text: string) => {
+  if (typeof text !== 'string') return
+  const pattern = /(^\w|\s\w)(\S*)/g
+  return text.replace(pattern, (_, m1, m2) => m1.toUpperCase() + m2.toLowerCase())
+}
 

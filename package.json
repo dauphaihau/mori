@@ -70,6 +70,7 @@
     "react-hot-toast": "^2.4.0",
     "react-hydration-provider": "^1.0.1",
     "react-icons": "^4.6.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-tippy": "^1.4.0",
     "react-top-loading-bar": "^2.3.1",
     "sass": "^1.55.0",

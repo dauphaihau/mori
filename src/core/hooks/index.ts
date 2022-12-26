@@ -6,3 +6,5 @@ export * from './useAnimationFrame';
 export * from './useMediaQuery';
 export * from './useFadeIn';
 export * from './useSafeContext';
+export * from './useScrollDirection';
+export * from './useSessionStorage';

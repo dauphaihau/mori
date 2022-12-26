@@ -118,6 +118,7 @@ const Table = (props: ITable) => {
                     name='idsRow'
                     defaultChecked={rowsChecked.length > 0}
                     // onChange={handleCheckAllBox}
+                    value=''
                   />
                 </th>
               }

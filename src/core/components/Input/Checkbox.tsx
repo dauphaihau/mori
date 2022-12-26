@@ -7,7 +7,8 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   classesForm?: string,
   register?: (name: string) => void,
   checked?: boolean,
-  value?: string | number,
+  value: string,
+  ref?: any,
 }
 
 const Checkbox = forwardRef((props: CheckboxProps, ref) => {
@@ -29,20 +30,18 @@ const Checkbox = forwardRef((props: CheckboxProps, ref) => {
     }, [defaultChecked])
 
     return (
-      <div onClick={() => setIsChecked(!isChecked)} className={`form-checkbox-input ${classesForm}`}>
+      <div className={`form-checkbox-input ${classesForm}`}>
         <input
           type="checkbox"
-          // @ts-ignore
+          id={value}
           ref={ref}
-          // checked={value || defaultChecked}
-          // checked={value}
           value={value}
           onChange={onChange}
           checked={isChecked}
-          {...others}
           className={classes}
+          {...others}
         />
-        <label className='text-smaller'>{label}</label>
+        <label for={value}>{label}</label>
       </div>
     );
   }

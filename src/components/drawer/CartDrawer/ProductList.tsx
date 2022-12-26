@@ -52,7 +52,8 @@ export default function ProductList({ context }) {
         {
           cart.map((item) => {
             return (
-              <Row classes='border-b py-4' key={item.id}>
+              // <Row classes='border-b py-4' key={item.id}>
+              <Row classes='py-4' key={item.id}>
                 <Box
                   classes='relative group bg-light rounded-lg p-1 cursor-pointer '
                   onClick={() => removeFromCart(item)}

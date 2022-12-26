@@ -1,8 +1,10 @@
 .filters {
   //position: sticky;
-  @apply max-h-[700px] h-auto desktop:max-h-[900px]
-  w-[200px] top-[80px] pl-1
-  overflow-scroll overflow-x-hidden animate
+  //@apply max-h-[700px] h-auto desktop:max-h-[900px]
+  @apply max-h-screen h-auto
+  laptop:w-[200px]  top-2 pl-1
+  overflow-scroll overflow-x-hidden
+  transition-all duration-500
   ;
 
   &__item {
@@ -14,7 +16,7 @@
 
     .filter__btn {
       @apply block relative
-      text-primary-gray hover:text-black mb-[12px] text-left
+      text-primary-gray hover:text-black mb-3 text-left
       w-full leading-6 cursor-pointer
       transition-all duration-200 ease-in-out;
 
@@ -36,10 +38,10 @@
       }
     }
 
-
     .filters__colorBtn {
-      @apply inline-block w-4 h-4 rounded-[50%] mr-2 border-none
-      opacity-[0.5] flex relative items-center justify-center cursor-pointer;
+      //@apply inline-block w-4 h-4 rounded-[50%] mr-2 border-none
+      @apply inline-block w-4 h-4 rounded-full mr-2 border-none
+      opacity-50 flex relative items-center justify-center cursor-pointer;
 
       &--all {
         @apply relative rounded-full;
@@ -48,7 +50,8 @@
 
       &--all.active::after, &--all:hover::after,
       &.active::after, &:hover::after {
-        @apply absolute rounded-[50%] w-[1.625rem] h-[1.625rem] top-[-0.3rem] left-[-0.3rem];
+        //@apply absolute rounded-[50%] w-[1.625rem] h-[1.625rem] top-[-0.3rem] left-[-0.3rem];
+        @apply absolute rounded-full w-[1.625rem] h-[1.625rem];
         content: "";
         border: 0.0625rem solid #383633;
         box-shadow: 0 0.25rem 0.3125rem -0.125rem rgba(71, 69, 67, 0.3);

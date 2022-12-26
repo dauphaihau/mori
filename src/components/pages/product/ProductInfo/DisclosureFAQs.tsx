@@ -27,7 +27,7 @@ function FAQs() {
                   <Disclosure.Button
                     className='flex w-full justify-between rounded-lg
                      hover:bg-gray-custom-50 text-left
-                     px-4 py-2 text-[13px]
+                     px-4 py-2 text-[13px] cursor-pointer
                      '
                   >
                     <span className='text-base font-bold md:text-[18px] tracking-wide'>{faq.title}</span>

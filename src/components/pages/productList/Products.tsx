@@ -1,163 +1,29 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Box, Grid, Row, Text, Button } from 'core/components';
-import { cn } from "core/helpers";
+import { Grid, Text } from 'core/components';
 import { ProductListView } from "./index";
 import Product from 'components/common/Product';
-import { useRouter } from "next/router";
-import { filterSearch } from "./Filters/Filters";
-import useIntersectionObserver from 'core/hooks/useIntersectionObserver';
 
-const Products = ({ data, gridView }) => {
-  const router = useRouter();
+export default function Products({ products, gridView }) {
   const [isLoaded, setIsLoaded] = useState(false);
-
-  // const { gridView, filtered_products: products } = useFilterContext()
-  const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(6)
-  const itemsInView = 6
-
-  // console.log('dauphaihau debug: data', data)
-  const { products, total } = data
-  // console.log('dauphaihau debug: products', products)
-
-  // const [productInView, setProductInView] = useState([])
-
-  const loadingRef = useRef(null);
-  const listInnerRef = useRef(null);
-  const ref = useRef<HTMLDivElement | null>(null)
-  const entry = useIntersectionObserver(ref, {})
-
-  useEffect(() => {
-    if (Object.keys(router.query).length === 0) setPage(1)
-  }, [router.query])
 
   useEffect(() => {
     setTimeout(() => setIsLoaded(true), 300);
-    // setProductInView([...productInView, ...products])
-    // console.log('dauphaihau debug: product-in-view', productInView)
   }, [products]);
 
-  const productInView = products ? [].concat(...products) : []
-
-  // useEffect(() => {
-  //   const el = document.querySelector(".myElement")
-  //
-  //   const observer = new IntersectionObserver(
-  //     ([e]) => {
-  //       console.log('dauphaihau debug: e-intersection-ratio', e.intersectionRatio)
-  //       e.target.classList.toggle("is-pinned", e.intersectionRatio < 1)
-  //     },
-  //     { threshold: [1] }
-  //   );
-  //
-  //   if (ref.current) {
-  //     observer.observe(ref.current);
-  //   }
-  //
-  // }, [ref.current])
-
-  // observing dom node
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       if (entries[0].isIntersecting) {
-  //         setPage((page) => page + 1)
-  //         filterSearch({ router, page: page + 1 })
-  //         // handleLoadMore()
-  //       }
-  //     },
-  //     { threshold: 0.5 }
-  //   );
-  //   if (loadingRef.current) observer.observe(loadingRef.current);
-  //
-  //   return () => {
-  //     if (observer.current) {
-  //       observer.unobserve(observer.current);
-  //     }
-  //   };
-  // }, [loadingRef]);
-
-  // const observer = useRef();
-  // const lastBookElementRef = useCallback(
-  //   (node) => {
-  //   console.log('dauphaihau debug: runnn')
-  //     if (!data) return;
-  //     // if (isLoading) return;
-  //     if (observer.current) observer.current.disconnect();
-  //     observer.current = new IntersectionObserver((entries) => {
-  //       if (entries[0].isIntersecting) {
-  //         console.log('dauphaihau debug: runnn')
-  //       // if (entries[0].isIntersecting && hasMore) {
-  //       //   setPageNum((prev) => prev + 1);
-  //         handleLoadMore()
-  //       }
-  //     });
-  //     if (node) observer.current.observe(node);
-  //   },
-  //   [data ]
-  //   // [data, hasMore]
-  // );
-
-  const handleScroll = () => {
-    if (listInnerRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-      if (scrollTop + clientHeight === scrollHeight) {
-        // ui.paramsRequestNotify = { ...ui.paramsRequestNotify, limit: ui.paramsRequestNotify.limit + 4 }
-        // ui.actionRequest.current = ui.actionRequest.list
-        // timeout.setTimeout()
-        handleLoadMore()
-      }
-    }
+  if (products.length === 0) {
+    return <Text>Sorry, no products matched your search...</Text>
   }
 
-  const handleLoadMore = () => {
-    // setPage((page) => page + 1)
-    setPage( page + 1)
-    setLimit( limit + itemsInView)
-    // console.log('dauphaihau debug: page', page)
-    // setPage(page + 1)
-    // setProductInView(prev  => [...prev, ...products])
-    filterSearch({ router, limit: limit + itemsInView })
-    // filterSearch({ router, page: page + 1 })
-  }
-
-  const ProductList = () => {
-    if (gridView) {
-      return (
-        <>
-          <Grid
-            gap={4} sx={1} md={2} lg={3}
-            classes={cn(isLoaded && 'fade-in-start', 'product-list')}
-          >
-            {
-              productInView?.map((item, index) => (
-                <Product
-                  dataFade={index}
-                  data={item}
-                  key={index}
-                />
-              ))
-            }
-          </Grid>
-
-          {/*<Box*/}
-          {/*  hideIf={productInView.length < 12}*/}
-          {/*  ref={loadingRef}*/}
-          {/*>*/}
-          {/*  <h3>Loading....</h3>*/}
-          {/*</Box>*/}
-        </>
-      )
-    }
+  if (gridView) {
     return (
       <Grid
-        sx={1}
-        classes={cn(isLoaded && 'fade-in-start')}
+        gap={4} sx={1} md={2} lg={3}
+        classes={[isLoaded && 'fade-in-start', 'product-list']}
       >
         {
-          productInView?.map((item, index) => (
-            <ProductListView
+          products?.map((item, index) => (
+            <Product
               dataFade={index}
               data={item}
               key={index}
@@ -168,42 +34,20 @@ const Products = ({ data, gridView }) => {
     )
   }
 
-  const ButtonLoadMore = () => {
-    return <Row
-      hideIf={total < itemsInView}
-      // hideIf={products.length < 9 || products.length < endSlice}
-      justify='center'
-      classes='mt-8'
-    >
-      <Button
-        variant='gray'
-        onClick={handleLoadMore}
-        text='Load more'
-      />
-    </Row>
-  }
-
-  // const isVisible = entry?.intersectionRatio < 1
-  // console.log('dauphaihau debug: is-visible', isVisible)
-
-  if (products && products.length === 0) {
-    return <Text>Sorry, no products matched your search...</Text>
-  }
-
   return (
-    <>
+    <Grid
+      sx={1}
+      classes={[isLoaded && 'fade-in-start']}
+    >
       {
-        products && products.length < 1
-          ? <Text>Loading....</Text>
-          // ? <Text>Sorry, no products matched your search...</Text>
-          : <>
-            {ProductList()}
-            {/*<ProductList/>*/}
-            <ButtonLoadMore/>
-          </>
+        products?.map((item, index) => (
+          <ProductListView
+            dataFade={index}
+            data={item}
+            key={index}
+          />
+        ))
       }
-    </>
-  );
+    </Grid>
+  )
 }
-
-export default Products;

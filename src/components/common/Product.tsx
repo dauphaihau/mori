@@ -3,6 +3,7 @@ import { cn, formatDollarUS, slugify } from "core/helpers";
 import { PATH } from "config/const";
 import { config } from "config";
 import { IProduct } from "types/product";
+import React from "react";
 
 type ProductProps = {
   data: IProduct
@@ -11,6 +12,7 @@ type ProductProps = {
 
 const Product = ({ data, dataFade }: ProductProps) => {
   if (!data) return null
+
   return (
     <Box
       classes='w-100 product'
@@ -45,15 +47,14 @@ const Product = ({ data, dataFade }: ProductProps) => {
           </Box>
         </Box>
       </Link>
+
       <Box>
         <Text
           data-testid={data?.name}
-          classes='m-4 text-center text-sm laptop:text-lg mb-1'
+          classes='my-3 text-sm laptop:text-lg mb-1'
         >{data?.name}</Text>
-        <Row
-          gap={4}
-          justify='center'
-        >
+
+        <Row gap={4}>
           <Text
             hideIf={!data.salePrice}
             classes={cn('text-sm laptop:text-lg text-center mb-4',

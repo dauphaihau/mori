@@ -12,7 +12,7 @@ import useSWRImmutable from 'swr/immutable'
 const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog }) => {
   const router = useRouter();
   // const [products, setProducts] = useState([])
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState<string>('');
 
   // const fetcher = async (url) => await axios.get(url, {
   // params: {searchValue, limit: 6}
@@ -80,13 +80,7 @@ const SearchBarProduct = ({ showSearchProductDialog, setShowSearchProductDialog 
           showSearchProductDialog={showSearchProductDialog}
           onChange={e => handleSearch(e.target.value)}
         />
-        {
-          products &&
-          <ResultSearch
-            searchValue={searchValue}
-            products={products}
-          />
-        }
+        {products && <ResultSearch products={products}/>}
       </Box>
     </Portal>
   );

@@ -3,10 +3,8 @@
   h-[50px] laptop:h-[59px]
   px-4 laptop:px-8 bg-transparent
   border-b border-transparent border-gray-custom-52
+  transition-all duration-500
   ;
-  //@apply sticky top-0 left-0 w-full z-30 h-[64px] tablet:h-20 laptop:h-[59px] px-4 bg-white
-  //border-b border-transparent border-gray-custom-52
-  //;
 
   .navbar {
     @apply tablet:px-4 desktop:px-0 h-full
@@ -77,7 +75,7 @@
             @apply hidden absolute bg-white w-52 shadow-2xl rounded-lg peer-hover:flex hover:flex;
             transition: all .3s ease-in-out;
 
-              //@apply text-gray-custom-907 hover:text-black p-4
+            //@apply text-gray-custom-907 hover:text-black p-4
             .title {
               @apply text-[#666666] hover:text-black p-4
             }
@@ -100,6 +98,6 @@
 }
 
 .header.scrolling {
-  @apply bg-white animate
+  @apply bg-white
   border-b border-transparent border-gray-custom-52;
 }

@@ -6,15 +6,16 @@ import { Box, Row } from './Layout';
 import { Icons } from "./Icons";
 
 interface DialogProps {
-  isOpen: boolean,
-  children: ReactNode,
-  width?: number,
-  height?: number,
-  noPadding?: boolean,
-  nonDarkMode?: boolean,
-  preventClose?: boolean,
-  style?: object,
-  classes?: string,
+  isOpen: boolean
+  children: ReactNode
+  width?: number
+  height?: number
+  noPadding?: boolean
+  nonDarkMode?: boolean
+  preventClose?: boolean
+  style?: object
+  classes?: string
+  backdrop?: ReactNode
   closeDialog?: () => void
 }
 
@@ -26,6 +27,7 @@ export default function DialogCustom({
   classes,
   closeDialog = () => {},
   preventClose,
+  backdrop,
   ...others
 }: DialogProps) {
 
@@ -53,7 +55,7 @@ export default function DialogCustom({
           leaveFrom='opacity-100'
           leaveTo='opacity-0'
         >
-          <div className='fixed inset-0 bg-black bg-opacity-25'/>
+          {backdrop || <div className='fixed inset-0 bg-black bg-opacity-25'/>}
         </Transition.Child>
         <Box classes='fixed inset-0 overflow-y-auto '>
           <Row

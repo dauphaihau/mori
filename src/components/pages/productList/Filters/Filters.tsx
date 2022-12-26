@@ -1,10 +1,12 @@
-import { Box, Button, Divider } from 'core/components';
+import { Box, Button } from 'core/components';
 import { useRouter } from 'next/router';
 import { Price } from "./Price";
 import { Color } from "./Color";
 import { Categories } from "./Categories";
 import { useFilters } from "services/product";
 import { Material } from "./Material";
+import { useScrollDirection } from "core/hooks";
+import { PATH } from 'config/const';
 
 export const filterSearch = ({ router, ...res }): void => {
   let { pathname, query } = router
@@ -34,18 +36,22 @@ export const filterSearch = ({ router, ...res }): void => {
 }
 
 export default function Filters() {
+  const scrollDirection = useScrollDirection()
   const router = useRouter()
   const { colors, materials, prices } = useFilters(router.query?.category)
 
   const handleReset = () => {
-    router.query = {}
-    router.push('/product', undefined, { scroll: false })
+    filterSearch({ router, category: 'all' })
+    // router.push(PATH.PRODUCT._)
   }
 
-
   return (
-    <Box classes='filters sticky'>
-      <Box classes='w-[170px]'>
+    <Box
+      classes={['filters sticky',
+        scrollDirection === 'down' ? 'top-60' : 'laptop:top-60'
+      ]}
+    >
+      <Box classes='laptop:w-[170px]'>
         <Categories/>
         <Box classes="filters__line"/>
 
@@ -56,7 +62,6 @@ export default function Filters() {
         <Box classes="filters__line"/>
 
         <Price data={prices}/>
-        {/*<Box classes="filters__line"/>*/}
 
         <Button
           classes='w-fit hidden laptop:block mt-4'

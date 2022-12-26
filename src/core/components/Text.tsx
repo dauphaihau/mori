@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { cn, createMaps } from "core/helpers";
+import { ClassValue } from "clsx";
 
 const FONT_WEIGHT_MAP = createMaps({
   bold: 'font-bold',
@@ -9,7 +10,7 @@ const FONT_WEIGHT_MAP = createMaps({
 
 interface TextProps {
   children: ReactNode
-  classes: string
+  classes: string | ClassValue[],
   transforms: 'uppercase' | 'lowercase' | 'capitalize'
   color: string
   weight: keyof typeof FONT_WEIGHT_MAP
@@ -32,7 +33,6 @@ interface TextProps {
 }
 
 const Text = (props: Partial<TextProps>) => {
-
   const {
     children, classes, color, as, transforms = '', b, size, hideIf,
     noSelect,
@@ -46,7 +46,7 @@ const Text = (props: Partial<TextProps>) => {
       'cursor-pointer': as === 'button',
       'select-none': noSelect
     },
-    classes
+    cn(classes)
   )
 
   if (hideIf) return null

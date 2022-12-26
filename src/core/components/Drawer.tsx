@@ -92,7 +92,7 @@ const Body = ({ children, classes }: FooterProps) => {
   return <div className={cn('drawer__body', classes)}>{children}</div>;
 }
 const Footer = ({ children, classes }: FooterProps) => {
-  return <div className={cn('drawer__footer', classes)}>{children}</div>;
+  return <div className={cn('drawer__footer border-t p-4', classes)}>{children}</div>;
 }
 
 Drawer.Head = Head;

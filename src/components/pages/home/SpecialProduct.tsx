@@ -6,7 +6,7 @@ import { useDetailProduct } from "services/product";
 import { config } from "config";
 
 export default function SpecialProduct() {
-  const { product, isLoading } = useDetailProduct('Child’s Curved Painted')
+  const { product, isLoading } = useDetailProduct('Curved Painted of Child')
 
   return (
     <FadeInSection classes='layout'>
@@ -30,18 +30,13 @@ export default function SpecialProduct() {
                 classes='block py-6 tracking-wide'
               >
                 {
-                  isLoading ? <Skeleton
-                    height={17}
-                    classes='w-1/5 rounded'
-                  /> : <span>FROM {formatDollarUS(product.price)}</span>
+                  isLoading ? <Skeleton height={17} classes='w-1/5 rounded'/>
+                    : <span>FROM {formatDollarUS(product.price)}</span>
                 }
               </Text>
               {
-                isLoading ? <Skeleton
-                    height={40}
-                    classes='w-[115px] rounded'
-                  /> :
-                  <Link href={`${PATH.PRODUCT._}/${slugify(product?.name)}`}>
+                isLoading ? <Skeleton height={40} classes='w-[115px] rounded'/>
+                  : <Link href={`${PATH.PRODUCT._}/${slugify(product?.name)}`}>
                     <Button text='Shop Now'/>
                   </Link>
               }

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from 'next-connect';
-import Product from '../../../lib/models/Product';
-import db from "../../../lib/db";
+import Product from 'lib/models/Product';
+import db from "lib/db";
 
 const handler = nc();
 

@@ -28,12 +28,8 @@ class APIFeatures {
     // if (queryObj.color !== 'all') this.query.find({ colors: queryObj.color })
 
     if (queryObj.price) {
-      // console.log('dauphaihau debug: query-obj-price', queryObj.price)
-      // console.log('dauphaihau debug: query-obj-price-split-', queryObj.price.split(','))
-
       const arrRangePrice = queryObj.price.split(',')
       const queryRangeList = arrRangePrice.map(item => {
-        // console.log('dauphaihau debug: item', item.split('-'))
         const [a, b] = item.split('-')
         if (b) {
           return {
@@ -65,7 +61,7 @@ class APIFeatures {
 
   paginating() {
     const page = this.queryString.page * 1 || 1
-    const limit = this.queryString.limit * 1 || 6
+    const limit = this.queryString.limit * 1
     const skip = (page - 1) * limit;
     this.query = this.query.skip(skip).limit(limit)
     return this;
@@ -73,6 +69,20 @@ class APIFeatures {
 
   count() {
     this.query = this.query.countDocuments()
+    return this;
+  }
+
+  uniqCategory() {
+    // this.query = this.query.aggregate().sortByCount("category");
+
+    this.query = this.query.aggregate([
+      {
+        $group: {
+          _id: '$category',
+          count: { $sum: 1 } // this means that the count will increment by 1
+        }
+      }
+    ]);
     return this;
   }
 }
@@ -93,9 +103,16 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
     .filtering()
     .sorting()
     .count()
-
     const total = await features2.query
-    // console.log('dauphaihau debug: total', total)
+
+    const features3 = new APIFeatures(Product.find(), req.query)
+    .filtering()
+    .sorting()
+      // .uniqCategory()
+
+    const categories = await features3.query
+    console.log('dauphaihau debug: categories', categories)
+    // console.log('dauphaihau debug: products', products)
 
     await db.disconnect();
 

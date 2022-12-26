@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { config } from "../config";
+import { config } from "config";
 import { BASE_URL } from "config/const";
-import { handleGetCookie } from "./cookie";
+import { handleGetCookie } from "lib/cookie";
+import { IToken } from "types/token";
 
-const authData = handleGetCookie(config.cookies.auth)
+const authData = handleGetCookie<IToken>(config.cookies.auth)
 
 const api = axios.create({
   baseURL: BASE_URL,

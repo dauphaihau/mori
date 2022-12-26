@@ -1,16 +1,8 @@
-import { forwardRef, ForwardRefRenderFunction, ReactNode } from "react";
-import { cn } from "../../helpers";
-import { className } from "postcss-selector-parser";
+import { forwardRef, ReactNode } from "react";
+import { cn } from "core/helpers";
 import { ClassValue } from "clsx";
 
 interface BoxProps {
-  // sx: number,
-  // md: number,
-  // lg: number,
-  // gap: number,
-  // justify: 'center' | 'between' | 'around',
-  // align: 'center' | 'between' | 'around',
-  // content: 'center' | 'between' | 'around',
   classes: string | ClassValue[],
   children: ReactNode,
   footer: boolean,
@@ -31,7 +23,6 @@ const Box = forwardRef((props: Partial<BoxProps>, ref: any) => {
 
   const {
     children, classes, hideIf = false,
-    // gap, justify, align = '',
     footer, nav, header, main, form, section, aside, blockquote,
     ...others
   } = props

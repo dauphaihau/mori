@@ -13,13 +13,16 @@
     @apply flex flex-col w-full h-full ;
   }
 
+    //h-[4%] md:h-[4.8%] lg:h-[7.3%] desktop:h-[5.8%] ;
   &__header {
-    @apply flex justify-between items-center py-6 md:py-4
-    px-5
-    h-[4%] md:h-[4.8%] lg:h-[7.3%] desktop:h-[5.8%] ;
+    @apply flex justify-between items-center py-6 md:py-4 px-5
+    h-[4%] md:h-[4.8%] lg:h-[7.3%]
+    min-h-[60px]
+    max-h-[80px]
+    ;
     h1 {
-      @apply text-base font-black ;
-      //@apply text-xl md:text-2xl font-black ;
+      //@apply text-base font-black ;
+      @apply text-xl md:text-2xl font-black ;
     }
   }
 

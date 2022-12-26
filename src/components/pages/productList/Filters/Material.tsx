@@ -6,14 +6,21 @@ import { Box, Icons, Row, Skeleton, Text } from "core/components";
 import { filterSearch } from "./Filters";
 import { PATH } from "config/const";
 import { cn, titleIfy } from "core/helpers";
+import { useUIController } from "context/UIControllerContext";
+import { useMediaQuery, useSessionStorage } from "core/hooks";
 
 interface MaterialProps {
   data: string[]
 }
 
 export const Material = memo((props: MaterialProps) => {
+  const { setProgress } = useUIController();
   const router = useRouter()
   const [material, setMaterial] = useState('')
+  const [session, setSession] = useSessionStorage('filters', {
+    material: undefined
+  })
+  const isMatchLaptopScreen = useMediaQuery('(min-width: 1280px)')
 
   useEffect(() => {
     if (router.asPath === PATH.PRODUCT._ || !router.query.hasOwnProperty('material')) {
@@ -21,10 +28,30 @@ export const Material = memo((props: MaterialProps) => {
     }
   }, [router.asPath])
 
+
   const handleMaterial = (e) => {
+    // setProgress((prevState) => prevState + 30)
+
+    const sessionss = JSON.parse(sessionStorage.getItem('filters'))
+
     const value = e.target.textContent.toLowerCase();
     setMaterial(material === value ? '' : value)
-    filterSearch({ router, material: value })
+
+    if (isMatchLaptopScreen) {
+      filterSearch({ router, material: value })
+      return
+    }
+
+    console.log('dauphaihau debug: sessionss', sessionss)
+    console.log('dauphaihau debug: session', session)
+
+    if (material === value) {
+      delete sessionss.material
+      setSession(sessionss)
+    } else {
+      // setSession({ ...sessionss, material: value })
+      sessionStorage.setItem('filters', JSON.stringify({...sessionss, material: value}))
+    }
   }
 
   // const materialsData = props?.data ? props.data.map(o => o._id) : []

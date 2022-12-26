@@ -5,15 +5,18 @@ import User from 'lib/models/User';
 import db from 'lib/db';
 import { signToken } from 'lib/jwt';
 import config from "config/config.json";
+import { IUser } from "types/user";
 
 const handler = nc();
+
+type ResponseUser = Pick<IUser, "name" | "email" | 'role'| 'status' | 'password'>;
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const { email, password } = req.body;
     await db.connect();
-    let user = await User.findOne({ email }, { email: 1, name: 1, role: 1, status: 1, password: 1, _id: 0 });
+    let user: ResponseUser = await User.findOne({ email }, { email: 1, name: 1, role: 1, status: 1, password: 1, _id: 0 });
     if (!user) {
       res.status(422).send({ code: '422', message: 'Incorrect email or password.' });
     }
@@ -23,7 +26,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(422).send({ code: '422', message: 'Incorrect email or password.' });
     }
 
-    user = {
+    user  = {
       name: user.name,
       email: user.email,
       role: user.role,

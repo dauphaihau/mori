@@ -114,7 +114,6 @@ export default function CustomerReview({ className }: CustomerReviewProps) {
 }
 
 const SortSelect = () => {
-
   const [selected, setSelected] = useState(sortReviews[0])
 
   const focusReviews = () => {
