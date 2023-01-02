@@ -1,4 +1,4 @@
-import { createContext, FC, Reducer, useContext, useEffect, useReducer, useState } from "react";
+import { FC, Reducer, useEffect, useReducer, useState } from "react";
 import reducer, {
   uiControllerActions,
   uiControllerActionsType,
@@ -23,7 +23,6 @@ export const UIControllerProvider: FC = ({ children }) => {
   const [controller, dispatch] = useReducer<Reducer<uiControllerState, uiControllerActions>>(reducer, initialState);
   const { categories } = useCategories();
   const [progress, setProgress] = useState(0)
-  const [recentlyViewedProduct, setRecentlyViewedProduct] = useState([])
   const router = useRouter();
 
   const closeDrawerModal = () => {
@@ -45,8 +44,9 @@ export const UIControllerProvider: FC = ({ children }) => {
   return (
     <Provider
       value={{
-        ...(controller as object), dispatch, categories,
-        closeDrawerModal, recentlyViewedProduct,
+        ...(controller as object),
+        dispatch, categories,
+        closeDrawerModal,
         progress, setProgress,
       }}
     >

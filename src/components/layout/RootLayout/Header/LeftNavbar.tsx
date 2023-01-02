@@ -8,7 +8,6 @@ import { useScrollPosition } from "core/hooks";
 import { PATH } from "config/const";
 import MegaMenu from "./MegaMenu";
 import { headerConfig } from 'config/header';
-import MegaMenu2 from './MegaMenu2';
 
 const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
   const [showNavMobileDrawer, setShowNavMobileDrawer] = useState(false)
@@ -52,12 +51,6 @@ const LeftNavbar = ({ pageHasBanner, showSearchBar }) => {
                       title={title}
                       pageHasBanner={pageHasBanner}
                     />
-                    {/*<MegaMenu2*/}
-                    {/*  key={index}*/}
-                    {/*  href={href}*/}
-                    {/*  title={title}*/}
-                    {/*  pageHasBanner={pageHasBanner}*/}
-                    {/*/>*/}
                   </Fragment>
                 }
                 return (

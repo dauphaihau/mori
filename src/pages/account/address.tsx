@@ -7,8 +7,10 @@ import { Text, Grid, Button, Box, Link } from 'core/components';
 import { PATH } from "config/const";
 import { AddressAccountPageDialog } from 'components/dialog';
 import AccountLayout from 'components/layout/AccountLayout';
+import { getPackageProfile } from "../../lib/cookie";
 
-const AddressPage = () => {
+export default function AddressPage() {
+  const profile = getPackageProfile()
   const { user } = useAuth();
   const [showAddressDialog, setShowAddressDialog] = useState<boolean>(false)
 
@@ -18,15 +20,7 @@ const AddressPage = () => {
     }
   });
 
-  const { errors } = formState;
-
-  const onSubmit = (values) => {
-    console.log('values', values)
-  }
-
   return (
-    // <Box classes='bg-gray-custom-52a py-28 pb-32'>
-    //   <Box classes='w-9/12 max-w-[1420px] mx-auto'>
     <>
       <AddressAccountPageDialog
         showAddressDialog={showAddressDialog}
@@ -34,10 +28,7 @@ const AddressPage = () => {
       />
       <AccountLayout>
         <Box classes='mb-12'>
-          <Text
-            h1
-            classes='text-3xl font-bold mb-6'
-          >My addresses</Text>
+          <Text h1 classes='text-3xl font-bold mb-6'>My addresses</Text>
           <Link href={PATH.ACCOUNT._}>
             <Button
               classes='pl-0'
@@ -47,7 +38,10 @@ const AddressPage = () => {
               Back
             </Button>
           </Link>
-          <Button onClick={() => setShowAddressDialog(true)}>
+          <Button
+            disabled
+            onClick={() => setShowAddressDialog(true)}
+          >
             Add a new address
           </Button>
         </Box>
@@ -104,13 +98,8 @@ const AddressPage = () => {
             <PencilIcon className='btn-icon'/>
             <TrashIcon className='btn-icon'/>
           </Box>
-
         </Grid>
       </AccountLayout>
-      {/*</Box>*/}
-      {/*</Box>*/}
     </>
   );
 }
-
-export default AddressPage;

@@ -19,7 +19,6 @@ const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
     postcode: '',
     state: ''
   })
-  const { openAddressModal, closeDrawerModal } = useUIController();
 
   useEffect(() => {
     // console.log('run effect')
@@ -166,7 +165,7 @@ const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
               classes='w-fit '
               onClick={() => {
                 setUser({ ...user, address, numberAllOfItemsInCart: 0 });
-                closeDrawerModal();
+                setShowAddressDialog(false)
               }}
               text='Save'
             />
