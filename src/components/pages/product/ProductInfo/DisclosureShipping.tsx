@@ -1,19 +1,42 @@
-import { Disclosure, Transition } from '@headlessui/react'
-import { Icons, Box, Col, Link, NextImage, Row, Text, Grid } from 'core/components';
-// import { Col, NextImage, Row, Tooltip } from 'core/components';
-import { cn } from 'core/helpers';
-
 import { Tooltip } from 'react-tippy';
-import TooltipCustom from "../../../../core/components/TooltipCustom";
 import * as React from "react";
-import moment from "moment";
-// import { MdOutlineLocalShipping } from "react-icons/all";
+import { Disclosure, Transition } from '@headlessui/react'
+
+import { Icons, Box, Col, Link, NextImage, Row, Text } from 'core/components';
+import { cn } from 'core/helpers';
+import dayjs from "dayjs";
+
+export const rangeDate = (from: number, to?: number) => {
+
+  const month = (amount) => {
+    return dayjs().add(amount, 'days').format("MMM")
+  }
+
+  const day = (amount) => {
+    return dayjs().add(amount, 'days').format('DD')
+  }
+
+  if (!to) {
+    return <>{month(from)} {day(from)}</>
+  }
+  return <>
+    {month(from)} {day(from)}
+    {' '} - {' '}
+    {month(to) === month(from) ? '' : month(to)} {day(to)}
+  </>
+}
+
+const dates = {
+  estimatedArrival: rangeDate(3, 8),
+  orderPlaced: rangeDate(0),
+  orderShip: rangeDate(1, 2),
+  delivered: rangeDate(3, 8),
+  returnAndExchange: 21,
+}
 
 export default function DisclosureShipping() {
-
   return (
     // <Box classes='w-full laptop:w-[110%]'>
-    <Box classes='w-full'>
       <Box classes='mx-auto w-full max-w-4xl mx-auto rounded-2xl bg-white laptop:p-2'>
         <Disclosure
           as='div'
@@ -44,6 +67,7 @@ export default function DisclosureShipping() {
               >
                 <Disclosure.Panel className='px-4'>
                   <Box classes='mt-2'>
+                    {/* @ts-ignore*/}
                     <Tooltip
                       html={
                         <Box classes='text-left'>
@@ -69,8 +93,7 @@ export default function DisclosureShipping() {
                       </Text>
                     </Tooltip>
                     <Text classes='text-[26px] block mb-8'>
-                      {moment().add(3, 'days').format("MMM")} {' '}
-                      {new Date().getDate() + 3}-{new Date().getDate() + 8}
+                      {dates.estimatedArrival}
                     </Text>
 
                     <Row align='center'>
@@ -81,10 +104,8 @@ export default function DisclosureShipping() {
                           <Box classes='flex-auto h-1/2 w-auto  border-0 border-b-2 border-gray-custom-52'></Box>
                         </Row>
                         <Col>
-                          <Text classes='text-xs mt-2 font-bold'>
-                            {moment().subtract(1, 'days').format("MMM")} {' '}
-                            {new Date().getDate() - 1}
-                          </Text>
+                          <Text classes='text-xs mt-2 font-bold'>{dates.orderPlaced}</Text>
+                          {/* @ts-ignore*/}
                           <Tooltip
                             title="After you place your order, Mori will take 1-2 business days to prepare it for shipment."
                             animation='fade'
@@ -107,11 +128,9 @@ export default function DisclosureShipping() {
                         </Row>
                         <Col classes='text-center'>
                           <Text classes='text-xs mt-2 font-bold'>
-                            {moment().format("MMM")} {' '}
-                            {new Date().getDate()}
-                            -
-                            {new Date().getDate() + 1}
+                            {dates.orderShip}
                           </Text>
+                          {/* @ts-ignore*/}
                           <Tooltip
                             title="Mori puts your order in the mail. "
                             animation='fade'
@@ -133,15 +152,14 @@ export default function DisclosureShipping() {
                         </Row>
                         <Col classes='text-right'>
                           <Text classes='text-xs mt-2 font-bold'>
-                            {moment().add(3, 'days').format("MMM")} {' '}
-                            {new Date().getDate() + 3} - {new Date().getDate() + 8}
+                            {dates.delivered}
                           </Text>
+                          {/* @ts-ignore*/}
                           <Tooltip
                             html={
                               <Text classes='text-white'>
                                 Estimated to arrive at your doorstep {' '}
-                                {moment().add(3, 'days').format("MMM")} {' '}
-                                {new Date().getDate() + 3} - {new Date().getDate() + 8}!
+                                {dates.delivered}
                               </Text>
                             }
                             animation='fade'
@@ -154,7 +172,6 @@ export default function DisclosureShipping() {
                               span
                               classes='text-sm underline decoration-dashed underline-offset-4 cursor-help'
                             >Delivered!</Text>
-                            {/*<Text span classes='text-sm underline decoration-dashed underline-offset-4 cursor-help'>Delivered!</Text>*/}
                           </Tooltip>
                         </Col>
                       </Box>
@@ -178,7 +195,7 @@ export default function DisclosureShipping() {
                       </Box>
                       <Box classes='w-1/2'>
                         <Text classes='text-xs text-primary-gray'>Return & exchange window</Text>
-                        <Text h3>21 days</Text>
+                        <Text h3>{dates.returnAndExchange} days</Text>
                       </Box>
                     </Row>
                     <Row gap={4} align='center'>
@@ -205,6 +222,5 @@ export default function DisclosureShipping() {
           )}
         </Disclosure>
       </Box>
-    </Box>
   )
 }

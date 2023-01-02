@@ -22,7 +22,7 @@ function sendEmail(message) {
   })
 }
 
-export const sendResetPasswordEmail = ({toUser, token}) => {
+export const sendResetPasswordEmail = ({ toUser, token }) => {
   const message = {
     from: 'customercare@mori.com',
     // from: process.env.EMAIL_USERNAME,
@@ -72,7 +72,7 @@ export const sendResetPasswordEmail = ({toUser, token}) => {
   return sendEmail(message);
 }
 
-export const sendResultRegister = ({email}) => {
+export const sendResultRegister = ({ email }) => {
   const message = {
     from: process.env.EMAIL_USERNAME,
     to: email,

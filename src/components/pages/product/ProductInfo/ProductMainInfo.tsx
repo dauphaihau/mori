@@ -1,92 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import moment from "moment";
-
-import { Box, Button, Col, NextImage, Row, Text } from "core/components";
+import { Box, Col, NextImage, Row, Text } from "core/components";
 import { formatDollarUS } from "core/helpers";
 import RatingStars from "./RatingStars";
-import { CartContext, CartProvider } from "context/cartContext";
-import { useAuth } from "context/authContext";
-import { CartDrawer } from "components/drawer";
-import { STORAGE_KEY } from "config/const";
-import QuantitySelect from "./QuantitySelect";
+import QuantitySelector from "./QuantitySelector";
+import { useProductContext } from "context/ProductContext";
+import { rangeDate } from "./DisclosureShipping";
 
-const ProductMainInfo = ({ product, context }) => {
+export default function ProductMainInfo () {
+  const { product } = useProductContext()
   const { name, salePrice, price } = product;
-  const { addToCart, numberAllOfItemsInCart, setItemQuantity, cart } = context
-  const [showCartDrawer, setShowCartDrawer] = useState(false)
-  const [quantityItem, setQuantityItem] = useState(1)
-  const [disableAddItem, setDisableAddItem] = useState(false)
-  const { user, setUser } = useAuth();
-
-  useEffect(() => {
-    setUser({ ...user, numberAllOfItemsInCart })
-    // handleValidQuantity()
-  }, [numberAllOfItemsInCart])
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storageState = window.localStorage.getItem(STORAGE_KEY)
-      if (storageState) {
-        const state = JSON.parse(storageState)
-        // console.log('dauphaihau debug: state', state)
-      }
-    }
-  }, [showCartDrawer])
-
-  const handleValidCheckInCart = (valueSelected) => {
-    try {
-      if (cart.length) {
-        const productInCart = cart.find(o => product.id === o.id)
-        // console.log('dauphaihau debug: product-in-cart', productInCart)
-        if (productInCart) {
-          const resQuantityProd = product.quantity - productInCart.quantity
-          return resQuantityProd >= valueSelected
-        }
-        return false
-      }
-      // console.log('dauphaihau debug: empty-cart')
-      return true
-
-    } catch (error) {
-      // console.log('dauphaihau debug: error', error)
-    }
-  }
-
-  const handleSelectQuantityItem = (quantitySelected) => {
-    const status1 = product.quantity >= quantitySelected
-    const status2 = handleValidCheckInCart(quantitySelected)
-
-    if (status1 && status2) {
-      setQuantityItem(quantitySelected)
-      setDisableAddItem(false)
-    } else {
-      setDisableAddItem(true)
-    }
-  }
-
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const storageState = window.localStorage.getItem(STORAGE_KEY)
-  //     if (storageState) {
-  //       const state = JSON.parse(storageState)
-  //       console.log('dauphaihau debug: state', state)
-  //     }
-  //   }
-  //   console.log('dauphaihau debug: cart', cart)
-  // },[cart])
-  //
-
-  const addItemToCart = () => {
-    setShowCartDrawer(true)
-    addToCart({ ...product, quantity: quantityItem });
-  }
+  const stockQuantity = product.quantity
 
   return (
     <Box>
-      <CartDrawer
-        showCartDrawer={showCartDrawer}
-        setShowCartDrawer={setShowCartDrawer}
-      />
       <Text
         h1
         classes='text-xl tablet:text-2xl laptop:text-4xl mt-2 mb-5'
@@ -111,32 +36,15 @@ const ProductMainInfo = ({ product, context }) => {
         </Text>
       </Text>
 
-      <Text classes='mb-5 block mt-4'>Available: {product.quantity}</Text>
-
-      <Row
-        align='center'
-        gap={4}
-        classes='mb-5'
-      >
-        <QuantitySelect onSelect={handleSelectQuantityItem}/>
-        <Button
-          size='md'
-          width='full'
-          onClick={addItemToCart}
-          data-testid='addToCartButton'
-          // disabled={disableAddItem || product.quantity === 0}
-          // disabled={quantityItem === product.quantity}
-          disabled={product.quantity === 0}
-          text={product.quantity === 0 ? 'Sold out' : 'Add to Cart'}
-        />
-      </Row>
+      <Text classes='mb-5 block mt-4'>Available: {stockQuantity}</Text>
+      <QuantitySelector/>
       <Col gap={2}>
         <Row
           gap={4}
           align='center'
         >
           <NextImage
-            src='/images/product/cart.png'
+            src='/images/product-page/cart.png'
             height={52}
             width={55}
             objectFit='contain'
@@ -150,7 +58,7 @@ const ProductMainInfo = ({ product, context }) => {
           align='center'
         >
           <NextImage
-            src='/images/product/star.png'
+            src='/images/product-page/star.png'
             height={52}
             width={55}
             objectFit='contain'
@@ -165,29 +73,19 @@ const ProductMainInfo = ({ product, context }) => {
           align='center'
         >
           <NextImage
-            src='/images/product/car.png'
+            src='/images/product-page/car.png'
             height={52}
             width={55}
             objectFit='contain'
           />
           <Text classes='w-full text-sm'>
-            Arrives by {moment().add(3, 'days').format("MMM")} {' '}
-            {new Date().getDate() + 3} - {new Date().getDate() + 8} if you order today.
+            <Text b>
+              Arrives by {rangeDate(3, 8)}
+            </Text> {' '}
+            if you order today.
           </Text>
         </Row>
       </Col>
     </Box>
   );
 }
-
-function ProductMainInfoWithContext(props) {
-  return (
-    <CartProvider>
-      <CartContext.Consumer>
-        {context => <ProductMainInfo {...props} context={context}/>}
-      </CartContext.Consumer>
-    </CartProvider>
-  )
-}
-
-export default ProductMainInfoWithContext

@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { SORT_PRODUCT } from "config/const";
 
 // export const sortProductOptions = Object.keys(SORT_PRODUCT).map(key => ({
@@ -41,12 +41,12 @@ export const deliveryOpts = [
   {
     value: 'slowDelivery',
     name: 'Standard delivery (Free)',
-    description: `Delivered in ${moment().add(10, 'days').format('LL')}`,
+    description: `Delivered in ${dayjs().add(10, 'days').format('LL')}`,
   },
   {
     value: 'fastDelivery',
     name: 'Fast delivery ($2,00)',
-    description: `Delivered in ${moment().add(3, 'days').format('LL')}`,
+    description: `Delivered in ${dayjs().add(3, 'days').format('LL')}`,
   },
 ]
 

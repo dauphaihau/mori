@@ -50,10 +50,10 @@ export default function ProductList({ context }) {
     <Col classes='h-full overflow-x-hidden'>
       <Box>
         {
-          cart.map((item) => {
+          cart.map((item, idx) => {
             return (
               // <Row classes='border-b py-4' key={item.id}>
-              <Row classes='py-4' key={item.id}>
+              <Row classes='py-4' key={idx}>
                 <Box
                   classes='relative group bg-light rounded-lg p-1 cursor-pointer '
                   onClick={() => removeFromCart(item)}

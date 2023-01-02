@@ -1,6 +1,6 @@
 import React from 'react';
 
-function createSafeContext<TValue extends {} | null>(initialState) {
+export function useSafeContext<TValue extends {} | null>(initialState) {
   const context = React.createContext<TValue | undefined>(initialState);
 
   function useContext() {
@@ -13,5 +13,3 @@ function createSafeContext<TValue extends {} | null>(initialState) {
 
   return [useContext, context.Provider] as const;
 }
-
-export default createSafeContext;

@@ -8,23 +8,16 @@ import { useAutoFocus } from 'core/hooks';
 import { useAccount, accountService } from 'services/account';
 import { PATH } from "config/const";
 import { cn } from "core/helpers";
-import { IUserAuthSchema as FormData } from "lib/validation/auth";
+import { userAuthSchema } from "lib/validation/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { encryptPassword } from "lib/crypto";
 import { config } from "config";
 import ErrorServer from "components/common/ErrorServer";
+import { userNameSchema } from "../../../lib/validation/user";
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-  .email('Email is invalid')
-  .required('Email is required'),
-  password: Yup.string()
-  .required('Password is required')
-  .min(6, 'Password must be at least 6 characters'),
-});
+interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
-interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {
-}
+type FormData = Yup.InferType<typeof userAuthSchema>
 
 export default function UserAuthForm({ className }: UserAuthFormProps) {
   const router = useRouter();
@@ -39,7 +32,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
     reset, setError, setValue,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: yupResolver(validationSchema)
+    resolver: yupResolver(userAuthSchema)
   });
 
   async function onSubmit(values: FormData) {
@@ -64,6 +57,8 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
     }
   }
 
+  console.log('dauphaihau debug: errors', errors)
+
   return (
     <Box
       form
@@ -77,7 +72,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
       <Box classes='space-y-5 mb-8'>
         <Input
           name='email'
-          type='email'
+          // type='email'
           placeholder='Email Address'
           register={register}
           helperText={errors?.email?.message}

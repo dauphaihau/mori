@@ -1,6 +1,6 @@
 import { Disclosure, Text, Col } from "core/components";
 
-const ProductFaq = () => {
+export default function ProductFaq() {
   return (
     <Col
       classes='mt-6 mb-36'
@@ -15,7 +15,6 @@ const ProductFaq = () => {
     </Col>
   )
 }
-export default ProductFaq
 
 const data = [
   {

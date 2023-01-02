@@ -6,8 +6,8 @@ import reducer, {
 } from "./reducers/uiControllerReducer";
 import * as React from "react";
 import { useRouter } from "next/router";
-import useSafeContext from "../core/hooks/useSafeContext";
-import { useCategories } from "../services/product";
+import { useSafeContext } from "core/hooks";
+import { useCategories } from "services/product";
 
 const initialState = {
   openAddressModal: false,

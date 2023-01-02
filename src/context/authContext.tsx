@@ -8,7 +8,7 @@ import { IToken, IUser } from 'types/user';
 import { PATH, ROLE } from "config/const";
 import { useRouter } from "next/router";
 import { signToken, verifyToken } from "lib/jwt";
-import useSafeContext from "../core/hooks/useSafeContext";
+import { useSafeContext } from "core/hooks";
 
 export interface AuthProps {
   user: IUser

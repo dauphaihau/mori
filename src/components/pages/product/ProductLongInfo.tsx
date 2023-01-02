@@ -4,11 +4,11 @@ import DisclosureDescription from "./ProductInfo/DisclosureDescription";
 import DisclosureShipping from "./ProductInfo/DisclosureShipping";
 import DisclosureHighlights from "./ProductInfo/DisclosureHighlights";
 
-export default function ProductLongInfo({ description }) {
+export default function ProductLongInfo() {
   return (
     <Col classes='mt-6 mb-4 laptop:mb-36' align='center'>
       <DisclosureHighlights/>
-      <DisclosureDescription description={description}/>
+      <DisclosureDescription/>
       <DisclosureFAQs/>
       <DisclosureShipping/>
     </Col>

@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, forwardRef, ReactNode } from "react";
-import { Loading } from "../Loading";
+import { Loading } from "core/components";
 import { cn, createMaps } from "core/helpers";
 import { ClassValue } from "clsx";
 

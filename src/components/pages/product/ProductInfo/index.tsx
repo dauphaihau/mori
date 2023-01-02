@@ -4,9 +4,10 @@ import ProductLongInfo from "../ProductLongInfo";
 import CustomerReview from "../CustomerReview";
 import ProductImages from "./ProductImages";
 import ProductMainInfo from "./ProductMainInfo";
-import { IProduct } from "types/product";
+import { useProductContext } from "context/ProductContext";
 
-export default function ProductInfo({ product }: {product: IProduct}) {
+export default function ProductInfo() {
+  const { product } = useProductContext()
 
   const dataBreadcrumb = [
     { path: PATH.DEFAULT, name: 'Home' },
@@ -14,25 +15,21 @@ export default function ProductInfo({ product }: {product: IProduct}) {
     { name: product?.name },
   ];
 
-  const Left = () => {
-    return (
-      <Box classes='w-full laptop:w-8/12 h-120 pt-2 pb-8'>
-        <Breadcrumb data={dataBreadcrumb}/>
-        <ProductImages product={product}/>
-        <CustomerReview className='hidden laptop:block'/>
-      </Box>
-    )
-  }
+  const Left = () => (
+    <Box classes='w-full laptop:w-8/12 h-120 pt-2 pb-8'>
+      <Breadcrumb data={dataBreadcrumb}/>
+      <ProductImages/>
+      <CustomerReview className='hidden laptop:block'/>
+    </Box>
+  )
 
-  const Right = () => {
-    return (
-      <Col classes='pt-2 pb-8 px-2 laptop:px-0 w-full laptop:w-4/12'>
-        <ProductMainInfo product={product}/>
-        <ProductLongInfo description={product.description}/>
-        <CustomerReview className='laptop:hidden'/>
-      </Col>
-    )
-  }
+  const Right = () => (
+    <Col classes='pt-2 pb-8 px-2 laptop:px-0 w-full laptop:w-4/12'>
+      <ProductMainInfo/>
+      <ProductLongInfo/>
+      <CustomerReview className='laptop:hidden'/>
+    </Col>
+  )
 
   return (
     <Box classes='flex flex-col laptop:flex-row gap-x-8 pt-12 laptop:mb-[350px] desktop:w-10/12 mx-auto'>

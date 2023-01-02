@@ -1,8 +1,9 @@
-import { Text, Divider, Box, Col, Grid, Row, NextImage, Select } from 'core/components';
+import React, { Fragment, HTMLAttributes, useState } from 'react';
+import { Listbox, Transition } from '@headlessui/react'
+
+import { Text, Divider, Box, Col, Grid, Row, NextImage } from 'core/components';
 import Pagination from 'core/components/Table/Pagination';
 import RatingStars from './ProductInfo/RatingStars';
-import React, { Fragment, HTMLAttributes, useEffect, useState } from 'react';
-import { Listbox, Transition } from '@headlessui/react'
 import { cn } from 'core/helpers';
 import { Icons } from 'core/components/Icons';
 
@@ -20,9 +21,10 @@ const sortReviews = [
 interface CustomerReviewProps extends HTMLAttributes<HTMLDivElement> {
 }
 
+{/* static data */}
 export default function CustomerReview({ className }: CustomerReviewProps) {
   return (
-    <Box classes={cn('mt-12 laptop:w-11/12', className)}>
+    <Box classes={['mt-12 laptop:w-11/12', className]}>
       <Row justify='between'>
         <Text classes='text-lg tablet:text-2xl mb-4'>Customer Reviews</Text>
         <Box classes='hidden tablet:block'>
@@ -30,7 +32,6 @@ export default function CustomerReview({ className }: CustomerReviewProps) {
         </Box>
       </Row>
 
-      {/* static data */}
       <Row align='center'>
         <Text>3.8<Text
           span
@@ -49,7 +50,6 @@ export default function CustomerReview({ className }: CustomerReviewProps) {
         classes='mt-8 gap-x-16 gap-y-4'
       >
         <Divider classes='border-primary-gray'/>
-
         {
           data.map((o, idx) => {
             return <Fragment key={idx}>
@@ -57,10 +57,7 @@ export default function CustomerReview({ className }: CustomerReviewProps) {
                 blockquote
                 classes='space-y-4 mb-6'
               >
-                {/*<Grid sx={1} lg={6} xl={7}>*/}
-
                 <RatingStars initialValue={o.customerData.rating}/>
-
                 <Col classes='laptop:col-span-5 desktop:col-span-6 w-11/12'>
                   <Text
                     classes='text-lg laptop:text-2xl mt-2 text-primary-gray font-base sm:mt-0'
@@ -81,18 +78,10 @@ export default function CustomerReview({ className }: CustomerReviewProps) {
                     src={o.customerData.avatar}
                     alt='avatar'
                   />
-                  {/*<Col>*/}
-                  {/*  <Box classes='mt-2'>*/}
                   <Text classes='text-xs text-primary-gray'>{o.customerData.name}</Text>
                   <Text classes='text-xs text-primary-gray'>{o.customerData.dateComment}</Text>
-                  {/*  </Box>*/}
-                  {/*</Col>*/}
                 </Row>
-
-                {/*</Grid>*/}
-
               </Box>
-              {/*<Divider classes={clns('border-primary-gray', data.length - 1 === idx && 'hidden')}/>*/}
             </Fragment>
           })
         }
@@ -148,11 +137,6 @@ const SortSelect = () => {
               className='h-3 w-3 font-bold'
               aria-hidden='true'
             />
-
-              {/*<SelectorIcon*/}
-              {/*  className='h-5 w-5 text-gray-400'*/}
-              {/*  aria-hidden='true'*/}
-              {/*/>*/}
             </span>
           </Listbox.Button>
           <Transition
