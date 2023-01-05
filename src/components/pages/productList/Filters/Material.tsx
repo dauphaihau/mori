@@ -6,7 +6,7 @@ import { Box, Icons, Row, Skeleton, Text } from "core/components";
 import { filterSearch } from "./Filters";
 import { PATH } from "config/const";
 import { cn, titleIfy } from "core/helpers";
-import { useUIController } from "context/UIControllerContext";
+import { useUIController } from "components/context/UIControllerContext";
 import { useMediaQuery, useSessionStorage } from "core/hooks";
 
 interface MaterialProps {

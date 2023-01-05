@@ -3,7 +3,7 @@ import { cn } from "core/helpers";
 import { ClassValue } from "clsx";
 
 interface BoxProps {
-  classes: string | ClassValue[],
+  classes?: string | ClassValue[],
   children: ReactNode,
   footer: boolean,
   nav: boolean,

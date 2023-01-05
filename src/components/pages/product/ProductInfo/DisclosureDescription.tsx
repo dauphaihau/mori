@@ -2,7 +2,7 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { cn } from 'core/helpers';
 import { Button, Text, Icons, Box } from "core/components";
 import { useRef, useState } from "react";
-import { useProductContext } from "context/ProductContext";
+import { useProductContext } from "components/context/ProductContext";
 
 const description = `Our Willow Coffins have a slightly pink and golden look, they are hand-worked by traditional
 basket
@@ -32,7 +32,7 @@ back to the same height within a year. Willow has been known to grow up to 3 met
 and
 has the ability to degrade much more quickly than conventional hardwood.`
 
-export default function DisclosureDescription({ limit = 500 }) {
+const DisclosureDescription = ({ limit = 500 }) => {
   // const { product: { description } } = useProductContext()
 
   const [showMore, setShowMore] = useState(false)
@@ -107,3 +107,5 @@ export default function DisclosureDescription({ limit = 500 }) {
     </div>
   )
 }
+
+export default DisclosureDescription

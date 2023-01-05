@@ -5,11 +5,11 @@ import 'react-tippy/dist/tippy.css'
 import '../assets/styles/global.scss'
 
 import RootLayout from "components/layout/RootLayout";
-import { AuthProvider } from "context/authContext";
-import { UIControllerProvider } from "context/UIControllerContext";
-import SizeObserver from "context/sliderContext";
+import { AuthProvider } from "components/context/authContext";
+import { UIControllerProvider } from "components/context/UIControllerContext";
+import SizeObserver from "components/context/sliderContext";
 
-function EcommerceApp({ Component, pageProps }) {
+export default function EcommerceApp({ Component, pageProps }) {
   return (
     <HydrationProvider>
       <Client>
@@ -26,5 +26,3 @@ function EcommerceApp({ Component, pageProps }) {
     </HydrationProvider>
   )
 }
-
-export default EcommerceApp

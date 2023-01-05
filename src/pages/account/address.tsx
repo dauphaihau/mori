@@ -2,15 +2,13 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ChevronLeftIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline";
 
-import { useAuth } from 'context/authContext';
+import { useAuth } from 'components/context/authContext';
 import { Text, Grid, Button, Box, Link } from 'core/components';
 import { PATH } from "config/const";
 import { AddressAccountPageDialog } from 'components/dialog';
 import AccountLayout from 'components/layout/AccountLayout';
-import { getPackageProfile } from "../../lib/cookie";
 
 export default function AddressPage() {
-  const profile = getPackageProfile()
   const { user } = useAuth();
   const [showAddressDialog, setShowAddressDialog] = useState<boolean>(false)
 

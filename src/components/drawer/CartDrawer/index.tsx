@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/router";
 
-import { CartProvider, CartContext } from 'context/cartContext';
-import { useAuth } from 'context/authContext';
+import { CartProvider, CartContext } from 'components/context/cartContext';
+import { useAuth } from 'components/context/authContext';
 import { Drawer } from 'core/components';
 import PostCheckoutButton from "./post-checkout-button";
 import ProductList from './ProductList';

@@ -82,7 +82,7 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
             type={type}
             value={value}
             name={name}
-            // onChange={handleOnChange}
+            onChange={handleOnChange}
             {...register(name, {
               onChange: (e) => handleOnChange(e),
               // onBlur: (e) => {},

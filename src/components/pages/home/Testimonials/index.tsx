@@ -1,5 +1,5 @@
 import React from 'react';
-import Carousel from "context/carouselContext";
+import Carousel from "components/context/carouselContext";
 import CarouselItem from "./CarouselItem";
 import Review from "./Review";
 import { Text } from "core/components";

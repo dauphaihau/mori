@@ -41,7 +41,7 @@ const Checkbox = forwardRef((props: CheckboxProps, ref) => {
           className={classes}
           {...others}
         />
-        <label for={value}>{label}</label>
+        <label htmlFor={value}>{label}</label>
       </div>
     );
   }

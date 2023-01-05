@@ -4,7 +4,7 @@ import { Box, Col, Grid, Link, NextImage, Skeleton, Text } from 'core/components
 import { cn, titleIfy } from "core/helpers";
 import { config } from "config";
 import FadeInSection from 'components/common/FadeInSection';
-import { useUIController } from "context/UIControllerContext";
+import { useUIController } from "components/context/UIControllerContext";
 import { BASE_URL } from 'config/const';
 
 const mapImage = {

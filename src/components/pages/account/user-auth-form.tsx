@@ -5,15 +5,12 @@ import { useRouter } from "next/router";
 
 import { Button, Input, Box, Text, Row, Icons } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
-import { useAccount, accountService } from 'services/account';
+import { accountService } from 'services/account';
 import { PATH } from "config/const";
 import { cn } from "core/helpers";
 import { userAuthSchema } from "lib/validation/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { encryptPassword } from "lib/crypto";
-import { config } from "config";
 import ErrorServer from "components/common/ErrorServer";
-import { userNameSchema } from "../../../lib/validation/user";
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -56,8 +53,6 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
         setErrorServer(message)
     }
   }
-
-  console.log('dauphaihau debug: errors', errors)
 
   return (
     <Box

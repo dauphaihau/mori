@@ -6,13 +6,14 @@ import { NextImage, Input, Button, Text, Dialog, Box, Col, Grid } from 'core/com
 import { PATH } from "config/const";
 import { cn } from "core/helpers";
 
-const SubscribeDialog = () => {
+export default function SubscribeDialog() {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter();
 
   useEffect(() => {
     if (router.pathname === PATH.HOME) {
-      setTimeout(() => setIsOpen(true), 100)
+      const timeout = setTimeout(() => setIsOpen(true), 2000)
+      return () => clearTimeout(timeout)
     }
   }, [])
 
@@ -24,7 +25,7 @@ const SubscribeDialog = () => {
         "bg-[url('/images/newsletter-bg.png')]"
       )}
     >
-      <Dialog.Content>
+      <Dialog.Content hideXIcon>
         <Box classes='relative'>
           <XIcon
             className='btn-icon hover:bg-white absolute top-[-30.7px] right-[-26.5px]'
@@ -55,6 +56,7 @@ const SubscribeDialog = () => {
                 classes='my-3'
               >Subscribe the Drop store to get in touch and get the future update. </Text>
               <Input
+                onChange={() => {}}
                 name='email'
                 type='email'
                 placeholder='Email Address'
@@ -72,5 +74,3 @@ const SubscribeDialog = () => {
     </Dialog>
   );
 }
-
-export default SubscribeDialog;

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
 import { Link, Text, Box, Button, Grid } from 'core/components';
-import { useAuth } from 'context/authContext';
+import { useAuth } from 'components/context/authContext';
 import ChangePasswordDialog from 'components/dialog/ChangePasswordDialog';
 import { PATH } from 'config/const';
 import AccountLayout from 'components/layout/AccountLayout';
-import { getPackageProfile } from "lib/cookie";
+import { getPackageProfile, handleSetCookie } from "lib/cookie";
 
 export default function AccountPage() {
   const { handleLogout } = useAuth();

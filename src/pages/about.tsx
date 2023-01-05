@@ -5,7 +5,7 @@ import Intro from 'components/pages/about/Intro';
 import BannerAboutPage from "components/pages/about/BannerAboutPage";
 import LongIntro from "components/pages/about/LongIntro";
 
-const AboutPage: FC = () => {
+export default function AboutPage() {
   return (
     <Box
       section
@@ -19,5 +19,3 @@ const AboutPage: FC = () => {
     </Box>
   );
 }
-
-export default AboutPage;

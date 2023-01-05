@@ -1,4 +1,4 @@
-import { useState, useEffect, PropsWithChildren } from 'react';
+import { useState, useEffect, PropsWithChildren, createContext, useContext } from 'react';
 
 import { accountService } from 'services/account';
 import { handleGetCookie, handleRemoveCookie, handleSetCookie } from 'lib/cookie';
@@ -24,7 +24,13 @@ const initialState = {
   setUser: () => {},
 };
 
-export const [useAuth, Provider] = useSafeContext<AuthProps>(initialState)
+// export const [useAuth, Provider] = useSafeContext<AuthProps>(initialState)
+
+export const AuthContext = createContext<AuthProps>(initialState)
+
+export function useAuth() {
+  return useContext(AuthContext);
+}
 
 export function AuthProvider({ children }: PropsWithChildren<{}>) {
   const [user, setUser] = useState<IUser | null>();
@@ -33,16 +39,22 @@ export function AuthProvider({ children }: PropsWithChildren<{}>) {
 
   useEffect(() => {
     const authData = handleGetCookie<IToken>(config.cookies.auth)
+
+    console.log('dauphaihau debug: auth-data', authData)
+
     if (authData && authData.token && authData.refreshToken) {
       // console.log('dauphaihau debug: has auth data')
 
       const verifyAuth = async () => {
         const dataToken = await handleToken(authData)
+        console.log('dauphaihau debug: data-token', dataToken)
 
         if (dataToken) {
           // console.log('dauphaihau debug: data-token', dataToken)
-          setUser({ ...(user as object), ...dataToken })
+          setUser({ ...user, ...dataToken })
           // setRole(ROLE.ACCOUNT)
+        } else {
+
         }
       }
       verifyAuth();
@@ -70,11 +82,11 @@ export function AuthProvider({ children }: PropsWithChildren<{}>) {
   const handleLogout = () => {
     handleRemoveCookie(config.cookies.auth)
     handleRemoveCookie(config.cookies.profile)
-    // setUser({ numberAllOfItemsInCart: user.numberAllOfItemsInCart })
     router.push(PATH.HOME);
+    // setUser({ numberAllOfItemsInCart: user.numberAllOfItemsInCart })
+
     setRole(ROLE.BASIC);
     setUser({ ...user, role: ROLE.BASIC });
-    // setUser({...user, role: ROLE.BASIC});
   }
 
   const handleToken = async (authData) => {
@@ -88,35 +100,33 @@ export function AuthProvider({ children }: PropsWithChildren<{}>) {
     // case require verify token success
     if (dataToken && refreshToken) {
 
-      // case refresh if token expired ( refreshToken expired )
+      // 1. refreshToken & token expired
       // if (dataToken.exp > now && refreshToken.exp > now) { // mock
       if (dataToken.exp < now && refreshToken.exp < now) {
         console.log('dauphaihau debug: run case token + refreshToken expired ')
         return null
       }
 
-      // case refresh if token expired ( refreshToken work )
+      // 2. refreshToken works - token expired
       // if (dataToken.exp > now && refreshToken.exp > now) { // mock
       if (dataToken.exp < now && refreshToken.exp > now) {
         console.log('dauphaihau debug: run case token expired')
 
-        const token = await signToken(dataToken, secret, config.token.tokenLife);
+        const newToken = await signToken(dataToken, secret, config.token.tokenLife);
+        const newDataToken = await verifyToken(newToken, secret)
 
         // console.log('dauphaihau debug: data-token-token', dataToken)
-        const newDataToken = await verifyToken(token, secret)
         // console.log('dauphaihau debug: new-data-token', newDataToken)
 
-        // console.log('dauphaihau debug: token-auth-token', token === auth.token)
-        authData.token = token
-        // console.log('dauphaihau debug: token-auth-token', token === auth.token)
-
-        // console.log('dauphaihau debug: auth', auth)
+        // console.log('dauphaihau debug: token-auth-token', newToken === authData.token)
+        authData.token = newToken
+        // console.log('dauphaihau debug: token-auth-token', newToken === authData.token)
 
         handleSetCookie(config.cookies.auth, authData)
         return newDataToken
       }
 
-      // case token still work
+      // default
       // console.log('dauphaihau debug: token still work')
       return dataToken
     }
@@ -128,6 +138,6 @@ export function AuthProvider({ children }: PropsWithChildren<{}>) {
   };
 
   return (
-    <Provider value={providerValues}>{children}</Provider>
+    <AuthContext.Provider value={providerValues}>{children}</AuthContext.Provider>
   );
 }

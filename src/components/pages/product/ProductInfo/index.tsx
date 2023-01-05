@@ -4,7 +4,7 @@ import ProductLongInfo from "../ProductLongInfo";
 import CustomerReview from "../CustomerReview";
 import ProductImages from "./ProductImages";
 import ProductMainInfo from "./ProductMainInfo";
-import { useProductContext } from "context/ProductContext";
+import { useProductContext } from "components/context/ProductContext";
 
 export default function ProductInfo() {
   const { product } = useProductContext()

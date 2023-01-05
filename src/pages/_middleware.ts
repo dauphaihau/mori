@@ -3,8 +3,10 @@ import { PATH, ROLE, USER_STATUS } from 'config/const';
 import { hashMD5 } from 'lib/crypto';
 import configJson from 'config/config.json';
 import { isEmpty, parseJSON } from 'core/helpers';
-import { verifyToken } from 'lib/jwt';
+import { signToken, verifyToken } from 'lib/jwt';
 import { IToken } from "types/user";
+import { config } from "config";
+import { handleRemoveCookie, handleSetCookie } from "lib/cookie";
 
 export async function middleware(req: NextRequest) {
 
@@ -37,27 +39,52 @@ export async function middleware(req: NextRequest) {
   }
 }
 
-async function handleToken(auth): Promise<object> {
+async function handleToken(authData): Promise<object> {
 
   // const secret = process.env.STRIPE_SECRET_KEY // mock
   const secret = process.env.NEXT_PUBLIC_JWT_SECRET
-  const dataToken = await verifyToken(auth.token, secret)
-  const refreshToken = await verifyToken(auth.refreshToken, secret)
+  const dataToken = await verifyToken(authData.token, secret)
+  const refreshToken = await verifyToken(authData.refreshToken, secret)
   const now = Math.floor(Date.now() / 1000);
 
-  // case require verify token success
+  // require token verified success
   if (dataToken && refreshToken) {
 
-    // case refresh if token expired ( refreshToken expired )
+    // 1. refreshToken & token works
+    if (dataToken.exp > now && refreshToken.exp > now) {
+      console.log('dauphaihau debug: run case refreshToken & token works')
+      return dataToken
+    }
+
+    // 2. refreshToken & token expired --> re-login
     // if (dataToken.exp > now && refreshToken.exp > now) { // mock
     if (dataToken.exp < now && refreshToken.exp < now) {
+      // handleRemoveCookie(config.cookies.auth)
+      // handleRemoveCookie(config.cookies.profile)
       console.log('dauphaihau debug: run case token + refreshToken expired ')
       return null
     }
 
-    // case token still work
-    // console.log('dauphaihau debug: token still work')
-    return dataToken
+    // 3. refreshToken works - token expired
+    if (dataToken.exp > now && refreshToken.exp > now) { // mock
+    // if (dataToken.exp < now && refreshToken.exp > now) {
+      console.log('dauphaihau debug: run case token expired')
+
+      const newToken = await signToken(dataToken, secret, config.token.tokenLife);
+      const newDataToken = await verifyToken(newToken, secret)
+
+      // console.log('dauphaihau debug: data-token-token', dataToken)
+      // console.log('dauphaihau debug: new-data-token', newDataToken)
+
+      // console.log('dauphaihau debug: token-auth-token', newToken === authData.token)
+      authData.token = newToken
+      // console.log('dauphaihau debug: token-auth-token', newToken === authData.token)
+
+      // doesn't work
+      handleSetCookie(config.cookies.auth, authData)
+
+      return newDataToken
+    }
   }
   return null
 }

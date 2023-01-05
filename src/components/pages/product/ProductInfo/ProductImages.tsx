@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { NextImage, Box, Row } from 'core/components';
 import { config } from "config";
-import { useProductContext } from "context/ProductContext";
+import { useProductContext } from "components/context/ProductContext";
 
 export default function ProductImages() {
   const { product } = useProductContext()

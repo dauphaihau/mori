@@ -6,14 +6,12 @@ const initialState = {
   numberOfItemsInCart: 0,
   numberAllOfItemsInCart: 0,
   total: 0,
-  step: 0,
   showAddressDialog: false,
   recentlyViewedProduct: [],
   addToCart: (item: object) => {},
   clearCart: () => {},
   removeFromCart: (item: object) => {},
   setItemQuantity: (item: object) => {},
-  setStep: (step: number) => {},
 }
 
 const calculateTotal = (cart) => {
@@ -98,10 +96,6 @@ export class CartProvider extends Component {
     this.forceUpdate()
   }
 
-  setStep = (step) => {
-    this.setState({ ...this.state, step })
-  }
-
   render() {
     let state = initialState
     if (typeof window !== 'undefined') {
@@ -119,7 +113,6 @@ export class CartProvider extends Component {
           clearCart: this.clearCart,
           removeFromCart: this.removeFromCart,
           setItemQuantity: this.setItemQuantity,
-          setStep: this.setStep,
         }}
       >
         {this.props.children}

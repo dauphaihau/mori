@@ -98,16 +98,21 @@ const Title = ({ title }: {title: string}) => {
   )
 }
 
-const Content = ({ children, classes, closeDialog }: {
+interface ContentProps {
   children: ReactNode,
   classes?: string,
-  closeDialog: any
-}) => (
+  closeDialog?: () => void
+  hideXIcon?: boolean
+}
+
+const Content = ({ children, classes, closeDialog, hideXIcon }: ContentProps) => (
   <div className={cn('relative', classes)}>
-    <Icons.x
-      className='btn-icon--noBg absolute top-3 right-2.5'
-      onClick={() => closeDialog()}
-    />
+    {
+      !hideXIcon && <Icons.x
+        className='btn-icon--noBg absolute top-3 right-2.5'
+        onClick={() => closeDialog()}
+      />
+    }
     {children}
   </div>
 )

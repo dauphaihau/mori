@@ -7,7 +7,7 @@ import { filterSearch } from "./Filters";
 import { cn, titleIfy } from 'core/helpers';
 import { useCategories } from "services/product";
 import { PATH, PRODUCT_COLOR } from "config/const";
-import { useUIController } from "context/UIControllerContext";
+import { useUIController } from "components/context/UIControllerContext";
 import { useMediaQuery, useSessionStorage } from "core/hooks";
 
 export const Categories = memo(() => {

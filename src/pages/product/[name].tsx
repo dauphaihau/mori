@@ -1,5 +1,5 @@
 import { ProductInfo, ProductRelated } from 'components/pages/product';
-import { ProductProvider } from "context/ProductContext";
+import { ProductProvider } from "components/context/ProductContext";
 
 export default function ProductPage() {
   return (

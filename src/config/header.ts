@@ -1,4 +1,4 @@
-import { PATH } from 'config/const';
+import { PATH, SORT_PRODUCT } from 'config/const';
 import { HeaderConfig } from 'types';
 
 export const headerConfig: HeaderConfig = {
@@ -23,13 +23,13 @@ export const headerConfig: HeaderConfig = {
             },
             {
               title: 'New in',
-              href: PATH.PRODUCT._,
+              href: `${PATH.PRODUCT._}?sort=${SORT_PRODUCT.DATE_NEW}`,
               childDiscover: true,
               subMenu: null
             },
             {
               title: 'Best Sellers',
-              href: PATH.PRODUCT._,
+              href: `${PATH.PRODUCT._}?sort=${SORT_PRODUCT.BEST_SELLING}`,
               childDiscover: true,
               subMenu: null
             },

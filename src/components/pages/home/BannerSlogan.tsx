@@ -1,7 +1,7 @@
 import { Box, Divider, Row, Text } from 'core/components';
 import { useCallback } from 'react';
 import { cn } from "core/helpers";
-import Carousel, { useCarousel } from 'context/carouselContext';
+import Carousel, { useCarousel } from 'components/context/carouselContext';
 import { config } from "../../../config";
 
 const Dots = () => {

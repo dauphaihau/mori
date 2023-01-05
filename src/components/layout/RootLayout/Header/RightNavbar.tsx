@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useAuth } from 'context/authContext';
+import { useAuth } from 'components/context/authContext';
 import { Link, Button, Box, Row } from 'core/components';
 import { CartDrawer } from 'components/drawer';
 import { LoginRegisterDialog, SearchProductDialog } from 'components/dialog';

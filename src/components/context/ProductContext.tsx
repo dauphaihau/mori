@@ -1,7 +1,6 @@
-import { FC } from "react";
+import { createContext, FC, useContext } from "react";
 import { useRouter } from "next/router";
 
-import { useSafeContext } from "core/hooks";
 import { useDetailProduct, useRelatedProducts } from "services/product";
 import { titleIfy } from 'core/helpers';
 import { IProduct } from "types/product";
@@ -13,7 +12,11 @@ export interface ProductContextProps {
   relatedProducts: IProduct[]
 }
 
-export const [useProductContext, Provider] = useSafeContext<ProductContextProps>({})
+export const ProductContext = createContext<ProductContextProps>(undefined)
+
+export function useProductContext() {
+  return useContext(ProductContext);
+}
 
 export const ProductProvider: FC = ({ children }) => {
   const router = useRouter()
@@ -31,14 +34,15 @@ export const ProductProvider: FC = ({ children }) => {
   };
 
   return (
-    <Provider value={providerValues}>
+    <ProductContext.Provider value={providerValues}>
       <Box
-        classes={['mx-auto max-w-[120rem] w-full laptop:w-[95%] px-2 tablet:px-6 laptop:px-0 min-h-screen',
+        classes={[
+          'mx-auto max-w-[120rem] w-full laptop:w-[95%] px-2 tablet:px-6 laptop:px-0 min-h-screen',
           !relatedProducts && 'grid place-items-center'
         ]}
       >
         {!isLoading && children}
       </Box>
-    </Provider>
+    </ProductContext.Provider>
   );
 }

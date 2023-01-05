@@ -2,7 +2,7 @@ import { Box, Col, NextImage, Row, Text } from "core/components";
 import { formatDollarUS } from "core/helpers";
 import RatingStars from "./RatingStars";
 import QuantitySelector from "./QuantitySelector";
-import { useProductContext } from "context/ProductContext";
+import { useProductContext } from "components/context/ProductContext";
 import { rangeDate } from "./DisclosureShipping";
 
 export default function ProductMainInfo () {

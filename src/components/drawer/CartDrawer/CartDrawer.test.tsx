@@ -1,4 +1,4 @@
-import { CartProvider, CartContext } from 'context/cartContext';
+import { CartProvider, CartContext } from 'components/context/cartContext';
 import { renderWithAuthProvider } from 'lib/test/test-utils';
 // import { CartProvider } from 'contexts/cart-context';
 

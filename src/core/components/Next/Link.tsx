@@ -1,10 +1,11 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import NextLink, { LinkProps } from 'next/link';
 import { cn } from 'core/helpers';
+import { ClassValue } from "clsx";
 
 type LinkType = {
   href: string,
-  classes?: string,
+  classes?: string | ClassValue[],
   children?: ReactNode,
   openNewTab?: boolean;
   disabled?: boolean,
@@ -39,7 +40,7 @@ const Link = (props: LinkType) => {
             'underline underline-offset-2 hover:opacity-80': underline,
             'hidden': hideIf,
           },
-          classes,
+          cn(classes),
         )}
         {...others}
       >
@@ -62,7 +63,7 @@ const Link = (props: LinkType) => {
             'hover:underline underline-offset-2 decoration-1 hover:opacity-80': underline,
             'hidden': hideIf,
           },
-          classes
+          cn(classes)
         )}
         {...others}
       >

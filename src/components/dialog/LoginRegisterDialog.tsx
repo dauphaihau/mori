@@ -9,11 +9,9 @@ import { useAutoFocus } from 'core/hooks';
 import { accountService } from 'services/account';
 import { userAuthSchema } from "lib/validation/auth";
 import { PATH } from 'config/const';
-import { userNameSchema } from "../../lib/validation/user";
+import { userNameSchema } from "lib/validation/user";
 
 type FormData = Yup.InferType<typeof userNameSchema & typeof userAuthSchema>
-// type FormData = Yup.InferType<typeof userNameSchema> & Yup.InferType<typeof userAuthSchema>
-// type FormData = {name: string} & Yup.InferType<typeof userAuthSchema>
 
 const formType = {
   login: {
@@ -76,12 +74,12 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
     setIsLoading(true)
     const {
       isLoading,
-      data,
+      status,
       message
     } = currentForm === 'register' ? await accountService.register(values) : await accountService.login(values)
     setIsLoading(isLoading)
 
-    if (data) {
+    if (status === 200) {
       reset({ password: '', email: '' });
       if (currentForm === 'login') {
         router.push(PATH.ACCOUNT._)
@@ -97,8 +95,6 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
       }
     }
   }
-
-  console.log('dauphaihau debug: errors', errors)
 
   return (
     <Dialog
@@ -153,6 +149,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
               align='center'
             >
               <Checkbox
+                value=''
                 name='rememberMe'
                 label='Remember me'
                 onChange={() => {}}
@@ -167,9 +164,9 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
           }
           <Button
             type='submit'
-            data-testid='btn-submit-login'
-            classes='w-[calc(100%-2rem)]'
+            width='full'
             size='lg'
+            data-testid='btn-submit-login'
             isLoading={isLoading}
           >
             {formType[currentForm].textButton}

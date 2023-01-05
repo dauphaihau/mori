@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { render } from '@testing-library/react';
-import { AuthProvider } from 'context/authContext';
+import { AuthProvider } from 'components/context/authContext';
 
 // import { ThemeProvider } from 'commons/style/styled-components';
 // import { theme } from 'commons/style/theme';

@@ -5,7 +5,6 @@ import { Box, Link } from 'core/components';
 import RightNavbar from './RightNavbar';
 import LeftNavbar from "./LeftNavbar";
 import { PATH } from "config/const";
-import { cn } from "core/helpers";
 import { useScrollPosition } from "core/hooks";
 import { useScrollDirection } from "core/hooks/useScrollDirection";
 
@@ -28,26 +27,24 @@ export default function Header() {
     <Box
       header
       classes={['header',
-        pageHasBanner && scrollPositionY < 15 && 'border-none',
-        scrollPositionY > 15 && 'scrolling',
-        scrollDirection === 'down' ? '-top-16' : 'top-0'
+        scrollDirection === 'down' ? '-top-16' : 'top-0',
+        {
+          'border-none': pageHasBanner && scrollPositionY < 15,
+          'scrolling': scrollPositionY > 15
+        },
       ]}
     >
       <Box nav classes='navbar'>
-        <LeftNavbar
-          showSearchBar={showSearchBar}
-          pageHasBanner={pageHasBanner}
-        />
+        <LeftNavbar pageHasBanner={pageHasBanner}/>
         <Link
           href={PATH.HOME}
-          classes={cn('logo text-2xl font-bold uppercase',
-            pageHasBanner && 'text-white',
-            pageHasBanner && scrollPositionY > 15 && 'text-primary-black'
-          )}
-        >
-          Mori
-        </Link>
-
+          classes={['logo text-2xl font-bold uppercase',
+            {
+              'text-primary-black': pageHasBanner && scrollPositionY > 15,
+              'text-white': pageHasBanner
+            },
+          ]}
+        >Mori</Link>
         <RightNavbar
           showSearchBar={showSearchBar}
           setShowSearchBar={setShowSearchBar}

@@ -1,6 +1,6 @@
 import { Text, Grid, Box } from 'core/components';
 import Product from 'components/common/Product';
-import { useProductContext } from 'context/ProductContext';
+import { useProductContext } from 'components/context/ProductContext';
 
 export default function RelatedProduct() {
   const { relatedProducts } = useProductContext()

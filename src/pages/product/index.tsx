@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 import { Box, Breadcrumb, Grid, Loading, Row, Text } from 'core/components';
 import Seo from 'components/common/Seo';
 import { PATH, PRODUCT_COLOR } from "config/const";
-import Products from "../../components/pages/productList/Products";
+import Products from "components/pages/productList/Products";
 import { useFilters, useProducts } from "services/product";
-import MobileTabletVersion from "../../components/pages/productList/MobileTabletVersion";
+import MobileTabletVersion from "components/pages/productList/MobileTabletVersion";
 import { Filters, Sorter } from "components/pages/productList";
 import { capitalizeEachWord, isEmptyObject } from 'core/helpers';
-import { useUIController } from "context/UIControllerContext";
+import { useUIController } from "components/context/UIControllerContext";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Viewer from 'components/pages/productList/Viewer';
 import { IProduct } from "types/product";
@@ -20,14 +20,12 @@ const dataBreadcrumb = [
   { path: PATH.PRODUCT._, name: 'Product' },
 ];
 
-export default function ProductListPage<NextPage>() {
-  const { progress, setProgress } = useUIController();
+export default function ProductListPage() {
+  // const { progress, setProgress } = useUIController();
   const [gridView, setGridView] = useState(true)
   const router = useRouter()
   const scrollDirection = useScrollDirection()
   const scrollPositionY = useScrollPosition();
-
-  console.log('dauphaihau debug: router-pathname', router.asPath)
 
   const params = {
     // category: router.asPath === PATH.PRODUCT._ ? 'all' : router.query.category,
@@ -58,8 +56,6 @@ export default function ProductListPage<NextPage>() {
   //     setProgress(100)
   //   }
   // }, [isValidating])
-
-  console.log('dauphaihau debug: scroll-position-y', scrollPositionY)
 
   return (
     <>

@@ -1,8 +1,8 @@
-import { Box, Col, formatDollarUS, Link, NextImage, QuantityPicker, Row, slugify, Text } from "../../../core";
+import { Box, Col, formatDollarUS, Link, NextImage, QuantityPicker, Row, slugify, Text } from "core";
 import { config } from "config";
 import { PATH } from "config/const";
 import { useEffect } from "react";
-import { useAuth } from "context/authContext";
+import { useAuth } from "components/context/authContext";
 
 export default function ProductList({ context }) {
   const { user, setUser } = useAuth();

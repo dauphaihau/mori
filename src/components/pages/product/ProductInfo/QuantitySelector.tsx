@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import { Button, Row } from "core/components";
 import QuantitySelect from "./QuantitySelect";
-import { CartContext, CartProvider } from "context/cartContext";
-import { useAuth } from "context/authContext";
+import { CartContext, CartProvider } from "components/context/cartContext";
+import { useAuth } from "components/context/authContext";
 import { CartDrawer } from "components/drawer";
 import { STORAGE_KEY } from "config/const";
-import { useProductContext } from "context/ProductContext";
+import { useProductContext } from "components/context/ProductContext";
 
 function QuantitySelector({ context }) {
   const { product } = useProductContext()

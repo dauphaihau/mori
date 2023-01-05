@@ -1,5 +1,5 @@
 import React, { useCallback, useContext } from 'react';
-import { CarouselContext } from "context/carouselContext";
+import { CarouselContext } from "components/context/carouselContext";
 
 interface Props {
   index: number,

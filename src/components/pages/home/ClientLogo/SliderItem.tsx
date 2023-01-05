@@ -1,6 +1,6 @@
 import React, { ReactNode, useCallback, useContext, useRef } from 'react';
 
-import { SizeContext } from "context/sliderContext";
+import { SizeContext } from "components/context/sliderContext";
 import { useAnimationFrame } from "core/hooks";
 import { Box } from "core/components";
 import { cn } from "core/helpers";
