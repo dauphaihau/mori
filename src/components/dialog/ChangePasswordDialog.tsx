@@ -6,26 +6,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Dialog, Button, Text, Input, Box } from 'core/components';
 import { accountService } from 'services/account';
-import { IUserAuthSchema } from "lib/validation/auth";
+import { userAuthSchema } from "lib/validation/auth";
+import { updatePasswordSchema } from 'lib/validation/password';
 
 type FormData = {
   confirmPassword: string
   newPassword: string
-} & Pick<IUserAuthSchema, 'password'>
+} & Pick<Yup.InferType<typeof userAuthSchema>, 'password'>
 
-const validationSchema = Yup.object().shape({
-  password: Yup.string()
-  .min(6, 'Password must be at least 6 characters')
-  .required('Password is required'),
-  newPassword: Yup.string().when(['password'], (password, schema) => {
-    return schema.notOneOf([password], "password must be differ from old password")
-  }),
-  confirmPassword: Yup.string()
-  .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
-  .required('Confirm Password is required'),
-});
-
-const formOptions = { resolver: yupResolver(validationSchema) };
+const formOptions = { resolver: yupResolver(updatePasswordSchema) };
 
 export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
   const [isBtnLoading, setIsBtnLoading] = useState(false)

@@ -4,9 +4,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useUIController } from "components/context/UIControllerContext";
-import countryOpts from 'assets/data/country.json';
+// import countryOpts from 'assets/data/country.json';
 import { useAuth } from 'components/context/authContext';
 import { Dialog, Button, Text, Checkbox, Input, Select, Box, Grid, Row } from 'core/components';
+import { countryOptions } from "../../assets/data/options";
 
 const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
   const { user, setUser } = useAuth();
@@ -115,7 +116,7 @@ const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
             name='country'
             label='Country'
             size='medium'
-            options={countryOpts}
+            options={countryOptions}
             // onChange={(e) => console.log(e.value)}
             onChange={(e) => handleOnchange('country', e.value)}
           />

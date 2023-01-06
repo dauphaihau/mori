@@ -1,3 +1,3 @@
-import configData from '../../config.json';
+import jsonData from '../../config.json';
 
-export const config = configData
+export const config = jsonData

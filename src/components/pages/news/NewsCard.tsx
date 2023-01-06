@@ -1,18 +1,17 @@
-import { NextImage, Box, Link, Text } from 'core/components';
+import { BlurImage, Box, Link, Text } from 'core/components';
 import { PATH } from 'config/const';
 import { sliceText } from "core/helpers";
 
-const CardNews = ({ data }) => {
+export default function NewsCard({ data }) {
   return (
     <Box classes='max-w-sm'>
       <Link href={PATH.DEFAULT}>
-        <NextImage
+        <BlurImage
+          src={data.srcImg}
           alt={data.title}
-          // useSkeleton
-          className='rounded-lg w-full'
           width={300}
           height={180}
-          src={data.srcUrl}
+          className='rounded-lg w-full'
         />
       </Link>
       <Box classes='mt-6'>
@@ -47,4 +46,3 @@ const CardNews = ({ data }) => {
   );
 }
 
-export default CardNews;

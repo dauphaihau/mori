@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 
 import { useAuth } from 'components/context/authContext';
-import { Link, Button, Box, Row } from 'core/components';
+import { Icons, Link, Button, Box, Row } from 'core/components';
 import { CartDrawer } from 'components/drawer';
 import { LoginRegisterDialog, SearchProductDialog } from 'components/dialog';
 import { cn } from 'core/helpers';
 import { useMediaQuery, useScrollPosition } from "core/hooks";
-import { Icons } from "core/components/Icons";
 import { ROLE, PATH } from "config/const";
 import { useRouter } from "next/router";
 
@@ -20,10 +19,10 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
 
   return (
     <>
-      <SearchProductDialog
-        showSearchProductDialog={showSearchBar}
-        setShowSearchProductDialog={setShowSearchBar}
-      />
+      {/*<SearchProductDialog*/}
+      {/*  showSearchProductDialog={showSearchBar}*/}
+      {/*  setShowSearchProductDialog={setShowSearchBar}*/}
+      {/*/>*/}
       <LoginRegisterDialog
         showLoginDialog={showLoginDialog}
         setShowLoginDialog={setShowLoginDialog}

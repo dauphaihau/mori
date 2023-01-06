@@ -1,10 +1,12 @@
 import { Link, NextImage, Box, Text, Col, Grid, List } from 'core/components';
-import { data as footerData } from 'assets/data/FooterData';
+import { footerConfig } from 'config/footer';
 import { PATH } from 'config/const';
-import { cn } from "core/helpers";
 import { config } from "config";
 
-const Footer = () => {
+export default function Footer() {
+  const now = new Date()
+  const year = now.getFullYear()
+
   return (
     // <Box classes='bg-gray-custom-52a'>
     <Box classes=''>
@@ -12,12 +14,12 @@ const Footer = () => {
         <Box classes='footer__links'>
           <Grid sx={2} md={3} lg={6} classes='wrapper-topics gap-x-12'>
             {
-              footerData.links.map((link, index) => (
+              footerConfig.linksList.map((link, index) => (
                 <Box classes='topic' key={index}>
                   <Text classes='topic__title'>{link.title}</Text>
                   <List classes='topic__content'>
                     {
-                      link.data.map((item, idx) => (
+                      link.list.map((item, idx) => (
                         <List.Item key={idx} classes='topic__item'>
                           <Link
                             underline
@@ -27,7 +29,7 @@ const Footer = () => {
                             <Text
                               i
                               hideIf={!item.hasOwnProperty('icon')}
-                              classes={cn('fa-brands topic__item--logo', item.icon)}
+                              classes={['fa-brands topic__item--logo', item.icon]}
                             />
                             {item.title}
                           </Link>
@@ -35,7 +37,6 @@ const Footer = () => {
                       ))
                     }
                   </List>
-
                 </Box>
               ))
             }
@@ -50,11 +51,11 @@ const Footer = () => {
           <Text
             span
             classes='copyright'
-          >© 2022 Mori Store, Inc. All rights reserved.</Text>
+          >© {year} Mori Store, Inc. All rights reserved.</Text>
           <Box classes='payments'>
             <List classes='payments__list space-s-4 xs:space-s-5 lg:space-s-7'>
               {
-                footerData.listPayment.map((item, index) => (
+                footerConfig.listPayment.map((item, index) => (
                   <List.Item
                     classes='payment'
                     key={index}
@@ -62,11 +63,10 @@ const Footer = () => {
                     <Link href={PATH.DEFAULT} target='_blank'>
                       <NextImage
                         src={config.hostStaticSource + item.srcImg}
-                        alt={item.name}
+                        alt={item.title}
                         width={item.width}
                         height={item.height}
-                        // objectFit='contain'
-                        objectFit={item?.objectFit}
+                        objectFit='contain'
                       />
                     </Link>
                   </List.Item>
@@ -79,5 +79,3 @@ const Footer = () => {
     </Box>
   );
 }
-
-export default Footer;

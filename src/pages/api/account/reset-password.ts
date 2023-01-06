@@ -6,8 +6,8 @@ const bcryptSalt = process.env.BCRYPT_SALT;
 import Token from 'lib/models/Token';
 import User from 'lib/models/User';
 import { encryptPassword } from "lib/crypto";
-import config from "config/config.json";
-import db from "../../../lib/db";
+import { config } from "config";
+import db from "lib/db";
 
 const handler = nc();
 handler.put(async (req: NextApiRequest, res: NextApiResponse) => {

@@ -9,10 +9,10 @@
 
     .image-banner-frame {
       @apply
-      laptop:bg-fixed bg-no-repeat bg-cover
+      laptop:bg-fixed bg-no-repeat bg-cover tablet:bg-contain
       relative z-10
       w-full h-screen
-      max-h-[300px] laptop:max-h-[700px]
+      max-h-[340px] laptop:max-h-[520px] desktop:max-h-[720px]
       mt-[-4rem]
       pt-48 p-6 tablet:p-10 desktop:p-8
       ;
@@ -46,7 +46,7 @@
   &__content {
 
     max-width: 120rem;
-    @apply mx-auto w-10/12 mt-20 flex-1 mb-32;
+    @apply mx-auto w-10/12 mt-8 tablet:mt-20 flex-1 mb-32;
 
     .image-frame {
       @apply float-left z-10 relative p-0 m-0 w-full ;
@@ -63,6 +63,5 @@
       width: 100%;
       height: auto;
     }
-
   }
 }

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Text, Box, Col, Row, NextImage, Button } from 'core/components';
-import { useChannel } from 'core/hooks/AblyReactEffect';
-import { useOnOutsideClick } from "core/hooks/useOnOutsideClick";
 import { Transition } from '@headlessui/react';
 
-const ChatBox = () => {
+import { Text, Box, Col, Row, NextImage, Button } from 'core/components';
+import { useChannel } from 'lib/ably';
+import { useOnOutsideClick } from 'core/hooks';
+
+export default function ChatBox() {
   let inputBox = null;
   let messageEnd = null;
 
@@ -13,7 +14,6 @@ const ChatBox = () => {
   const messageTextIsEmpty = messageText.trim().length === 0;
 
   const [channel, ably] = useChannel('coffin', (message) => {
-    // const [channel, ably] = useChannel('coffin', (message) => {
     const history = receivedMessages.slice(-199);
     setReceivedMessages([...history, message]);
   });
@@ -42,11 +42,13 @@ const ChatBox = () => {
     const author = message.connectionId === ably.connection.id ? 'me' : 'other';
 
     if (author === 'me') {
-      return <Box
-        classes='chat-box__customer'
-        key={index}
-        data-author={author}
-      >{message.data}</Box>;
+      return (
+        <Box
+          classes='chat-box__customer'
+          key={index}
+          data-author={author}
+        >{message.data}</Box>
+      )
     }
     return (
       <Row
@@ -86,18 +88,26 @@ const ChatBox = () => {
       classes='chat-box__header'
     >
       <Row>
-        <Box classes='bot'>
+        <Box classes='chat-box__bot'>
           <NextImage
             width={40}
             height={40}
-            className='bot__img'
+            className='chat-box__avatarBot'
             src='/images/bot.png'
             alt='profile'
           />
-          <Text i classes='fa-solid animate-ping fa-circle bot__statusIcon '/>
+          <span className='chat-box__statusIcon'>
+            <span className='dynamic-dot'/>
+            <span className='static-dot'/>
+          </span>
+
+          {/*<Text i classes='fa-solid animate-ping fa-circle bot__statusIcon '/>*/}
+          {/*<span className='absolute inline-flex rounded-full h-2 w-2 bg-green-500 bottom-[2px] right-0 text-green-500'></span>*/}
         </Box>
+
+
         <Box>
-          <Text h1 weight='bold' classes='leading-3 pt-2'>Bot</Text>
+          <Text h4 weight='bold' classes='leading-3 pt-2'>Bot</Text>
           <Text classes='text-[0.8rem] text-primary-gray '>Online</Text>
         </Box>
       </Row>
@@ -112,8 +122,7 @@ const ChatBox = () => {
   const Body = () => {
     return (
       <Col classes='chat-box__body'>
-        {/*<Col id='chat' classes='body'>*/}
-        <Text classes='text-[12px] text-[#8a8d91] mx-auto'>Mon 10, 2022, 1:10 PM</Text>
+        {/*<Text classes='text-sx text-[#8a8d91] mx-auto my-3'>Mon 10, 2022, 1:10 PM</Text>*/}
         {/*<Box*/}
         {/*  classes='w-max ml-auto break-all mt-2 mb-1 px-[12px] py-[8px] rounded-br-md bg-[#606060] rounded-2xl text-white text-left '>*/}
         {/*  seriously?*/}
@@ -124,9 +133,9 @@ const ChatBox = () => {
         {/*</Box>*/}
         <Row align='center' classes='chat-box__bot'>
           <NextImage
-            width={24}
-            height={24}
-            className='h-6 w-6 block rounded-full '
+            width={26}
+            height={26}
+            className='block rounded-full '
             imgClassName='rounded-full '
             src='/images/bot.png'
             alt='profile'
@@ -153,7 +162,7 @@ const ChatBox = () => {
       <Transition
         appear
         show={openChatBox}
-        enter='ease-out duration-300'
+        enter='ease-out duration-100'
         enterFrom='opacity-0'
         enterTo='opacity-100'
         leave='ease-in duration-200'
@@ -166,10 +175,10 @@ const ChatBox = () => {
 
           {/* Footer ( if split footer to comp -> occur bug input */}
           <Row align='center' classes='chat-box__footer'>
-            <Button light classes='p-0 focus:outline-none w-8 mr-1'>
+            <Button light classes='p-0 focus:outline-none w-8 mr-1 cursor-not-allowed'>
               <Text i classes='fa-solid fa-image text-primary-gray text-xl'/>
             </Button>
-            <Button light classes='p-0 focus:outline-none w-8 mr-1'>
+            <Button light classes='p-0 focus:outline-none w-8 mr-1 cursor-not-allowed'>
               <Text i classes='fa-solid fa-paperclip fa-image text-primary-gray text-xl'/>
             </Button>
 
@@ -211,5 +220,3 @@ const ChatBox = () => {
     </Box>
   );
 }
-
-export default ChatBox;

@@ -3,9 +3,8 @@ import nc from 'next-connect';
 import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 
-import { sendResetPasswordEmail } from "lib/mailer";
-
 const bcryptSalt = process.env.BCRYPT_SALT;
+import { sendResetPasswordEmail } from "lib/mailer";
 import User from 'lib/models/User';
 import Token from 'lib/models/Token';
 import db from 'lib/db';

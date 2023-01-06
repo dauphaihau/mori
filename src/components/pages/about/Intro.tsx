@@ -1,24 +1,16 @@
-import { FC } from "react";
 import { NextImage, Text, Box, Col, Grid, Row, Link } from 'core/components';
 
-const Intro: FC = () => {
+export default function Intro() {
   return (
-    <Grid sx={1} lg={2} classes='layout mb-24'>
+    <Grid sx={1} lg={2} classes='mb-24 tablet:layout'>
       <Box>
-        {/*<Box classes='p-8'>*/}
-        {/*  <Text weight='light'>FAMILY RUN BUSINESS</Text>*/}
-        <Text h1 classes='text-[36px] my-4'>WHO ARE WE?</Text>
+        <Text h1 classes='my-4'>WHO ARE WE?</Text>
         <Text
           weight='light'
           classes='mb-6 leading-7 pr-26 desktop:pr-32'
         >
           The Mori name has long been synonymous with willow. For decades, the Mori family has grown willow in
           Somerset and produced a wide range of high quality willow products.
-          {/*Direct Coffins & Caskets is the worlds most comprehensive coffin & casket website. We provide the ability to*/}
-          {/*purchase coffins & caskets directly at approximately half the price of a funeral director. We keep our stock*/}
-          {/*in Central London. When buying a coffin from us you have an option of viewing the coffin before making a*/}
-          {/*final decision. Once you have made your decision the coffin will be delivered to your local funeral director*/}
-          {/*the next day.*/}
         </Text>
         <Text
           weight='light'
@@ -43,9 +35,7 @@ const Intro: FC = () => {
           >
             specialist weaving tools,
           </Link>
-
           willow coffins and many other bespoke
-
           <Link
             href='/'
             underline
@@ -127,5 +117,3 @@ const Intro: FC = () => {
     </Grid>
   );
 }
-
-export default Intro;

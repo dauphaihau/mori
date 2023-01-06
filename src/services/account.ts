@@ -65,12 +65,12 @@ export const accountService = {
     }
   },
   changePassword: async (values) => {
-    const modifiedValues = {
-      ...values,
-      password: encryptPassword(values.password, config.cryptoKey),
-      newPassword: encryptPassword(values.newPassword, config.cryptoKey)
-    }
     try {
+      const modifiedValues = {
+        ...values,
+        password: encryptPassword(values.password, config.cryptoKey),
+        newPassword: encryptPassword(values.newPassword, config.cryptoKey)
+      }
       await api.put(config.api.account.changePassword, modifiedValues);
       return { isLoading: false, isSuccess: true };
     } catch ({ response }) {

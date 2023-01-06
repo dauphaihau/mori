@@ -1,7 +1,6 @@
 import Image, { ImageProps } from 'next/image';
 import { useState } from "react";
 import { cn } from 'core/helpers';
-import { LoadingOverlay } from '@mantine/core';
 
 type NextImageType = {
   useSkeleton?: boolean;
@@ -14,7 +13,7 @@ type NextImageType = {
  * @description Must set width using `w-` className
  */
 
-const NextImage = ({
+const BlurImage = ({
   useSkeleton = false,
   src,
   width,
@@ -23,11 +22,10 @@ const NextImage = ({
   className,
   imgClassName,
   blurClassName,
-  objectFit,
   layout = 'responsive',
   ...others
 }: NextImageType) => {
-  const [status, setStatus] = useState(useSkeleton ? 'loading' : 'complete');
+  const [isLoading, setLoading] = useState(true);
   const widthIsSet = className?.includes('w-') ?? false;
 
   return (
@@ -37,31 +35,23 @@ const NextImage = ({
         className
       )}
     >
-      {
-        status === 'loading' && <LoadingOverlay
-          // loaderProps={{ size: 'sm', color: 'black', variant: 'bars' }}
-          loaderProps={{ size: 'md', color: 'black', variant: 'dots' }}
-          overlayOpacity={0.3}
-          overlayColor="transparent"
-          visible
-        />
-      }
       <Image
-        className={imgClassName}
+        className={cn(
+          'duration-700 ease-in-out',
+          isLoading
+            ? 'grayscale blur-2xl scale-110'
+            : 'grayscale-0 blur-0 scale-100'
+        )}
         src={src}
         width={width}
         height={height}
         alt={alt}
-        onLoad={(e: any) => {
-          e.target.src.indexOf('data:image/gif;base64') < 0 && setStatus('complete')
-        }}
-        // onLoadingComplete={() => setStatus('complete')}
+        onLoadingComplete={() => setLoading(false)}
         layout={layout}
-        objectFit={objectFit}
         {...others}
       />
     </figure>
   );
 }
 
-export default NextImage
+export default BlurImage

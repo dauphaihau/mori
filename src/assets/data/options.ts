@@ -1,12 +1,21 @@
 import dayjs from 'dayjs';
 import { SORT_PRODUCT } from "config/const";
+import countryJson from './country.json';
+
+type Option = {
+  label: string,
+  value: string | number
+}
 
 // export const sortProductOptions = Object.keys(SORT_PRODUCT).map(key => ({
 //   label: capitalize(SORT_PRODUCT[key]),
 //   value: SORT_PRODUCT[key]
 // }))
 
-export const sortOptions = [
+
+export const countryOptions: Option[] = countryJson
+
+export const sortOptions: Option[] = [
   {
     label: 'Best Selling',
     value: SORT_PRODUCT.BEST_SELLING

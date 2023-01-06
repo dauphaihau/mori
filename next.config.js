@@ -16,18 +16,6 @@ const nextConfig = {
       }
     ]
   },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Note: we provide webpack above so you should not `require` it
-    // Perform customizations to webpack config
-    config.plugins.push(
-      new webpack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery",
-        "window.jQuery": "jquery"
-      })
-    );
-    return config;
-  },
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
@@ -36,7 +24,7 @@ const nextConfig = {
     ignoreBuildErrors: true
   },
   images: {
-    domains: ['i.pravatar.cc', 'res.cloudinary.com']
+    domains: ['i.pravatar.cc', 'res.cloudinary.com', 'images.unsplash.com', 'source.unsplash.com']
   }
 }
 

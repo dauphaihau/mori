@@ -1,9 +1,9 @@
 {
   "title": "FooterData",
-  "links": [
+  "linksList": [
     {
       "title": "Coffins",
-      "data": [
+      "list": [
         {
           "title": "Natural coffin"
         },
@@ -20,7 +20,7 @@
     },
     {
       "title": "About",
-      "data": [
+      "list": [
         {
           "title": "Company"
         },
@@ -37,7 +37,7 @@
     },
     {
       "title": "Resources",
-      "data": [
+      "list": [
         {
           "title": "FAQ & Helps"
         },
@@ -51,7 +51,7 @@
     },
     {
       "title": "Information",
-      "data": [
+      "list": [
         {
           "title": "Privacy policy"
         },
@@ -68,7 +68,7 @@
     },
     {
       "title": "Contact",
-      "data": [
+      "list": [
         {
           "title": "Deck 5, ISS, LEO 51.603."
         },
@@ -82,7 +82,7 @@
     },
     {
       "title": "Social",
-      "data": [
+      "list": [
         {
           "title": "Twitter",
           "icon": "fa-twitter"
@@ -104,34 +104,31 @@
   ],
   "listPayment": [
     {
-      "name": "Visa",
+      "title": "Visa",
       "srcImg": "/logo/payment/visa_puija1.png",
       "width": 65,
-      "height": 20,
-      "objectFit": "contain"
+      "height": 20
     },
     {
-      "name": "Paypal",
+      "title": "Paypal",
       "srcImg": "/logo/payment/paypal_kxn5no.png",
       "width": 76,
-      "height": 20,
-      "objectFit": "contain"
+      "height": 20
     },
     {
-      "name": "Amazon",
+      "title": "Amazon",
       "srcImg": "/logo/payment/amazon_srpnf5.png",
       "width": 86,
-      "height": 35,
-      "objectFit": "contain"
+      "height": 35
     },
     {
-      "name": "Apple Pay",
+      "title": "Apple Pay",
       "srcImg": "/logo/payment/apple-pay_uho0qp.png",
       "width": 66,
       "height": 30
     },
     {
-      "name": "Skrill",
+      "title": "Skrill",
       "srcImg": "/logo/payment/skrill_sp7tso.png",
       "width": 69,
       "height": 20

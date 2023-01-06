@@ -8,3 +8,4 @@ export * from './useFadeIn';
 export * from './useSafeContext';
 export * from './useScrollDirection';
 export * from './useSessionStorage';
+export * from './useOnOutsideClick';

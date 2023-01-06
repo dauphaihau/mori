@@ -8,7 +8,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 // import ChatBox from './ChatBox';
-// const ChatBox = dynamic(() => import('./ChatBox'), { ssr: false });
+const ChatBox = dynamic(() => import('./ChatBox'), { ssr: false });
 
 import BannerSlogan from '../../pages/home/BannerSlogan';
 import { Box } from 'core/components';
@@ -40,17 +40,17 @@ export default function RootLayout({ children }: {children: ReactNode}) {
         reverseOrder={false}
       />
 
-      {/*<SubscribeDialog/>*/}
-      {/*<AcceptCookie/>*/}
-      {/*<ChatBox/>*/}
-
       <FreeShip/>
-      <Header/>
 
-      <Box>
+      <Header/>
+      <Box classes='mt-3 laptop:mt-1'>
         <Box main>{children}</Box>
         <Footer/>
       </Box>
+
+      {/*<SubscribeDialog/>*/}
+      {/*<AcceptCookie/>*/}
+      {/*<ChatBox/>*/}
     </>
   );
 }

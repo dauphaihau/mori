@@ -1,12 +1,8 @@
 import { PATH, SORT_PRODUCT } from 'config/const';
-import { HeaderConfig } from 'types';
+import { HeaderConfig } from 'types/header';
 
 export const headerConfig: HeaderConfig = {
   mainNav: [
-    // {
-    //   title: 'Home',
-    //   href: PATH.HOME
-    // },
     {
       title: 'Shop',
       href: PATH.PRODUCT._,

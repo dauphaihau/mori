@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+
 import { PATH, ROLE, USER_STATUS } from 'config/const';
 import { hashMD5 } from 'lib/crypto';
-import configJson from 'config/config.json';
 import { isEmpty, parseJSON } from 'core/helpers';
 import { signToken, verifyToken } from 'lib/jwt';
 import { IToken } from "types/user";
@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest) {
   const routesAuth = [PATH.ACCOUNT.LOGIN, PATH.ACCOUNT.REGISTER, PATH.ACCOUNT.FORGOT_PASSWORD, PATH.ACCOUNT.RESET_PASSWORD]
 
   const cookies = req.cookies;
-  const auth = parseJSON<IToken>(cookies[hashMD5(configJson.cookies.auth)])
+  const auth = parseJSON<IToken>(cookies[hashMD5(config.cookies.auth)])
 
   let dataToken;
   if (auth && auth.token && auth.refreshToken) {
@@ -66,8 +66,8 @@ async function handleToken(authData): Promise<object> {
     }
 
     // 3. refreshToken works - token expired
-    if (dataToken.exp > now && refreshToken.exp > now) { // mock
-    // if (dataToken.exp < now && refreshToken.exp > now) {
+    // if (dataToken.exp > now && refreshToken.exp > now) { // mock
+    if (dataToken.exp < now && refreshToken.exp > now) {
       console.log('dauphaihau debug: run case token expired')
 
       const newToken = await signToken(dataToken, secret, config.token.tokenLife);
