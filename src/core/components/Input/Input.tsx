@@ -1,4 +1,5 @@
 import {
+  ChangeEvent,
   forwardRef,
   InputHTMLAttributes,
   ReactNode,
@@ -12,12 +13,13 @@ import Password from './InputPassword';
 import { FieldError } from "react-hook-form";
 
 export interface InputType extends InputHTMLAttributes<HTMLInputElement> {
+// export interface InputType  {
   name: string,
   label?: string,
   classes?: string,
   classesSpace?: string,
   register?: any
-  // onChange?: (name, value) => void;
+  onChange?: (name, value) => void;
   // onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   clearable?: boolean,
   defaultValue?: string,
@@ -71,7 +73,7 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
 
     return (
       <div className='form-input'>
-        {label && <label htmlFor={name} className='font-bold'>{label}</label>}
+        {label && <label htmlFor={name} className='font-bold block'>{label}</label>}
         <div className={cn('input group', classesSpace)}>
           <div className='input__contentLeft'>{contentLeft}</div>
           <div className='input__contentRight'>{contentRight}</div>

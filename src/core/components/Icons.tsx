@@ -1,4 +1,4 @@
-import { UserIcon as UserIconSolid, XIcon, CheckIcon, SelectorIcon, TruckIcon, GiftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from '@heroicons/react/solid';
+import { UserIcon as UserIconSolid, XIcon, CheckIcon, SelectorIcon, TruckIcon, GiftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon,  MinusIcon, PlusIcon  } from '@heroicons/react/solid';
 import { HandIcon, ShoppingBagIcon, ChevronDownIcon, UserIcon, SearchIcon, MenuIcon } from '@heroicons/react/outline';
 
 export const Icons = {
@@ -17,4 +17,6 @@ export const Icons = {
   chevronLeft: ChevronLeftIcon,
   chevronRight: ChevronRightIcon,
   menu: MenuIcon,
+  plus: PlusIcon,
+  minus: MinusIcon,
 }

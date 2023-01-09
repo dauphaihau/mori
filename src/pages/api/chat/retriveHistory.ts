@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   // res.status(200).json(tokenRequestData);
 
   const realtime = new Ably.Realtime(process.env.ABLY_API_KEY);
-  realtime.channels.get('coffin', {
+  await realtime.channels.get('coffin', {
     params: {rewind: '3'}
   }).subscribe(msg => console.log("Received message: ", msg));
 };

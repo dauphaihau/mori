@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import Product from 'lib/models/Product';
 import db from "lib/db";
 
-const handler = nc();
+const handler = nc<NextApiRequest, NextApiResponse>();
 
 class APIFeatures {
   queryString: any;
@@ -111,7 +111,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
       // .uniqCategory()
 
     const categories = await features3.query
-    console.log('dauphaihau debug: categories', categories)
+    // console.log('dauphaihau debug: categories', categories)
     // console.log('dauphaihau debug: products', products)
 
     await db.disconnect();

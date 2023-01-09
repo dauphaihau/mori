@@ -12,7 +12,7 @@ export default function SubscribeDialog() {
 
   useEffect(() => {
     if (router.pathname === PATH.HOME) {
-      const timeout = setTimeout(() => setIsOpen(true), 2000)
+      const timeout = setTimeout(() => setIsOpen(true), 8000)
       return () => clearTimeout(timeout)
     }
   }, [])

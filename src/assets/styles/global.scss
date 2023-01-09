@@ -75,12 +75,11 @@
     color: rgba(0, 0, 0, .8);
     font-family: Eina, serif;
   }
-
   /* #endregion  /**======== Default Typography =========== */
+
   .layout {
     max-width: 120rem;
     @apply mx-auto w-11/12;
-    //@apply mx-auto w-11/12 px-4 tablet:px-8 desktop:px-16;
   }
 
   .bg-product {

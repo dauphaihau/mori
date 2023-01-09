@@ -6,7 +6,7 @@ import { config } from 'config';
 // const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-const handler = nc();
+const handler = nc<NextApiRequest, NextApiResponse>();
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const cart = req.body

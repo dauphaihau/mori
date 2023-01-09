@@ -7,8 +7,8 @@ export default function AuthLayout({ children }) {
       <Col
         justify='center'
         classes='
-        h-screen max-w-[414px] m-auto space-y-4
-        px-6 pt-4 pb-6 lg:px-8 xl:pb-8
+        h-screen max-w-[414px] mx-auto space-y-4
+        px-6 pt-4 pb-6 lg:px-8 xl:pb-48
         '
       >
         {children}

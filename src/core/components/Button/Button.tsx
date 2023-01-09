@@ -62,7 +62,7 @@ const Button = forwardRef((props: Partial<ButtonProps>, ref: any) => {
       {...others}
     >
       {icon && <span className='btn__icon'>{icon}</span>}
-      {isLoading && <Loading className='mr-4'/>}
+      {isLoading && <Loading classes='mr-3'/>}
       {children || text}
     </button>
   )

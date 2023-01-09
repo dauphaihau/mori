@@ -6,7 +6,6 @@ import { Box, Checkbox, Icons, Row, Skeleton, Text } from "core/components";
 import { filterSearch } from "./Filters";
 import { PATH } from "config/const";
 import { cn } from "core/helpers";
-import { useUIController } from "components/context/UIControllerContext";
 
 interface PriceProps {
   data: {
@@ -16,7 +15,6 @@ interface PriceProps {
 }
 
 export const Price = memo((props: PriceProps) => {
-    const { setProgress } = useUIController();
     const router = useRouter()
     const [priceListChecked, setPriceListChecked] = useState([])
 
@@ -27,8 +25,6 @@ export const Price = memo((props: PriceProps) => {
     }, [router.asPath])
 
     const handlePrice = (e) => {
-      // setProgress((prevState) => prevState + 30)
-
       const status = e.target.checked
       const idSelected = e.target.value
 
@@ -53,7 +49,7 @@ export const Price = memo((props: PriceProps) => {
         >
           {({ open }) => (
             <>
-              <Disclosure.Button className='w-full py-4 pr-16 cursor-pointer'>
+              <Disclosure.Button className='w-full py-4 cursor-pointer'>
                 <Row align='center' justify='between'>
                   <Text h4 classes='tracking-wide'>Price</Text>
                   <Icons.chevronUp

@@ -7,6 +7,7 @@
     "account": {
       "login": "/api/account/login",
       "register": "/api/account/register",
+      "password": "/api/account/password",
       "forgotPassword": "/api/account/forgot-password",
       "resetPassword": "/api/account/reset-password",
       "changePassword": "/api/account/change-password",
@@ -42,6 +43,7 @@
     "timeoutView": 35000,
     "timeoutRequest": 30000
   },
+  "bcryptSalt": 10,
   "hostStaticSource": "https://res.cloudinary.com/duiehrbms/image/upload/v1668264431/mori-ecommerce",
   "hostStaticSource2": "https://res.cloudinary.com/duiehrbms/image/upload"
 }

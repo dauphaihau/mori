@@ -6,12 +6,10 @@ import { Box, Icons, Row, Skeleton, Text } from 'core/components';
 import { filterSearch } from "./Filters";
 import { cn, titleIfy } from 'core/helpers';
 import { useCategories } from "services/product";
-import { PATH, PRODUCT_COLOR } from "config/const";
-import { useUIController } from "components/context/UIControllerContext";
-import { useMediaQuery, useSessionStorage } from "core/hooks";
+import { PATH } from "config/const";
+import { useSessionStorage } from "core/hooks";
 
 export const Categories = memo(() => {
-  const { setProgress } = useUIController();
   const router = useRouter()
   const { categories } = useCategories();
   const [category, setCategory] = useState('')
@@ -29,7 +27,6 @@ export const Categories = memo(() => {
   }, [router.asPath])
 
   const handleCategory = (e) => {
-    // setProgress((prevState) => prevState + 30)
     const value = e.target.textContent.toLowerCase();
     const categoryValue = category === value ? 'all' : value
     const session = JSON.parse(sessionStorage.getItem('filters'))
@@ -47,7 +44,7 @@ export const Categories = memo(() => {
       >
         {({ open }) => (
           <>
-            <Disclosure.Button className='w-full pb-4 pr-16 cursor-pointer'>
+            <Disclosure.Button className='w-full pb-4 cursor-pointer'>
               <Row align='center' justify='between'>
                 <Text h4 classes='tracking-wide'>Categories</Text>
                 <Icons.chevronUp

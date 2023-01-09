@@ -22,17 +22,18 @@ function sendEmail(message) {
   })
 }
 
-export const sendResetPasswordEmail = ({ toUser, token }) => {
+export const sendResetPasswordEmail = ({ toCustomer, token }) => {
+  console.log('dauphaihau debug: -token-to-customer-id-', [token, toCustomer._id])
   const message = {
     from: 'customercare@mori.com',
     // from: process.env.EMAIL_USERNAME,
-    to: toUser.email,
+    to: toCustomer.email,
     subject: 'Customer profile password reset',
     html: `
       <h1>Mori</h1>
 <!--       <hr style="border-top:1px solid #eaeaea">-->
-      <p>Hi ${toUser.name},</p>
-      <p>We've received a request to reset the password for the Mori account asscociated with ${toUser.email}.
+      <p>Hi ${toCustomer.name},</p>
+      <p>We've received a request to reset the password for the Mori account asscociated with ${toCustomer.email}.
        No changes have been made to your account yet.
        </p>
       <p>You can reset your password by click the link below: 
@@ -54,8 +55,10 @@ export const sendResetPasswordEmail = ({ toUser, token }) => {
               onmouseover="this.style.color='white'"
               onmouseout="this.style.opacity='0.8'"
       >
-            <a target="_" href="${process.env.DOMAIN}/${PATH.ACCOUNT.RESET_PASSWORD}/?token=${token}&id=${toUser._id}">Reset Password Link</a></p>
-<!--            <a target="_" href="${process.env.DOMAIN}/account/reset-password/?token=${token}&id=${toUser._id}">Reset Password Link</a></p>-->
+<!--            <a target="_" href="${process.env.DOMAIN}${PATH.ACCOUNT.RESET_PASSWORD}/?token=${token}&id=${toCustomer._id}">Reset Password Link</a></p>-->
+            <a target="_" href="${process.env.DOMAIN}${PATH.ACCOUNT.RESET_PASSWORD}/${token}/${toCustomer._id}">Reset Password Link</a></p>
+<!--             <a target="_" href="${process.env.DOMAIN}${PATH.ACCOUNT.RESET_PASSWORD}/${token}">Reset Password Link</a></p>-->
+<!--            <a target="_" href="${process.env.DOMAIN}${PATH.ACCOUNT.RESET_PASSWORD}/?token=${token}&id=${toCustomer._id}">Reset Password Link</a></p>-->
       </button>
       <p>If you didn't request a password reset, you can ignore this email.</p>
       <p>You can find answers to most questions and get in touch with us at 

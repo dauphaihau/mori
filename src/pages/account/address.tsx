@@ -37,7 +37,7 @@ export default function AddressPage() {
             </Button>
           </Link>
           <Button
-            disabled
+            // disabled
             onClick={() => setShowAddressDialog(true)}
           >
             Add a new address

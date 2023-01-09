@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 const ably = new Ably.Realtime.Promise({ authUrl: '/api/chat/createTokenRequest' });
 
 export function useChannel(channelName, callbackOnMessage) {
-  const channel = ably.channels.get(channelName);
+  const channel: Ably.Types.RealtimeChannelPromise = ably.channels.get(channelName);
 
   // channel.history(function (err, resultPage) {
   //   const messages = resultPage.items,
@@ -24,8 +24,6 @@ export function useChannel(channelName, callbackOnMessage) {
   //     }
   //   }
   // });
-
-  // console.log('channel', channel)
 
   const onMount = () => {
     channel.subscribe(msg => {

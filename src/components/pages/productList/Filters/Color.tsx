@@ -2,12 +2,10 @@ import { useRouter } from "next/router";
 import { memo, useEffect, useState } from "react";
 import { Disclosure, Transition } from "@headlessui/react";
 
-import { Box, Grid, Icons, Row, Skeleton, Text } from "core/components";
+import { Box, Icons, Row, Skeleton, Text } from "core/components";
 import { filterSearch } from "./Filters";
 import { PATH, PRODUCT_COLOR } from "config/const";
 import { cn } from "core/helpers";
-import { useUIController } from "components/context/UIControllerContext";
-import { useLocalStorage } from "../../../../core/hooks/useLocalStorage";
 import { useMediaQuery, useSessionStorage } from "core/hooks";
 
 interface ColorProps {
@@ -15,7 +13,6 @@ interface ColorProps {
 }
 
 export const Color = memo((props: ColorProps) => {
-  const { setProgress } = useUIController();
   const router = useRouter()
   const [color, setColor] = useState('')
   const [_, setSession] = useSessionStorage('filters', {
@@ -31,8 +28,6 @@ export const Color = memo((props: ColorProps) => {
   }, [router.asPath])
 
   const handleColor = (e) => {
-    // setProgress((prevState) => prevState + 30)
-
     const session = JSON.parse(sessionStorage.getItem('filters'))
     const value = e.target.dataset.color;
     setColor(color === value ? '' : value)
@@ -61,7 +56,7 @@ export const Color = memo((props: ColorProps) => {
       >
         {({ open }) => (
           <>
-            <Disclosure.Button className='w-full py-4 pr-16 cursor-pointer'>
+            <Disclosure.Button className='w-full py-4 cursor-pointer'>
               <Row align='center' justify='between'>
                 <Text h4 classes='tracking-wide'>Color</Text>
                 <Icons.chevronUp

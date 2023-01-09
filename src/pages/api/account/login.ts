@@ -1,20 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
 
-import User from 'lib/models/User';
+import Customer from 'lib/models/Customer';
 import db from 'lib/db';
 import { signToken } from 'lib/jwt';
 import { config } from "config";
-import { IUser } from "types/user";
+import { ICustomer } from "types/customer";
 
-const handler = nc();
+const handler = nc<NextApiRequest, NextApiResponse>();
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const { email, password } = req.body;
     await db.connect();
-    let user: IUser = await User.findOne({ email }, {
+    let customer: ICustomer = await Customer.findOne({ email }, {
       email: 1,
       name: 1,
       role: 1,
@@ -22,20 +22,20 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       password: 1,
       _id: 0
     });
-    if (!user) {
+    if (!customer) {
       res.status(422).send({ code: '422', message: 'Incorrect email or password.' });
     }
 
     await db.disconnect();
-    if (password !== user.password) {
+    if (password !== customer.password) {
       res.status(422).send({ code: '422', message: 'Incorrect email or password.' });
     }
 
     const profile = {
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      status: user.status,
+      name: customer.name,
+      email: customer.email,
+      role: customer.role,
+      status: customer.status,
     }
 
     const token = await signToken(profile, process.env.NEXT_PUBLIC_JWT_SECRET, config.token.tokenLife);

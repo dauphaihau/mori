@@ -1,23 +1,19 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
-import LoadingBar from "react-top-loading-bar";
 import dynamic from 'next/dynamic';
 
-import { useUIController } from 'components/context/UIControllerContext';
 import Header from './Header';
 import Footer from './Footer';
 
 // import ChatBox from './ChatBox';
 const ChatBox = dynamic(() => import('./ChatBox'), { ssr: false });
 
-import BannerSlogan from '../../pages/home/BannerSlogan';
 import { Box } from 'core/components';
 import { SubscribeDialog } from 'components/dialog';
 import AcceptCookie from "./AcceptCookie";
 import FreeShip from "./FreeShip";
 
 export default function RootLayout({ children }: {children: ReactNode}) {
-  // const { progress, setProgress } = useUIController();
   const [isMobileScreen, setIsMobileScreen] = useState(false)
 
   useEffect(() => {
@@ -29,28 +25,21 @@ export default function RootLayout({ children }: {children: ReactNode}) {
 
   return (
     <>
-      {/*<LoadingBar*/}
-      {/*  color='#000000'*/}
-      {/*  progress={progress}*/}
-      {/*  onLoaderFinished={() => setProgress(0)}*/}
-      {/*  height={2}*/}
-      {/*/>*/}
       <Toaster
         position={isMobileScreen ? 'top-center' : 'bottom-right'}
         reverseOrder={false}
       />
-
       <FreeShip/>
-
       <Header/>
-      <Box classes='mt-3 laptop:mt-1'>
+      <Box classes=''>
+      {/*<Box classes='mt-3 laptop:mt-1'>*/}
         <Box main>{children}</Box>
         <Footer/>
       </Box>
 
-      {/*<SubscribeDialog/>*/}
+      <SubscribeDialog/>
       {/*<AcceptCookie/>*/}
-      {/*<ChatBox/>*/}
+      <ChatBox/>
     </>
   );
 }

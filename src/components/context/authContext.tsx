@@ -1,4 +1,4 @@
-import { useState, useEffect, PropsWithChildren, createContext, useContext } from 'react';
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 
 import { handleGetCookie, handleRemoveCookie } from 'lib/cookie';
 import { config } from 'config';
@@ -32,9 +32,10 @@ export function AuthProvider({ children }: PropsWithChildren<{}>) {
   useEffect(() => {
     const authData = handleGetCookie<IToken>(config.cookies.auth)
 
-    console.log('dauphaihau debug: auth-data', authData)
-
     if (authData && authData.token && authData.refreshToken) {
+      console.log('dauphaihau debug: auth-data-auth-data-token-auth-data-refresh-token', authData && authData.token && authData.refreshToken)
+      setRole(ROLE.ACCOUNT)
+
       // console.log('dauphaihau debug: has auth data')
 
       // const verifyAuth = async () => {
@@ -69,6 +70,7 @@ export function AuthProvider({ children }: PropsWithChildren<{}>) {
     // } else {
     //   handleLogout()
     // }
+  // }, []);
   }, [router.asPath]);
 
   const handleLogout = () => {

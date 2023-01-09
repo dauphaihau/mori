@@ -15,14 +15,14 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
   const isMatchLaptopScreen = useMediaQuery('(min-width: 1280px)')
   const scrollPositionY = useScrollPosition();
   const router = useRouter()
-  const { user } = useAuth();
+  const { user, role } = useAuth();
 
   return (
     <>
-      {/*<SearchProductDialog*/}
-      {/*  showSearchProductDialog={showSearchBar}*/}
-      {/*  setShowSearchProductDialog={setShowSearchBar}*/}
-      {/*/>*/}
+      <SearchProductDialog
+        showSearchProductDialog={showSearchBar}
+        setShowSearchProductDialog={setShowSearchBar}
+      />
       <LoginRegisterDialog
         showLoginDialog={showLoginDialog}
         setShowLoginDialog={setShowLoginDialog}
@@ -89,7 +89,8 @@ function RightNavbar({ pageHasBanner, setShowSearchBar, showSearchBar }) {
         </Button>
         <Box classes='hidden tablet:block cursor-pointer'>
           {
-            user?.role === ROLE.ACCOUNT ?
+            // user?.role === ROLE.ACCOUNT ?
+            role === ROLE.ACCOUNT ?
               <Link href={PATH.ACCOUNT._}>
                 <Icons.userSolid
                   className={cn('stroke-1',

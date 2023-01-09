@@ -1,8 +1,8 @@
 import nc from 'next-connect';
 // import Product from '../../models/Product';
-// import data from "../../assets/data/users";
-import User from "../../lib/models/User";
-import db from "../../lib/db";
+import data from "assets/data/user-seed";
+import User from "lib/models/User";
+import db from "lib/db";
 import {NextApiRequest, NextApiResponse} from "next";
 
 const handler = nc();
@@ -11,7 +11,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   // return res.send({message: 'already seeded'});
   await db.connect();
   await User.deleteMany();
-  // await User.insertMany(data.users);
+  await User.insertMany(data.users);
   // await Product.deleteMany();
   // await Product.insertMany(data.products);
   await db.disconnect();

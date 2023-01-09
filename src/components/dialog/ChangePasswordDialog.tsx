@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import * as Yup from 'yup';
@@ -8,6 +8,8 @@ import { Dialog, Button, Text, Input, Box } from 'core/components';
 import { accountService } from 'services/account';
 import { userAuthSchema } from "lib/validation/auth";
 import { updatePasswordSchema } from 'lib/validation/password';
+import ErrorServer from "../common/ErrorServer";
+import { PATH } from "../../config/const";
 
 type FormData = {
   confirmPassword: string
@@ -18,27 +20,52 @@ const formOptions = { resolver: yupResolver(updatePasswordSchema) };
 
 export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
   const [isBtnLoading, setIsBtnLoading] = useState(false)
-  const { register, handleSubmit, reset, formState: { errors }, setError } = useForm<FormData>(formOptions);
+  const [errorServer, setErrorServer] = useState('')
+  const { register, handleSubmit, reset, formState: { errors }, setError, resetField } = useForm<FormData>(formOptions);
+
+  useEffect(() => {
+     if (!showDialog) {
+       setErrorServer('')
+       resetField('password',)
+       resetField('confirmPassword',)
+     }
+  },[showDialog])
 
   async function onSubmit(values: FormData) {
     delete values.confirmPassword
 
     setIsBtnLoading(true)
-    const { isLoading, isSuccess, message } = await accountService.changePassword(values)
+    const { isLoading, status, message } = await accountService.changePassword(values)
     setIsBtnLoading(isLoading)
 
-    if (isSuccess) {
-      toast.success('Update success!')
-      reset({ password: '', confirmPassword: '', newPassword: '' });
-      setShowDialog(false)
-    } else {
-      if (errors) {
+    switch (status) {
+      case 200:
+        toast.success('Update success!')
+        reset({ password: '', confirmPassword: '', newPassword: '' });
+        setShowDialog(false)
+        break
+      case 401:
         setError('password', {
           type: 'server',
           message
         });
-      }
+        break
+      default:
+        setErrorServer(message)
     }
+
+    // if (isSuccess) {
+    //   toast.success('Update success!')
+    //   reset({ password: '', confirmPassword: '', newPassword: '' });
+    //   setShowDialog(false)
+    // } else {
+    //   if (errors) {
+    //     setError('password', {
+    //       type: 'server',
+    //       message
+    //     });
+    //   }
+    // }
   }
 
   return (
@@ -59,6 +86,10 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
             onSubmit={handleSubmit(onSubmit)}
             classes='space-y-6 mt-4'
           >
+            <ErrorServer
+              message={errorServer}
+              onClick={() => setErrorServer('')}
+            />
             <Input
               name='password'
               type='password'
@@ -82,8 +113,8 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
             />
             <Button
               size='lg'
-              classes='w-[calc(100%-2rem)]'
               type='submit'
+              width='full'
               isLoading={isBtnLoading}
             >Change</Button>
           </Box>

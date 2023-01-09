@@ -3,7 +3,7 @@ import Product from "lib/models/Product";
 import db from "lib/db";
 import nc from 'next-connect';
 
-const handler = nc();
+const handler = nc<NextApiRequest, NextApiResponse>();
 
 const arrNames = [
   'Willow Pod Coffin',

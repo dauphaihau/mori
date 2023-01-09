@@ -9,7 +9,7 @@ export default function ChatBox() {
   let inputBox = null;
   let messageEnd = null;
 
-  const [messageText, setMessageText] = useState('');
+  const [messageText, setMessageText] = useState<string>('');
   const [receivedMessages, setReceivedMessages] = useState([]);
   const messageTextIsEmpty = messageText.trim().length === 0;
 
@@ -151,6 +151,7 @@ export default function ChatBox() {
   }
 
   return (
+    <>
     <Box classes='chat-box'>
       {
         !openChatBox &&
@@ -218,5 +219,6 @@ export default function ChatBox() {
         </Box>
       </Transition>
     </Box>
+    </>
   );
 }

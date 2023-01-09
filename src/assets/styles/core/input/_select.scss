@@ -6,6 +6,7 @@
   }
 
   &__btn {
+    height: 42px;
     @apply
     theme-input
     relative
@@ -18,14 +19,14 @@
   }
 
   &__options {
-    @apply absolute z-30 mt-1 w-full
+    @apply absolute z-30 mt-1
+    w-full max-w-[14rem]
+    max-h-[300px]
+    p-[4px]
     bg-white
     shadow-lg
-    max-w-[14rem]
     rounded-md py-1 text-base ring-1 ring-black
-    p-[4px]
     ring-opacity-5 overflow-auto focus:outline-none text-sm
-
     dark:bg-black dark:text-white
     ;
   }

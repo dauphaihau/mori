@@ -1,67 +1,95 @@
 import { Fragment, useEffect, useState } from "react";
 import * as Yup from 'yup';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useUIController } from "components/context/UIControllerContext";
 // import countryOpts from 'assets/data/country.json';
 import { useAuth } from 'components/context/authContext';
 import { Dialog, Button, Text, Checkbox, Input, Select, Box, Grid, Row } from 'core/components';
-import { countryOptions } from "../../assets/data/options";
+// import { countriesOptions } from "assets/data/options";
+import { statesData } from "assets/data/State";
+import { countriesData } from "assets/data/Country";
+import { IAddress } from "../../types/address";
+import { accountService } from "../../services/account";
+
+const validationSchema = Yup.object().shape({
+  // name: Yup.string().required('Name is required'),
+  // address: Yup.string().required('Address is required'),
+  // phone: Yup.string().required('Phone number is required'),
+  // email: Yup.string().email('Email is invalid')
+});
+
+const countriesOptions = countriesData.list.map(item => ({
+  label: item.country,
+  value: item.numberCode
+}))
 
 const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
   const { user, setUser } = useAuth();
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [address, setAddress] = useState({
     name: '',
-    phone: '',
-    addressDetail: '',
-    country: '',
+    address1: '',
+    address2: '',
     city: '',
-    postcode: '',
-    state: ''
+    zipCode: '',
+    postalCode: '',
+    province: '',
+    countryCode: '',
+    state: '',
+    phone: '',
   })
+  const [states, setStates] = useState([])
+  const [countryCode, setCountryCode] = useState('')
 
   useEffect(() => {
-    // console.log('run effect')
-    if (user?.address) {
 
-      // console.log('run effect init value ')
-      setAddress({
-        name: user?.address.name,
-        phone: user?.address.phone,
-        addressDetail: user?.address.addressDetail,
-        country: user?.address.country,
-        city: user?.address.city,
-        postcode: user?.address.postcode,
-        state: user?.address.state
-      })
-    } else {
-      // console.log('run effect restart')
-      setAddress({
-        name: '',
-        phone: '',
-        addressDetail: '',
-        country: '',
-        city: '',
-        postcode: '',
-        state: ''
-      })
+    // console.log('dauphaihau debug: address', address)
+    if (countryCode) {
+      // if (address.countryCode) {
+      const country = countriesData.list.find(item => item.numberCode === countryCode)
+      // const country = countriesData.list.find(item => item.numberCode === address.countryCode)
+      setStates([])
+      if (country.states.length > 0) {
+        const statesOptions = country.states.map(item => ({
+          label: item,
+          value: item
+        }))
+        setStates(statesOptions)
+      } else {
+        setStates([])
+      }
     }
-  }, [])
 
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    address: Yup.string().required('Address is required'),
-    phone: Yup.string().required('Phone number is required'),
-    email: Yup.string().email('Email is invalid')
-  });
+  }, [countryCode])
 
   const formOptions = { resolver: yupResolver(validationSchema) };
-  const { register, handleSubmit, reset, formState, setError } = useForm(formOptions);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState,
+    setError,
+    control,
+    getValues,
+    getFieldState
+  } = useForm(formOptions);
   const { errors } = formState;
 
   const handleOnchange = (name, value) => {
+    // const handleOnchange = (e) => {
+    //   const name = e.target.name
+    //   const value = e.target.value
     setAddress({ ...address, [name]: value })
+  }
+
+  async function onSubmit(values: FormData) {
+    console.log('dauphaihau debug: values', values)
+    setIsLoading(true)
+    const res = await accountService.createAddress(values)
+
+    setIsLoading(false)
   }
 
   return (
@@ -78,99 +106,153 @@ const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
             classes='text-xl mb-8'
           >Shipping Address</Text>
 
-          <Grid md={2} lg={2} gapx={4}>
-            <Input
-              label='Full Name *'
-              name='name'
-              // onChange={handleOnchange}
-              register={register}
-              defaultValue={address.name}
-              errors={errors}
-            />
-            <Input
-              label='Phone/Mobile *'
-              name='phone'
-              onChange={handleOnchange}
-              register={register}
-              errors={errors}
-              defaultValue={address.phone}
-            />
-          </Grid>
-          <Input
-            label='Address *'
-            name='addressDetail'
-            onChange={handleOnchange}
-            register={register}
-            errors={errors}
-            defaultValue={address.addressDetail}
-          />
-          <Grid md={1} lg={2} gapx={4}>
-            {/*<Input
-               label='Email '
-               name='email'
-               register={register}
-               errors={errors}
-               />*/}
-          </Grid>
-          <Select
-            name='country'
-            label='Country'
-            size='medium'
-            options={countryOptions}
-            // onChange={(e) => console.log(e.value)}
-            onChange={(e) => handleOnchange('country', e.value)}
-          />
-          <Grid md={1} lg={3} gapx={4}>
-            <Input
-              label='City/Town *'
-              name='city'
-              onChange={handleOnchange}
-              register={register}
-              errors={errors}
-              defaultValue={address.city}
-            />
-            <Input
-              label='Zip/Postcode *'
-              name='postcode'
-              onChange={handleOnchange}
-              register={register}
-              errors={errors}
-              defaultValue={address.postcode}
-            />
-            <Input
-              label='State *'
-              name='state'
-              onChange={handleOnchange}
-              register={register}
-              errors={errors}
-              defaultValue={address.state}
-            />
-          </Grid>
-          <Checkbox
-            label='Use this address as default.'
-            classesForm='mb-4'
-            name=''
-            onChange={() => {}}
-          />
-          <Row
-            justify='end'
-            classes='mt-2'
+          <Box
+            form
+            onSubmit={handleSubmit(onSubmit)}
           >
-            <Button
-              type='button'
-              light
-              onClick={() => setShowAddressDialog(false)}
-              text='Cancel'
+            <Grid md={2} lg={2} gapx={4}>
+              <Input
+                label='Full Name *'
+                name='name'
+                onChange={handleOnchange}
+                register={register}
+                defaultValue={address?.name}
+                // errors={errors}
+              />
+              <Input
+                label='Phone/Mobile *'
+                name='phone'
+                onChange={handleOnchange}
+                register={register}
+                // errors={errors}
+                defaultValue={address?.phone}
+              />
+            </Grid>
+            <Input
+              label='Address 1 *'
+              name='address1'
+              onChange={handleOnchange}
+              register={register}
+              // errors={errors}
+              defaultValue={address?.address1}
             />
-            <Button
-              classes='w-fit '
-              onClick={() => {
-                setUser({ ...user, address, numberAllOfItemsInCart: 0 });
-                setShowAddressDialog(false)
-              }}
-              text='Save'
+            <Input
+              label='Address 2'
+              // label='Apt, Suite, Building'
+              name='address2'
+              onChange={handleOnchange}
+              register={register}
+              // errors={errors}
+              defaultValue={address?.address2}
             />
-          </Row>
+            <Grid md={1} lg={2} gapx={4}>
+              <Input
+                label='City/Town *'
+                name='city'
+                onChange={handleOnchange}
+                register={register}
+                // errors={errors}
+                defaultValue={address?.city}
+              />
+              <Input
+                label='Zip/Postcode *'
+                name='zipCode'
+                onChange={handleOnchange}
+                register={register}
+                // errors={errors}
+                defaultValue={address?.zipCode}
+              />
+            </Grid>
+            <Grid md={1} lg={2} gapx={4}>
+
+              <Controller
+                control={control}
+                name='countryCode'
+                render={({ field: { onChange, value } }) => (
+                  <Select
+                    name='countryCode'
+                    label='Country *'
+                    size='medium'
+                    options={countriesOptions}
+                    value={value}
+                    // onChange={(option) => onChange(option.value)}
+                    onChange={(option) => {
+                      onChange(option.value)
+                      setCountryCode(option.value)
+                    }}
+                    // onChange={onChange}
+                    // onChange={(e) => handleOnchange('countryCode', e.value)}
+                  />
+                )}
+              />
+              {
+                states.length > 0 ?
+                  <Controller
+                    control={control}
+                    name='state'
+                    render={({ field: { onChange, value } }) => (
+                      <Select
+                        name='state'
+                        label='State / Province *'
+                        size='medium'
+                        options={states}
+                        value={value}
+                        // onChange={(e) => console.log(e.value)}
+                        // onChange={(e) => handleOnchange('country', e.value)}
+                        onChange={(option) => onChange(option.value)}
+                      />
+                    )}
+                  />
+                  :
+                  <Input
+                    label='Province *'
+                    name='province'
+                    onChange={handleOnchange}
+                    register={register}
+                    // errors={errors}
+                    defaultValue={address?.province}
+                  />
+              }
+            </Grid>
+            <Controller
+              control={control}
+              name='state'
+              render={({ field: { onChange, value } }) => (
+                <Checkbox
+                  label='Use this address as default.'
+                  classesForm='mb-4'
+                  // register={register}
+                  // defaultChecked={true}
+                  value={value}
+                  name='primary'
+                  onChange={onChange}
+                  // value={address?.primary}
+                />
+              )}
+            />
+            <Row
+              justify='end'
+              classes='mt-2'
+            >
+              <Button
+                type='button'
+                light
+                onClick={() => setShowAddressDialog(false)}
+                text='Cancel'
+              />
+              <Button
+                classes='w-fit '
+                // onClick={() => {
+                //   setUser({ ...user, address, numberAllOfItemsInCart: 0 });
+                //   setShowAddressDialog(false)
+                // }}
+
+                isLoading={isLoading}
+                type='submit'
+                text='Save'
+              />
+            </Row>
+          </Box>
         </Box>
       </Dialog.Content>
     </Dialog>

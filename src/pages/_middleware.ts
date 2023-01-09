@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { PATH, ROLE, USER_STATUS } from 'config/const';
 import { hashMD5 } from 'lib/crypto';
-import { isEmpty, parseJSON } from 'core/helpers';
+import { isEmpty, isEmptyObject, parseJSON } from 'core/helpers';
 import { signToken, verifyToken } from 'lib/jwt';
 import { IToken } from "types/user";
 import { config } from "config";
@@ -26,7 +26,13 @@ export async function middleware(req: NextRequest) {
   }
 
   if (routesAuth.includes(urlCurrent)) {
-    console.log('dauphaihau debug: data-token', dataToken)
+
+    if (urlCurrent === PATH.ACCOUNT.RESET_PASSWORD) {
+      const urlSearchParams = new URLSearchParams(req.nextUrl.search);
+      const params = Object.fromEntries(urlSearchParams.entries())
+      if (isEmptyObject(params)) return NextResponse.redirect(url)
+    }
+
     if (!isEmpty(dataToken)) return NextResponse.redirect(url)
   }
 

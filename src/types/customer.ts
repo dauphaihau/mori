@@ -1,14 +1,8 @@
 import { Document} from 'mongoose';
 
-type AddressUser = {
-  name: string,
-  phone: string,
-  addressDetail: string,
-}
-
-export interface IUser extends Document {
+export interface ICustomer extends Document {
   role: number;
-  address: AddressUser
+  // address: IAddress
   avatar: string,
   order: any;
   payment: string;
@@ -22,7 +16,8 @@ export interface IUser extends Document {
   priceTotal: number
 }
 
-export interface IToken {
+export interface IToken extends Document{
   token: string
   refreshToken: string
+  customerId: string
 }

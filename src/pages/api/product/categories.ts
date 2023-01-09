@@ -3,7 +3,7 @@ import nc from 'next-connect';
 import Product from 'lib/models/Product';
 import db from "lib/db";
 
-const handler = nc();
+const handler = nc<NextApiRequest, NextApiResponse>();
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   try {

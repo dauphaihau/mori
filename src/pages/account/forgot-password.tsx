@@ -5,12 +5,12 @@ import * as Yup from 'yup';
 
 import { Box, Col, Row, Button, Input, Link, Text } from 'core/components';
 import { accountService } from 'services/account';
-import { IUserAuthSchema } from "lib/validation/auth";
+import { userAuthSchema } from "lib/validation/auth";
 import { PATH } from 'config/const';
 import AuthLayout from "components/layout/AuthLayout";
 import ErrorServer from "components/common/ErrorServer";
 
-type FormData = Pick<IUserAuthSchema, 'email'>
+type FormData = Pick<Yup.InferType<typeof userAuthSchema>, 'email'>
 
 const formType = {
   forgotPassword: {
@@ -53,6 +53,7 @@ const ForgotPasswordPage = () => {
     switch (status) {
       case 200:
         setCurrentForm('emailSent')
+        setErrorServer('')
         break
       case 401:
         setError('email', {
@@ -96,8 +97,10 @@ const ForgotPasswordPage = () => {
           />
           <Button
             type='submit'
-            classes='mt-5 w-[calc(100%-2rem)]'
+            // classes='mt-5 w-[calc(100%-2rem)]'
+            classes='mt-5'
             size='lg'
+            width='full'
             isLoading={isBtnLoading}
           >
             {formType[currentForm].textButton}
@@ -106,11 +109,13 @@ const ForgotPasswordPage = () => {
 
         <Link
           href={PATH.HOME}
-          classes={currentForm === 'forgotPassword' ? 'hidden' : 'block'}
+          classes={currentForm === 'forgotPassword' ? 'hidden' : ''}
         >
           <Button
             type='submit'
-            classes='mt-5 w-[calc(100%-2rem)]'
+            width='full'
+            // classes='mt-5 w-[calc(100%-2rem)]'
+            classes='mt-5'
             size='lg'
             isLoading={isBtnLoading}
           >

@@ -9,7 +9,6 @@ import { useFilters, useProducts } from "services/product";
 import MobileTabletVersion from "components/pages/productList/MobileTabletVersion";
 import { Filters, Sorter } from "components/pages/productList";
 import { capitalizeEachWord, isEmptyObject } from 'core/helpers';
-import { useUIController } from "components/context/UIControllerContext";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Viewer from 'components/pages/productList/Viewer';
 import { IProduct } from "types/product";
@@ -21,7 +20,6 @@ const dataBreadcrumb = [
 ];
 
 export default function ProductListPage() {
-  // const { progress, setProgress } = useUIController();
   const [gridView, setGridView] = useState(true)
   const router = useRouter()
   const scrollDirection = useScrollDirection()
@@ -49,19 +47,11 @@ export default function ProductListPage() {
     }
   }, [router.query])
 
-  // useEffect(() => {
-  //   console.log('dauphaihau debug: run ef 2')
-  //   setProgress((prevState) => prevState + 30)
-  //   if (!isValidating) {
-  //     setProgress(100)
-  //   }
-  // }, [isValidating])
-
   return (
     <>
       <Seo description='Mori ECommerce - All products'/>
 
-      <Box classes='hidden laptop:block layout desktop:w-[96%] pt-12'>
+      <Box classes='hidden laptop:block layout  pt-12'>
         <Breadcrumb
           classes='pl-1'
           data={dataBreadcrumb}
@@ -118,7 +108,7 @@ export default function ProductListPage() {
             {
               !isReachEnd &&
               <Row justify='center' classes='my-4'>
-                <Loading classes='h-10 w-10'/>
+                <Loading classes='h-10 w-10 fill-black'/>
               </Row>
             }
           </Box>

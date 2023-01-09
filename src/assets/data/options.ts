@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { SORT_PRODUCT } from "config/const";
-import countryJson from './country.json';
+// import { countriesData } from './Country';
 
 type Option = {
   label: string,
@@ -12,8 +12,15 @@ type Option = {
 //   value: SORT_PRODUCT[key]
 // }))
 
+// console.log('dauphaihau debug: countries-data', countriesData)
 
-export const countryOptions: Option[] = countryJson
+// export const countriesOptions = countriesData.list.map(item => ({
+//   label: item.title,
+//   value: item.id
+// }))
+
+
+// export const countryOptions: Option[] = countryJson
 
 export const sortOptions: Option[] = [
   {

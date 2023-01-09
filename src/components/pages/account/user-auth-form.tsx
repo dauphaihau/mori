@@ -2,6 +2,7 @@ import * as Yup from "yup";
 import { HTMLAttributes, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Button, Input, Box, Text, Row, Icons } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
@@ -9,7 +10,6 @@ import { accountService } from 'services/account';
 import { PATH } from "config/const";
 import { cn } from "core/helpers";
 import { userAuthSchema } from "lib/validation/auth";
-import { yupResolver } from "@hookform/resolvers/yup";
 import ErrorServer from "components/common/ErrorServer";
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
@@ -19,10 +19,8 @@ type FormData = Yup.InferType<typeof userAuthSchema>
 export default function UserAuthForm({ className }: UserAuthFormProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [values, setValues] = useState(null)
   const [errorServer, setErrorServer] = useState('')
   const emailInputRef = useAutoFocus();
-  // const { data, mutate } = useAccount(values)
 
   const {
     register, handleSubmit,
@@ -34,14 +32,6 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
 
   async function onSubmit(values: FormData) {
     setIsLoading(true)
-
-    // const { password } = values
-    // const modifiedValues = { ...values, password: encryptPassword(password, config.cryptoKey) }
-    // setValues(modifiedValues)
-
-    // const { data, isLoading, mutate } = useAccount(modifiedValues)
-    // const { data, isLoading, mutate } = useAccount(values)
-
     const { isLoading, message, status } = await accountService.login(values)
     setIsLoading(isLoading)
 
@@ -67,7 +57,6 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
       <Box classes='space-y-5 mb-8'>
         <Input
           name='email'
-          // type='email'
           placeholder='Email Address'
           register={register}
           helperText={errors?.email?.message}
@@ -82,7 +71,9 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
       </Box>
       <Button
         type='submit'
-        classes='w-[calc(100%-3rem)] laptop:w-[calc(100%-2rem)] font-bold'
+        width='full'
+        // classes='w-[calc(100%-3rem)] laptop:w-[calc(100%-2rem)] font-bold'
+        classes='font-bold'
         size='lg'
         shadow
         isLoading={isLoading}

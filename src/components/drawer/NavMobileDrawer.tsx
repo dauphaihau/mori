@@ -3,11 +3,10 @@ import { useRouter } from 'next/router';
 import { XIcon } from '@heroicons/react/outline';
 
 import { cn } from 'core/helpers';
-import { Drawer, List, Button, Box, Row, Link, Text, Divider } from 'core/components';
-import  { PATH } from 'config/const';
-import { MinusIcon, PlusIcon } from "@heroicons/react/solid";
+import { Drawer, List, Button, Box, Row, Link, Text, Divider, Icons } from 'core/components';
+import { PATH } from 'config/const';
 import { headerConfig } from "config/header";
-import { MainNavItem } from "types";
+import { MainNavItem } from "types/header";
 
 const Dropdown = ({ subMenus, dropdown, depthLevel }) => {
   depthLevel += 1
@@ -47,36 +46,34 @@ const MenuItems = ({ items, depthLevel }: {items: MainNavItem, depthLevel: numbe
               justify='between'
               align='center'
               onClick={() => setDropdown((prev) => !prev)}
-              classes={cn('cursor-pointer ',
-                depthLevel === 0 && 'py-4'
-              )}
+              classes={['cursor-pointer ',
+                { 'py-4': depthLevel === 0 }
+              ]}
             >
               <Text
-                classes={cn(
-                  '',
+                classes={[
                   depthLevel === 0 && 'text-[12px] text-white uppercase tracking-[.20em]',
                   depthLevel === 1 && 'text-[11px] text-[#777676] uppercase tracking-[.20em]',
                   depthLevel === 2 && 'text-[15px] text-[#797978]'
-                )}
+                ]}
                 text={items.title}
               />
 
               <Button
                 light
-                text={dropdown ? <MinusIcon
+                text={dropdown ? <Icons.minus
                   height={15}
                   width={15}
-                /> : <PlusIcon
+                /> : <Icons.plus
                   height={15}
                   width={15}
                 />}
-                classes={cn('',
-                  'text-white p-0 text-xl px-[0.7rem]',
+                classes={['text-white p-0 text-xl px-[0.7rem]',
                   depthLevel === 1 && 'text-[#777676]',
                   depthLevel === 2 && 'text-[#797978]',
                   'transition-all duration-500 ease-in-out',
                   dropdown ? 'rotate-180' : '-rotate-0'
-                )}
+                ]}
               />
             </Row>
             <Dropdown
@@ -90,13 +87,11 @@ const MenuItems = ({ items, depthLevel }: {items: MainNavItem, depthLevel: numbe
             href={items.href}
             text={items.title}
             // onClick={() => items.childDiscover ? handleDiscover(items.title) : {}}
-            classes={cn(
-              'transition duration-700 ease-in-out rounded-lg',
-              'text-[#fbfbfb]',
+            classes={['transition duration-700 ease-in-out rounded-lg text-[#fbfbfb]',
               depthLevel === 0 && 'py-4 text-white text-[12px] uppercase tracking-widest',
               depthLevel === 1 && 'text-[11px] text-[#777676] uppercase tracking-widest',
               depthLevel === 2 && 'text-[15px] !text-[#8e8d8d] font-light pb-2'
-            )}
+            ]}
           />
         )
       }
@@ -108,7 +103,7 @@ const MenuItems = ({ items, depthLevel }: {items: MainNavItem, depthLevel: numbe
   )
 }
 
-const NavMobileDrawer = ({ showNavMobileDrawer, setShowNavMobileDrawer }) => {
+export default function NavMobileDrawer({ showNavMobileDrawer, setShowNavMobileDrawer }) {
   const router = useRouter();
 
   useEffect(() => {
@@ -180,11 +175,8 @@ const NavMobileDrawer = ({ showNavMobileDrawer, setShowNavMobileDrawer }) => {
               />
             </List.Item>
           </List>
-
         </Box>
       </Drawer.Body>
     </Drawer>
   )
 }
-
-export default NavMobileDrawer
