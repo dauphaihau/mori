@@ -11,8 +11,8 @@ import Token from 'lib/models/Token';
 import db from 'lib/db';
 import { config } from "config";
 import { isValidToken } from "lib/middlewares/token";
-import { PATH } from "config/const";
-import { verifyToken } from "lib/jwt";
+import {  verifyToken } from "lib/jwt";
+import { parseJSON } from "core/helpers";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
@@ -62,11 +62,30 @@ handler.post(async (req, res) => {
 handler.put(async (req: MyCustomerRequest, res) => {
   try {
     const { password, newPassword } = req.body;
-
     const { authorization } = req.headers;
-    const token = authorization.replace('Bearer ', '');
-    const dataToken = await verifyToken(token, process.env.NEXT_PUBLIC_JWT_SECRET)
-    if (!dataToken) return res.status(401).send({ code: '401', message: 'Token is not valid' });
+    const secret = process.env.NEXT_PUBLIC_JWT_SECRET
+    const now = Math.floor(Date.now() / 1000);
+
+    const authData = authorization?.replace('Bearer ', '');
+    const { token, refreshToken } = parseJSON<IToken>(authData)
+    const dataToken = await verifyToken(token, secret)
+    const dataRefreshToken = await verifyToken(refreshToken, secret)
+
+    if (!dataToken || !dataRefreshToken) {
+      res.status(401).send({ code: '401', message: 'Token is not valid' });
+    }
+
+    // 1. refreshToken & token expired --> re-login
+    // if (dataToken.exp > now && dataRefreshToken.exp > now) { // mock
+    if (dataToken.exp < now && dataRefreshToken.exp < now) {
+      return res.status(401).send({ code: '401', message: 'Token is not valid' });
+    }
+
+    // 2. refreshToken works - token expired
+    if (dataToken.exp > now && dataRefreshToken.exp > now) { // mock
+    // if (dataToken.exp < now && dataRefreshToken.exp > now) {
+      return res.status(401).send({ code: '4001', message: 'Token is expired' });
+    }
 
     await db.connect();
     const customer = await Customer.findOne({ email: dataToken.email }, 'password').exec();

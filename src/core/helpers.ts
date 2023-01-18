@@ -42,24 +42,22 @@ export const toLower = (value) => {
   return value
 }
 
-// export const isEmpty = (obj = {}) => {
-//   return Object.keys(obj).length === 0
-// }
-
 export const isEmptyObject = (obj = {}) => {
   return Object.keys(obj).length === 0
 }
 
-export function isEmpty(value): boolean {
-  try {
-    return typeof value === "undefined" ||
-      value === null ||
-      value === "" ||
-      value.length === 0;
-  } catch (e) {
-    return true;
-  }
-}
+export const isFalsy = (value): boolean => !value;
+
+// export function isFalsy(value): boolean {
+//   try {
+//     return typeof value === "undefined" ||
+//       value === null ||
+//       value === "" ||
+//       value.length === 0;
+//   } catch (e) {
+//     return true;
+//   }
+// }
 
 export function parseJSON<T>(value: string | null): T | undefined {
   try {
@@ -100,56 +98,6 @@ export const omitFieldNullish = (obj) => {
 export const convertDateString = (value) => {
   return value.substr(6, 4) + value.substr(3, 2) + value.substr(0, 2)
 }
-
-// ----------------- components
-export const filterRows = (rows, filters) => {
-  if (isEmpty(filters)) return rows
-
-  return rows.filter((row) => {
-    return Object.keys(filters).every((accessor) => {
-      const value = row[accessor]
-      const searchValue = filters[accessor]
-
-      if (isString(value)) {
-        return toLower(value).includes(toLower(searchValue))
-      }
-
-      if (isBoolean(value)) {
-        return (searchValue === 'true' && value) || (searchValue === 'false' && !value)
-      }
-
-      if (isNumber(value)) {
-        return value == searchValue
-      }
-
-      return false
-    })
-  })
-}
-
-export const sortRows = (rows, sort) => {
-  return rows.sort((a, b) => {
-    const { order, orderBy } = sort
-
-    if (isNil(a[orderBy])) return 1
-    if (isNil(b[orderBy])) return -1
-
-    const aLocale = convertType(a[orderBy])
-    const bLocale = convertType(b[orderBy])
-
-    if (order === 'asc') {
-      return aLocale.localeCompare(bLocale, 'en', { numeric: isNumber(b[orderBy]) })
-    } else {
-      return bLocale.localeCompare(aLocale, 'en', { numeric: isNumber(a[orderBy]) })
-    }
-  })
-}
-
-export const paginateRows = (sortedRows, currentPage, rowsPerPage) => {
-  return [...sortedRows].slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
-}
-
-// ---------- others
 
 export const slugify = (text: string): string => {
   if (!text) return
@@ -201,6 +149,37 @@ export const getUniqueValues = (data, type) => {
   return ["all", ...new Set(unique)];
 };
 
+
+export const createMaps = <ObjectMapType extends Record<string, string>>(
+  obj: ObjectMapType
+) => obj;
+
+export const capitalizeEachWord = (text: string) => {
+  if (typeof text !== 'string') return
+  const pattern = /(^\w|\s\w)(\S*)/g
+  return text.replace(pattern, (_, m1, m2) => m1.toUpperCase() + m2.toLowerCase())
+}
+
+
+// --------- table
+export const sortRows = (rows, sort) => {
+  return rows.sort((a, b) => {
+    const { order, orderBy } = sort
+
+    if (isNil(a[orderBy])) return 1
+    if (isNil(b[orderBy])) return -1
+
+    const aLocale = convertType(a[orderBy])
+    const bLocale = convertType(b[orderBy])
+
+    if (order === 'asc') {
+      return aLocale.localeCompare(bLocale, 'en', { numeric: isNumber(b[orderBy]) })
+    } else {
+      return bLocale.localeCompare(aLocale, 'en', { numeric: isNumber(a[orderBy]) })
+    }
+  })
+}
+
 export const convertType = (value) => {
   if (isNumber(value)) {
     return value.toString()
@@ -217,13 +196,27 @@ export const convertType = (value) => {
   return value
 }
 
-export const createMaps = <ObjectMapType extends Record<string, string>>(
-  obj: ObjectMapType
-) => obj;
+export const filterRows = (rows, filters) => {
+  if (isFalsy(filters)) return rows
 
-export const capitalizeEachWord = (text: string) => {
-  if (typeof text !== 'string') return
-  const pattern = /(^\w|\s\w)(\S*)/g
-  return text.replace(pattern, (_, m1, m2) => m1.toUpperCase() + m2.toLowerCase())
+  return rows.filter((row) => {
+    return Object.keys(filters).every((accessor) => {
+      const value = row[accessor]
+      const searchValue = filters[accessor]
+
+      if (isString(value)) {
+        return toLower(value).includes(toLower(searchValue))
+      }
+
+      if (isBoolean(value)) {
+        return (searchValue === 'true' && value) || (searchValue === 'false' && !value)
+      }
+
+      if (isNumber(value)) {
+        return value == searchValue
+      }
+
+      return false
+    })
+  })
 }
-

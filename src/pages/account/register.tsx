@@ -1,6 +1,6 @@
 import { Text, Link, Box, Row } from 'core/components';
 import { PATH } from "config/const";
-import UserRegisterForm from "components/pages/account/user-register-form";
+import UserRegisterForm from "components/pages/account/UserRegisterForm";
 import AuthLayout from 'components/layout/AuthLayout';
 
 export default function RegisterPage() {

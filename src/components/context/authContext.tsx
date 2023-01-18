@@ -5,6 +5,7 @@ import { config } from 'config';
 import { IToken, IUser } from 'types/user';
 import { PATH, ROLE } from "config/const";
 import { useRouter } from "next/router";
+import { verifyToken } from "../../lib/jwt";
 
 export interface AuthProps {
   user: IUser
@@ -33,7 +34,9 @@ export function AuthProvider({ children }: PropsWithChildren<{}>) {
     const authData = handleGetCookie<IToken>(config.cookies.auth)
 
     if (authData && authData.token && authData.refreshToken) {
-      console.log('dauphaihau debug: auth-data-auth-data-token-auth-data-refresh-token', authData && authData.token && authData.refreshToken)
+      // const secret = process.env.NEXT_PUBLIC_JWT_SECRET
+      // const dataToken = awverifyToken(authData.token, secret)
+      // console.log('dauphaihau debug: data-token', dataToken)
       setRole(ROLE.ACCOUNT)
 
       // console.log('dauphaihau debug: has auth data')

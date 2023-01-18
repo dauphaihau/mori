@@ -31,13 +31,7 @@ const formType = {
   },
 }
 
-const formOptions = {
-  resolver: yupResolver(userAuthSchema),
-  // defaultValues: {
-  //   email: 'customer@mail.com',
-  //   password: '111111'
-  // }
-};
+const formOptions = { resolver: yupResolver(userAuthSchema) };
 
 const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
   const router = useRouter();
@@ -55,20 +49,9 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
   }, [router.asPath])
 
   const {
-    register, handleSubmit,
-    reset, setError, setValue,
-    formState: { errors },
+    register, handleSubmit, reset, setError,
+    formState: { errors }
   } = useForm<FormData>(formOptions);
-
-  // useEffect(() => {
-  //   if (currentForm === 'login') {
-  //     setValue('email', 'customer@mail.com')
-  //     setValue('password', '111111')
-  //   } else {
-  //     setValue('email', '')
-  //     setValue('password', '')
-  //   }
-  // }, [currentForm])
 
   async function onSubmit(values: FormData) {
     setIsLoading(true)
@@ -80,12 +63,9 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
     setIsLoading(isLoading)
 
     if (status === 200) {
-      reset({ password: '', email: '' });
-      if (currentForm === 'login') {
-        router.push(PATH.ACCOUNT._)
-        setShowLoginDialog(false);
-      }
-      setCurrentForm('login')
+      reset({ password: '', email: '', name: '' });
+      router.push(PATH.ACCOUNT._)
+      setShowLoginDialog(false);
     } else {
       if (errors) {
         setError('email', {
@@ -120,7 +100,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             currentForm === 'register' &&
             <Input
               name='name'
-              label='Name'
+              label='Full Name'
               register={register}
               helperText={errors?.name?.message}
             />

@@ -14,24 +14,25 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { email, password } = req.body;
     await db.connect();
-    let customer: ICustomer = await Customer.findOne({ email }, {
+    const customer: ICustomer = await Customer.findOne({ email }, {
       email: 1,
       name: 1,
       role: 1,
       status: 1,
       password: 1,
-      _id: 0
     });
+
     if (!customer) {
-      res.status(422).send({ code: '422', message: 'Incorrect email or password.' });
+      return res.status(422).send({ code: '422', message: 'Incorrect email or password.' });
     }
 
     await db.disconnect();
     if (password !== customer.password) {
-      res.status(422).send({ code: '422', message: 'Incorrect email or password.' });
+      return res.status(422).send({ code: '422', message: 'Incorrect email or password.' });
     }
 
     const profile = {
+      id: customer.id,
       name: customer.name,
       email: customer.email,
       role: customer.role,
@@ -41,7 +42,9 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     const token = await signToken(profile, process.env.NEXT_PUBLIC_JWT_SECRET, config.token.tokenLife);
     const refreshToken = await signToken(profile, process.env.NEXT_PUBLIC_JWT_SECRET, config.token.refreshTokenLife);
 
-    res.json(
+    delete profile.id
+
+    res.send(
       {
         code: '200',
         message: 'OK',
@@ -52,7 +55,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       });
   } catch (error) {
     console.log('error', error)
-    return res.status(422).send({ message: 'Ooops, something went wrong!' });
+    return res.status(422).send({ code: '422', message: 'Ooops, something went wrong!' });
   }
 });
 

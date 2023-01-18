@@ -1,5 +1,5 @@
 export { default as LoginRegisterDialog} from './LoginRegisterDialog'
 export { default as SearchProductDialog} from './SearchBarProduct'
 export { default as SubscribeDialog} from './SubscribeDialog'
-export { default as AddressDialog} from './AddressDialog'
-export { default as AddressAccountPageDialog} from './AddressDialog'
+export { default as AddressDialog} from './AddAddressDialog'
+export { default as AddressAccountPageDialog} from './AddAddressDialog'

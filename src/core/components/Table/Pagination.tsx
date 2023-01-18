@@ -1,6 +1,6 @@
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/outline";
 import { Select } from "../Input";
-import { cn, isEmpty } from "core/helpers";
+import { cn, isFalsy } from "core/helpers";
 import { usePagination } from 'core/hooks';
 
 interface Props {
@@ -34,7 +34,7 @@ const Pagination = (props: Props) => {
   const siblingCount = 1
 
   let options = [];
-  if (!isEmpty(rowsPerPageOptions)) {
+  if (!isFalsy(rowsPerPageOptions)) {
     options = rowsPerPageOptions.map((options) => ({
       label: options,
       value: options

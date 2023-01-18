@@ -4,40 +4,43 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Button, Input, Box, Text, Row, Icons } from 'core/components';
+import { Button, Input, Box } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
 import { accountService } from 'services/account';
 import { PATH } from "config/const";
 import { cn } from "core/helpers";
-import { userAuthSchema } from "lib/validation/auth";
 import ErrorServer from "components/common/ErrorServer";
+import { userRegisterSchema } from "lib/validation/register";
 
-interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
+type FormData = Yup.InferType<typeof userRegisterSchema>
 
-type FormData = Yup.InferType<typeof userAuthSchema>
+interface UserRegisterFormProps extends HTMLAttributes<HTMLDivElement> {
+}
 
-export default function UserAuthForm({ className }: UserAuthFormProps) {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+export default function UserRegisterForm({ className }: UserRegisterFormProps) {
+  const [isLoading, setIsLoading] = useState(false)
   const [errorServer, setErrorServer] = useState('')
   const emailInputRef = useAutoFocus();
+  const router = useRouter();
 
-  const {
-    register, handleSubmit,
-    reset, setError, setValue,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: yupResolver(userAuthSchema)
+  const { register, handleSubmit, setError, formState: { errors } } = useForm<FormData>({
+    resolver: yupResolver(userRegisterSchema),
   });
 
   async function onSubmit(values: FormData) {
     setIsLoading(true)
-    const { isLoading, message, status } = await accountService.login(values)
+    const { isLoading, message, status } = await accountService.register(values)
     setIsLoading(isLoading)
 
     switch (status) {
       case 200:
         router.push(PATH.ACCOUNT._)
+        break
+      case 409:
+        setError('email', {
+          type: 'server',
+          message
+        });
         break
       default:
         setErrorServer(message)
@@ -48,7 +51,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
     <Box
       form
       onSubmit={handleSubmit(onSubmit)}
-      classes={cn('', className)}
+      classes={cn('space-y-4', className)}
     >
       <ErrorServer
         message={errorServer}
@@ -56,28 +59,34 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
       />
       <Box classes='space-y-5 mb-8'>
         <Input
+          name='name'
+          label='Full Name'
+          register={register}
+          helperText={errors?.name?.message}
+        />
+        <Input
           name='email'
-          placeholder='Email Address'
+          type='email'
+          label='Email'
           register={register}
           helperText={errors?.email?.message}
           ref={emailInputRef}
         />
         <Input.Password
           name='password'
-          placeholder='Password'
+          label='Password'
           register={register}
           helperText={errors?.password?.message}
         />
       </Box>
       <Button
         type='submit'
-        width='full'
-        // classes='w-[calc(100%-3rem)] laptop:w-[calc(100%-2rem)] font-bold'
         classes='font-bold'
+        // classes='w-[calc(100%-3rem)] laptop:w-[calc(100%-2rem)] font-bold'
         size='lg'
-        shadow
+        width='full'
         isLoading={isLoading}
-        text='Login to your account'
+        text='Sign up'
       />
     </Box>
   );

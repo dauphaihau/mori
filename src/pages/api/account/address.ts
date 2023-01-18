@@ -1,77 +1,60 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
-import bcrypt from 'bcryptjs';
-import crypto from 'crypto';
 
-import User from 'lib/models/User';
-import Token from 'lib/models/Token';
 import db from 'lib/db';
-import { sendResetPasswordEmail } from 'lib/mailer';
 import Address from "lib/models/Address";
-// import { USER_STATUS } from 'lib/enums';
 import { isAuth } from 'lib/middlewares/auth';
-import { IUser } from "../../../types/user";
+import { ICustomer } from "types/customer";
+import { isValidObjectId } from "lib/middlewares/token";
 
-const bcryptSalt = process.env.BCRYPT_SALT;
+const handler = nc<NextApiRequest, NextApiResponse>();
 
-const handler = nc();
-handler.use(isAuth);
-
-interface MyUserRequest extends NextApiRequest {
-  user?: IUser;
+interface MyCustomerRequest extends NextApiRequest {
+  customer?: ICustomer;
 }
 
-handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-  await db.connect();
-  const limit = Number(req.query.limit)
-  const skip = Number(req.query.skip)
-  const total = await User.countDocuments();
-  const users = await User.find({}).limit(limit).skip(skip);
-  await db.disconnect();
-  res.send({
-    list: users,
-    total
-  });
+handler.use(isAuth);
+handler.get(async (req: MyCustomerRequest, res) => {
+  try {
+    await db.connect()
+    let address;
+
+    // Boolean query parameters
+    // req.query.isPrimary is 'true' or 'false'
+    if (req.query.isPrimary === 'true') {
+      address = await Address.findOne({ customerId: req.customer.id, isPrimary: true })
+    } else {
+      address = await Address.find({ customerId: req.customer.id }).sort({ 'isPrimary': -1 })
+    }
+
+    return res.send({
+      code: '200',
+      message: 'OK',
+      address
+    });
+  } catch (error) {
+    console.log('error', error)
+    return res.status(422).send({ message: 'Ooops, something went wrong!' });
+  }
 });
 
-handler.post(async (req: MyUserRequest, res: NextApiResponse) => {
-  // const { email, name, address, phone, role, avatar, sendSetPasswordEmail } = req.body
+handler.post(async (req: MyCustomerRequest, res) => {
   try {
-    const user = await User.findOne({ email: req.user.email }, '_id').exec();
-    const userId = user._id.toString()
+    await db.connect()
+    const { isPrimary } = req.body
+    const customerId = req.customer.id
 
-    const newAddress = new Address({
-      ...req.body,
-      zip_code: req.body.zipCode,
-      postal_code: req.body.postalCode,
-      country_code: req.body.countryCode,
-      userId
-    });
-    await newAddress.save();
+    if (isPrimary) {
+      const filter = { customerId, isPrimary }
+      const update = { isPrimary: false }
+      await Address.findOneAndUpdate(filter, update)
+    }
+    new Address({ ...req.body, customerId }).save();
 
-    //
-    // if (!sendSetPasswordEmail) {
-    //   let user = await User.findOne({ email });
-    //   if (!user) res.send({
-    //     status: '401',
-    //     message: 'User does not exists! '
-    //   });
-    //
-    //   let resetToken = crypto.randomBytes(32).toString('hex');
-    //   const hash = await bcrypt.hash(resetToken, Number(bcryptSalt));
-    //   await sendResetPasswordEmail({ toUser: user, token: hash });
-    //
-    //   await new Token({
-    //     userId: user._id,
-    //     token: hash,
-    //     createdAt: Date.now(),
-    //   }).save();
-    // }
-    //
-    // await db.disconnect();
+    await db.disconnect();
     return res.send({
       status: '200',
-      message: 'created user updated successfully'
+      message: 'OK'
     });
   } catch (error) {
     console.log('error', error)
@@ -79,38 +62,20 @@ handler.post(async (req: MyUserRequest, res: NextApiResponse) => {
   }
 });
 
-handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, name, status, avatar, address, phone, role } = req.body
+handler.put(async (req: MyCustomerRequest, res) => {
   try {
+    const { id, ...dataUpdate } = req.body
     await db.connect();
-    const user = await User.findById(req.query.id);
-    if (!user) res.status(404).send({ message: 'User Not Found' });
 
-    user.name = name;
-    user.address = address;
-    user.email = email;
-    user.avatar = avatar;
-    user.phone = phone;
-    user.status = status;
-    user.role = role;
-    await user.save();
-
-    if (req.body.sendResetPasswordEmail) {
-      let user = await User.findOne({ email });
-      if (!user) res.send({
-        status: '401',
-        message: 'User does not exists! '
-      });
-
-      let resetToken = crypto.randomBytes(32).toString('hex');
-      const hash = await bcrypt.hash(resetToken, Number(bcryptSalt));
-      await sendResetPasswordEmail({ toUser: user, token: hash });
-      await new Token({
-        userId: user._id,
-        token: hash,
-        createdAt: Date.now(),
-      }).save();
+    // check primary address is already in db
+    const isPrimary = req.body.isPrimary
+    if (isPrimary) {
+      const filter = { customerId: req.customer.id, isPrimary }
+      const update = { isPrimary: false }
+      await Address.findOneAndUpdate(filter, update)
     }
+    await Address.findOneAndUpdate({ _id: id }, { $set: dataUpdate })
+
     await db.disconnect();
     return res.send({
       status: '200',
@@ -122,13 +87,36 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
   }
 });
 
-handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
-  await db.connect();
-  const user = await User.findById(req.query.id);
-  if (!user) res.status(404).send({ message: 'User Not Found' });
-  await user.remove();
-  await db.disconnect();
-  res.send({ code: '200', message: 'User Deleted' });
+handler.delete(async (req, res) => {
+  try {
+    const { id } = req.body
+
+    if (!isValidObjectId(id)) {
+      return res.status(400).send({
+        code: '400',
+        message: 'Id is invalid'
+      });
+    }
+
+    const isExist = await Address.exists({ _id: id })
+
+    if (!isExist) {
+      return res.status(404).send({
+        code: '404',
+        message: 'Id is invalid'
+      });
+    }
+
+    await Address.deleteOne({ _id: id })
+
+    return res.send({
+      status: '200',
+      message: 'OK'
+    });
+  } catch (error) {
+    console.log('error', error)
+    return res.status(422).send('Ooops, something went wrong!');
+  }
 });
 
 export default handler;

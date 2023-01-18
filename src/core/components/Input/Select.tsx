@@ -23,6 +23,7 @@ interface SelectType<O extends OptionValue> {
   value?: string,
   classesSpace?: string,
   classesBtn?: string,
+  helperText?: string,
 }
 
 function Select<Type extends OptionValue>(props: SelectType<Type>) {
@@ -37,6 +38,7 @@ function Select<Type extends OptionValue>(props: SelectType<Type>) {
     hideIconOptions,
     classesSpace = '',
     classesBtn = '',
+    helperText,
     borderLight,
   } = props
 
@@ -137,6 +139,7 @@ function Select<Type extends OptionValue>(props: SelectType<Type>) {
               }
             </Listbox.Options>
           </Transition>
+          {helperText && <p className='text-red-500 text-sm mt-2'>{helperText}</p>}
         </div>
       )}
     </Listbox>

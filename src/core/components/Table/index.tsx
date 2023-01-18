@@ -19,7 +19,7 @@ interface ITable {
     title: string,
   }>,
   rows: [],
-  onChange?: (params) => {},
+  onChange?: (params) => void,
   rowsPerPage?: number,
   totalRows?: number,
   loading?: ReactNode,
@@ -146,7 +146,7 @@ const Table = (props: ITable) => {
                           />
                           : ''
                         :
-                        <span className='mr-2'>{column.title}</span>
+                        <span className='mr-2 text-[#9fa3a8]'>{column.title}</span>
                     }
                     {column.id !== 'actions' && <span>{sortIcon()}</span>}
                   </th>

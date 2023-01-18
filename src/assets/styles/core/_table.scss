@@ -14,7 +14,8 @@
 }
 
 .table-wrapper {
-  @apply overflow-x-auto laptop:overflow-visible ;
+  //@apply overflow-x-auto laptop:overflow-visible ;
+  @apply overflow-x-auto ;
 
   .table {
     @apply min-w-full ;
@@ -27,7 +28,7 @@
         //dark:text-gray-custom-906;
         @apply
         bg-gray-custom-50
-        py-3 px-6 text-xs font-medium tracking-wider
+        py-3 px-6 text-xs font-bold tracking-wider
         hover:bg-gray-custom-52 animate cursor-pointer
         text-gray-700 uppercase
       }

@@ -8,10 +8,8 @@
       "login": "/api/account/login",
       "register": "/api/account/register",
       "password": "/api/account/password",
-      "forgotPassword": "/api/account/forgot-password",
-      "resetPassword": "/api/account/reset-password",
-      "changePassword": "/api/account/change-password",
       "address": "/api/account/address",
+      "order": "/api/account/order",
       "me": "/api/account/me",
       "logout": "/user/backoffice/logout",
       "refreshToken": "/user/token"

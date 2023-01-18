@@ -34,7 +34,7 @@ export default function ResetPasswordPage() {
   const [errorServer, setErrorServer] = useState('')
 
   const [token, id] = router.query.params || []
-  const { isLoading, isError, status } = useCheckToken({ token, id })
+  const { isLoading, isError } = useCheckToken(router.query?.params && { token, id })
 
   const onSubmit = async ({ newPassword }) => {
     setIsBtnLoading(true)
@@ -85,8 +85,7 @@ export default function ResetPasswordPage() {
         </Text>
         <Text>
           The email link you clicked is invalid or has expired. Please make sure you&apos;re using the password reset
-          link
-          from the most recent email.
+          link from the most recent email.
         </Text>
         <Link href={PATH.ACCOUNT.FORGOT_PASSWORD}>
           <Button

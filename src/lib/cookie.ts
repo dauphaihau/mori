@@ -3,6 +3,7 @@ import { hashMD5 } from 'lib/crypto';
 import { parseJSON } from 'core/helpers';
 import { IUser } from 'types/user';
 import { config } from "config";
+import { IToken } from "types/token";
 
 export const handleSetCookie = (key, data) => {
   data = JSON.stringify(data)
@@ -32,6 +33,17 @@ export const getPackageProfile = (): Partial<IUser> => {
     const profile = handleGetCookie(config.cookies.profile);
     // console.log('dauphaihau debug: profile', profile)
     return profile;
+  } catch (e) {
+    throw e;
+  }
+}
+
+export const getHeadersWithAuth = () => {
+  try {
+    const authData = handleGetCookie<IToken>(config.cookies.auth)
+    return {
+      Authorization: `Bearer ${JSON.stringify(authData)}`
+    }
   } catch (e) {
     throw e;
   }

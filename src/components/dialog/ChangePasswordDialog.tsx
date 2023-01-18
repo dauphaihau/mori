@@ -8,8 +8,7 @@ import { Dialog, Button, Text, Input, Box } from 'core/components';
 import { accountService } from 'services/account';
 import { userAuthSchema } from "lib/validation/auth";
 import { updatePasswordSchema } from 'lib/validation/password';
-import ErrorServer from "../common/ErrorServer";
-import { PATH } from "../../config/const";
+import ErrorServer from "components/common/ErrorServer";
 
 type FormData = {
   confirmPassword: string
@@ -53,19 +52,6 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
       default:
         setErrorServer(message)
     }
-
-    // if (isSuccess) {
-    //   toast.success('Update success!')
-    //   reset({ password: '', confirmPassword: '', newPassword: '' });
-    //   setShowDialog(false)
-    // } else {
-    //   if (errors) {
-    //     setError('password', {
-    //       type: 'server',
-    //       message
-    //     });
-    //   }
-    // }
   }
 
   return (

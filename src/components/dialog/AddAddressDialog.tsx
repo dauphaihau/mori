@@ -1,45 +1,25 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { useUIController } from "components/context/UIControllerContext";
 // import countryOpts from 'assets/data/country.json';
-import { useAuth } from 'components/context/authContext';
 import { Dialog, Button, Text, Checkbox, Input, Select, Box, Grid, Row } from 'core/components';
-// import { countriesOptions } from "assets/data/options";
-import { statesData } from "assets/data/State";
 import { countriesData } from "assets/data/Country";
-import { IAddress } from "../../types/address";
-import { accountService } from "../../services/account";
+import { accountService } from "services/account";
+import { addressSchema } from "lib/validation/address";
+import CheckboxTest from "core/components/Input/CheckboxTest";
+import { toast } from "react-hot-toast";
 
-const validationSchema = Yup.object().shape({
-  // name: Yup.string().required('Name is required'),
-  // address: Yup.string().required('Address is required'),
-  // phone: Yup.string().required('Phone number is required'),
-  // email: Yup.string().email('Email is invalid')
-});
+type FormData = Yup.InferType<typeof addressSchema>
 
 const countriesOptions = countriesData.list.map(item => ({
   label: item.country,
   value: item.numberCode
 }))
 
-const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
-  const { user, setUser } = useAuth();
+const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutateAddressList }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [address, setAddress] = useState({
-    name: '',
-    address1: '',
-    address2: '',
-    city: '',
-    zipCode: '',
-    postalCode: '',
-    province: '',
-    countryCode: '',
-    state: '',
-    phone: '',
-  })
   const [states, setStates] = useState([])
   const [countryCode, setCountryCode] = useState('')
 
@@ -64,41 +44,49 @@ const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
 
   }, [countryCode])
 
-  const formOptions = { resolver: yupResolver(validationSchema) };
   const {
     register,
     handleSubmit,
-    reset,
-    formState,
-    setError,
-    control,
-    getValues,
-    getFieldState
-  } = useForm(formOptions);
-  const { errors } = formState;
+    reset, control,
+    formState: { errors },
+  } = useForm<FormData>({ resolver: yupResolver(addressSchema) });
 
-  const handleOnchange = (name, value) => {
-    // const handleOnchange = (e) => {
-    //   const name = e.target.name
-    //   const value = e.target.value
-    setAddress({ ...address, [name]: value })
-  }
+  useEffect(() => {
+    reset()
+  }, [showAddAddressDialog])
 
   async function onSubmit(values: FormData) {
-    console.log('dauphaihau debug: values', values)
     setIsLoading(true)
-    const res = await accountService.createAddress(values)
-
+    console.log('dauphaihau debug: values', values)
+    const { status, message } = await accountService.createAddress(values)
     setIsLoading(false)
+
+    switch (status) {
+      case 200:
+        toast.success('Create address success!')
+        mutateAddressList()
+        setShowAddAddressDialog(false)
+        break
+      // case 401:
+      // toast.error(message)
+      // break
+      default:
+        toast.error(message ?? 'Create failed!')
+    }
+
   }
 
   return (
     <Dialog
-      isOpen={showAddressDialog}
-      closeDialog={setShowAddressDialog}
+      isOpen={showAddAddressDialog}
+      closeDialog={setShowAddAddressDialog}
       classes='absolute top-[40%] left-1/2 -translate-x-2/4 -translate-y-2/4'
+      noPadding
     >
-      <Dialog.Content closeDialog={setShowAddressDialog}>
+      <Dialog.Content
+        classes='px-6 py-4 lg:p-8'
+        closeDialog={setShowAddAddressDialog}
+      >
         <Box>
           <Text
             h1
@@ -114,53 +102,40 @@ const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
               <Input
                 label='Full Name *'
                 name='name'
-                onChange={handleOnchange}
                 register={register}
-                defaultValue={address?.name}
-                // errors={errors}
+                helperText={errors?.name?.message}
               />
               <Input
                 label='Phone/Mobile *'
                 name='phone'
-                onChange={handleOnchange}
                 register={register}
-                // errors={errors}
-                defaultValue={address?.phone}
+                helperText={errors?.phone?.message}
               />
             </Grid>
             <Input
               label='Address 1 *'
               name='address1'
-              onChange={handleOnchange}
               register={register}
-              // errors={errors}
-              defaultValue={address?.address1}
+              helperText={errors?.address1?.message}
             />
             <Input
               label='Address 2'
               // label='Apt, Suite, Building'
               name='address2'
-              onChange={handleOnchange}
               register={register}
-              // errors={errors}
-              defaultValue={address?.address2}
             />
             <Grid md={1} lg={2} gapx={4}>
               <Input
                 label='City/Town *'
                 name='city'
-                onChange={handleOnchange}
                 register={register}
-                // errors={errors}
-                defaultValue={address?.city}
+                helperText={errors?.city?.message}
               />
               <Input
                 label='Zip/Postcode *'
                 name='zipCode'
-                onChange={handleOnchange}
                 register={register}
-                // errors={errors}
-                defaultValue={address?.zipCode}
+                helperText={errors?.zipCode?.message}
               />
             </Grid>
             <Grid md={1} lg={2} gapx={4}>
@@ -180,6 +155,7 @@ const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
                       onChange(option.value)
                       setCountryCode(option.value)
                     }}
+                    helperText={errors?.countryCode?.message}
                     // onChange={onChange}
                     // onChange={(e) => handleOnchange('countryCode', e.value)}
                   />
@@ -193,13 +169,15 @@ const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
                     render={({ field: { onChange, value } }) => (
                       <Select
                         name='state'
-                        label='State / Province *'
+                        label='State *'
+                        // label='State / Province *'
                         size='medium'
                         options={states}
                         value={value}
                         // onChange={(e) => console.log(e.value)}
                         // onChange={(e) => handleOnchange('country', e.value)}
                         onChange={(option) => onChange(option.value)}
+                        helperText={errors?.state?.message}
                       />
                     )}
                   />
@@ -207,26 +185,25 @@ const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
                   <Input
                     label='Province *'
                     name='province'
-                    onChange={handleOnchange}
                     register={register}
                     // errors={errors}
-                    defaultValue={address?.province}
+                    helperText={errors?.province?.message}
                   />
               }
             </Grid>
             <Controller
               control={control}
-              name='state'
+              // name='isPrimary'
+              // as={<CheckboxTest value={initialValues?.isPrimary} label="Use this address as default." name={}/>}
+              name='isPrimary'
               render={({ field: { onChange, value } }) => (
-                <Checkbox
+                <CheckboxTest
                   label='Use this address as default.'
                   classesForm='mb-4'
                   // register={register}
-                  // defaultChecked={true}
                   value={value}
-                  name='primary'
+                  // name='isPrimary'
                   onChange={onChange}
-                  // value={address?.primary}
                 />
               )}
             />
@@ -235,18 +212,14 @@ const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
               classes='mt-2'
             >
               <Button
-                type='button'
+                onClick={() => setShowAddAddressDialog(false)}
                 light
-                onClick={() => setShowAddressDialog(false)}
+                type='button'
                 text='Cancel'
+                as='text'
               />
               <Button
                 classes='w-fit '
-                // onClick={() => {
-                //   setUser({ ...user, address, numberAllOfItemsInCart: 0 });
-                //   setShowAddressDialog(false)
-                // }}
-
                 isLoading={isLoading}
                 type='submit'
                 text='Save'
@@ -259,4 +232,4 @@ const AddressDialog = ({ showAddressDialog, setShowAddressDialog }) => {
   );
 }
 
-export default AddressDialog;
+export default AddAddressDialog;

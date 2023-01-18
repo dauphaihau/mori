@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Checkbox } from '../Input';
-import { Loading } from '../Loading';
+import { Loading } from 'core/components';
 
 enum TEXT_ALIGN {
   LEFT = 'start',
@@ -41,14 +41,15 @@ const TableRow = (props) => {
   return (
     <tbody>
       {
-        loading ? (<tr>
-           <td
-             colSpan={columns.length}
-             className='text-center'
-           >
-              {/*<div className='spinner-border spinner-border-lg align-center'/>*/}
-             <Loading/>
-           </td>
+        loading ? (
+            <tr>
+               <td
+                 colSpan={columns.length}
+                 className='text-center'
+               >
+                  {/*<div className='spinner-border spinner-border-lg align-center'/>*/}
+                 <Loading classes='fill-black h-4 w-4 inline-flex'/>
+               </td>
         </tr>
           ) :
           // loading ? (<tr className='col-span-4'><td>{<Loading/>}</td></tr>) :

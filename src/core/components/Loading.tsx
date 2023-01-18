@@ -1,6 +1,6 @@
 import { cn } from "core/helpers";
 
-const Loading = ({ classes }) => {
+const Loading = ({ classes }: {classes?:string}) => {
   return (
     <svg
       role="status"

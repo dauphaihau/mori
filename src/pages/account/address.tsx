@@ -1,101 +1,96 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { ChevronLeftIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline";
+import { toast } from "react-hot-toast";
 
-import { useAuth } from 'components/context/authContext';
-import { Text, Grid, Button, Box, Link } from 'core/components';
+import { Text, Grid, Button, Box, Link, Loading, Icons, Row } from 'core/components';
 import { PATH } from "config/const";
 import { AddressAccountPageDialog } from 'components/dialog';
 import AccountLayout from 'components/layout/AccountLayout';
+import { accountService, useAddress } from "services/account";
+import UpdateAddressDialog from "components/dialog/UpdateAddressDialog";
+import SubTitle from "components/pages/account/SubTitle";
 
 export default function AddressPage() {
-  const { user } = useAuth();
-  const [showAddressDialog, setShowAddressDialog] = useState<boolean>(false)
+  const [showUpdateAddressDialog, setShowUpdateAddressDialog] = useState<boolean>(false)
+  const [showAddAddressDialog, setShowAddAddressDialog] = useState<boolean>(false)
+  const [addressEdit, setAddressEdit] = useState({})
+  const { isLoading, addresses, mutate } = useAddress()
 
-  const { register, handleSubmit, reset, formState, setError } = useForm({
-    defaultValues: {
-      id: user?.id,
+  const handleDelete = async (id) => {
+    const { status, message } = await accountService.deleteAddress(id)
+
+    switch (status) {
+      case 200:
+        toast.success('Delete success!')
+        mutate()
+        break
+      // case 401:
+      // toast.error(message)
+      // break
+      default:
+        toast.error(message ?? 'Delete failed!')
     }
-  });
+  }
+
+  function AddressList() {
+    if (isLoading) return <Loading classes='fill-black'/>
+
+    return addresses?.map((address, index) => (
+      <Box classes='' key={index}>
+        {
+          address.isPrimary ? <SubTitle>Default Address</SubTitle>
+            : <SubTitle>Address {index + 1}</SubTitle>
+        }
+        <Text>{address.name}</Text>
+        <Text>{address.address1}</Text>
+        <Icons.pencil
+          onClick={() => {
+            setShowUpdateAddressDialog(true)
+            setAddressEdit(address)
+          }} className='btn-icon'
+        />
+        <Icons.trash onClick={() => handleDelete(address._id)} className='btn-icon'/>
+      </Box>
+    ))
+  }
 
   return (
     <>
       <AddressAccountPageDialog
-        showAddressDialog={showAddressDialog}
-        setShowAddressDialog={setShowAddressDialog}
+        showAddAddressDialog={showAddAddressDialog}
+        setShowAddAddressDialog={setShowAddAddressDialog}
+        mutateAddressList={mutate}
       />
+      <UpdateAddressDialog
+        initialValues={addressEdit}
+        showUpdateAddressDialog={showUpdateAddressDialog}
+        setShowUpdateAddressDialog={setShowUpdateAddressDialog}
+        mutateAddressList={mutate}
+      />
+
       <AccountLayout>
         <Box classes='mb-12'>
-          <Text h1 classes='text-3xl font-bold mb-6'>My addresses</Text>
           <Link href={PATH.ACCOUNT._}>
-            <Button
-              classes='pl-0'
-              light
-              // icon={<ChevronLeftIcon className='btn-icon'/>}
-            >
-              Back
-            </Button>
+            <Row align='center' classes='mb-6 hover:text-black group'>
+              <Icons.chevronLeft
+                height={18}
+                width={18}
+                className='text-primary-gray pb-0.5 mr-2.5 group-hover:text-primary-black'
+              />
+              <Text
+                transforms='uppercase'
+                classes='text-[11px] tracking-widest text-primary-gray group-hover:text-primary-black'
+              >Back to account</Text>
+            </Row>
           </Link>
-          <Button
-            // disabled
-            onClick={() => setShowAddressDialog(true)}
-          >
+          <Text h1 classes='text-3xl font-bold mb-4'>My addresses</Text>
+          {addresses && addresses.length === 0 && <Text classes='mb-4'>No addresses are currently saved</Text>}
+          <Button onClick={() => setShowAddAddressDialog(true)}>
             Add a new address
           </Button>
         </Box>
+
         <Grid md={2} lg={3} classes='gap-16'>
-          <Box classes=''>
-            <Text h1 classes='text-xl mb-6'>Default Address</Text>
-            <Text>Hau Tran</Text>
-            <Text>United States</Text>
-            <PencilIcon className='btn-icon'/>
-            <TrashIcon className='btn-icon'/>
-          </Box>
-
-          <Box classes=''>
-            <Text
-              h1
-              classes='text-xl mb-6'
-            >Address 2</Text>
-            <Text>
-              Hau Tran
-            </Text>
-            <Text>
-              111 George Street, Sydney, Australia
-            </Text>
-            <PencilIcon className='btn-icon'/>
-            <TrashIcon className='btn-icon'/>
-          </Box>
-
-          <Box classes=''>
-            <Text
-              h1
-              classes='text-xl mb-6'
-            >Address 3</Text>
-            <Text>
-              Hau Tran
-            </Text>
-            <Text>
-              111 George Street, Sydney, Australia
-            </Text>
-            <PencilIcon className='btn-icon'/>
-            <TrashIcon className='btn-icon'/>
-          </Box>
-
-          <Box classes=''>
-            <Text
-              h1
-              classes='text-xl mb-6'
-            >Address 4</Text>
-            <Text>
-              Hau Tran
-            </Text>
-            <Text>
-              111 George Street, Sydney, Australia
-            </Text>
-            <PencilIcon className='btn-icon'/>
-            <TrashIcon className='btn-icon'/>
-          </Box>
+          <AddressList/>
         </Grid>
       </AccountLayout>
     </>

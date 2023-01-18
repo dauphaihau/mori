@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
-import { ICustomer } from "types/customer";
+import { ICustomer } from 'types/customer';
+import { encryptPassword } from 'lib/crypto';
+import { config } from 'config';
 
-// const bcrypt = require("bcryptjs");
+// const bcrypt = require('bcryptjs');
 // const bcryptSalt = process.env.BCRYPT_SALT;
 
 const customerSchema = new mongoose.Schema<ICustomer>(
@@ -12,18 +14,23 @@ const customerSchema = new mongoose.Schema<ICustomer>(
     // address: { type: Object },
     phone: { type: String },
     role: { type: Number, required: true },
-    status: { type: Number, required: true }
+    status: { type: Number, required: true },
+    //       stripeSubscriptionId: subscription.id,
+    //       stripeCustomerId: subscription.customer as string,
+    //       stripePriceId: subscription.items.data[0].price.id,
+    //       stripeCurrentPeriodEnd: new Date(
   },
   {
     timestamps: true,
   }
 );
 
-// customerSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) {
+// customerSchema.pre('save', async function (next) {
+//   if (!this.isModified('password')) {
 //     return next();
 //   }
-//   const hash = await bcrypt.hash(this.password, Number(bcryptSalt));
+//   // const hash = await bcrypt.hash(this.password, Number(bcryptSalt));
+//   const hash = encryptPassword(this.password, config.cryptoKey);
 //   this.password = hash;
 //   next();
 // });

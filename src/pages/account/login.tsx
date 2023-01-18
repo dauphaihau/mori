@@ -1,6 +1,6 @@
 import { Text, Link, Box, Col } from 'core/components';
 import { PATH } from "config/const";
-import UserAuthForm from "components/pages/account/user-auth-form";
+import UserAuthForm from "components/pages/account/UserAuthForm";
 import AuthLayout from 'components/layout/AuthLayout';
 
 export default function LoginPage() {

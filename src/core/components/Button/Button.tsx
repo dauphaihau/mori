@@ -27,6 +27,7 @@ type ButtonProps = {
   width: 'full' | 'fit'
   isLoading: boolean
   text: string | number | ReactNode
+  as: string
 } & ComponentPropsWithoutRef<'button'>
 
 const Button = forwardRef((props: Partial<ButtonProps>, ref: any) => {
@@ -36,14 +37,36 @@ const Button = forwardRef((props: Partial<ButtonProps>, ref: any) => {
     children, size = 'md', light = '',
     text, shadow = '', variant = '',
     isLoading = false,
-    disabled: buttonDisabled,
+    disabled: buttonDisabled, as,
     ...others
   } = props
 
-
-
   const disabled = isLoading || buttonDisabled
 
+  if (as === 'text') {
+    return (
+      <p
+        ref={ref}
+        // disabled={disabled}
+        className={cn('btn',
+          SIZE_MAPS[size],
+          VARIANT_MAPS[variant],
+          {
+            'bg-transparent text-primary-black hover:text-primary-black hover:opacity-70': light,
+            'opacity-30 hover:opacity-30': disabled || isLoading,
+            'drop-shadow-xl': shadow,
+            [`w-${width}`]: width
+          },
+          cn(classes),
+        )}
+        {...others}
+      >
+        {icon && <span className='btn__icon'>{icon}</span>}
+        {isLoading && <Loading classes='mr-3'/>}
+        {children || text}
+      </p>
+    )
+  }
   return (
     <button
       ref={ref}

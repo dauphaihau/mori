@@ -107,6 +107,7 @@ interface ContentProps {
 
 const Content = ({ children, classes, closeDialog, hideXIcon }: ContentProps) => (
   <div className={cn('relative', classes)}>
+  {/*<div className={cn('relative', cn(classes))}>*/}
     {
       !hideXIcon && <Icons.x
         className='btn-icon--noBg absolute top-3 right-2.5'

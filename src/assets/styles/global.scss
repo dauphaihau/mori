@@ -122,3 +122,10 @@
 .te12 {
   mask-image: linear-gradient(rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 5%, rgb(0, 0, 0) 94%, rgba(0, 0, 0, 0) 100%);
 }
+
+.gridddd {
+  display: grid;
+  //grid-gap: 10px;
+
+  grid-template-columns: repeat(auto-fill, minmax(186px, 1fr));
+}

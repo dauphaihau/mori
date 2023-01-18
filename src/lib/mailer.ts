@@ -23,7 +23,6 @@ function sendEmail(message) {
 }
 
 export const sendResetPasswordEmail = ({ toCustomer, token }) => {
-  console.log('dauphaihau debug: -token-to-customer-id-', [token, toCustomer._id])
   const message = {
     from: 'customercare@mori.com',
     // from: process.env.EMAIL_USERNAME,
@@ -36,8 +35,8 @@ export const sendResetPasswordEmail = ({ toCustomer, token }) => {
       <p>We've received a request to reset the password for the Mori account asscociated with ${toCustomer.email}.
        No changes have been made to your account yet.
        </p>
-      <p>You can reset your password by click the link below: 
-      <button style=" 
+      <p>You can reset your password by click the link below:
+      <button style="
               border-radius: 0.5rem;
               background-color: black;
               color: white;
@@ -55,13 +54,10 @@ export const sendResetPasswordEmail = ({ toCustomer, token }) => {
               onmouseover="this.style.color='white'"
               onmouseout="this.style.opacity='0.8'"
       >
-<!--            <a target="_" href="${process.env.DOMAIN}${PATH.ACCOUNT.RESET_PASSWORD}/?token=${token}&id=${toCustomer._id}">Reset Password Link</a></p>-->
             <a target="_" href="${process.env.DOMAIN}${PATH.ACCOUNT.RESET_PASSWORD}/${token}/${toCustomer._id}">Reset Password Link</a></p>
-<!--             <a target="_" href="${process.env.DOMAIN}${PATH.ACCOUNT.RESET_PASSWORD}/${token}">Reset Password Link</a></p>-->
-<!--            <a target="_" href="${process.env.DOMAIN}${PATH.ACCOUNT.RESET_PASSWORD}/?token=${token}&id=${toCustomer._id}">Reset Password Link</a></p>-->
       </button>
       <p>If you didn't request a password reset, you can ignore this email.</p>
-      <p>You can find answers to most questions and get in touch with us at 
+      <p>You can find answers to most questions and get in touch with us at
       <span style="color: #373530; text-underline: #dfdfde"> support.mori.com </span>.
        We're here
        to help you at any step along the way.

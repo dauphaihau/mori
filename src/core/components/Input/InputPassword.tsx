@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { EyeIcon, EyeOffIcon, XCircleIcon } from '@heroicons/react/outline';
 
-import { cn, isEmpty } from 'core/helpers';
+import { cn, isFalsy } from 'core/helpers';
 import { InputType } from "./Input";
 
 const InputPassword = forwardRef<HTMLInputElement, InputType>((props: InputType, ref) => {

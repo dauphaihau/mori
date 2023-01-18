@@ -1,33 +1,31 @@
-import axios from 'axios';
 import useSWR from "swr";
 
 import { config } from "config";
 import api from 'lib/axios';
 import { encryptPassword } from 'lib/crypto';
-import { handleSetCookie } from 'lib/cookie';
-import { isEmptyObject } from "core/helpers";
+import { getHeadersWithAuth, handleSetCookie } from 'lib/cookie';
+import { isEmptyObject, isFalsy } from "core/helpers";
 
 export const accountService = {
   register: async (values) => {
-    const modifiedValues = { ...values, password: encryptPassword(values.password, config.cryptoKey) }
     try {
-      const { data: { data }, status } = await axios.post(config.api.account.register, modifiedValues);
+      values.password = encryptPassword(values.password, config.cryptoKey)
+      const { data: { data }, status } = await api.post(config.api.account.register, values);
       handleSetCookie(config.cookies.auth, data.auth)
       handleSetCookie(config.cookies.profile, data.profile)
       return { status, isLoading: !data };
     } catch ({ response }) {
       return {
         isLoading: false,
-        status: response.status,
-        message: response?.data.message,
+        status: response?.status,
+        message: response?.data?.message,
       };
     }
   },
   login: async (values) => {
     try {
       values.password = encryptPassword(values.password, config.cryptoKey)
-      const { data: { data }, status } = await axios.post(config.api.account.login, values); // client ??
-      // const { data: { data } } = await api.post(config.api.account.login, modifiedValues); // method server on client, error ?
+      const { data: { data }, status } = await api.post(config.api.account.login, values);
       handleSetCookie(config.cookies.auth, data.auth)
       handleSetCookie(config.cookies.profile, data.profile)
       return { status, isLoading: !data };
@@ -35,16 +33,14 @@ export const accountService = {
       console.log('dauphaihau debug: response', response)
       return {
         isLoading: false,
-        status: response.status,
-        message: response?.data.message,
+        status: response?.status,
+        message: response?.data?.message,
       };
     }
   },
   forgotPassword: async (email) => {
     try {
-      // const { data } = await api.post(config.api.account.forgotPassword, email);
-      // const { data, status } = await axios.post(config.api.account.forgotPassword, email);
-      const { data, status } = await axios.post(config.api.account.password, email);
+      const { data, status } = await api.post(config.api.account.password, email);
       return { status, isLoading: !data };
     } catch ({ response }) {
       return {
@@ -56,9 +52,8 @@ export const accountService = {
   },
   resetPassword: async (values) => {
     try {
-      console.log('dauphaihau debug: values', values)
       values.password = encryptPassword(values.password, config.cryptoKey)
-      const { status } = await axios.delete(config.api.account.password, { data: values });
+      const { status } = await api.delete(config.api.account.password, { data: values });
       return { status, isLoading: false };
     } catch ({ response }) {
       return {
@@ -70,16 +65,9 @@ export const accountService = {
   },
   changePassword: async (values) => {
     try {
-      // const modifiedValues = {
-      //   ...values,
-      //   password: encryptPassword(values.password, config.cryptoKey),
-      //   newPassword: encryptPassword(values.newPassword, config.cryptoKey)
-      // }
       values.password = encryptPassword(values.password, config.cryptoKey)
       values.newPassword = encryptPassword(values.newPassword, config.cryptoKey)
-
       const { status } = await api.put(config.api.account.password, values);
-      console.log('dauphaihau debug: status', status)
       return { isLoading: false, status };
     } catch ({ response }) {
       return {
@@ -91,23 +79,47 @@ export const accountService = {
   },
   createAddress: async (values) => {
     try {
-      await api.post(config.api.account.address, values)
-      // await axios.post(config.api.account.address, values, getHeaders())
-      return { isLoading: false, isSuccess: true };
+      const { status } = await api.post(config.api.account.address, values)
+      return { status, isLoading: false };
     } catch ({ response }) {
       return {
-        isSuccess: false,
         isLoading: false,
-        message: response?.data.message,
+        status: response?.status,
+        message: response?.data?.message,
+      };
+    }
+  },
+  deleteAddress: async (id) => {
+    try {
+      const { status } = await api.delete(config.api.account.address, { data: { id } })
+      return { status, isLoading: false };
+      // return { status, isLoading: !data };
+    } catch ({ response }) {
+      return {
+        isLoading: false,
+        status: response?.status,
+        message: response?.data?.message,
+      };
+    }
+  },
+  updateAddress: async (values) => {
+    try {
+      const { status } = await api.put(config.api.account.address, values)
+      return { status, isLoading: false };
+    } catch ({ response }) {
+      return {
+        isLoading: false,
+        status: response?.status,
+        message: response?.data?.message,
       };
     }
   },
 }
 
 export function useCheckToken(params) {
-  const fetcher = url => axios.get(url, { params }).then(res => res)
+  const fetcher = url => api.get(url, { params }).then(res => res)
   const { error, data } = useSWR(
-    !isEmptyObject(params) ? [config.api.account.password, params] : null,
+    isEmptyObject(params) ? null : [config.api.account.password, params],
     fetcher,
     {
       revalidateIfStale: false,
@@ -122,3 +134,93 @@ export function useCheckToken(params) {
     status: error?.response?.status,
   };
 }
+
+export function useAddress() {
+  const headers = getHeadersWithAuth()
+  const fetcher = url => api.get(url, { headers }).then(res => res.data)
+  const { error, data, mutate } = useSWR([config.api.account.address, headers], fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  )
+
+  return {
+    mutate,
+    addresses: data?.address,
+    isLoading: !data,
+    isError: !!error,
+  };
+}
+
+export function usePrimaryAddress() {
+  const params = { isPrimary: true }
+  const headers = getHeadersWithAuth()
+  const token = headers.Authorization.replace('Bearer ', '')
+  const arrKeys = token === 'undefined' ? null : [config.api.account.address, params, headers]
+  const fetcher = url => api.get(url, { params, headers }).then(res => res.data)
+
+  const { error, data, mutate } = useSWR(
+    arrKeys,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  )
+
+  return {
+    address: data?.address,
+    isLoading: !data,
+    isError: !!error,
+    mutate
+  };
+}
+
+export function useOrder(params) {
+  const headers = getHeadersWithAuth()
+  const token = headers.Authorization.replace('Bearer ', '')
+  const arrKeys = token === 'undefined' ? null : [config.api.account.order, params, headers]
+  const fetcher = url => api.get(url, { params }).then(res => res.data)
+
+  const { error, data } = useSWR(
+    arrKeys,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  )
+
+  return {
+    // orders: [],
+    orders: data?.orders?.data,
+    paginatedOrderList: data?.paginatedOrderList,
+    total: data?.orders?.total_count,
+    isLoading: !data,
+    isError: !!error,
+  };
+}
+
+export function useDetailOrder(chargeId) {
+  const fetcher = url => api.post(url, { chargeId }).then(res => res.data)
+  const { error, data } = useSWR(
+    chargeId ? [config.api.account.order, chargeId] : null,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  )
+
+  return {
+    purchasedProducts: data?.purchasedProducts,
+    isLoading: !data,
+    isError: !!error,
+  };
+}
+

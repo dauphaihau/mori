@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import Token from "lib/models/Token";
 import { isEmptyObject } from "core/helpers";
 
-function isValidObjectId(id) {
+export function isValidObjectId(id) {
   if (ObjectId.isValid(id)) {
     return (String)(new ObjectId(id)) === id;
   }
