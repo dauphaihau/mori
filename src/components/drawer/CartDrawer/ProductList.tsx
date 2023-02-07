@@ -1,20 +1,9 @@
 import { Box, Col, formatDollarUS, Link, NextImage, QuantityPicker, Row, slugify, Text } from "core";
 import { config } from "config";
 import { PATH } from "config/const";
-import { useEffect } from "react";
-import { useAuth } from "components/context/authContext";
 
 export default function ProductList({ context }) {
-  const { user, setUser } = useAuth();
-  const {
-    numberOfItemsInCart,
-    numberAllOfItemsInCart,
-    cart, removeFromCart, setItemQuantity
-  } = context
-
-  useEffect(() => {
-    setUser({ ...user, numberAllOfItemsInCart })
-  }, [numberAllOfItemsInCart])
+  const { numberOfItemsInCart, cart, removeFromCart, setItemQuantity } = context
 
   const cartEmpty = numberOfItemsInCart === Number(0)
 

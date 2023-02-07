@@ -18,6 +18,6 @@ export interface ICustomer extends Document {
 
 export interface IToken extends Document{
   token: string
-  refreshToken: string
-  customerId: string
+  refreshAt: number
+  expiredAt: number
 }

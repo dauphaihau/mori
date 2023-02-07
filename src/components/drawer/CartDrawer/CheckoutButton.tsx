@@ -2,20 +2,19 @@ import { Button, Row, Text } from "core/components";
 import { formatDollarUS } from "core/helpers";
 import getStripe from "lib/get-stripejs";
 import { config } from "config";
-import { checkoutService } from "../../../services/payment";
 import { useState } from "react";
-import { handleGetCookie } from "lib/cookie";
+import { getCookie } from "lib/cookie";
 import { IToken } from "types/token";
 
-export default function PostCheckoutButton({ context }) {
+export default function CheckoutButton({ context }) {
   const { numberOfItemsInCart, cart, total } = context
   const [isLoadingBtn, setIsLoadingBtn] = useState<boolean>(false)
   const IsEmptyCart = numberOfItemsInCart === Number(0)
 
-  const authData = handleGetCookie<IToken>(config.cookies.auth)
+  const authData = getCookie<IToken>(config.cookies.auth)
 
   async function handleCheckout() {
-    // setIsLoadingBtn(true)
+    setIsLoadingBtn(true)
     // const { status, isLoading } = await checkoutService.payment(cart)
     // setIsLoadingBtn(isLoading)
 
@@ -54,10 +53,13 @@ export default function PostCheckoutButton({ context }) {
       disabled={IsEmptyCart}
       isLoading={isLoadingBtn}
       onClick={handleCheckout}
+      classes={isLoadingBtn ? 'cursor-wait' : ''}
     >
       <Row
         justify='between'
-        classes='cursor-pointer text-white'
+        classes={['cursor-pointer text-white',
+          { 'cursor-wait' : isLoadingBtn }
+          ]}
       >
         <Text classes='mr-2 text-white'>Proceed to check out</Text>
         <Text classes='border-white border-l pl-4  text-white'>{formatDollarUS(total)}</Text>

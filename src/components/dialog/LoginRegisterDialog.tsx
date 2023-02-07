@@ -10,6 +10,7 @@ import { accountService } from 'services/account';
 import { userAuthSchema } from "lib/validation/auth";
 import { PATH } from 'config/const';
 import { userNameSchema } from "lib/validation/user";
+import { useAuth } from "components/context/authContext";
 
 type FormData = Yup.InferType<typeof userNameSchema & typeof userAuthSchema>
 
@@ -38,6 +39,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
   const [currentForm, setCurrentForm] = useState<string>('login')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const emailInputRef = useAutoFocus();
+  const { loginRegisterSuccess } = useAuth();
 
   useEffect(() => {
     reset();
@@ -56,6 +58,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
   async function onSubmit(values: FormData) {
     setIsLoading(true)
     const {
+      data,
       isLoading,
       status,
       message
@@ -63,8 +66,8 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
     setIsLoading(isLoading)
 
     if (status === 200) {
+      loginRegisterSuccess(data)
       reset({ password: '', email: '', name: '' });
-      router.push(PATH.ACCOUNT._)
       setShowLoginDialog(false);
     } else {
       if (errors) {
@@ -81,7 +84,6 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
       isOpen={showLoginDialog}
       closeDialog={setShowLoginDialog}
       classes='w-[390px] max-w-sm absolute top-[35%] left-1/2 -translate-x-2/4 -translate-y-2/4'
-      // className='top-0 left-0'
       noPadding
       data-testid='signInForm'
     >

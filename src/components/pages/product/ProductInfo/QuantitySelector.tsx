@@ -14,12 +14,12 @@ function QuantitySelector({ context }) {
   const [quantityItem, setQuantityItem] = useState(1)
   const [disableAddItem, setDisableAddItem] = useState(false)
   const [showCartDrawer, setShowCartDrawer] = useState(false)
-  const { user, setUser } = useAuth();
+  // const { user, setUser } = useAuth();
 
-  useEffect(() => {
-    setUser({ ...user, numberAllOfItemsInCart })
-    // handleValidQuantity()
-  }, [numberAllOfItemsInCart])
+  // useEffect(() => {
+  //   setUser({ ...user, numberAllOfItemsInCart })
+  //   // handleValidQuantity()
+  // }, [numberAllOfItemsInCart])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

@@ -7,7 +7,7 @@ import FadeInSection from "components/common/FadeInSection";
 const Contact: FC = () => {
   return (
     <FadeInSection
-      classes={cn('layout py-8 px-4 mt-12 text-center laptop:text-left bg-gray-custom-50 tablet:p-16 rounded-lg',
+      classes={cn('layout py-8 px-4 mt-12 mb-16 text-center laptop:text-left bg-gray-custom-50 tablet:p-16 rounded-lg',
         'flex flex-col laptop:flex-row gap-x-4 justify-between items-center',
       )}
     >

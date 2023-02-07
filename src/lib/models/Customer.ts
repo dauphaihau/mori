@@ -10,7 +10,8 @@ const customerSchema = new mongoose.Schema<ICustomer>(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String },
+    // password: { type: String, required: true },
     // address: { type: Object },
     phone: { type: String },
     role: { type: Number, required: true },

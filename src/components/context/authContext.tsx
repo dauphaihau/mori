@@ -1,93 +1,91 @@
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
-
-import { handleGetCookie, handleRemoveCookie } from 'lib/cookie';
-import { config } from 'config';
-import { IToken, IUser } from 'types/user';
-import { PATH, ROLE } from "config/const";
 import { useRouter } from "next/router";
-import { verifyToken } from "../../lib/jwt";
+
+import { getCookie, removeCookie, setCookie } from 'lib/cookie';
+import { config } from 'config';
+import { IToken } from 'types/customer';
+import { PATH } from "config/const";
+import { ICustomer } from "types/customer";
+import { AuthCustomer } from "types/auth";
+import { accountService } from "services/account";
 
 export interface AuthProps {
-  user: IUser
-  setUser: (prevState) => void,
-  handleLogout: () => void,
-  role: number
+  customer: Partial<ICustomer>
+  logout: () => void
+  loginRegisterSuccess: (authCustomer: AuthCustomer) => void;
+  isAuthenticated: boolean
 }
 
 const initialState = {
-  user: { role: ROLE.BASIC },
-  setUser: () => {},
+  customer: null,
+  isAuthenticated: false,
+  // isLoading: true,
 };
 
-export const AuthContext = createContext<AuthProps>(initialState)
+export const AuthContext = createContext<Partial<AuthProps>>(initialState)
 
 export function useAuth() {
   return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }: PropsWithChildren<{}>) {
-  const [user, setUser] = useState<IUser | null>();
-  const [role, setRole] = useState(ROLE.BASIC)
+  const [customer, setCustomer] = useState<ICustomer | null>();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
-    const authData = handleGetCookie<IToken>(config.cookies.auth)
+    const now = new Date().getTime();
+    const authData = getCookie<IToken>(config.cookies.auth)
 
-    if (authData && authData.token && authData.refreshToken) {
-      // const secret = process.env.NEXT_PUBLIC_JWT_SECRET
-      // const dataToken = awverifyToken(authData.token, secret)
-      // console.log('dauphaihau debug: data-token', dataToken)
-      setRole(ROLE.ACCOUNT)
+    if (authData && authData.token && authData.refreshAt && now < authData.expiredAt) {
+      setIsAuthenticated(true)
 
-      // console.log('dauphaihau debug: has auth data')
+      if (now > authData.refreshAt) {
+        logout()
+      }
 
-      // const verifyAuth = async () => {
-      //   const dataToken = await handleToken(authData)
-      //   console.log('dauphaihau debug: data-token', dataToken)
-      //
-      //   if (dataToken) {
-      //     // console.log('dauphaihau debug: data-token', dataToken)
-      //     setUser({ ...user, ...dataToken })
-      //     // setRole(ROLE.ACCOUNT)
-      //   } else {
-      //
-      //   }
-      // }
-      // verifyAuth();
+      // if (now < authData.expiredAt) { // mock
+      if (now > authData.expiredAt) {
+
+        (async () => {
+          const { data, status } = await accountService.refreshToken(authData.token)
+          console.log('dauphaihau debug: status', status)
+
+          if (status === 401) {
+            logout()
+          }
+
+          if (status === 200) {
+            const expiredAt = new Date(data.auth.expiredAt);
+            setCookie(config.cookies.auth, data.auth, expiredAt)
+          }
+        })()
+      }
+
     } else {
-      // handleLogout()
+      logout()
     }
+  }, []);
 
-    // if (!isEmpty(auth) && !isEmpty(profile)) {
-    //   console.log('dauphaihau debug: has cookie dataToken')
-    //   const verifyAuth = async () => {
-    //     const { isSuccess, data } = await accountService.me();
-    //     if (isSuccess) {
-    //       setUser({ ...(user as object), ...data })
-    //       setIsAuthorize(true)
-    //     } else {
-    //       setIsAuthorize(false)
-    //     }
-    //   }
-    //   verifyAuth();
-    // } else {
-    //   handleLogout()
-    // }
-  // }, []);
-  }, [router.asPath]);
+  const logout = () => {
+    setIsAuthenticated(false)
+    setCustomer(null)
+    removeCookie(config.cookies.auth)
+    removeCookie(config.cookies.profile)
+  }
 
-  const handleLogout = () => {
-    handleRemoveCookie(config.cookies.auth)
-    handleRemoveCookie(config.cookies.profile)
-    router.push(PATH.HOME);
-    // setUser({ numberAllOfItemsInCart: user.numberAllOfItemsInCart })
+  const loginRegisterSuccess = (authCustomer) => {
+    setIsAuthenticated(true)
+    setCustomer(authCustomer.profile)
+    router.push(PATH.ACCOUNT._)
 
-    setRole(ROLE.BASIC);
-    setUser({ ...user, role: ROLE.BASIC });
+    const expiredAt = new Date(authCustomer.auth.expiredAt);
+    setCookie(config.cookies.auth, authCustomer.auth, expiredAt)
+    setCookie(config.cookies.profile, authCustomer.profile, expiredAt)
   }
 
   const providerValues: AuthProps = {
-    user, handleLogout, setUser, role
+    logout, loginRegisterSuccess, customer, isAuthenticated
   };
 
   return (

@@ -67,6 +67,7 @@ const Button = forwardRef((props: Partial<ButtonProps>, ref: any) => {
       </p>
     )
   }
+
   return (
     <button
       ref={ref}
@@ -77,6 +78,8 @@ const Button = forwardRef((props: Partial<ButtonProps>, ref: any) => {
         {
           'bg-transparent text-primary-black hover:text-primary-black hover:opacity-70': light,
           'opacity-30 hover:opacity-30': disabled || isLoading,
+          'cursor-wait': isLoading,
+          'cursor-not-allow': buttonDisabled,
           'drop-shadow-xl': shadow,
           [`w-${width}`]: width
         },

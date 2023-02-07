@@ -5,6 +5,7 @@ import { parseJSON } from "core/helpers";
 import { ICustomer, IToken } from "types/customer";
 import { verifyToken } from "lib/jwt";
 import { Stripe } from "stripe";
+import Address from "lib/models/Address";
 
 // import { stripe } from "lib/stripe";
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -28,12 +29,22 @@ handler.post(async (req, res) => {
     }
 
     const cart = req.body
+
+    let address;
+    console.log('dauphaihau debug: data-token', dataToken)
+
+    // if (dataToken) {
+    //   address = await Address.findOne({ customerId: dataToken.id, isPrimary: true })
+    //   console.log('dauphaihau debug: address', address)
+    // }
+
     // const line_items = cart.map(item => item._id)
 
     const params: Stripe.Checkout.SessionCreateParams = {
       submit_type: "pay",
       mode: "payment",
-      customer_email: dataToken?.email ?? '',
+      // customer_email: dataToken?.email ?? '',
+      // shipping_address_collection: { allowed_countries: ['US', 'CA'] },
       line_items: cart.map((product) => {
         return {
           price_data: {
@@ -42,8 +53,8 @@ handler.post(async (req, res) => {
               name: product.name,
               images: [config.hostStaticSource + product.images[0]],
             },
-            unit_amount: product.price,
-            // unit_amount: product.price * 100,
+            // with USD, stripe use cents ( e.g: $1000 -> $10.00 )
+            unit_amount: product.price * 100,
           },
           adjustable_quantity: {
             enabled: true,
@@ -52,25 +63,78 @@ handler.post(async (req, res) => {
           quantity: product.quantity,
         };
       }),
-      metadata: {
-        customerId: dataToken?.id ?? '',
-        // line_items: JSON.stringify(line_items)
-      },
-      payment_intent_data: {
-        metadata: {
-          customerId: dataToken?.id ?? '',
-          // line_items: JSON.stringify(line_items)
-        }
-      },
+      // metadata: {
+      //   customerId: dataToken?.id ?? '',
+      //   // line_items: JSON.stringify(line_items)
+      // },
+      // payment_intent_data: {
+      //   metadata: {
+      //     customerId: dataToken?.id ?? '',
+      //     // line_items: JSON.stringify(line_items)
+      //   }
+      // },
       // success_url: `${req.headers.origin}/?success`,
       // cancel_url: `${req.headers.origin}/?canceled`,
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: 'fixed_amount',
+            fixed_amount: { amount: 0, currency: 'usd' },
+            display_name: 'Free shipping',
+            delivery_estimate: {
+              minimum: { unit: 'business_day', value: 1 },
+              maximum: { unit: 'business_day', value: 5 },
+            },
+          },
+        },
+        {
+          shipping_rate_data: {
+            type: 'fixed_amount',
+            fixed_amount: { amount: 15 * 100, currency: 'usd' },
+            display_name: 'Next day air',
+            delivery_estimate: {
+              minimum: { unit: 'business_day', value: 1 },
+              maximum: { unit: 'business_day', value: 1 },
+            },
+          },
+        },
+      ],
       success_url: `${req.headers.origin}/?success`,
       cancel_url: `${req.headers.origin}/`,
     }
 
+    // Guest User
     if (!dataToken) {
-      delete params.metadata.customerId
-      delete params.customer_email
+      params.shipping_address_collection = { allowed_countries: ['US', 'CA', 'AU', 'IT', 'JP', 'SG', 'FR', 'DE', 'GB'] }
+      // params.shipping_options = []
+      params.phone_number_collection = {
+        enabled: true
+      }
+    }
+
+    // Registered user
+    if (dataToken) {
+      params.customer_email = dataToken?.email ?? ''
+      params.metadata = {
+        customerId: dataToken?.id ?? '',
+      }
+      params.payment_intent_data = {
+        // metadata: {
+        //   customerId: dataToken?.id ?? '',
+        // }
+      }
+
+      address = await Address.findOne({ customerId: dataToken.id, isPrimary: true })
+      console.log('dauphaihau debug: address', address)
+
+      if (address) {
+        // auto prefill shipping address
+      } else {
+        // shipping_address_collection: { allowed_countries: ['US', 'CA'] },
+        params.shipping_address_collection = { allowed_countries: ['US', 'CA', 'AU', 'IT', 'JP', 'SG', 'FR', 'DE', 'GB'] }
+        // params.shipping_options = []
+      }
+
     }
 
     const session = await stripe.checkout.sessions.create(params);

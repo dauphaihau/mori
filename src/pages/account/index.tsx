@@ -1,20 +1,20 @@
 import { useState } from 'react';
+import { useRouter } from "next/router";
 
 import { Link, Text, Box, Button, Grid, Loading } from 'core/components';
 import { useAuth } from 'components/context/authContext';
 import ChangePasswordDialog from 'components/dialog/ChangePasswordDialog';
 import { PATH } from 'config/const';
 import AccountLayout from 'components/layout/AccountLayout';
-import { getPackageProfile } from "lib/cookie";
-import { useOrder, usePrimaryAddress } from "services/account";
+import { usePrimaryAddress } from "services/account";
 import SubTitle from "components/pages/account/SubTitle";
 import OrderList from "components/pages/account/OrderList";
 
 export default function AccountPage() {
-  const { handleLogout } = useAuth();
-  const profile = getPackageProfile()
+  const { logout, customer } = useAuth();
   const [showDialog, setShowDialog] = useState(false)
   const { isLoading, address } = usePrimaryAddress()
+  const router = useRouter();
 
   const InfoAddress = () => {
     if (isLoading) return <Loading classes='fill-black'/>
@@ -27,10 +27,6 @@ export default function AccountPage() {
         <Text classes='mb-4'>{address?.address1}</Text>
       </>
     )
-  }
-
-  const InfoOrders = () => {
-
   }
 
   return (
@@ -46,19 +42,22 @@ export default function AccountPage() {
             as='button'
             transforms='uppercase'
             classes='text-[11px] tracking-widest text-primary-gray hover:text-primary-black mb-6'
-            onClick={() => handleLogout()}
+            onClick={() => {
+              logout()
+              router.push(PATH.HOME);
+            }}
           >Logout</Text>
           <Text h2 classes='mb-4'>My account</Text>
-          <Text classes='mb-4'>Welcome back, {profile?.name}!</Text>
+          <Text classes='mb-4'>Welcome back, {customer?.name}!</Text>
           <Button onClick={() => setShowDialog(true)}>
             Change Pass
           </Button>
         </Box>
 
         <Grid
-          // lg={6}
+          // xl={6}
           gapx={12}
-          classes='gap-16 grid-flow-row-dense'
+          classes='gap-16 grid-flow-row-dense 2xl:grid-cols-6'
         >
           <Box classes='laptop:col-span-4'>
             <SubTitle>My orders</SubTitle>

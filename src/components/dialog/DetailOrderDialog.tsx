@@ -1,23 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as Yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
+import dayjs from "dayjs";
 
-import { Dialog, Button, Text, Input, Box, Grid } from 'core/components';
-import { userAuthSchema } from 'lib/validation/auth';
-import { updatePasswordSchema } from 'lib/validation/password';
+import { Dialog, Button, Text, Box, Grid, Row } from 'core/components';
 import { useDetailOrder } from "services/account";
-import { formatDollarUS } from 'core/helpers';
+import { formatDollarUSFromStripe, titleIfy } from 'core/helpers';
+import localizedFormat from "dayjs/plugin/localizedFormat";
 
-type FormData = {
-  confirmPassword: string
-  newPassword: string
-} & Pick<Yup.InferType<typeof userAuthSchema>, 'password'>
-
-const formOptions = { resolver: yupResolver(updatePasswordSchema) };
+dayjs.extend(localizedFormat)
 
 export default function DetailOrderDialog({ showDialog, setShowDialog, chargeId }) {
-  const { mutate, purchasedProducts, isLoading } = useDetailOrder(chargeId)
+  const { purchasedProducts, isLoading, customer } = useDetailOrder(chargeId)
 
   // useEffect(() => {
   //   if (showDialog) {
@@ -41,39 +32,42 @@ export default function DetailOrderDialog({ showDialog, setShowDialog, chargeId 
         <Box classes=''>
           <Text h3 classes='mb-6'>Order detail</Text>
 
-          <Grid sx={4} classes='mb-10 gap-y-4 gap-4'>
-            <Box classes='border-dotted border-r-2'>
+          {/*<Grid sx={4} classes='mb-10 gap-y-4 gap-4'>*/}
+          <Row wrap='wrap' classes='mb-10 gap-y-4 gap-8'>
+            <Box classes='border-dotted border-r-2 pr-4'>
               <Text transforms='uppercase' classes='text-xs font-medium text-gray-700'>
                 order number:
               </Text>
-              <Text b>285</Text>
+              <Text b>-</Text>
+              {/*<Text b>285</Text>*/}
             </Box>
             <Box classes='border-dotted border-r-2 pr-4'>
               <Text transforms='uppercase' classes='text-xs font-medium text-gray-700'>
                 date:
               </Text>
-              <Text b>February 23, 2022</Text>
+              <Text b>{customer?.createdAt ? dayjs(customer.createdAt).format('LL') : '-'}</Text>
+              {/*<Text b>February 23, 2022</Text>*/}
             </Box>
             <Box classes='border-dotted border-r-2 pr-4'>
               <Text transforms='uppercase' classes='text-xs font-medium text-gray-700'>
                 email:
               </Text>
-              <Text b>daupu@gmail.com</Text>
+              <Text b>{customer?.email}</Text>
               {/*<Text b>dauphaihau@gmail.com</Text>*/}
             </Box>
-            <Box classes='border-dotted'>
+            <Box classes='border-dotted pr-4'>
               <Text transforms='uppercase' classes='text-xs font-medium text-gray-700'>
                 total:
               </Text>
-              <Text b>$140.11</Text>
+              <Text b>{formatDollarUSFromStripe(purchasedProducts?.amountTotal)}</Text>
             </Box>
-            <Box classes='border-dotted'>
+            <Box classes='border-dotted pr-4'>
               <Text transforms='uppercase' classes='text-xs font-medium text-gray-700'>
                 payment method:
               </Text>
-              <Text b>Card</Text>
+              <Text b>{titleIfy(customer?.paymentMethod)}</Text>
             </Box>
-          </Grid>
+          </Row>
 
           <Box classes='mb-10'>
             <Text h4>Product purchased</Text>
@@ -118,10 +112,10 @@ export default function DetailOrderDialog({ showDialog, setShowDialog, chargeId 
                                   {prod.quantity}
                                 </td>
                                 <td className='px-6 py-4'>
-                                  {formatDollarUS(prod.price.unit_amount)}
+                                  {formatDollarUSFromStripe(prod.price.unit_amount)}
                                 </td>
                                 <td className='px-6 py-4'>
-                                  {formatDollarUS(prod.amount_total)}
+                                  {formatDollarUSFromStripe(prod.amount_total)}
                                 </td>
                               </tr>
                             ))
@@ -135,7 +129,7 @@ export default function DetailOrderDialog({ showDialog, setShowDialog, chargeId 
                                 Total
                               </td>
                               <td className='px-6 py-4'>
-                                {formatDollarUS(purchasedProducts?.amountTotal)}
+                                {formatDollarUSFromStripe(purchasedProducts?.amountTotal)}
                               </td>
                            </tr>
                         </>

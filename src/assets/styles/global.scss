@@ -75,8 +75,8 @@
     color: rgba(0, 0, 0, .8);
     font-family: Eina, serif;
   }
-  /* #endregion  /**======== Default Typography =========== */
 
+  /* #endregion  /**======== Default Typography =========== */
   .layout {
     max-width: 120rem;
     @apply mx-auto w-11/12;
@@ -112,8 +112,7 @@
   .backdrop {
     @apply w-full h-full fixed inset-0 z-[31]
     overflow-y-auto overflow-y-hidden
-    backdrop-filter backdrop-blur-sm
-    ;
+    backdrop-filter backdrop-blur-sm;
     background-color: rgba(0, 0, 0, 0.5);
   }
 }

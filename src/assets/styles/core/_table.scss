@@ -1,6 +1,3 @@
-//dark:bg-gray-custom-901
-//border-gray-custom-500
-
 .table-container {
   @apply min-w-full w-[5px]
   rounded-lg p-4 laptop:drop-shadow-xl
@@ -80,16 +77,12 @@
   &__buttons {
     @apply flex items-center;
 
-    //dark:bg-gray-custom-901 dark:hover:bg-gray-custom-502
     button {
       @apply flex-center rounded-xl
-      bg-gray-custom-50 hover:bg-gray-custom-52
-      h-[36px] w-[36px]  animate
-      cursor-pointer dark:text-white mx-[2px] p-[9px];
-    }
-
-    //@apply text-gray-custom-499;
-    button.disabled {
+      bg-gray-custom-50 enabled:hover:bg-gray-custom-52
+      disabled:text-[#c8ced2]
+      h-9 w-9 animate
+      cursor-pointer dark:text-white mx-0.5 p-2;
     }
 
     button.selected {

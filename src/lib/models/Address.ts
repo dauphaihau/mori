@@ -14,11 +14,21 @@ const addressSchema = new Schema<IAddress>({
     address2: { type: String },
     city: { type: String, required: true },
     state: { type: String, required: true },
-    zipCode: { type: String, required: true },
-    postalCode: { type: String },
+    zipCode: {
+      type: String,
+      required: function () {
+        return !this.postalCode
+      }
+    },
+    postalCode: {
+      type: String,
+      required: function () {
+        return !this.zipCode
+      }
+    },
     countryCode: { type: String, required: true },
     phone: { type: String, required: true },
-    isPrimary: { type: Boolean, required: true },
+    isPrimary: { type: Boolean, default: false },
   },
   {
     timestamps: true,

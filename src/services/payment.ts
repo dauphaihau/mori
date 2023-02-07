@@ -2,7 +2,6 @@ import api from "lib/axios"
 import { config } from "../config";
 import getStripe from "../lib/get-stripejs";
 
-// checkoutService or stripeService
 export const checkoutService = {
   payment: async (values) => {
     try {

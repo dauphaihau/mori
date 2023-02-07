@@ -11,7 +11,7 @@ import Token from 'lib/models/Token';
 import db from 'lib/db';
 import { config } from "config";
 import { isValidToken } from "lib/middlewares/token";
-import {  verifyToken } from "lib/jwt";
+import { verifyToken } from "lib/jwt";
 import { parseJSON } from "core/helpers";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
@@ -53,7 +53,7 @@ handler.post(async (req, res) => {
     console.log('error', error)
     return res.status(422).send({ message: 'Ooops, something went wrong!' });
   }
-});
+})
 
 // change password
 // handler.use(isAuth);
@@ -64,27 +64,21 @@ handler.put(async (req: MyCustomerRequest, res) => {
     const { password, newPassword } = req.body;
     const { authorization } = req.headers;
     const secret = process.env.NEXT_PUBLIC_JWT_SECRET
-    const now = Math.floor(Date.now() / 1000);
+    const now = new Date().getTime();
 
     const authData = authorization?.replace('Bearer ', '');
-    const { token, refreshToken } = parseJSON<IToken>(authData)
+    const { token } = parseJSON<IToken>(authData)
+    console.log('dauphaihau debug: token', token)
     const dataToken = await verifyToken(token, secret)
-    const dataRefreshToken = await verifyToken(refreshToken, secret)
+    console.log('dauphaihau debug: data-token', dataToken)
 
-    if (!dataToken || !dataRefreshToken) {
+    if (!dataToken) {
       res.status(401).send({ code: '401', message: 'Token is not valid' });
     }
 
-    // 1. refreshToken & token expired --> re-login
-    // if (dataToken.exp > now && dataRefreshToken.exp > now) { // mock
-    if (dataToken.exp < now && dataRefreshToken.exp < now) {
-      return res.status(401).send({ code: '401', message: 'Token is not valid' });
-    }
-
-    // 2. refreshToken works - token expired
-    if (dataToken.exp > now && dataRefreshToken.exp > now) { // mock
-    // if (dataToken.exp < now && dataRefreshToken.exp > now) {
-      return res.status(401).send({ code: '4001', message: 'Token is expired' });
+    // if (dataToken.exp > now) { // mock
+    if (dataToken.exp < now) {
+      return res.status(401).send({ code: '4001', message: 'Token is not valid' });
     }
 
     await db.connect();
@@ -107,7 +101,7 @@ handler.put(async (req: MyCustomerRequest, res) => {
     console.log('error', error)
     return res.status(422).send({ message: 'Ooops, something went wrong!' });
   }
-});
+})
 
 handler.use(isValidToken)
 // check token

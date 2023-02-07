@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ComponentPropsWithoutRef, ReactNode, useEffect } from "react";
 import { XIcon } from "@heroicons/react/solid";
 
 import Portal from "./Portal";
@@ -6,21 +6,22 @@ import { cn } from "core/helpers";
 
 let blackTheme = false;
 
-interface DrawerProps {
+type DrawerProps = {
   show: boolean,
   children: ReactNode,
   theme?: string,
   zIndex?: number,
   classes?: string,
   onClose?: () => void
-}
+} & ComponentPropsWithoutRef<'aside'>
 
 const Drawer = ({
   children,
   classes = '',
   theme = '',
   show,
-  onClose = () => {}
+  onClose = () => {},
+  ...others
 }: DrawerProps) => {
   blackTheme = theme === 'black';
 
@@ -51,6 +52,7 @@ const Drawer = ({
           },
           classes,
         )}
+        {...others}
       >
         <div className='drawer__container'>
           {children}

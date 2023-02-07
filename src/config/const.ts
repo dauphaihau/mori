@@ -1,11 +1,10 @@
 export const BASE_URL = process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_BASE_URL : "http://localhost:3000"
-// export const BASE_URL = process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_BASE_URL : "http://127.0.0.1:3000"
 
 export const STORAGE_KEY = 'MORI_ECOMMERCE'
 
 export enum USER_STATUS {NOT_ACTIVATED = -1, LOCKED, ACTIVE}
 
-export enum ROLE {BASIC, ACCOUNT}
+export enum ROLE {GUEST, ACCOUNT}
 
 export const SORT_PRODUCT = {
   BEST_SELLING: '-sold',

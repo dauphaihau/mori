@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
-import { config } from 'config';
 import { isFalsy, parseJSON } from "core/helpers";
+import { config } from 'config';
 import { ICustomer, IToken } from "types/customer";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -10,6 +10,7 @@ import Stripe from "stripe"
 // import * as Stripe from "stripe";
 import { isAuth } from "lib/middlewares/auth";
 import Order from "lib/models/Order";
+import { date } from "yup";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
@@ -37,7 +38,10 @@ handler.post(async (req: MyCustomerRequest, res) => {
       list: [],
       amountTotal: 0
     };
-    let customerDetail = {};
+    let customer = {
+      paymentMethod: '',
+      createdAt: null
+    };
     if (order.stripeCheckoutSessionId) {
       // info product in order
       const session = await stripe.checkout.sessions.retrieve(
@@ -46,16 +50,18 @@ handler.post(async (req: MyCustomerRequest, res) => {
           expand: ['line_items'],
         }
       );
-      // console.log('dauphaihau debug: session', session)
+      console.log('dauphaihau debug: session', session)
       purchasedProducts.list = session.line_items.data
       purchasedProducts.amountTotal = session.amount_total
-      customerDetail = session.customer_details
+      customer = session.customer_details
+      customer.paymentMethod = session.payment_method_types[0]
+      customer.createdAt = new Date(order.createdAt as string).getTime()
     }
 
     res.send({
       code: '200',
       message: 'OK',
-      customerDetail,
+      customer,
       purchasedProducts
     })
   } catch (err) {
@@ -64,13 +70,13 @@ handler.post(async (req: MyCustomerRequest, res) => {
   }
 })
 
+/* get list charge ( and all product are pick in charge ) */
 handler.get(async (req: MyCustomerRequest, res) => {
   try {
-    /* get list charge ( and all product are pick in charge ) */
-
     let { page, limit } = req.query
     const customerId = req.customer.id
     console.log('dauphaihau debug: req-query', req.query)
+    console.log('dauphaihau debug: customer-id', customerId)
 
     let paginatedOrderList = [];
 

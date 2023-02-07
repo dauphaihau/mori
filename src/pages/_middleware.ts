@@ -2,15 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { PATH, ROLE, USER_STATUS } from 'config/const';
 import { hashMD5 } from 'lib/crypto';
-import { isFalsy, isEmptyObject, parseJSON } from 'core/helpers';
-import { verifyToken } from 'lib/jwt';
-import { IToken } from "types/user";
+import { isEmptyObject, parseJSON } from 'core/helpers';
+import { ICustomer, IToken } from "types/customer";
 import { config } from "config";
 
 export async function middleware(req: NextRequest) {
 
-  const url = req.nextUrl.clone();
-  url.pathname = PATH.HOME;
+  const home = req.nextUrl.clone();
+  home.pathname = PATH.HOME;
 
   const urlCurrent = req.nextUrl.pathname
   const routesPrivate = [PATH.ACCOUNT._, PATH.ACCOUNT.ADDRESS]
@@ -18,51 +17,29 @@ export async function middleware(req: NextRequest) {
 
   const cookies = req.cookies;
   const authData = parseJSON<IToken>(cookies[hashMD5(config.cookies.auth)])
+  const profile = parseJSON<ICustomer>(cookies[hashMD5(config.cookies.profile)])
 
-  let dataToken;
-  if (authData && authData.token && authData.refreshToken) {
-    dataToken = await handleToken(authData)
-  }
+  const now = new Date().getTime();
+  const isAuth = Boolean(authData && authData.token && authData.refreshAt && now < authData.expiredAt && profile)
+  console.log('dauphaihau debug: is-auth', isAuth)
 
   if (routesAuth.includes(urlCurrent)) {
 
     if (urlCurrent === PATH.ACCOUNT.RESET_PASSWORD) {
       const urlSearchParams = new URLSearchParams(req.nextUrl.search);
       const params = Object.fromEntries(urlSearchParams.entries())
-      if (isEmptyObject(params)) return NextResponse.redirect(url)
+      if (isEmptyObject(params)) return NextResponse.redirect(home)
     }
 
-    if (!isFalsy(dataToken)) return NextResponse.redirect(url)
+    if (isAuth) return NextResponse.redirect(home)
   }
 
   if (routesPrivate.includes(urlCurrent)) {
-    if (isFalsy(dataToken)) return NextResponse.redirect(url)
+    if (!isAuth) return NextResponse.redirect(home)
 
-    if (dataToken.role !== ROLE.ACCOUNT || dataToken.status === USER_STATUS.LOCKED) {
-      return NextResponse.redirect(url)
+    if (profile.role !== ROLE.ACCOUNT || profile.status === USER_STATUS.LOCKED) {
+      return NextResponse.redirect(home)
     }
   }
-}
 
-async function handleToken(authData): Promise<object> {
-
-  // const secret = process.env.STRIPE_SECRET_KEY // mock
-  const secret = process.env.NEXT_PUBLIC_JWT_SECRET
-  const dataToken = await verifyToken(authData.token, secret)
-  const dataRefreshToken = await verifyToken(authData.refreshToken, secret)
-  const now = Math.floor(Date.now() / 1000);
-
-  // 1. require token verified success
-  if (!dataToken || !dataRefreshToken) {
-    return null
-  }
-
-  // 2. refreshToken & token expired --> re-login
-  // if (dataToken.exp > now && refreshToken.exp > now) { // mock
-  if (dataToken.exp < now && dataRefreshToken.exp < now) {
-    console.log('dauphaihau debug: run case token + refreshToken expired ')
-    return null
-  }
-
-  return dataToken
 }

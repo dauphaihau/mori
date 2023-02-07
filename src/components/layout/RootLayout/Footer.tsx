@@ -2,14 +2,16 @@ import { Link, NextImage, Box, Text, Col, Grid, List } from 'core/components';
 import { footerConfig } from 'config/footer';
 import { PATH } from 'config/const';
 import { config } from "config";
+import { useRouter } from "next/router";
 
 export default function Footer() {
-  const now = new Date()
-  const year = now.getFullYear()
+  const now = new Date();
+  const { pathname } = useRouter();
+  const year = now.getFullYear();
+  const routesPrivate = [PATH.ACCOUNT._, PATH.ACCOUNT.ADDRESS];
 
   return (
-    // <Box classes='bg-gray-custom-52a'>
-    <Box classes=''>
+    <Box classes={!routesPrivate.includes(pathname) ? 'bg-gray-custom-52a' : ''}>
       <Box footer classes='footer layout'>
         <Box classes='footer__links'>
           <Grid sx={2} md={3} lg={6} classes='wrapper-topics gap-x-12'>

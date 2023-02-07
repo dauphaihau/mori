@@ -1,6 +1,8 @@
-import { Document, Mixed, StringSchemaDefinition } from 'mongoose';
+import { Document, Mixed, StringSchemaDefinition, SchemaTimestampsConfig } from 'mongoose';
 
-export interface IOrder extends Document {
+type Example = Document & SchemaTimestampsConfig
+
+export interface IOrder extends Example {
   customerId: Mixed | StringSchemaDefinition,
   stripeChargeId: string
   // stripeInvoiceId: string

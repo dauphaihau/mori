@@ -5,7 +5,7 @@ const Loading = ({ classes }: {classes?:string}) => {
     <svg
       role="status"
       // className={clns('inline w-4 h-4 text-black ', className)}
-      className={cn('animate-spin w-4 h-3 text-gray-200 dark:text-gray-600 fill-white ', cn(classes))}
+      className={cn('animate-spin w-4 h-3 text-gray-200 dark:text-gray-600 fill-white', cn(classes))}
       aria-hidden="true"
       viewBox="0 0 100 101"
       fill="none"

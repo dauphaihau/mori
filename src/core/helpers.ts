@@ -140,6 +140,19 @@ export const formatDollarUS = (amount = 0, newOptions = {}) => {
   return new Intl.NumberFormat("en-US", options).format(amount);
 };
 
+export const formatDollarUSFromStripe = (amount = 0, newOptions = {}) => {
+  const pattern = /\d{1,2}[\,\.]{1}\d{1,2}/
+  const isContainDot = pattern.test(String(amount))
+  let options = {
+    style: "currency",
+    currency: "USD",
+    useGrouping: true,
+    maximumSignificantDigits: !isContainDot ? 3 : undefined,
+  }
+  options = { ...options, ...newOptions }
+  return new Intl.NumberFormat("en-US", options).format(amount/ 100);
+};
+
 export const getUniqueValues = (data, type) => {
   let unique = data.map((item) => item[type]);
   if (type === "colors") {

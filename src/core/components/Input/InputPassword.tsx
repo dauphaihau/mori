@@ -44,8 +44,9 @@ const InputPassword = forwardRef<HTMLInputElement, InputType>((props: InputType,
           ref={ref}
           type={showPassword ? '' : 'password'}
           // onChange={handleOnChange}
-          className={cn('peer p-4', className, classes,
-            contentLeft && '!pl-7'
+          className={cn('p-2.5 md:pr-5',
+            { 'pl-10': contentLeft },
+            className, classes
           )}
 
           {...register(name, {

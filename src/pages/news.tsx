@@ -1,6 +1,8 @@
 import NewsCard from 'components/pages/news/NewsCard';
 import { Text, Grid, Box } from 'core/components';
 import { newsData } from "assets/data/News";
+import Pagination from "../core/components/Table/Pagination";
+import React from "react";
 
 export default function NewsPage() {
   return (
@@ -24,6 +26,18 @@ export default function NewsPage() {
           <NewsCard key={index} data={item}/>
         ))}
       </Grid>
+
+      <Box classes='flex-center mt-20'>
+        <Pagination
+          showOnlyButton
+          rowsPerPageFromProps={20}
+          rowsPerPage={4}
+          currentPage={1}
+          rowsChecked={4}
+          quantityRows={30}
+          onPageChange={() => {}}
+        />
+      </Box>
     </Box>
   )
 }

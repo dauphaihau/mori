@@ -7,18 +7,20 @@ const initialState = {
   progress: 0,
 };
 
-interface ICategory {
+type Category  = {
   _id: string,
   count: number
 }
 
 export interface UIControllerProps {
-  setProgress?: (prevState) => void,
-  categories?: ICategory[],
-  progress?: number,
+  setProgress: (prevState) => void,
+  setAmountAllItemsCart: (prevState) => void,
+  categories: Category[],
+  progress: number,
+  amountAllItemsCart: number,
 }
 
-export const UIControllerContext = createContext<UIControllerProps>(initialState)
+export const UIControllerContext = createContext<Partial<UIControllerProps>>(initialState)
 
 export function useUIController() {
   return useContext(UIControllerContext);
@@ -26,10 +28,11 @@ export function useUIController() {
 
 export const UIControllerProvider = ({ children }) => {
   const { categories } = useCategories();
+  const [amountAllItemsCart, setAmountAllItemsCart] = useState(0)
   const [progress, setProgress] = useState(0)
 
   const providerValues: UIControllerProps = {
-    categories, progress, setProgress
+    categories, progress, setProgress, amountAllItemsCart, setAmountAllItemsCart
   };
 
   return (

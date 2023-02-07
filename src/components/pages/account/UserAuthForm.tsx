@@ -7,9 +7,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Input, Box } from 'core/components';
 import { useAutoFocus } from 'core/hooks';
 import { accountService } from 'services/account';
-import { PATH } from "config/const";
 import { userAuthSchema } from "lib/validation/auth";
 import ErrorServer from "components/common/ErrorServer";
+import { useAuth } from "components/context/authContext";
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {
 }
@@ -21,6 +21,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [errorServer, setErrorServer] = useState('')
   const emailInputRef = useAutoFocus();
+  const { loginRegisterSuccess } = useAuth();
 
   const {
     register, handleSubmit,
@@ -32,12 +33,12 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
 
   async function onSubmit(values: FormData) {
     setIsLoading(true)
-    const { isLoading, message, status } = await accountService.login(values)
+    const {data, isLoading, message, status } = await accountService.login(values)
     setIsLoading(isLoading)
 
     switch (status) {
       case 200:
-        router.push(PATH.ACCOUNT._)
+        loginRegisterSuccess(data)
         break
       default:
         setErrorServer(message)
@@ -57,14 +58,14 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
       <Box classes='space-y-5 mb-8'>
         <Input
           name='email'
-          placeholder='Email Address'
+          label='Email Address'
           register={register}
           helperText={errors?.email?.message}
           ref={emailInputRef}
         />
         <Input.Password
           name='password'
-          placeholder='Password'
+          label='Password'
           register={register}
           helperText={errors?.password?.message}
         />

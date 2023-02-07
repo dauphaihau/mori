@@ -71,7 +71,6 @@ const Table = (props: ITable) => {
   };
 
   const handleRowsPerPageChange = (limit) => {
-    console.log('limit', limit)
     setRowsPerPage(limit);
     onChange({ skip: 0, limit })
     setCurrentPage(1);

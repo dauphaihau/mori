@@ -10,9 +10,8 @@
       "password": "/api/account/password",
       "address": "/api/account/address",
       "order": "/api/account/order",
-      "me": "/api/account/me",
-      "logout": "/user/backoffice/logout",
-      "refreshToken": "/user/token"
+      "logout": "/api/account/backoffice/logout",
+      "refreshToken": "/api/account/token"
     },
     "product": {
       "_": "/api/product",
@@ -32,10 +31,6 @@
     "expiredAt": "a8302fcfb5dd1a1506ab3555277110e6",
     "auth": "7ec1e5cc8e04b1400181f2b29879b987",
     "profile": "c10a7fb2207dfec86492311dd6684f32"
-  },
-  "token": {
-    "tokenLife": 3600,
-    "refreshTokenLife": 604800000
   },
   "request": {
     "timeoutView": 35000,

@@ -1,6 +1,6 @@
 import { NAVIGATION } from "../../elements/navigation";
 import { LOGIN_SELECTORS } from "../../elements/login";
-import { handleSetCookie } from "../../../src/lib/cookie";
+import { setCookie } from "../../../src/lib/cookie";
 import config from "../../../src/config/config.json";
 
 export function loginUsingForm(email: string, password: string) {

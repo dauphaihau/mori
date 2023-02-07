@@ -1,17 +1,16 @@
 import React, { createContext, Component } from 'react'
 import { STORAGE_KEY } from "config/const";
+import { IProduct } from "types/product";
 
 const initialState = {
   cart: [],
   numberOfItemsInCart: 0,
   numberAllOfItemsInCart: 0,
   total: 0,
-  showAddressDialog: false,
-  recentlyViewedProduct: [],
-  addToCart: (item: object) => {},
+  addToCart: (item: IProduct) => {},
   clearCart: () => {},
-  removeFromCart: (item: object) => {},
-  setItemQuantity: (item: object) => {},
+  removeFromCart: (item: IProduct) => {},
+  setItemQuantity: (item: IProduct) => {},
 }
 
 const calculateTotal = (cart) => {

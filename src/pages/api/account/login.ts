@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
+import dayjs from "dayjs";
 
-import Customer from 'lib/models/Customer';
 import db from 'lib/db';
 import { signToken } from 'lib/jwt';
-import { config } from "config";
+import Customer from 'lib/models/Customer';
 import { ICustomer } from "types/customer";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
@@ -39,8 +39,16 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       status: customer.status,
     }
 
-    const token = await signToken(profile, process.env.NEXT_PUBLIC_JWT_SECRET, config.token.tokenLife);
-    const refreshToken = await signToken(profile, process.env.NEXT_PUBLIC_JWT_SECRET, config.token.refreshTokenLife);
+    let expiredAt: Date | number = new Date();
+    expiredAt.setUTCDate(expiredAt.getUTCDate() + 7);
+    expiredAt = dayjs(expiredAt).valueOf()
+
+    let refreshAt: Date | number = new Date();
+    refreshAt.setUTCDate(refreshAt.getUTCDate() + 1);
+    refreshAt = dayjs(refreshAt).valueOf()
+
+    const token = await signToken(profile, process.env.NEXT_PUBLIC_JWT_SECRET, expiredAt);
+    console.log('dauphaihau debug: token', token)
 
     delete profile.id
 
@@ -49,8 +57,8 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
         code: '200',
         message: 'OK',
         data: {
-          auth: { token, refreshToken },
-          profile
+          auth: { token, expiredAt, refreshAt },
+          profile,
         }
       });
   } catch (error) {

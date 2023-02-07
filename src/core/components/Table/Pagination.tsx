@@ -53,7 +53,6 @@ const Pagination = (props: Props) => {
     <div className="pagination__buttons">
       <button
         disabled={currentPage === 1}
-        className={currentPage === 1 ? 'disabled' : ''}
         onClick={() => onPageChange(currentPage - 1)}
       >
         <ChevronLeftIcon height={15} width={15}/>

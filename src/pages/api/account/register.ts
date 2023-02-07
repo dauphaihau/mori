@@ -7,6 +7,7 @@ import db from 'lib/db';
 import { ROLE, USER_STATUS } from 'config/const';
 import { sendResultRegister } from 'lib/mailer';
 import { config } from "config";
+import dayjs from 'dayjs';
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
@@ -31,15 +32,22 @@ handler.post(async (req, res) => {
     await sendResultRegister({ email });
 
     delete newCustomer.password
+    // time life token 5700 ( 1.5 hours )
     const token = await signToken(newCustomer, process.env.NEXT_PUBLIC_JWT_SECRET, config.token.tokenLife);
+
+    // time life token 604800000 ( 1 week )
     const refreshToken = await signToken(newCustomer, process.env.NEXT_PUBLIC_JWT_SECRET, config.token.refreshTokenLife);
+
+    let expiredAt: Date | number = new Date();
+    expiredAt.setUTCDate(expiredAt.getUTCDate() + 7);
+    expiredAt = dayjs(expiredAt).valueOf()
 
     res.send(
       {
         code: '200',
         message: 'OK',
         data: {
-          auth: { token, refreshToken },
+          auth: { token, refreshToken, expiredAt },
           profile: newCustomer
         }
       });

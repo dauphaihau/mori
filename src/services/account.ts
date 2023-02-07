@@ -3,17 +3,15 @@ import useSWR from "swr";
 import { config } from "config";
 import api from 'lib/axios';
 import { encryptPassword } from 'lib/crypto';
-import { getHeadersWithAuth, handleSetCookie } from 'lib/cookie';
-import { isEmptyObject, isFalsy } from "core/helpers";
+import { getHeadersWithAuth } from 'lib/cookie';
+import { isEmptyObject } from "core/helpers";
 
 export const accountService = {
   register: async (values) => {
     try {
       values.password = encryptPassword(values.password, config.cryptoKey)
       const { data: { data }, status } = await api.post(config.api.account.register, values);
-      handleSetCookie(config.cookies.auth, data.auth)
-      handleSetCookie(config.cookies.profile, data.profile)
-      return { status, isLoading: !data };
+      return { data, status, isLoading: !data };
     } catch ({ response }) {
       return {
         isLoading: false,
@@ -26,11 +24,8 @@ export const accountService = {
     try {
       values.password = encryptPassword(values.password, config.cryptoKey)
       const { data: { data }, status } = await api.post(config.api.account.login, values);
-      handleSetCookie(config.cookies.auth, data.auth)
-      handleSetCookie(config.cookies.profile, data.profile)
-      return { status, isLoading: !data };
+      return { data, status, isLoading: !data };
     } catch ({ response }) {
-      console.log('dauphaihau debug: response', response)
       return {
         isLoading: false,
         status: response?.status,
@@ -69,6 +64,18 @@ export const accountService = {
       values.newPassword = encryptPassword(values.newPassword, config.cryptoKey)
       const { status } = await api.put(config.api.account.password, values);
       return { isLoading: false, status };
+    } catch ({ response }) {
+      return {
+        isLoading: false,
+        status: response?.status,
+        message: response?.data?.message,
+      };
+    }
+  },
+  refreshToken: async (token) => {
+    try {
+      const { data: { data }, status } = await api.post(config.api.account.refreshToken, { token });
+      return { data, status, isLoading: !data };
     } catch ({ response }) {
       return {
         isLoading: false,
@@ -219,6 +226,7 @@ export function useDetailOrder(chargeId) {
 
   return {
     purchasedProducts: data?.purchasedProducts,
+    customer: data?.customer,
     isLoading: !data,
     isError: !!error,
   };

@@ -1,32 +1,25 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from "next/router";
 
 import { CartProvider, CartContext } from 'components/context/cartContext';
-import { useAuth } from 'components/context/authContext';
 import { Drawer } from 'core/components';
-import PostCheckoutButton from "./post-checkout-button";
+import CheckoutButton from "./CheckoutButton";
 import ProductList from './ProductList';
+import { useUIController } from "components/context/UIControllerContext";
 
 export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
-  const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
-  const { user, setUser } = useAuth();
+  const { setAmountAllItemsCart } = useUIController();
   const router = useRouter();
-
-  useEffect(() => {
-    setRenderClientSideComponent(true)
-  }, [])
 
   const { numberAllOfItemsInCart } = context
 
   useEffect(() => {
-    setUser({ ...user, numberAllOfItemsInCart })
+    setAmountAllItemsCart(numberAllOfItemsInCart)
   }, [numberAllOfItemsInCart])
 
   useEffect(() => {
     setShowCartDrawer(false)
   }, [router.asPath])
-
-  if (!renderClientSideComponent) return null
 
   return (
     <Drawer
@@ -41,7 +34,7 @@ export const CartDrawer = ({ context, showCartDrawer, setShowCartDrawer }) => {
         <ProductList context={context}/>
       </Drawer.Body>
       <Drawer.Footer classes='mx-auto'>
-        <PostCheckoutButton context={context}/>
+        <CheckoutButton context={context}/>
       </Drawer.Footer>
     </Drawer>
   )

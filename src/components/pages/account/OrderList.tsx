@@ -5,9 +5,7 @@ import dayjs from 'dayjs';
 import { useOrder } from "services/account";
 import { Table, Button, Text } from 'core/components';
 import DetailOrderDialog from "components/dialog/DetailOrderDialog";
-import { formatDollarUS } from "core/helpers";
-import { limitedParseFloat32 } from "@aws-sdk/smithy-client";
-import { getHeadersWithAuth } from "../../../lib/cookie";
+import { formatDollarUS, formatDollarUSFromStripe } from "core/helpers";
 
 const rowsPerPage = [5, 15, 25]
 dayjs.extend(localizedFormat)
@@ -20,12 +18,10 @@ export default function OrderList() {
     limit: rowsPerPage[0]
   })
   const [chargeId, setChargeId] = useState('')
-  const headers = getHeadersWithAuth()
 
-  const { orders, total, isLoading,  paginatedOrderList } = useOrder(params)
-  // console.log('dauphaihau debug: orders', orders)
+  const { orders, total, isLoading, paginatedOrderList } = useOrder(params)
+  console.log('dauphaihau debug: orders', orders)
   // console.log('dauphaihau debug: charge-page-list', paginatedOrderList)
-
 
   useEffect(() => {
     if (paginatedOrderList && paginatedOrderList.length > 0) {
@@ -49,7 +45,7 @@ export default function OrderList() {
       render: (row) => dayjs(row.created).format('LL')
     },
     { id: 'status', title: 'Status', align: 'center', },
-    { id: 'amount', title: 'Total', render: (row) => formatDollarUS(row.amount) },
+    { id: 'amount', title: 'Total', render: (row) => formatDollarUSFromStripe(row.amount) },
     {
       id: 'actions', title: 'Actions', align: 'center',
       render: (row) => (
@@ -64,7 +60,6 @@ export default function OrderList() {
   ];
 
   const handleOnChangeTable = (values) => {
-    console.log('dauphaihau debug: paginated-list', paginatedList)
     const indexPaginated = values.skip / rowsPerPage[0]
     let page = ''
     if (indexPaginated) {
@@ -76,6 +71,7 @@ export default function OrderList() {
   return (
     <>
       <DetailOrderDialog
+
         showDialog={showDialog}
         setShowDialog={setShowDialog}
         chargeId={chargeId}
