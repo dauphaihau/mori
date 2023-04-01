@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Transition } from '@headlessui/react';
 
-import { Text, Box, Col, Row, NextImage, Button } from 'core/components';
+import { Text, Box, Col, Row, NextImage, Button, Icons } from 'core/components';
 import { useChannel } from 'lib/ably';
 import { useOnOutsideClick } from 'core/hooks';
 
@@ -152,73 +152,85 @@ export default function ChatBox() {
 
   return (
     <>
-    <Box classes='chat-box'>
-      {
-        !openChatBox &&
-        <Box classes='chat-box__disabled' onClick={() => setOpenChatBox(true)}>
-          <Text i classes='fa-solid fa-comment-dots icon-btn'/>
-        </Box>
-      }
+      <Box classes='chat-box'>
+        {
+          !openChatBox &&
+          <Box classes='chat-box__disabled' onClick={() => setOpenChatBox(true)}>
+            {/*<Icons.chat className='h-12 w-10 text-white text-xl'/>*/}
+            <NextImage
+              height={37}
+              width={38}
+              src="/images/fb-messenger-icon.png" alt=""
+            />
 
-      <Transition
-        appear
-        show={openChatBox}
-        enter='ease-out duration-100'
-        enterFrom='opacity-0'
-        enterTo='opacity-100'
-        leave='ease-in duration-200'
-        leaveFrom='opacity-100'
-        leaveTo='opacity-0'
-      >
-        <Box ref={innerRef} classes='chat-box__enabled'>
-          <Header/>
-          <Body/>
+          </Box>
+        }
 
-          {/* Footer ( if split footer to comp -> occur bug input */}
-          <Row align='center' classes='chat-box__footer'>
-            <Button light classes='p-0 focus:outline-none w-8 mr-1 cursor-not-allowed'>
+        <Transition
+          appear
+          show={openChatBox}
+          enter='ease-out duration-100'
+          enterFrom='opacity-0'
+          enterTo='opacity-100'
+          leave='ease-in duration-200'
+          leaveFrom='opacity-100'
+          leaveTo='opacity-0'
+        >
+          <Box ref={innerRef} classes='chat-box__enabled'>
+            <Header/>
+            <Body/>
+
+            {/* Footer ( if split footer to comp -> occur bug input */}
+            <Row align='center' classes='chat-box__footer' gap={4}>
               <Text i classes='fa-solid fa-image text-primary-gray text-xl'/>
-            </Button>
-            <Button light classes='p-0 focus:outline-none w-8 mr-1 cursor-not-allowed'>
+              {/*<Icons.photo className='text-primary-gray h-6 w-6'/>*/}
+              {/*<Button light classes='p-0 focus:outline-none w-8 mr-1 cursor-not-allowed'>*/}
+              {/*  /!*<Text i classes='fa-solid fa-image text-primary-gray text-xl'/>*!/*/}
+              {/*  <Icons.photo className='text-primary-gray h-10 w-8'/>*/}
+              {/*</Button>*/}
               <Text i classes='fa-solid fa-paperclip fa-image text-primary-gray text-xl'/>
-            </Button>
+              {/*<Icons.paperClip className='text-primary-gray h-6 w-6'/>*/}
+              {/*<Button light classes='p-0 focus:outline-none w-8 mr-1 cursor-not-allowed'>*/}
+              {/*  /!*<Text i classes='fa-solid fa-paperclip fa-image text-primary-gray text-xl'/>*!/*/}
+              {/*  <Icons.paperClip className='text-primary-gray h-10 w-8'/>*/}
+              {/*</Button>*/}
 
-            {/*Form submit*/}
-            <Box
-              form
-              onSubmit={handleFormSubmission}
-              classes='chat-box__form border-gray'
-            >
-              {/*px-2'>*/}
-              <Box classes='w-full'>
-                {/*<input onChange={event => han}/>*/}
-                <input
-                  ref={(element) => {
-                    inputBox = element;
-                  }}
-                  value={messageText}
-                  onChange={e => setMessageText(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  type='text'
-                  id='message'
-                  className='chat-box__input'
-                  placeholder='Type your message....'
-                />
+              {/*Form submit*/}
+              <Box
+                form
+                onSubmit={handleFormSubmission}
+                classes='chat-box__form border-gray'
+              >
+                {/*px-2'>*/}
+                <Box classes='w-full'>
+                  {/*<input onChange={event => han}/>*/}
+                  <input
+                    ref={(element) => {
+                      inputBox = element;
+                    }}
+                    value={messageText}
+                    onChange={e => setMessageText(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    type='text'
+                    id='message'
+                    className='chat-box__input'
+                    placeholder='Type your message....'
+                  />
+                </Box>
+                <Row>
+                  <button
+                    type='submit'
+                    className='chat-box__submitBtn'
+                  >
+                    <Text i classes='fa-solid fa-paper-plane text-primary-gray text-xl'/>
+                    {/*<Text i classes='fa-solid fa-face-smile text-primary-gray text-xl'/>*/}
+                  </button>
+                </Row>
               </Box>
-              <Row>
-                <button
-                  type='submit'
-                  className='chat-box__submitBtn'
-                >
-                  <Text i classes='fa-solid fa-paper-plane text-primary-gray text-xl'/>
-                  {/*<Text i classes='fa-solid fa-face-smile text-primary-gray text-xl'/>*/}
-                </button>
-              </Row>
-            </Box>
-          </Row>
-        </Box>
-      </Transition>
-    </Box>
+            </Row>
+          </Box>
+        </Transition>
+      </Box>
     </>
   );
 }

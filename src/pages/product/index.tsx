@@ -51,7 +51,7 @@ export default function ProductListPage() {
     <>
       <Seo description='Mori ECommerce - All products'/>
 
-      <Box classes='hidden laptop:block layout  pt-12'>
+      <Box classes='hidden laptop:block layout pt-12'>
         <Breadcrumb
           classes='pl-1'
           data={dataBreadcrumb}

@@ -1,6 +1,7 @@
-import React, { createContext, Component } from 'react'
+import React, { createContext, Component, useContext } from 'react'
 import { STORAGE_KEY } from "config/const";
 import { IProduct } from "types/product";
+import { AuthContext } from "./authContext";
 
 const initialState = {
   cart: [],
@@ -24,6 +25,10 @@ const calculateTotal = (cart) => {
 const sumAllProduct = (cart) => cart.reduce((total, element) => total + element.quantity, 0);
 
 export const CartContext = createContext(initialState)
+
+export function useShoppingCart() {
+  return useContext(CartContext);
+}
 
 export class CartProvider extends Component {
   constructor(props) {

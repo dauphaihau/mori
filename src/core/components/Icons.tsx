@@ -1,4 +1,17 @@
-import { UserIcon as UserIconSolid, XIcon, CheckIcon, SelectorIcon, TruckIcon, GiftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon,  MinusIcon, PlusIcon  } from '@heroicons/react/solid';
+import {
+  UserIcon as UserIconSolid,
+  XIcon,
+  CheckIcon,
+  SelectorIcon,
+  TruckIcon,
+  GiftIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+  MinusIcon,
+  PlusIcon,
+  PhotographIcon
+} from '@heroicons/react/solid';
 import {
   HandIcon,
   ShoppingBagIcon,
@@ -7,7 +20,7 @@ import {
   SearchIcon,
   MenuIcon,
   PencilIcon,
-  TrashIcon
+  TrashIcon, ChatIcon, PaperClipIcon
 } from '@heroicons/react/outline';
 
 export const Icons = {
@@ -30,4 +43,7 @@ export const Icons = {
   minus: MinusIcon,
   pencil: PencilIcon,
   trash: TrashIcon,
+  chat: ChatIcon,
+  photo: PhotographIcon,
+  paperClip: PaperClipIcon,
 }

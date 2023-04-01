@@ -1,10 +1,12 @@
 .chat-box {
   @apply hidden laptop:block;
 
+    //@apply fixed p-1.5 px-2.5 bg-black rounded-full
   &__disabled {
-    @apply fixed p-3 px-4 bg-black rounded-full
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    @apply fixed p-[6px] bg-white rounded-full
     bottom-[2%] right-[1%] z-30 cursor-pointer
-    drop-shadow-2xl;
+    ;
 
     .icon-btn {
       @apply text-white text-3xl  drop-shadow-2xl;

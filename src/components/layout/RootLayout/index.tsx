@@ -33,7 +33,7 @@ export default function RootLayout({ children }: {children: ReactNode}) {
       <Header/>
       <Box classes=''>
       {/*<Box classes='mt-3 laptop:mt-1'>*/}
-        <Box main>{children}</Box>
+        <Box main classes='mb-16'>{children}</Box>
         <Footer/>
       </Box>
 

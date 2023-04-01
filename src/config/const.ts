@@ -51,20 +51,4 @@ export const PATH = {
   NEWS: {
     _: '/news',
   },
-  COMMON: {
-    CREATE: '/create',
-    UPDATE: '/update',
-    DETAIL: '/detail',
-    PARAMS: {
-      USER_ID: '/:userId',
-      CUSTOMER_ID: '/:customerId',
-      SME_ID: '/:smeId',
-      COMPANY_ID: '/:id',
-      CONTRACT_ID: '/:contractId',
-      VOUCHER_ID: '/:voucherId',
-      REWARD_ID: '/:rewardId',
-      NEWS_ID: '/:newsId',
-      TERM_ID: '/:id',
-    },
-  },
 };

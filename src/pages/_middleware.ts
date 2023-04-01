@@ -21,7 +21,6 @@ export async function middleware(req: NextRequest) {
 
   const now = new Date().getTime();
   const isAuth = Boolean(authData && authData.token && authData.refreshAt && now < authData.expiredAt && profile)
-  console.log('dauphaihau debug: is-auth', isAuth)
 
   if (routesAuth.includes(urlCurrent)) {
 

@@ -144,11 +144,7 @@ handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log('dauphaihau debug: req-body', req.body)
   // const mapped = req.body.ids.map(item => mongoose.Types.ObjectId(item))
-
-  // console.log('dauphaihau debug: mapped', mapped)
-  // console.log('dauphaihau debug: data', data)
 
   const result = await Product.find({ 'name': { $in: ['Autumn Oak Hardwood', 'Clarksburg Wooden Casket'] } });
   // const result = await Product.find({ '_id': { $in: mapped } });

@@ -7,10 +7,8 @@ import { ICustomer, IToken } from "types/customer";
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 import Stripe from "stripe"
 
-// import * as Stripe from "stripe";
 import { isAuth } from "lib/middlewares/auth";
 import Order from "lib/models/Order";
-import { date } from "yup";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 

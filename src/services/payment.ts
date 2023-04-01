@@ -1,6 +1,7 @@
 import api from "lib/axios"
 import { config } from "../config";
 import getStripe from "../lib/get-stripejs";
+import useSWR from "swr";
 
 export const checkoutService = {
   payment: async (values) => {
@@ -33,6 +34,17 @@ export const checkoutService = {
         message: response?.data?.message,
       };
     }
-  }
+  },
+}
+
+export function useCheckSessionId(id) {
+  const fetcher = url => api.get(url).then(res => res.data)
+  const { data, error } = useSWR(id ? `${config.api.checkout._}/${id}` : null, fetcher)
+  return {
+    // products: data?.products,
+    data,
+    isLoading: !data,
+    isError: !!error,
+  };
 
 }
