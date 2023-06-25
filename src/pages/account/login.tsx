@@ -1,6 +1,6 @@
 import { Text, Link, Box, Col } from 'core/components';
 import { PATH } from "config/const";
-import UserAuthForm from "components/pages/account/UserAuthForm";
+import UserAuthForm from "components/pages/account/user-auth-form";
 import AuthLayout from 'components/layout/AuthLayout';
 
 export default function LoginPage() {
@@ -24,9 +24,8 @@ export default function LoginPage() {
       >
         <Link
           href={PATH.ACCOUNT.FORGOT_PASSWORD}
-          // classes='text-primary-gray'>
           underline
-          classes='text-sm text-[#b5b5b8] mb-8 mt-4 hover:text-primary-black'
+          classes='text-sm text-primary-gray mb-8 mt-4'
         >
           Forgot Password?
         </Link>

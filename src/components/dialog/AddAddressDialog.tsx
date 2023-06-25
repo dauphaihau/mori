@@ -23,6 +23,11 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
   const [states, setStates] = useState([])
   const [countryCode, setCountryCode] = useState('')
 
+  const {
+    register, handleSubmit, reset, control, setValue, watch,
+    formState: { errors },
+  } = useForm<FormData>({ resolver: yupResolver(addressSchema) });
+
   useEffect(() => {
 
     // console.log('dauphaihau debug: address', address)
@@ -37,19 +42,13 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
           value: item
         }))
         setStates(statesOptions)
+        setValue('state', statesOptions[0].value)
       } else {
         setStates([])
       }
     }
 
   }, [countryCode])
-
-  const {
-    register,
-    handleSubmit,
-    reset, control,
-    formState: { errors },
-  } = useForm<FormData>({ resolver: yupResolver(addressSchema) });
 
   useEffect(() => {
     reset()
@@ -73,8 +72,15 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
       default:
         toast.error(message ?? 'Create failed!')
     }
-
   }
+
+  const checkKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit(onSubmit)()
+    }
+  };
+
 
   return (
     <Dialog
@@ -94,8 +100,9 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
             classes='text-xl mb-8'
           >Shipping Address</Text>
 
-          <Box
-            form
+          <form
+
+            onKeyDown={(e) => checkKeyDown(e)}
             onSubmit={handleSubmit(onSubmit)}
           >
             <Grid md={2} lg={2} gapx={4}>
@@ -150,14 +157,11 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
                     size='medium'
                     options={countriesOptions}
                     value={value}
-                    // onChange={(option) => onChange(option.value)}
                     onChange={(option) => {
                       onChange(option.value)
                       setCountryCode(option.value)
                     }}
                     helperText={errors?.countryCode?.message}
-                    // onChange={onChange}
-                    // onChange={(e) => handleOnchange('countryCode', e.value)}
                   />
                 )}
               />
@@ -168,14 +172,13 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
                     name='state'
                     render={({ field: { onChange, value } }) => (
                       <Select
+                        // disabled={!watch('countryCode')}
                         name='state'
                         label='State *'
                         // label='State / Province *'
                         size='medium'
                         options={states}
                         value={value}
-                        // onChange={(e) => console.log(e.value)}
-                        // onChange={(e) => handleOnchange('country', e.value)}
                         onChange={(option) => onChange(option.value)}
                         helperText={errors?.state?.message}
                       />
@@ -193,9 +196,8 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
             </Grid>
             <Controller
               control={control}
-              // name='isPrimary'
-              // as={<CheckboxTest value={initialValues?.isPrimary} label="Use this address as default." name={}/>}
               name='isPrimary'
+              // as={<CheckboxTest value={initialValues?.isPrimary} label="Use this address as default." name={}/>}
               render={({ field: { onChange, value } }) => (
                 <CheckboxTest
                   label='Use this address as default.'
@@ -212,11 +214,13 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
               classes='mt-2'
             >
               <Button
-                onClick={() => setShowAddAddressDialog(false)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setShowAddAddressDialog(false)
+                }}
                 light
-                type='button'
                 text='Cancel'
-                as='text'
+                variant='text'
               />
               <Button
                 classes='w-fit '
@@ -225,7 +229,7 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
                 text='Save'
               />
             </Row>
-          </Box>
+          </form>
         </Box>
       </Dialog.Content>
     </Dialog>

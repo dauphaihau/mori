@@ -37,8 +37,10 @@ export default function RootLayout({ children }: {children: ReactNode}) {
         <Footer/>
       </Box>
 
-      <SubscribeDialog/>
+      {/*<SubscribeDialog/>*/}
       {/*<AcceptCookie/>*/}
+
+      {/* @ts-ignore*/}
       <ChatBox/>
     </>
   );

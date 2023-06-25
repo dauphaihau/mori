@@ -27,7 +27,7 @@ const Breadcrumb = ({ data, classes }: BreadcrumbProps) => {
                   key={index}
                 >
                   <Link
-                    underline
+                    hoverUnderline
                     href={path}
                     className='inline-flex items-center text-sm'
                   >
@@ -53,7 +53,7 @@ const Breadcrumb = ({ data, classes }: BreadcrumbProps) => {
                 <div className='flex items-center'>
                   <span className='mx-2'>/</span>
                   <Link
-                    underline
+                    hoverUnderline
                     className='text-sm'
                     href={path}
                   >

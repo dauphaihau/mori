@@ -20,6 +20,7 @@ export default function ChatBox() {
 
   const sendChatMessage = (messageText) => {
     // channel.publish({name: 'customer1', data: messageText});
+    // @ts-ignore
     channel.publish({ name: 'customer11', data: messageText });
     setMessageText('');
     inputBox.focus();
@@ -39,6 +40,7 @@ export default function ChatBox() {
   }
 
   const messages = receivedMessages.map((message, index) => {
+    // @ts-ignore
     const author = message.connectionId === ably.connection.id ? 'me' : 'other';
 
     if (author === 'me') {

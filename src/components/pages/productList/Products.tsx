@@ -18,8 +18,8 @@ export default function Products({ products, gridView }) {
   if (gridView) {
     return (
       <Grid
-        gap={4} sx={1} md={2} lg={3}
         classes={[isLoaded && 'fade-in-start', 'product-list']}
+        gap={4} sx={1} md={2} lg={3}
       >
         {
           products?.map((item, index) => (

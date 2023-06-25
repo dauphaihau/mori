@@ -24,7 +24,7 @@ export default function Footer() {
                       link.list.map((item, idx) => (
                         <List.Item key={idx} classes='topic__item'>
                           <Link
-                            underline
+                            hoverUnderline
                             href={PATH.HOME}
                             classes='topic__link'
                           >

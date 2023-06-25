@@ -10,13 +10,14 @@ type LinkType = {
   openNewTab?: boolean;
   disabled?: boolean,
   underline?: boolean,
+  hoverUnderline?: boolean,
   hideIf?: boolean,
   text?: string | number | ReactNode,
 } & ComponentPropsWithoutRef<'a'> & LinkProps
 
 const Link = (props: LinkType) => {
   const {
-    href, children, underline, scroll, openNewTab, hideIf, text,
+    href, children, underline, scroll, openNewTab, hideIf, text, hoverUnderline,
     target, classes, className, disabled, ...others
   } = props;
 
@@ -37,7 +38,7 @@ const Link = (props: LinkType) => {
         href={href}
         className={cn('cursor-newTab',
           {
-            'underline underline-offset-2 hover:opacity-80': underline,
+            'underline underline-offset-2 hover:opacity-80 decoration-1 hover:opacity-80  hover:text-[#da615d] animate': underline,
             'hidden': hideIf,
           },
           cn(classes),
@@ -60,7 +61,8 @@ const Link = (props: LinkType) => {
         target={target}
         className={cn(
           {
-            'hover:underline underline-offset-2 decoration-1 hover:opacity-80': underline,
+            'underline underline-offset-2 decoration-1 hover:opacity-80  hover:text-[#da615d] animate': underline,
+            'hover:underline underline-offset-2 decoration-1 animate': hoverUnderline,
             'hidden': hideIf,
           },
           cn(classes)

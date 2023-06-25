@@ -11,10 +11,10 @@ const ResultSearch = ({ products }) => {
       return (
         <Box>
           <Col>
-            <Text size={13} classes='text-primary-gray py-2 border-b sticky top-0 bg-white z-10'>Products</Text>
-            <Divider classes='border-primary-gray opacity-20'/>
+            <Text size={13} classes='text-primary-gray py-2 sticky top-0 bg-white z-10'>Products</Text>
+            <Divider classes='border-primary-gray border-b opacity-10'/>
           </Col>
-          <Text size={14} classes='border-t py-3 block' data-testid="noResultsText">
+          <Text size={14} classes='py-3 block ' data-testid="noResultsText">
             No results could be found
           </Text>
         </Box>
@@ -26,9 +26,9 @@ const ResultSearch = ({ products }) => {
           <Col>
             <Text
               size={13}
-              classes='text-primary-gray py-2 border-b sticky top-0 bg-white z-10'
+              classes='text-primary-gray py-2 sticky top-0 bg-white z-10'
             >{products.length} result</Text>
-            <Divider classes='border-primary-gray opacity-20'/>
+            <Divider classes='border-primary-gray border-b opacity-10'/>
           </Col>
           <Box data-testid="productsList">
             {

@@ -3,17 +3,13 @@ import * as Yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-// import countryOpts from 'assets/data/country.json';
-import { useAuth } from 'components/context/authContext';
 import { Dialog, Button, Text, Checkbox, Input, Select, Box, Grid, Row } from 'core/components';
-// import { countriesOptions } from "assets/data/options";
 import { countriesData } from "assets/data/Country";
 import { accountService } from "services/account";
 import { addressSchema } from "lib/validation/address";
 import CheckboxTest from "core/components/Input/CheckboxTest";
 import { toast } from "react-hot-toast";
-import { omitFieldNullish } from "../../core";
-// import { countriesOptions } from "assets/data/options";
+import { omitFieldNullish } from "core/helpers";
 
 type FormData = Yup.InferType<typeof addressSchema>
 
@@ -22,16 +18,45 @@ const countriesOptions = countriesData.list.map(item => ({
   value: item.numberCode
 }))
 
-const AddressDialog = ({
+const UpdateAddressDialog = ({
   showUpdateAddressDialog, setShowUpdateAddressDialog, mutateAddressList, initialValues
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [states, setStates] = useState([])
   const [countryCode, setCountryCode] = useState('')
 
-  useEffect(() => {
+  const formOptions = {
+    // defaultValues: initialValues,
+    resolver: yupResolver(addressSchema)
+  };
 
-    // console.log('dauphaihau debug: address', address)
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    control,
+    setValue,
+    formState: { errors }
+  } = useForm<FormData>(formOptions);
+
+  useEffect(() => {
+    if (watch('countryCode')) {
+      console.log('dauphaihau debug: watch-state-', watch('state'))
+      const country = countriesData.list.find(item => item.numberCode === watch('countryCode'))
+      setStates([])
+      if (country.states.length > 0) {
+        const statesOptions = country.states.map(nameState => ({
+          label: nameState,
+          value: nameState
+        }))
+        setStates(statesOptions)
+        setValue('state', watch('state'))
+      } else {
+        setStates([])
+      }
+    }
+
     if (countryCode) {
       // if (address.countryCode) {
       const country = countriesData.list.find(item => item.numberCode === countryCode)
@@ -43,24 +68,17 @@ const AddressDialog = ({
           value: item
         }))
         setStates(statesOptions)
+        setValue('state', statesOptions[0].value)
       } else {
         setStates([])
       }
     }
 
-  }, [countryCode])
-
-  const formOptions = {
-    // defaultValues: initialValues,
-    resolver: yupResolver(addressSchema)
-  };
-
-  const { register, handleSubmit, reset, control, setValue, formState: { errors } } = useForm<FormData>(formOptions);
+  }, [countryCode, watch('countryCode')])
 
   useEffect(() => {
     if (showUpdateAddressDialog) {
       const fields = ['name', 'address1', 'address2', 'city', 'zipCode', 'postalCode', 'countryCode', 'province', 'state', 'phone', 'isPrimary',]
-      // fields.forEach(key => setValue(key, initialValues[key]))
       fields.forEach(key => setValue(key as never, initialValues[key] as never))
     }
     return () => {
@@ -70,9 +88,6 @@ const AddressDialog = ({
 
   async function onSubmit(values: FormData) {
     setIsLoading(true)
-    // console.log('dauphaihau debug: values', values)
-    // console.log('dauphaihau debug: initial-values', initialValues)
-    // console.log('dauphaihau debug: -values-id-initial-values-id-', { ...values, id: initialValues._id })
 
     const { address2, ...required } = values;
     const omitted = omitFieldNullish(required);
@@ -123,14 +138,12 @@ const AddressDialog = ({
                 label='Full Name *'
                 name='name'
                 register={register}
-                // defaultValue={initialValues?.name}
                 helperText={errors?.name?.message}
               />
               <Input
                 label='Phone/Mobile *'
                 name='phone'
                 register={register}
-                // defaultValue={initialValues?.phone}
                 helperText={errors?.phone?.message}
               />
             </Grid>
@@ -139,7 +152,6 @@ const AddressDialog = ({
               name='address1'
               register={register}
               helperText={errors?.address1?.message}
-              // defaultValue={initialValues?.address1}
             />
             <Input
               label='Address 2'
@@ -164,8 +176,8 @@ const AddressDialog = ({
                 // defaultValue={initialValues?.zipCode}
               />
             </Grid>
-            <Grid md={1} lg={2} gapx={4}>
 
+            <Grid md={1} lg={2} gapx={4}>
               <Controller
                 control={control}
                 name='countryCode'
@@ -233,10 +245,13 @@ const AddressDialog = ({
               classes='mt-2'
             >
               <Button
-                as='text'
+                variant='text'
                 type='button'
                 light
-                onClick={() => setShowUpdateAddressDialog(false)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setShowUpdateAddressDialog(false)
+                }}
                 text='Cancel'
               />
               <Button
@@ -254,4 +269,4 @@ const AddressDialog = ({
   );
 }
 
-export default AddressDialog;
+export default UpdateAddressDialog;

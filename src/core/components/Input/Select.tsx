@@ -20,6 +20,7 @@ interface SelectType<O extends OptionValue> {
   size?: string,
   borderLight?: boolean,
   hideIconOptions?: boolean,
+  disabled?: boolean,
   value?: string,
   classesSpace?: string,
   classesBtn?: string,
@@ -39,6 +40,7 @@ function Select<Type extends OptionValue>(props: SelectType<Type>) {
     classesSpace = '',
     classesBtn = '',
     helperText,
+    disabled,
     borderLight,
   } = props
 
@@ -59,6 +61,7 @@ function Select<Type extends OptionValue>(props: SelectType<Type>) {
         setSelected(option);
         onChange(option);
       }}
+      disabled={disabled}
     >
       {({ open }) => (
         <div className={`form-select-input ${classesSpace}`}>

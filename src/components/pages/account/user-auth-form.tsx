@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 import { HTMLAttributes, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Button, Input, Box } from 'core/components';
@@ -17,7 +16,6 @@ interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {
 type FormData = Yup.InferType<typeof userAuthSchema>
 
 export default function UserAuthForm({ className }: UserAuthFormProps) {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [errorServer, setErrorServer] = useState('')
   const emailInputRef = useAutoFocus();
@@ -25,7 +23,6 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
 
   const {
     register, handleSubmit,
-    reset, setError, setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(userAuthSchema)
@@ -33,7 +30,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
 
   async function onSubmit(values: FormData) {
     setIsLoading(true)
-    const {data, isLoading, message, status } = await accountService.login(values)
+    const { data, isLoading, message, status } = await accountService.login(values)
     setIsLoading(isLoading)
 
     switch (status) {
@@ -75,7 +72,6 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
         width='full'
         // classes='w-[calc(100%-3rem)] laptop:w-[calc(100%-2rem)] font-bold'
         classes='font-bold'
-        size='lg'
         shadow
         isLoading={isLoading}
         text='Login to your account'

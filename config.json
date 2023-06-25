@@ -2,8 +2,7 @@
   "cryptoKey": "dauphaihau",
   "port": "1111",
   "api": {
-    "host": "https://api.mori.dev.com",
-    "host2": "https://coffin-ecommerce.vercel.app",
+    "host": "https://mori-ecommerce.vercel.app",
     "account": {
       "login": "/api/account/login",
       "register": "/api/account/register",
@@ -35,6 +34,10 @@
   "request": {
     "timeoutView": 35000,
     "timeoutRequest": 30000
+  },
+  "token": {
+    "tokenLife": 5700,
+    "refreshTokenLife": 604800000
   },
   "bcryptSalt": 10,
   "hostStaticSource": "https://res.cloudinary.com/duiehrbms/image/upload/v1668264431/mori-ecommerce",

@@ -36,17 +36,14 @@ function QuantitySelector({ context }) {
   const handleValidCheckInCart = (quantitySelected) => {
     try {
       if (cart.length) {
-        console.log('dauphaihau debug: cart', cart)
         const productInCart = cart.find(o => product.id === o._id)
         // console.log('dauphaihau debug: product-in-cart', productInCart.quantity)
         if (!productInCart) {
           return true
         }
 
-        console.log('dauphaihau debug: product-in-cart', productInCart)
         if (productInCart) {
           const resQuantityProd = stockQuantity - productInCart.quantity
-          console.log('dauphaihau debug: res-quantity-prod-value-selected', resQuantityProd >= quantitySelected)
           return resQuantityProd >= quantitySelected
         }
         return false
@@ -62,8 +59,6 @@ function QuantitySelector({ context }) {
   const handleSelectQuantityItem = (quantitySelected) => {
     const status1 = stockQuantity >= quantitySelected
     const status2 = handleValidCheckInCart(quantitySelected)
-
-    console.log('dauphaihau debug: -status-1-status-2-', [status1, status2])
 
     if (status1 && status2) {
       setQuantityItem(quantitySelected)

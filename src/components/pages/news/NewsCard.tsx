@@ -32,11 +32,12 @@ export default function NewsCard({ data }) {
         </Text>
         <div className='no-underline'></div>
         <Link
-          href={PATH.DEFAULT}
+          href={'#'}
+          underline
           classes='inline-flex items-center py-2
-          text-sm font-medium text-center
-          underline underline-offset-4 decoration-1 hover:opacity-80
-          text-black hover:no-underline
+          text-sm font-medium
+          underline-offset-4
+          text-black
           '
         >
           Read more

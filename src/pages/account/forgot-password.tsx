@@ -131,7 +131,10 @@ const ForgotPasswordPage = () => {
         ]}
       >
         <Text span classes='mr-2'>{formType[currentForm].textFooter}</Text>
-        <Link underline href={PATH.ACCOUNT.LOGIN}>
+        <Link underline href={PATH.ACCOUNT.LOGIN}
+
+
+        >
           {formType[currentForm].linkTextFooter}
         </Link>
       </Row>

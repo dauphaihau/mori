@@ -9,8 +9,9 @@ import { isEmptyObject } from "core/helpers";
 export const accountService = {
   register: async (values) => {
     try {
-      values.password = encryptPassword(values.password, config.cryptoKey)
-      const { data: { data }, status } = await api.post(config.api.account.register, values);
+      let { password, email } = values
+      password = encryptPassword(password, config.cryptoKey)
+      const { data: { data }, status } = await api.post(config.api.account.register, { email, password });
       return { data, status, isLoading: !data };
     } catch ({ response }) {
       return {

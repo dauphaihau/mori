@@ -58,10 +58,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
   async function onSubmit(values: FormData) {
     setIsLoading(true)
     const {
-      data,
-      isLoading,
-      status,
-      message
+      data, isLoading, status, message
     } = currentForm === 'register' ? await accountService.register(values) : await accountService.login(values)
     setIsLoading(isLoading)
 
@@ -79,6 +76,13 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
     }
   }
 
+  const checkKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit(onSubmit)()
+    }
+  };
+
   return (
     <Dialog
       isOpen={showLoginDialog}
@@ -93,10 +97,11 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
       >
         <Text h3>{formType[currentForm].title}</Text>
         <Text>{formType[currentForm].message}</Text>
-        <Box
-          form
+
+        <form
+          onKeyDown={(e) => checkKeyDown(e)}
           onSubmit={handleSubmit(onSubmit)}
-          classes='space-y-6 subscribe-letter-bg mt-4'
+          className='space-y-6 subscribe-letter-bg mt-4'
         >
           {
             currentForm === 'register' &&
@@ -122,7 +127,9 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             label='Password'
             data-testid='passwordInput'
             register={register}
+            onKeyPress={(e:React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => { e.key === 'Enter' && e.preventDefault(); }}
             helperText={errors?.password?.message}
+            onKeyDown={e => e.key === 'Enter' ? handleSubmit(onSubmit) : ''}
           />
           {
             currentForm === 'login' &&
@@ -130,16 +137,18 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
               justify='between'
               align='center'
             >
-              <Checkbox
-                value=''
-                name='rememberMe'
-                label='Remember me'
-                onChange={() => {}}
-              />
+              {/*<Checkbox*/}
+              {/*  value=''*/}
+              {/*  name='rememberMe'*/}
+              {/*  label='Remember me'*/}
+              {/*  onChange={() => {}}*/}
+              {/*/>*/}
+              <div></div>
               <Link href={PATH.ACCOUNT.FORGOT_PASSWORD}>
                 <Text
+                  // weight='med'
                   as='button'
-                  classes='text-sm text-black hover:underline pt-[2px]'
+                  classes='text-sm text-gray-500 underline decoration-1 underline-offset-2 hover:text-[#da615d] animate  pt-[2px]'
                 >Forgot Password?</Text>
               </Link>
             </Row>
@@ -147,7 +156,6 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
           <Button
             type='submit'
             width='full'
-            size='lg'
             data-testid='btn-submit-login'
             isLoading={isLoading}
           >
@@ -156,14 +164,15 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
 
           {
             formType[currentForm].textFooter &&
-            <Row classes='text-sm font-medium text-gray-500 dark:text-gray-300'>
-              <Text span classes='mr-2 text-primary-gray'>{formType[currentForm].textFooter}</Text>
+            <Row classes='text-sm font-medium text-gray-500 dark:text-gray-300' justify={'center'}>
+              <Text span classes='mr-1 text-primary-gray'>{formType[currentForm].textFooter}</Text>
+
               <Text
                 span
-                weight='bold'
+                // weight='semibold'
                 as='button'
-                color='black'
-                classes='hover:underline'
+                // color='black'
+                classes='text-primary-gray underline decoration-1 underline-offset-2 hover:text-[#da615d] animate'
                 onClick={() => {
                   setCurrentForm(currentForm === 'register' ? 'login' : 'register');
                   reset();
@@ -173,7 +182,9 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
               </Text>
             </Row>
           }
-        </Box>
+        </form>
+
+
       </Dialog.Content>
     </Dialog>
   );

@@ -67,10 +67,9 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
       >
         <Box classes=''>
           <Text h3>Change your password</Text>
-          <Box
-            form
+          <form
             onSubmit={handleSubmit(onSubmit)}
-            classes='space-y-6 mt-4'
+            className='space-y-6 mt-4'
           >
             <ErrorServer
               message={errorServer}
@@ -98,12 +97,11 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
               helperText={errors?.confirmPassword?.message}
             />
             <Button
-              size='lg'
               type='submit'
               width='full'
               isLoading={isBtnLoading}
             >Change</Button>
-          </Box>
+          </form>
         </Box>
       </Dialog.Content>
     </Dialog>
