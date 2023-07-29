@@ -31,6 +31,7 @@ export default async function handler(
   let event;
 
   try {
+    // event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET_LOCAL);
     event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
     res.status(400).send(`Webhook Error: ${err.message}`);
@@ -55,6 +56,9 @@ export default async function handler(
     }).save();
     return customer
   }
+
+
+
 
   switch (event.type) {
     case 'payment_intent.succeeded':
@@ -196,32 +200,37 @@ export default async function handler(
       // }
       //
       // console.log('dauphaihau debug: session checkout run case create')
-      // // 2. case customer registered ( exists in db ),
-      // let customer = await Customer.findOne({ email })
-      // console.log('dauphaihau debug: customer', customer)
-      //
-      // if (isEmptyObject(customer)) {
-      //   console.log('dauphaihau debug: checkout session run case create customer')
-      //   customer = await handleCustomerNotExist(session.customer_details)
-      //   const updateCharge = await stripe.charges.update(
-      //     session.id,
-      //     { metadata: { customerId: customer.id } }
-      //   );
-      //   console.log('dauphaihau debug: update-charge', updateCharge)
-      // }
-      //
-      // const newOrder = {
-      //   // customerId: session.metadata?.customerId,
-      //   customerId: customer.id,
-      //   stripeCustomerId: session.customer,
-      //   stripeChargeId: session.id,
-      // }
-      //
-      // console.log('dauphaihau debug: new-order', newOrder)
-      // await new Order(newOrder).save()
 
-
+      // 2. case customer registered ( exists in db ),
       let customer = await Customer.findOne({ email })
+      console.log('dauphaihau debug: customer', customer)
+
+      if (isEmptyObject(customer)) {
+        console.log('dauphaihau debug: checkout session run case create customer')
+        customer = await handleCustomerNotExist(session.customer_details)
+        const updateCharge = await stripe.charges.update(
+          session.id,
+          { metadata: { customerId: customer.id } }
+        );
+        console.log('dauphaihau debug: update-charge', updateCharge)
+      }
+
+
+
+      const newOrder = {
+        // customerId: session.metadata?.customerId,
+        customerId: customer.id,
+        stripeCustomerId: session.customer,
+        stripeChargeId: session.id,
+      }
+
+      console.log('dauphaihau debug: new-order', newOrder)
+      await new Order(newOrder).save()
+
+
+      // let customer = await Customer.findOne({ email })
+      // customer = await Customer.findOne({ email })
+
       // address
       await new Address({
         ...address,

@@ -19,18 +19,17 @@ const countriesOptions = countriesData.list.map(item => ({
 }))
 
 const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutateAddressList }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [states, setStates] = useState([])
   const [countryCode, setCountryCode] = useState('')
 
   const {
-    register, handleSubmit, reset, control, setValue, watch,
+    register, handleSubmit, reset, control, setValue, watch, setError,
     formState: { errors },
   } = useForm<FormData>({ resolver: yupResolver(addressSchema) });
 
   useEffect(() => {
 
-    // console.log('dauphaihau debug: address', address)
     if (countryCode) {
       // if (address.countryCode) {
       const country = countriesData.list.find(item => item.numberCode === countryCode)
@@ -42,7 +41,13 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
           value: item
         }))
         setStates(statesOptions)
+
+        // @ts-ignore
         setValue('state', statesOptions[0].value)
+        // @ts-ignore
+        setValue('state', statesOptions[0].value)
+        // @ts-ignore
+        setError('state', '')
       } else {
         setStates([])
       }
@@ -55,8 +60,9 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
   }, [showAddAddressDialog])
 
   async function onSubmit(values: FormData) {
-    setIsLoading(true)
     console.log('dauphaihau debug: values', values)
+    setIsLoading(true)
+    // delete values.countryCode
     const { status, message } = await accountService.createAddress(values)
     setIsLoading(false)
 
@@ -81,7 +87,6 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
     }
   };
 
-
   return (
     <Dialog
       isOpen={showAddAddressDialog}
@@ -101,7 +106,6 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
           >Shipping Address</Text>
 
           <form
-
             onKeyDown={(e) => checkKeyDown(e)}
             onSubmit={handleSubmit(onSubmit)}
           >
@@ -146,16 +150,18 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
               />
             </Grid>
             <Grid md={1} lg={2} gapx={4}>
-
               <Controller
                 control={control}
+                // @ts-ignore
                 name='countryCode'
                 render={({ field: { onChange, value } }) => (
                   <Select
                     name='countryCode'
                     label='Country *'
                     size='medium'
-                    options={countriesOptions}
+                    // options={[]}
+                    options={[...[{ label: '', value: '' }], ...countriesOptions]}
+                    // options={countriesOptions}
                     value={value}
                     onChange={(option) => {
                       onChange(option.value)
@@ -169,6 +175,7 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
                 states.length > 0 ?
                   <Controller
                     control={control}
+                    // @ts-ignore
                     name='state'
                     render={({ field: { onChange, value } }) => (
                       <Select
@@ -177,7 +184,8 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
                         label='State *'
                         // label='State / Province *'
                         size='medium'
-                        options={states}
+                        // options={states}
+                        options={[...[{ label: '', value: '' }], ...states]}
                         value={value}
                         onChange={(option) => onChange(option.value)}
                         helperText={errors?.state?.message}
@@ -196,12 +204,14 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
             </Grid>
             <Controller
               control={control}
+              // @ts-ignore
               name='isPrimary'
               // as={<CheckboxTest value={initialValues?.isPrimary} label="Use this address as default." name={}/>}
               render={({ field: { onChange, value } }) => (
                 <CheckboxTest
+                  defaultChecked={false}
                   label='Use this address as default.'
-                  classesForm='mb-4'
+                  classesForm='mb-4 w-fit'
                   // register={register}
                   value={value}
                   // name='isPrimary'
@@ -209,10 +219,7 @@ const AddAddressDialog = ({ showAddAddressDialog, setShowAddAddressDialog, mutat
                 />
               )}
             />
-            <Row
-              justify='end'
-              classes='mt-2'
-            >
+            <Row justify='end' classes='mt-2'>
               <Button
                 onClick={(e) => {
                   e.preventDefault()

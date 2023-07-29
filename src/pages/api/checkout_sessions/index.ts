@@ -6,6 +6,7 @@ import { ICustomer, IToken } from "types/customer";
 import { verifyToken } from "lib/jwt";
 import { Stripe } from "stripe";
 import Address from "lib/models/Address";
+import { countriesData } from "assets/data/Country";
 
 // import { stripe } from "lib/stripe";
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -115,13 +116,13 @@ handler.post(async (req, res) => {
     // Registered user
     if (dataToken) {
       params.customer_email = dataToken?.email ?? ''
-      params.metadata = {
-        customerId: dataToken?.id ?? '',
-      }
+      // params.metadata = {
+      //   customerId: dataToken?.id ?? '',
+      // }
       params.payment_intent_data = {
-        // metadata: {
-        //   customerId: dataToken?.id ?? '',
-        // }
+        metadata: {
+          customerId: dataToken?.id ?? '',
+        }
       }
 
       address = await Address.findOne({ customerId: dataToken.id, isPrimary: true })
@@ -129,7 +130,31 @@ handler.post(async (req, res) => {
 
       if (address) {
         // auto prefill shipping address
+
+        const data = countriesData.list.find(item => item.numberCode === address.countryCode)
+        console.log('dauphaihau debug: data', data)
+
+        params.payment_intent_data = {
+          shipping: {
+            "name": address.name,
+            "address": {
+              "country": data.country,
+              "state": address.state,
+              "city": address.city,
+              "line1": address.address1,
+              "line2": address.address2 ?? '',
+              "postal_code": address.zipCode
+            }
+          }
+        }
+
+
+
       } else {
+        params.phone_number_collection = {
+          enabled: true
+        }
+
         // shipping_address_collection: { allowed_countries: ['US', 'CA'] },
         params.shipping_address_collection = { allowed_countries: ['US', 'CA', 'AU', 'IT', 'JP', 'SG', 'FR', 'DE', 'GB'] }
         // params.shipping_options = []
@@ -137,6 +162,11 @@ handler.post(async (req, res) => {
 
     }
 
+
+
+    params.payment_intent_data.metadata.order_created_at = new Date().valueOf()
+
+    console.log('dauphaihau debug: params', params)
     const session = await stripe.checkout.sessions.create(params);
 
     res.status(200).json(session);

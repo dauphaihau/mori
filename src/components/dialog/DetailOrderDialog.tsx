@@ -16,7 +16,7 @@ export default function DetailOrderDialog({ showDialog, setShowDialog, chargeId 
   //   }
   // }, [showDialog])
 
-  console.log('dauphaihau debug: purchased-products', purchasedProducts)
+  // console.log('dauphaihau debug: purchased-products', purchasedProducts)
 
   return (
     <Dialog

@@ -15,6 +15,7 @@ export interface InputType extends InputHTMLAttributes<HTMLInputElement> {
   label?: string,
   classes?: string,
   classesSpace?: string,
+  classesFormInput?: string,
   register?: any
   clearable?: boolean,
   defaultValue?: string,
@@ -34,7 +35,7 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
       onChange = (n, v) => {},
       helperText = '', clearable,
       defaultValue = '',
-      className, classes,
+      className, classes, classesFormInput,
       classesSpace, contentLeft, contentRight,
       ...others
     } = props;
@@ -67,7 +68,7 @@ const InputDefault = forwardRef<HTMLInputElement, InputType>(
     }
 
     return (
-      <div className='form-input'>
+      <div className={cn('form-input', classesFormInput)}>
         {label && <label htmlFor={name} className='font-bold block'>{label}</label>}
         <div className={cn('input group', classesSpace)}>
           <div className='input__contentLeft'>{contentLeft}</div>

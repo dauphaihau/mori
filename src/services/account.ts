@@ -9,9 +9,8 @@ import { isEmptyObject } from "core/helpers";
 export const accountService = {
   register: async (values) => {
     try {
-      let { password, email } = values
-      password = encryptPassword(password, config.cryptoKey)
-      const { data: { data }, status } = await api.post(config.api.account.register, { email, password });
+      values.password = encryptPassword(values.password, config.cryptoKey)
+      const { data: { data }, status } = await api.post(config.api.account.register, values);
       return { data, status, isLoading: !data };
     } catch ({ response }) {
       return {
@@ -176,6 +175,7 @@ export function usePrimaryAddress() {
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
+      revalidateOnMount: true
     }
   )
 
@@ -187,7 +187,7 @@ export function usePrimaryAddress() {
   };
 }
 
-export function useOrder(params) {
+export function useOrders(params) {
   const headers = getHeadersWithAuth()
   const token = headers.Authorization.replace('Bearer ', '')
   const arrKeys = token === 'undefined' ? null : [config.api.account.order, params, headers]
@@ -200,6 +200,7 @@ export function useOrder(params) {
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
+      revalidateOnMount: true
     }
   )
 

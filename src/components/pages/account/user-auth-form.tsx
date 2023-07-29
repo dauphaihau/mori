@@ -55,7 +55,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
       <Box classes='space-y-5 mb-8'>
         <Input
           name='email'
-          label='Email Address'
+          label='Email'
           register={register}
           helperText={errors?.email?.message}
           ref={emailInputRef}
@@ -70,9 +70,8 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
       <Button
         type='submit'
         width='full'
-        // classes='w-[calc(100%-3rem)] laptop:w-[calc(100%-2rem)] font-bold'
-        classes='font-bold'
         shadow
+        size='md'
         isLoading={isLoading}
         text='Login to your account'
       />

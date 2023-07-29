@@ -26,71 +26,86 @@ const UpdateAddressDialog = ({
   const [countryCode, setCountryCode] = useState('')
 
   const formOptions = {
-    // defaultValues: initialValues,
-    resolver: yupResolver(addressSchema)
+    defaultValues: initialValues,
+    resolver: yupResolver(addressSchema),
+    shouldUnregister: false
   };
 
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     control,
     setValue,
+    getValues,
+    clearErrors,
+    setError,
     formState: { errors }
   } = useForm<FormData>(formOptions);
-
-  useEffect(() => {
-    if (watch('countryCode')) {
-      console.log('dauphaihau debug: watch-state-', watch('state'))
-      const country = countriesData.list.find(item => item.numberCode === watch('countryCode'))
-      setStates([])
-      if (country.states.length > 0) {
-        const statesOptions = country.states.map(nameState => ({
-          label: nameState,
-          value: nameState
-        }))
-        setStates(statesOptions)
-        setValue('state', watch('state'))
-      } else {
-        setStates([])
-      }
-    }
-
-    if (countryCode) {
-      // if (address.countryCode) {
-      const country = countriesData.list.find(item => item.numberCode === countryCode)
-      // const country = countriesData.list.find(item => item.numberCode === address.countryCode)
-      setStates([])
-      if (country.states.length > 0) {
-        const statesOptions = country.states.map(item => ({
-          label: item,
-          value: item
-        }))
-        setStates(statesOptions)
-        setValue('state', statesOptions[0].value)
-      } else {
-        setStates([])
-      }
-    }
-
-  }, [countryCode, watch('countryCode')])
 
   useEffect(() => {
     if (showUpdateAddressDialog) {
       const fields = ['name', 'address1', 'address2', 'city', 'zipCode', 'postalCode', 'countryCode', 'province', 'state', 'phone', 'isPrimary',]
       fields.forEach(key => setValue(key as never, initialValues[key] as never))
+
+      const currentCountryCode = initialValues.countryCode
+      console.log('dauphaihau debug: current-country-code', currentCountryCode)
+
+      if (currentCountryCode) {
+        const country = countriesData.list.find(item => item.numberCode === currentCountryCode)
+        if (country.states.length > 0) {
+          const statesOptions = country.states.map(nameState => ({
+            label: nameState,
+            value: nameState
+          }))
+          setStates(statesOptions)
+        }
+      }
     }
-    return () => {
-      reset()
+
+    // return () => reset()
+    return () => clearErrors()
+  }, [showUpdateAddressDialog, initialValues])
+
+  useEffect(() => {
+    const countryCodeSelected = countryCode
+    const previousValues = getValues()
+    if (countryCodeSelected) {
+      const country = countriesData.list.find(item => item.numberCode === countryCodeSelected)
+      if (country.states.length > 0) {
+        const statesOptions = country.states.map(nameState => ({
+          label: nameState,
+          value: nameState
+        }))
+        setStates([{ label: '', value: '' }, ...statesOptions])
+        previousValues.countryCode = countryCodeSelected
+        previousValues.state = ''
+        reset(previousValues)
+      }
     }
-  }, [showUpdateAddressDialog])
+  }, [countryCode])
+
+  useEffect(() => {
+    console.log('dauphaihau debug: errors', errors)
+
+    // const previousValues = getValues()
+    // previousValues.countryCode = countryCode
+    // previousValues.state = ''
+    // reset(previousValues)
+    // console.log('dauphaihau debug: previous-values', previousValues)
+    // reset(previousValues)
+    // setError('state', 'is empty')
+
+  // },[errors])
+  },[errors?.state?.message])
 
   async function onSubmit(values: FormData) {
-    setIsLoading(true)
+    console.log('dauphaihau debug: values', values)
 
+    // setIsLoading(true)
     const { address2, ...required } = values;
     const omitted = omitFieldNullish(required);
+    console.log('dauphaihau debug: omitted', omitted)
     omitted.address2 = address2
     omitted.id = initialValues._id
 
@@ -109,6 +124,7 @@ const UpdateAddressDialog = ({
       default:
         toast.error(message ?? 'Update failed!')
     }
+
   }
 
   return (
@@ -180,6 +196,7 @@ const UpdateAddressDialog = ({
             <Grid md={1} lg={2} gapx={4}>
               <Controller
                 control={control}
+                // @ts-ignore
                 name='countryCode'
                 render={({ field: { onChange, value } }) => (
                   <Select
@@ -200,6 +217,7 @@ const UpdateAddressDialog = ({
                 states.length > 0 ?
                   <Controller
                     control={control}
+                    // @ts-ignore
                     name='state'
                     render={({ field: { onChange, value } }) => (
                       <Select
@@ -227,6 +245,7 @@ const UpdateAddressDialog = ({
             </Grid>
             <Controller
               control={control}
+              // @ts-ignore
               name='isPrimary'
               render={({ field: { onChange, value } }) => (
                 <CheckboxTest

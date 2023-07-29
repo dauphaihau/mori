@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import dayjs from 'dayjs';
 
-import { useOrder } from "services/account";
+import { useOrders } from "services/account";
 import { Table, Button, Text } from 'core/components';
 import DetailOrderDialog from "components/dialog/DetailOrderDialog";
 import { formatDollarUS, formatDollarUSFromStripe } from "core/helpers";
@@ -19,13 +19,13 @@ export default function OrderList() {
   })
   const [chargeId, setChargeId] = useState('')
 
-  const { orders, total, isLoading, paginatedOrderList } = useOrder(params)
+  const { orders, total, isLoading, paginatedOrderList } = useOrders(params)
   console.log('dauphaihau debug: orders', orders)
   // console.log('dauphaihau debug: charge-page-list', paginatedOrderList)
 
   useEffect(() => {
     if (paginatedOrderList && paginatedOrderList.length > 0) {
-      console.log('dauphaihau debug: run pagin')
+      // console.log('dauphaihau debug: run pagin')
       setPaginatedList(paginatedOrderList)
     }
   }, [paginatedOrderList])
@@ -42,7 +42,12 @@ export default function OrderList() {
     { id: 'id', title: 'Order' },
     {
       id: 'created', title: 'Date',
-      render: (row) => dayjs(row.created).format('LL')
+      render: (row) => {
+        if (!row.metadata?.order_created_at || !row.metadata.order_created_at) {
+          return '-'
+        }
+        return dayjs(Number(row.metadata.order_created_at)).format('LL')
+      }
     },
     { id: 'status', title: 'Status', align: 'center', },
     { id: 'amount', title: 'Total', render: (row) => formatDollarUSFromStripe(row.amount) },
@@ -65,13 +70,14 @@ export default function OrderList() {
     if (indexPaginated) {
       page = paginatedList[indexPaginated - 1]
     }
+    console.log('dauphaihau debug: page', page)
     setParams({ ...params, page })
+    // setParams({ ...params, page: 1 })
   }
 
   return (
     <>
       <DetailOrderDialog
-
         showDialog={showDialog}
         setShowDialog={setShowDialog}
         chargeId={chargeId}

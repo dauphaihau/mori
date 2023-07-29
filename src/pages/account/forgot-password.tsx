@@ -30,37 +30,29 @@ const formType = {
 }
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string()
-  .email('Email is invalid')
+  email: Yup.string().email('Email is invalid').required('Email is required'),
 });
 
 const ForgotPasswordPage = () => {
   const [errorServer, setErrorServer] = useState('')
-  const [isBtnLoading, setIsBtnLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState(null)
   const [currentForm, setCurrentForm] = useState('forgotPassword')
 
-  const { register, handleSubmit, setError, formState: { errors }, } = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors }, } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
   });
 
   const onSubmit = async ({ email }) => {
-    setIsBtnLoading(true)
+    setIsLoading(true)
     setEmail(email)
     const { isLoading, status, message } = await accountService.forgotPassword({ email })
-    setIsBtnLoading(isLoading)
+    setIsLoading(isLoading)
 
     switch (status) {
       case 200:
         setCurrentForm('emailSent')
         setErrorServer('')
-        break
-      case 401:
-        setError('email', {
-          type: 'server',
-          message
-        });
-        setErrorServer(message)
         break
       default:
         setErrorServer(message)
@@ -90,18 +82,18 @@ const ForgotPasswordPage = () => {
         <Col classes={currentForm === 'emailSent' ? 'hidden' : 'block'}>
           <Input
             name='email'
-            type='email'
+            // type='email'
             label='Email'
+            disabled={isLoading}
             register={register}
             helperText={errors?.email?.message}
           />
           <Button
             type='submit'
-            // classes='mt-5 w-[calc(100%-2rem)]'
-            classes='mt-5'
-            size='lg'
+            classes='mt-3'
+            size='md'
             width='full'
-            isLoading={isBtnLoading}
+            isLoading={isLoading}
           >
             {formType[currentForm].textButton}
           </Button>
@@ -114,10 +106,9 @@ const ForgotPasswordPage = () => {
           <Button
             type='submit'
             width='full'
-            // classes='mt-5 w-[calc(100%-2rem)]'
             classes='mt-5'
-            size='lg'
-            isLoading={isBtnLoading}
+            size='md'
+            isLoading={isLoading}
           >
             {formType[currentForm].textButton}
           </Button>
@@ -131,10 +122,7 @@ const ForgotPasswordPage = () => {
         ]}
       >
         <Text span classes='mr-2'>{formType[currentForm].textFooter}</Text>
-        <Link underline href={PATH.ACCOUNT.LOGIN}
-
-
-        >
+        <Link underline href={PATH.ACCOUNT.LOGIN}>
           {formType[currentForm].linkTextFooter}
         </Link>
       </Row>

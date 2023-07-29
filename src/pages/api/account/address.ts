@@ -49,13 +49,22 @@ handler.post(async (req: MyCustomerRequest, res) => {
       const update = { isPrimary: false }
       await Address.findOneAndUpdate(filter, update)
     }
-    new Address({ ...req.body, customerId }).save();
+
+    new Address({ ...req.body, customerId }).save().then((data) => {
+      console.log("saved data ", data);
+      return res.send({
+        status: '200',
+        message: 'OK'
+      });
+    }).catch(function (error) {
+      console.log('dauphaihau debug: error', error)
+      return res.status(422).send({
+        status: '402',
+        message: 'missing field'
+      });
+    });
 
     await db.disconnect();
-    return res.send({
-      status: '200',
-      message: 'OK'
-    });
   } catch (error) {
     console.log('error', error)
     return res.status(422).send('Ooops, something went wrong!');
@@ -79,7 +88,7 @@ handler.put(async (req: MyCustomerRequest, res) => {
     await db.disconnect();
     return res.send({
       status: '200',
-      message: 'updated user successfully'
+      message: 'updated address successfully'
     });
   } catch (error) {
     console.log('error', error)

@@ -11,8 +11,11 @@ import { userAuthSchema } from "lib/validation/auth";
 import { PATH } from 'config/const';
 import { userNameSchema } from "lib/validation/user";
 import { useAuth } from "components/context/authContext";
+import { userRegisterSchema } from "lib/validation/register";
 
 type FormData = Yup.InferType<typeof userNameSchema & typeof userAuthSchema>
+
+type TypeCurrentForm = 'login' | 'register'
 
 const formType = {
   login: {
@@ -33,11 +36,12 @@ const formType = {
 }
 
 const formOptions = { resolver: yupResolver(userAuthSchema) };
+const formRegisterOptions = { resolver: yupResolver(userRegisterSchema) };
 
 const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
   const router = useRouter();
-  const [currentForm, setCurrentForm] = useState<string>('login')
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [currentForm, setCurrentForm] = useState<TypeCurrentForm>('login')
+  const [isLoading, setIsLoading] = useState(false)
   const emailInputRef = useAutoFocus();
   const { loginRegisterSuccess } = useAuth();
 
@@ -51,9 +55,9 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
   }, [router.asPath])
 
   const {
-    register, handleSubmit, reset, setError,
+    register, handleSubmit, reset, setError, setValue,
     formState: { errors }
-  } = useForm<FormData>(formOptions);
+  } = useForm<FormData>(currentForm === 'login' ? formOptions : formRegisterOptions);
 
   async function onSubmit(values: FormData) {
     setIsLoading(true)
@@ -62,18 +66,18 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
     } = currentForm === 'register' ? await accountService.register(values) : await accountService.login(values)
     setIsLoading(isLoading)
 
-    if (status === 200) {
-      loginRegisterSuccess(data)
-      reset({ password: '', email: '', name: '' });
-      setShowLoginDialog(false);
-    } else {
-      if (errors) {
-        setError('email', {
-          type: 'server',
-          message
-        });
-      }
+    if (status !== 200) {
+      console.log('dauphaihau debug: errors', errors)
+      setError('email', {
+        type: 'server',
+        message
+      });
+      return
     }
+
+    reset();
+    loginRegisterSuccess(data)
+    setShowLoginDialog(false);
   }
 
   const checkKeyDown = (e) => {
@@ -101,11 +105,12 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
         <form
           onKeyDown={(e) => checkKeyDown(e)}
           onSubmit={handleSubmit(onSubmit)}
-          className='space-y-6 subscribe-letter-bg mt-4'
+          className='subscribe-letter-bg mt-4'
         >
           {
             currentForm === 'register' &&
             <Input
+              disabled={isLoading}
               name='name'
               label='Full Name'
               register={register}
@@ -113,6 +118,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             />
           }
           <Input
+            disabled={isLoading}
             clearable
             name='email'
             // type='email'
@@ -123,11 +129,13 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             ref={emailInputRef}
           />
           <Input.Password
+            disabled={isLoading}
             name='password'
+            classesFormInput={currentForm === 'register' && 'mb-8'}
             label='Password'
             data-testid='passwordInput'
             register={register}
-            onKeyPress={(e:React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => { e.key === 'Enter' && e.preventDefault(); }}
+            onKeyPress={(e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => { e.key === 'Enter' && e.preventDefault(); }}
             helperText={errors?.password?.message}
             onKeyDown={e => e.key === 'Enter' ? handleSubmit(onSubmit) : ''}
           />
@@ -136,6 +144,7 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
             <Row
               justify='between'
               align='center'
+              classes={'mb-6'}
             >
               {/*<Checkbox*/}
               {/*  value=''*/}
@@ -153,9 +162,12 @@ const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
               </Link>
             </Row>
           }
+
           <Button
+            size='md'
             type='submit'
             width='full'
+            classes='mb-6'
             data-testid='btn-submit-login'
             isLoading={isLoading}
           >

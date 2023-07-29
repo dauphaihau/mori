@@ -16,10 +16,6 @@ const customerSchema = new mongoose.Schema<ICustomer>(
     phone: { type: String },
     role: { type: Number, required: true },
     status: { type: Number, required: true },
-    //       stripeSubscriptionId: subscription.id,
-    //       stripeCustomerId: subscription.customer as string,
-    //       stripePriceId: subscription.items.data[0].price.id,
-    //       stripeCurrentPeriodEnd: new Date(
   },
   {
     timestamps: true,

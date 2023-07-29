@@ -6,7 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 // import ChatBox from './ChatBox';
-const ChatBox = dynamic(() => import('./ChatBox'), { ssr: false });
+// const ChatBox = dynamic(() => import('./ChatBox'), { ssr: false });
 
 import { Box } from 'core/components';
 import { SubscribeDialog } from 'components/dialog';
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: {children: ReactNode}) {
   return (
     <>
       <Toaster
-        position={isMobileScreen ? 'top-center' : 'bottom-right'}
+        position={isMobileScreen ? 'top-center' : 'bottom-center'}
         reverseOrder={false}
       />
       <FreeShip/>
@@ -41,7 +41,7 @@ export default function RootLayout({ children }: {children: ReactNode}) {
       {/*<AcceptCookie/>*/}
 
       {/* @ts-ignore*/}
-      <ChatBox/>
+      {/*<ChatBox/>*/}
     </>
   );
 }

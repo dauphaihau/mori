@@ -48,7 +48,6 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     refreshAt = dayjs(refreshAt).valueOf()
 
     const token = await signToken(profile, process.env.NEXT_PUBLIC_JWT_SECRET, expiredAt);
-    console.log('dauphaihau debug: token', token)
 
     delete profile.id
 

@@ -3,6 +3,7 @@ import { cn, createMaps } from "core/helpers";
 import { ClassValue } from "clsx";
 
 const FONT_WEIGHT_MAP = createMaps({
+  medium: 'font-medium',
   bold: 'font-bold',
   light: 'font-light',
   semibold: 'font-semibold',

@@ -90,7 +90,7 @@
     //@apply bg-gray-custom-52a focus:bg-white
     @apply bg-[#f7f7f7] focus:bg-white
     border border-solid border-gray-300 hover:border-black
-    rounded-lg placeholder-gray-500
+    rounded-md placeholder-gray-500
     transition duration-200 ease-in-out
     focus:ring-black focus:border focus:border-black focus:outline-none
   }

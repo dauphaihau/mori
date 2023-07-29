@@ -8,20 +8,22 @@ export const addressSchema = Yup.object().shape({
     zipCode: Yup.string().required('Zip code is required'),
     // postalCode: Yup.string().required('Postal code is required'),
 
-    // state: Yup.string().when('province', {
-    //   is: (province) => !province,
-    //   then: Yup.string().required('State is required'),
-    // }),
+    state: Yup.string().when('province', {
+      is: (province) => !province,
+      then: Yup.string().required('State is required'),
+    }),
     province: Yup.string().when('state', {
       is: (state) => !state,
       then: Yup.string().required('Province is required'),
     }),
-    // countryCode: Yup.string().required('Country is required'),
+    countryCode: Yup.string().required('Country is required'),
     isPrimary: Yup.boolean()
   },
+
+  // @ts-ignore
+  // 'province'
   ['province', 'state']
 );
-
 
 // export const addressSchema = Yup.object({
 //     name: Yup.string().required('Name is required'),

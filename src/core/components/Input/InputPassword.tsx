@@ -14,7 +14,7 @@ const InputPassword = forwardRef<HTMLInputElement, InputType>((props: InputType,
     register = () => {},
     onChange = (name, value) => {},
     helperText, clearable,
-    className, classes,
+    className, classes, classesFormInput,
     classesSpace, contentLeft,
 
     // contentRight,
@@ -36,7 +36,7 @@ const InputPassword = forwardRef<HTMLInputElement, InputType>((props: InputType,
   };
 
   return (
-    <div className='form-input'>
+    <div className={cn('form-input', classesFormInput)}>
       {label && <label htmlFor={name} className='font-bold'>{label}</label>}
       <div className={cn('input group', classesSpace)}>
         <div className='input__contentLeft'>{contentLeft}</div>

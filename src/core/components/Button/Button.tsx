@@ -7,11 +7,13 @@ const VARIANT_MAPS = createMaps({
   gray: 'bg-gray-custom-50 text-primary-black hover:bg-gray-custom-52 animate hover:text-primary-black',
   warning: 'bg-red-custom-500 text-white hover:opacity-80 animate',
   info: 'bg-[#3177ce] text-white hover:opacity-80 animate',
-  text: 'bg-transparent text-primary-black hover:text-primary-black hover:opacity-70'
+  text: 'bg-transparent text-primary-black hover:text-primary-black hover:opacity-70',
+  primary: 'bg-primary-black text-white dark:text-white dark:hover:text-white hover:text-white hover:opacity-80 ',
+  secondary: 'bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 font-semibold'
 })
 
 const SIZE_MAPS = createMaps({
-  sm: 'p-2 h-[36px]',
+  sm: 'px-3 min-h-[36px] leading-7 text-sm',
   md: 'p-3 h-[42px]',
   lg: 'p-4',
   xl: 'p-6',
@@ -35,8 +37,8 @@ const Button = forwardRef((props: Partial<ButtonProps>, ref: any) => {
   const {
     classes = '',
     width = '', icon = '', iconRight = '',
-    children, size = 'md', light = '',
-    text, shadow = '', variant = '',
+    children, size = 'sm', light = '',
+    text, shadow = '', variant = 'primary',
     isLoading = false,
     disabled: buttonDisabled, as, type,
     ...others

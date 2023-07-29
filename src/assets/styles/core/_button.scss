@@ -1,14 +1,14 @@
-  //text-[14px]
 .btn {
   @apply
+  font-medium
   cursor-pointer
   px-6 h-[36px]
   text-[0.935rem]
   w-auto text-center
   inline-flex items-center justify-center
+
   border-0 border-transparent rounded-md
-  bg-primary-black text-white dark:text-white dark:hover:text-white
-  hover:text-white hover:opacity-80
+
   transition ease-in-out duration-300
 
   leading-4

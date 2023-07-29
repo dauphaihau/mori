@@ -57,7 +57,7 @@ export default function UserRegisterForm({ className }: UserRegisterFormProps) {
         message={errorServer}
         onClick={() => setErrorServer('')}
       />
-      <Box classes='space-y-5 mb-8'>
+      <Box classes='space-y-5 mb-6'>
         <Input
           name='name'
           label='Full Name'
@@ -81,9 +81,7 @@ export default function UserRegisterForm({ className }: UserRegisterFormProps) {
       </Box>
       <Button
         type='submit'
-        classes='font-bold'
-        // classes='w-[calc(100%-3rem)] laptop:w-[calc(100%-2rem)] font-bold'
-        size='lg'
+        size='md'
         width='full'
         isLoading={isLoading}
         text='Sign up'

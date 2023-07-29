@@ -91,7 +91,7 @@ export default function ResetPasswordPage() {
           <Button
             type='submit'
             width='full'
-            size='lg'
+            size='md'
           >
             Forgot Password
           </Button>
@@ -140,7 +140,7 @@ export default function ResetPasswordPage() {
             type='submit'
             width='full'
             classes='mt-5'
-            size='lg'
+            size='md'
             isLoading={isBtnLoading}
           >
             {formType[currentForm].textButton}
@@ -153,7 +153,7 @@ export default function ResetPasswordPage() {
           <Button
             type='submit'
             width='full'
-            size='lg'
+            size='md'
             isLoading={isBtnLoading}
           >
             {formType[currentForm].textButton}

@@ -95,8 +95,9 @@ function Select<Type extends OptionValue>(props: SelectType<Type>) {
               className='form-select-input__options'
             >
               {
-                options.map((option, index) => (
-                  <Listbox.Option
+                options.map((option, index) => {
+                  if (!option.value && !option.label) return
+                  return <Listbox.Option
                     key={index}
                     className={({ active }) => cn(
                       active ? 'text-gray-700 bg-light-200 dark:hover:bg-gray-custom-502 dark:text-white' : 'text-black dark:text-white',
@@ -138,7 +139,7 @@ function Select<Type extends OptionValue>(props: SelectType<Type>) {
                       </>
                     )}
                   </Listbox.Option>
-                ))
+                })
               }
             </Listbox.Options>
           </Transition>

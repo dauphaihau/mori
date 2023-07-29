@@ -69,13 +69,15 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
           <Text h3>Change your password</Text>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className='space-y-6 mt-4'
+            className='mt-4'
+            // className='space-y-6 mt-4'
           >
             <ErrorServer
               message={errorServer}
               onClick={() => setErrorServer('')}
             />
             <Input
+              classes={'mb-4'}
               name='password'
               type='password'
               label='Old Password'
@@ -83,6 +85,7 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
               helperText={errors?.password?.message}
             />
             <Input
+              classes={'mb-4'}
               name='newPassword'
               type='password'
               label='New Password'
@@ -90,6 +93,7 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
               helperText={errors?.newPassword?.message}
             />
             <Input
+              classes={'mb-5'}
               name='confirmPassword'
               type='password'
               label='Confirm New Password'
@@ -98,6 +102,7 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
             />
             <Button
               type='submit'
+              size='md'
               width='full'
               isLoading={isBtnLoading}
             >Change</Button>

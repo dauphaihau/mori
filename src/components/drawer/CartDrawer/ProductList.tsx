@@ -65,7 +65,7 @@ export default function ProductList({ context }) {
                        inset-0
                        w-full h-full
                        hover:bg-black
-                       opacity-20 rounded-lg
+                       opacity-30 rounded-lg
                      '
                   >
                     <Text

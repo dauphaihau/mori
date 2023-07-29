@@ -15,7 +15,7 @@ const QuantityPicker = (props: QuantityPickerProps) => {
   let setSize;
 
   if (theme === 'black') {
-    setTheme = 'bg-black border-black text-white hover:bg-opacity-[0.9]'
+    setTheme = 'bg-black border-black text-white hover:bg-black/[0.8]'
     setHover = 'hover:bg-gray-800 hover:text-white'
   }
 

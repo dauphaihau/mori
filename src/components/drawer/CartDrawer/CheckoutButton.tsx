@@ -49,6 +49,7 @@ export default function CheckoutButton({ context }) {
 
   return (
     <Button
+      size='md'
       disabled={IsEmptyCart}
       isLoading={isLoadingBtn}
       onClick={handleCheckout}
@@ -60,8 +61,8 @@ export default function CheckoutButton({ context }) {
           { 'cursor-wait': isLoadingBtn }
         ]}
       >
-        <Text classes='mr-2 text-white'>Proceed to check out</Text>
-        <Text classes='border-white border-l pl-4  text-white'>{formatDollarUS(total)}</Text>
+        <Text classes='mr-2 text-white' weight={'medium'}>Proceed to check out</Text>
+        <Text classes='border-white border-l pl-4 text-white' weight={'medium'}>{formatDollarUS(total)}</Text>
       </Row>
     </Button>
   );

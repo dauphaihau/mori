@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from "next/router";
 
-import { Link, Text, Box, Button, Grid, Loading } from 'core/components';
+import {  Text, Box, Button, Grid, Loading } from 'core/components';
 import { useAuth } from 'components/context/authContext';
 import ChangePasswordDialog from 'components/dialog/ChangePasswordDialog';
 import { PATH } from 'config/const';
@@ -67,11 +67,9 @@ export default function AccountPage() {
             <SubTitle>Primary address</SubTitle>
             <Box>
               <InfoAddress/>
-              <Link href={PATH.ACCOUNT.ADDRESS}>
-                <Button>
-                  View Address
-                </Button>
-              </Link>
+              <Button classes={'font-medium'} onClick={() => router.push(PATH.ACCOUNT.ADDRESS)}>
+                View Address
+              </Button>
             </Box>
           </Box>
         </Grid>

@@ -1,4 +1,4 @@
-import { Text, Link, Box, Col } from 'core/components';
+import { Text, Link, Box, Col, Button } from 'core/components';
 import { PATH } from "config/const";
 import UserAuthForm from "components/pages/account/user-auth-form";
 import AuthLayout from 'components/layout/AuthLayout';
@@ -25,7 +25,7 @@ export default function LoginPage() {
         <Link
           href={PATH.ACCOUNT.FORGOT_PASSWORD}
           underline
-          classes='text-sm text-primary-gray mb-8 mt-4'
+          classes='text-sm text-primary-gray my-4'
         >
           Forgot Password?
         </Link>
@@ -34,16 +34,20 @@ export default function LoginPage() {
           span
           classes='mr-1 text-primary-gray text-base'
         >Don&apos;t have an account?</Text>
-
-        <Link
-          href={PATH.ACCOUNT.REGISTER}
-          classes='hover:decoration-black px-6 py-3 rounded-lg text-[15px]
-          bg-white text-[#6f6f73] drop-shadow font-bold
-          hover:opacity-80
-          '
-        >
-          Create new account
+        <Link href={PATH.ACCOUNT.REGISTER}>
+          <Button
+            variant={'secondary'}
+            type='submit'
+            width='full'
+            size='md'
+            text='Login to your account'
+            classes={'text-[#6f6f73]'}
+          >
+              Create new account
+          </Button>
         </Link>
+
+
       </Col>
     </AuthLayout>
   );

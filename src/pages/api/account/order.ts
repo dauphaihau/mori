@@ -71,7 +71,7 @@ handler.post(async (req: MyCustomerRequest, res) => {
 /* get list charge ( and all product are pick in charge ) */
 handler.get(async (req: MyCustomerRequest, res) => {
   try {
-    let { page, limit } = req.query
+    const { page, limit } = req.query;
     const customerId = req.customer.id
     console.log('dauphaihau debug: req-query', req.query)
     console.log('dauphaihau debug: customer-id', customerId)
@@ -110,9 +110,9 @@ handler.get(async (req: MyCustomerRequest, res) => {
       params.page = page
     }
 
-    console.log('dauphaihau debug: params', params)
+    // console.log('dauphaihau debug: params', params)
     const orders = await stripe.charges.search(params);
-    console.log('dauphaihau debug: orders', orders)
+    // console.log('dauphaihau debug: orders', orders)
 
     // console.log('dauphaihau debug: charge-page-list', paginatedOrderList)
 
