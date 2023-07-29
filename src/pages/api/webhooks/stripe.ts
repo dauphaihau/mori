@@ -13,6 +13,7 @@ import { sendSetPassword } from "lib/mailer";
 import Token from "lib/models/Token";
 import { config as configJSON } from "config";
 import Address from "lib/models/Address";
+import db from "../../../lib/db";
 
 export const config = {
   api: {
@@ -202,6 +203,7 @@ export default async function handler(
       // console.log('dauphaihau debug: session checkout run case create')
 
       // 2. case customer registered ( exists in db ),
+      await db.connect();
       let customer = await Customer.findOne({ email })
       console.log('dauphaihau debug: customer', customer)
 
@@ -246,6 +248,8 @@ export default async function handler(
       const filter = { stripeCustomerId: session.customer }
       const update = { stripeCheckoutSessionId: session.id }
       await Order.findOneAndUpdate(filter, update)
+
+      await db.disconnect();
     }
       break
 

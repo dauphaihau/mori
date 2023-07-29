@@ -7,10 +7,9 @@ import { verifyToken } from "lib/jwt";
 import { Stripe } from "stripe";
 import Address from "lib/models/Address";
 import { countriesData } from "assets/data/Country";
+import db from "lib/db";
 
-// import { stripe } from "lib/stripe";
-const stripe = require('stripe')(`${process.env.STRIPE_SECRET_KEY}`);
-// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
@@ -126,7 +125,9 @@ handler.post(async (req, res) => {
         }
       }
 
+      await db.connect();
       address = await Address.findOne({ customerId: dataToken.id, isPrimary: true })
+      await db.disconnect();
       console.log('dauphaihau debug: address', address)
 
       if (address) {
