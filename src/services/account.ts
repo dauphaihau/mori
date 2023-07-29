@@ -216,7 +216,7 @@ export function useOrders(params) {
 
 export function useDetailOrder(chargeId) {
   const fetcher = url => api.post(url, { chargeId }).then(res => res.data)
-  const { error, data } = useSWR(
+  const { error, data, mutate } = useSWR(
     chargeId ? [config.api.account.order, chargeId] : null,
     fetcher,
     {
@@ -227,6 +227,7 @@ export function useDetailOrder(chargeId) {
   )
 
   return {
+    mutate,
     purchasedProducts: data?.purchasedProducts,
     customer: data?.customer,
     isLoading: !data,

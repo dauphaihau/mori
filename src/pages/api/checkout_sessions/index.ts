@@ -9,7 +9,8 @@ import Address from "lib/models/Address";
 import { countriesData } from "assets/data/Country";
 
 // import { stripe } from "lib/stripe";
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(`${process.env.STRIPE_SECRET_KEY}`);
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 

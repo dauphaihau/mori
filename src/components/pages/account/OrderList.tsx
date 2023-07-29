@@ -18,6 +18,7 @@ export default function OrderList() {
     limit: rowsPerPage[0]
   })
   const [chargeId, setChargeId] = useState('')
+  const [chargeData, setChargeData] = useState({})
 
   const { orders, total, isLoading, paginatedOrderList } = useOrders(params)
   console.log('dauphaihau debug: orders', orders)
@@ -58,6 +59,7 @@ export default function OrderList() {
           onClick={() => {
             setShowDialog(true)
             setChargeId(row.id)
+            setChargeData(row)
           }}
         >View</Button>
       )
@@ -81,6 +83,7 @@ export default function OrderList() {
         showDialog={showDialog}
         setShowDialog={setShowDialog}
         chargeId={chargeId}
+        initialValues={chargeData}
       />
 
       <Table
