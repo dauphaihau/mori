@@ -22,30 +22,17 @@ handler.post(async (req, res) => {
     const { authorization } = req.headers;
     let dataToken;
     if (authorization) {
-      // console.log('dauphaihau debug: authorization', authorization)
       const authData = authorization?.replace('Bearer ', '');
-      // console.log('dauphaihau debug: auth-data', authData)
       const { token } = parseJSON<IToken>(authData)
       dataToken = await verifyToken(token, process.env.NEXT_PUBLIC_JWT_SECRET)
     }
 
     const cart = req.body
-
     let address;
-    console.log('dauphaihau debug: data-token', dataToken)
-
-    // if (dataToken) {
-    //   address = await Address.findOne({ customerId: dataToken.id, isPrimary: true })
-    //   console.log('dauphaihau debug: address', address)
-    // }
-
-    // const line_items = cart.map(item => item._id)
 
     const params: Stripe.Checkout.SessionCreateParams = {
       submit_type: "pay",
       mode: "payment",
-      // customer_email: dataToken?.email ?? '',
-      // shipping_address_collection: { allowed_countries: ['US', 'CA'] },
       line_items: cart.map((product) => {
         return {
           price_data: {
@@ -64,18 +51,6 @@ handler.post(async (req, res) => {
           quantity: product.quantity,
         };
       }),
-      // metadata: {
-      //   customerId: dataToken?.id ?? '',
-      //   // line_items: JSON.stringify(line_items)
-      // },
-      // payment_intent_data: {
-      //   metadata: {
-      //     customerId: dataToken?.id ?? '',
-      //     // line_items: JSON.stringify(line_items)
-      //   }
-      // },
-      // success_url: `${req.headers.origin}/?success`,
-      // cancel_url: `${req.headers.origin}/?canceled`,
       shipping_options: [
         {
           shipping_rate_data: {
@@ -107,7 +82,6 @@ handler.post(async (req, res) => {
     // Guest User
     if (!dataToken) {
       params.shipping_address_collection = { allowed_countries: ['US', 'CA', 'AU', 'IT', 'JP', 'SG', 'FR', 'DE', 'GB'] }
-      // params.shipping_options = []
       params.phone_number_collection = {
         enabled: true
       }
@@ -127,15 +101,12 @@ handler.post(async (req, res) => {
 
       await db.connect();
       address = await Address.findOne({ customerId: dataToken.id, isPrimary: true })
-      await db.disconnect();
       console.log('dauphaihau debug: address', address)
+      await db.disconnect();
 
       if (address) {
         // auto prefill shipping address
-
         const data = countriesData.list.find(item => item.numberCode === address.countryCode)
-        console.log('dauphaihau debug: data', data)
-
         params.payment_intent_data = {
           shipping: {
             "name": address.name,
@@ -149,24 +120,14 @@ handler.post(async (req, res) => {
             }
           }
         }
-
-
-
       } else {
-        params.phone_number_collection = {
-          enabled: true
-        }
-
-        // shipping_address_collection: { allowed_countries: ['US', 'CA'] },
+        params.phone_number_collection = { enabled: true }
         params.shipping_address_collection = { allowed_countries: ['US', 'CA', 'AU', 'IT', 'JP', 'SG', 'FR', 'DE', 'GB'] }
-        // params.shipping_options = []
       }
 
     }
 
-
-
-    params.payment_intent_data.metadata.order_created_at = new Date().valueOf()
+    // params.payment_intent_data.metadata.order_created_at = new Date().valueOf()
 
     console.log('dauphaihau debug: params', params)
     const session = await stripe.checkout.sessions.create(params);
