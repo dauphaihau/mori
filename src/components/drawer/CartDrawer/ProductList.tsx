@@ -8,6 +8,7 @@ export default function ProductList({ context }) {
   const cartEmpty = numberOfItemsInCart === Number(0)
 
   function increment(item) {
+    if (item.quantity >= item.max_quantity) return
     item.quantity = item.quantity + 1
     setItemQuantity(item)
   }

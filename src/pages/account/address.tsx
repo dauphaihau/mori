@@ -44,9 +44,9 @@ export default function AddressPage() {
         <Text>{address.address1}</Text>
         <Icons.pencil
           onClick={() => {
-            setShowUpdateAddressDialog(true)
-            setAddressEdit(address)
-          }} className='btn-icon'
+            // setShowUpdateAddressDialog(true)
+            // setAddressEdit(address)
+          }} className='btn-icon opacity-50'
         />
         <Icons.trash onClick={() => handleDelete(address._id)} className='btn-icon'/>
       </Box>

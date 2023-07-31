@@ -30,11 +30,12 @@ handler.post(async (req: MyCustomerRequest, res) => {
     console.log('dauphaihau debug: charge-id', chargeId)
 
     const order = await Order.findOne({ stripeChargeId: chargeId })
-    console.log('dauphaihau debug: order', order)
 
     let purchasedProducts = {
       list: [],
-      amountTotal: 0
+      totalDetails: {},
+      amountTotal: 0,
+      amountSubtotal: 0
     };
     let customer = {
       paymentMethod: '',
@@ -51,6 +52,8 @@ handler.post(async (req: MyCustomerRequest, res) => {
       console.log('dauphaihau debug: session', session)
       purchasedProducts.list = session.line_items.data
       purchasedProducts.amountTotal = session.amount_total
+      purchasedProducts.amountSubtotal = session.amount_subtotal
+      purchasedProducts.totalDetails = session.total_details
       customer = session.customer_details
       customer.paymentMethod = session.payment_method_types[0]
       customer.createdAt = new Date(order.createdAt as string).getTime()
@@ -68,7 +71,7 @@ handler.post(async (req: MyCustomerRequest, res) => {
   }
 })
 
-/* get list charge ( and all product are pick in charge ) */
+/* get list charge ( include all product are pick in charge ) */
 handler.get(async (req: MyCustomerRequest, res) => {
   try {
     const { page, limit } = req.query;
@@ -86,6 +89,9 @@ handler.get(async (req: MyCustomerRequest, res) => {
     }
 
     if (isFalsy(page)) {
+
+      const tempParams = { ...params }
+
       console.log('dauphaihau debug: run case 1')
       const getAllPaginatedOrder = async (nextPage?: string) => {
         // const params: Stripe.ChargeSearchParams = {
@@ -94,26 +100,25 @@ handler.get(async (req: MyCustomerRequest, res) => {
         //   expand: ['total_count']
         // }
         if (nextPage) {
-          params.page = nextPage
+          tempParams.page = nextPage
         }
 
-        const orders = await stripe.charges.search(params);
-
+        const orders = await stripe.charges.search(tempParams);
         if (!orders.has_more) return
 
         paginatedOrderList.push(orders.next_page)
         await getAllPaginatedOrder(orders.next_page)
       }
       await getAllPaginatedOrder()
+
     } else {
       console.log('dauphaihau debug: run case 2')
       params.page = page
     }
 
-    // console.log('dauphaihau debug: params', params)
+    console.log('dauphaihau debug: params', params)
     const orders = await stripe.charges.search(params);
     // console.log('dauphaihau debug: orders', orders)
-
     // console.log('dauphaihau debug: charge-page-list', paginatedOrderList)
 
     res.send({

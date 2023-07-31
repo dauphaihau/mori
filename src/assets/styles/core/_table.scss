@@ -79,14 +79,14 @@
 
     button {
       @apply flex-center rounded-xl
-      bg-gray-custom-50 enabled:hover:bg-gray-custom-52
+      bg-gray-custom-50
       disabled:text-[#c8ced2]
       h-9 w-9 animate
       cursor-pointer dark:text-white mx-0.5 p-2;
     }
 
     button.selected {
-      @apply bg-black text-white dark:bg-white dark:text-black hidden md:inline-flex
+      @apply bg-black text-white bg-primary-black dark:bg-white dark:text-black hidden md:inline-flex
     }
   }
 

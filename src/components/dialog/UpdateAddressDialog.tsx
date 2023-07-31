@@ -52,7 +52,10 @@ const UpdateAddressDialog = ({
       console.log('dauphaihau debug: current-country-code', currentCountryCode)
 
       if (currentCountryCode) {
-        const country = countriesData.list.find(item => item.numberCode === currentCountryCode)
+        const country = countriesData.list.find(item => {
+          return item.numberCode === currentCountryCode || item.alpha2Code === currentCountryCode
+        })
+        console.log('dauphaihau debug: country', country)
         if (country.states.length > 0) {
           const statesOptions = country.states.map(nameState => ({
             label: nameState,
@@ -71,7 +74,9 @@ const UpdateAddressDialog = ({
     const countryCodeSelected = countryCode
     const previousValues = getValues()
     if (countryCodeSelected) {
-      const country = countriesData.list.find(item => item.numberCode === countryCodeSelected)
+      const country = countriesData.list.find(item => {
+        return item.numberCode === countryCode || item.alpha2Code === countryCode
+      })
       if (country.states.length > 0) {
         const statesOptions = country.states.map(nameState => ({
           label: nameState,

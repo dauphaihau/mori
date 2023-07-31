@@ -1,0 +1,28 @@
+.billing-summary {
+  .item {
+    @apply border-dotted pr-4;
+  }
+
+  .title {
+    @apply text-xs font-medium text-gray-700;
+  }
+
+  .value {
+    @apply text-[#6e6e6d] font-bold;
+  }
+}
+
+
+.billing-address {
+  .item {
+    @apply bg-[#f8f8f8] p-3;
+  }
+
+  .title {
+    @apply text-xs text-[#777777] font-medium uppercase;
+  }
+
+  .value {
+    @apply text-[#6e6e6d] font-bold;
+  }
+}

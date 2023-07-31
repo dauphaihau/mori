@@ -19,7 +19,6 @@ export default function CheckoutButton({ context }) {
     // setIsLoadingBtn(isLoading)
 
     const stripe = await getStripe();
-    console.log('dauphaihau debug: auth-data', authData)
     const opts = {
       method: "POST",
       headers: {
@@ -49,7 +48,7 @@ export default function CheckoutButton({ context }) {
 
   return (
     <Button
-      size='md'
+      size='lg'
       disabled={IsEmptyCart}
       isLoading={isLoadingBtn}
       onClick={handleCheckout}
@@ -61,8 +60,8 @@ export default function CheckoutButton({ context }) {
           { 'cursor-wait': isLoadingBtn }
         ]}
       >
-        <Text classes='mr-2 text-white' weight={'medium'}>Proceed to check out</Text>
-        <Text classes='border-white border-l pl-4 text-white' weight={'medium'}>{formatDollarUS(total)}</Text>
+        <Text classes='mr-2 text-white' weight={'bold'}>Proceed to check out</Text>
+        <Text classes='border-white border-l pl-4 text-white' weight={'bold'}>{formatDollarUS(total)}</Text>
       </Row>
     </Button>
   );

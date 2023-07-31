@@ -1,4 +1,4 @@
-import { Box, Col, NextImage, Row, Text } from "core/components";
+import { Box, Button, Col, NextImage, Row, Text } from "core/components";
 import { formatDollarUS } from "core/helpers";
 import RatingStars from "./RatingStars";
 import QuantitySelector from "./QuantitySelector";

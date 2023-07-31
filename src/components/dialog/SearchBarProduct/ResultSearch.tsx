@@ -9,7 +9,7 @@ const ResultSearch = ({ products }) => {
   const Result = () => {
     if (products.length === 0) {
       return (
-        <Box>
+        <Box classes='px-4'>
           <Col>
             <Text size={13} classes='text-primary-gray py-2 sticky top-0 bg-white z-10'>Products</Text>
             <Divider classes='border-primary-gray border-b opacity-10'/>
@@ -23,7 +23,7 @@ const ResultSearch = ({ products }) => {
     if (products.length) {
       return (
         <Box classes='relative'>
-          <Col classes={' px-4'}>
+          <Col classes='px-4'>
             <Text
               size={13}
               classes='text-primary-gray py-2 sticky top-0 bg-white z-10'

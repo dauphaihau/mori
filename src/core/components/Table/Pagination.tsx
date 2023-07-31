@@ -52,6 +52,7 @@ const Pagination = (props: Props) => {
   const ButtonsNavPage = () => (
     <div className="pagination__buttons">
       <button
+        className={'enabled:hover:bg-gray-custom-52'}
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
       >
@@ -66,7 +67,7 @@ const Pagination = (props: Props) => {
             key={idx}
             // key={pageNumber}
             onClick={() => onPageChange(pageNumber)}
-            className={` ${currentPage === pageNumber ? 'selected' : ''}`}
+            className={` ${currentPage === pageNumber ? 'selected hover:opacity-80' : 'enabled:hover:bg-gray-custom-52'}`}
           >
             {pageNumber}
           </button>
@@ -74,7 +75,7 @@ const Pagination = (props: Props) => {
       })}
       <button
         disabled={currentPage === pageNumbers?.length || pageNumbers === undefined}
-        className={currentPage === pageNumbers?.length || pageNumbers === undefined ? 'disabled' : ''}
+        className={currentPage === pageNumbers?.length || pageNumbers === undefined ? 'disabled' : 'enabled:hover:bg-gray-custom-52'}
         onClick={() => onPageChange(currentPage + 1)}
       >
         <ChevronRightIcon height={15} width={15}/>

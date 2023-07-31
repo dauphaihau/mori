@@ -5,6 +5,7 @@ import { useDetailProduct, useRelatedProducts } from "services/product";
 import { titleIfy } from 'core/helpers';
 import { IProduct } from "types/product";
 import { Box } from "core/components";
+import NotFound from "components/common/NotFound";
 
 export interface ProductContextProps {
   isLoading: boolean
@@ -32,6 +33,8 @@ export const ProductProvider: FC = ({ children }) => {
     product,
     relatedProducts
   };
+
+  if (!isLoading && !product) return <NotFound/>
 
   return (
     <ProductContext.Provider value={providerValues}>

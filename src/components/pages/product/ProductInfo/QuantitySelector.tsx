@@ -82,7 +82,7 @@ function QuantitySelector({ context }) {
 
   const addItemToCart = () => {
     setShowCartDrawer(true)
-    addToCart({ ...product, quantity: quantityItem });
+    addToCart({ ...product, max_quantity: product.quantity,  quantity: quantityItem });
   }
 
   return (

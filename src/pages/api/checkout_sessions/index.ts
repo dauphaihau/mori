@@ -30,10 +30,12 @@ handler.post(async (req, res) => {
     const cart = req.body
     let address;
 
+
     const params: Stripe.Checkout.SessionCreateParams = {
       submit_type: "pay",
       mode: "payment",
       line_items: cart.map((product) => {
+        console.log('dauphaihau debug: product-quantity', product)
         return {
           price_data: {
             currency: "usd",
@@ -46,7 +48,8 @@ handler.post(async (req, res) => {
           },
           adjustable_quantity: {
             enabled: true,
-            minimum: 1,
+            // minimum: 1,
+            maximum: product.max_quantity
           },
           quantity: product.quantity,
         };
@@ -82,17 +85,12 @@ handler.post(async (req, res) => {
     // Guest User
     if (!dataToken) {
       params.shipping_address_collection = { allowed_countries: ['US', 'CA', 'AU', 'IT', 'JP', 'SG', 'FR', 'DE', 'GB'] }
-      params.phone_number_collection = {
-        enabled: true
-      }
+      params.phone_number_collection = { enabled: true }
     }
 
     // Registered user
     if (dataToken) {
       params.customer_email = dataToken?.email ?? ''
-      // params.metadata = {
-      //   customerId: dataToken?.id ?? '',
-      // }
       params.payment_intent_data = {
         metadata: {
           customerId: dataToken?.id ?? '',
@@ -124,10 +122,7 @@ handler.post(async (req, res) => {
         params.phone_number_collection = { enabled: true }
         params.shipping_address_collection = { allowed_countries: ['US', 'CA', 'AU', 'IT', 'JP', 'SG', 'FR', 'DE', 'GB'] }
       }
-
     }
-
-    // params.payment_intent_data.metadata.order_created_at = new Date().valueOf()
 
     console.log('dauphaihau debug: params', params)
     const session = await stripe.checkout.sessions.create(params);

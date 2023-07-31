@@ -18,6 +18,7 @@
 @import "src/assets/styles/components/carousel";
 @import "src/assets/styles/components/about";
 @import "src/assets/styles/components/feedback";
+@import "src/assets/styles/components/dialog/detail-order-dialog";
 
 @tailwind components;
 @tailwind utilities;
@@ -41,6 +42,15 @@
   @font-face {
     font-family: "Eina Bold";
     src: url("/fonts/Eina04-Bold.otf");
+  }
+
+  * {
+    scrollbar-width: thin;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 15px;
   }
 
 
@@ -120,11 +130,4 @@
 
 .te12 {
   mask-image: linear-gradient(rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 5%, rgb(0, 0, 0) 94%, rgba(0, 0, 0, 0) 100%);
-}
-
-.gridddd {
-  display: grid;
-  //grid-gap: 10px;
-
-  grid-template-columns: repeat(auto-fill, minmax(186px, 1fr));
 }

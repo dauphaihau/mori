@@ -13,7 +13,7 @@ import { sendSetPassword } from "lib/mailer";
 import Token from "lib/models/Token";
 import { config as configJSON } from "config";
 import Address from "lib/models/Address";
-import db from "../../../lib/db";
+import db from "lib/db";
 
 export const config = {
   api: {
@@ -58,9 +58,6 @@ export default async function handler(
     return customer
   }
 
-
-
-
   switch (event.type) {
     case 'payment_intent.succeeded':
       const paymentIntent: Stripe.PaymentIntent = event.data.object;
@@ -74,19 +71,19 @@ export default async function handler(
       const { address, name, email, phone } = charge.billing_details
 
       // 1a. check metadata ( case checkout session before charge event ) -> update
-      if (!isFalsy(charge.metadata?.customerId)) {
-        const filter = { stripeCustomerId: charge.customer }
-        const update = { stripeChargeId: charge.id }
-        await Order.findOneAndUpdate(filter, update)
-        return
-      }
+      // if (!isFalsy(charge.metadata?.customerId)) {
+      //   const filter = { stripeCustomerId: charge.customer }
+      //   const update = { stripeChargeId: charge.id }
+      //   await Order.findOneAndUpdate(filter, update)
+      //   return
+      // }
 
       // 1b. check metadata ( case charge before checkout session ) -> create
       // customer payment without login
 
       // 2. case customer registered ( exists in db ),
       let customer = await Customer.findOne({ email })
-      console.log('dauphaihau debug: customer', customer)
+      console.log('dauphaihau debug: customer at charge success', customer)
 
       if (isEmptyObject(customer)) {
         console.log('dauphaihau debug: charge run case create customer')
@@ -118,10 +115,13 @@ export default async function handler(
 
       const updateCharge = await stripe.charges.update(
         charge.id,
-        { metadata: { customerId: charge.metadata?.customerId ?? customer.id } }
+        {
+          metadata: {
+            customerId: charge.metadata?.customerId ?? customer.id,
+          }
+        }
       );
       console.log('dauphaihau debug: update-charge', updateCharge)
-
 
       // const { address, name, email, phone } = charge.billing_details
       //
@@ -166,12 +166,11 @@ export default async function handler(
     }
       break
 
-
-
     case 'checkout.session.completed': {
       const session: Stripe.Checkout.Session = event.data.object;
       const { address, name, email, phone } = session.customer_details
-      // console.log('dauphaihau debug: session', session)
+      console.log('dauphaihau debug: session', session)
+
       //
       // // 1a. check metadata ( case charge before checkout session event ) -> update
       // // goal: save checkSessionId into db via stripeCustomerId
@@ -217,21 +216,19 @@ export default async function handler(
         console.log('dauphaihau debug: update-charge', updateCharge)
       }
 
+      // const newOrder = {
+      //   // customerId: session.metadata?.customerId,
+      //   customerId: customer.id,
+      //   stripeCustomerId: session.customer,
+      //   // stripeChargeId: session.id,
+      // }
+      //
+      // console.log('dauphaihau debug: new-order', newOrder)
+      // await new Order(newOrder).save()
 
-
-      const newOrder = {
-        // customerId: session.metadata?.customerId,
-        customerId: customer.id,
-        stripeCustomerId: session.customer,
-        stripeChargeId: session.id,
-      }
-
-      console.log('dauphaihau debug: new-order', newOrder)
-      await new Order(newOrder).save()
-
-
-      // let customer = await Customer.findOne({ email })
-      // customer = await Customer.findOne({ email })
+      const filter = { stripeCustomerId: session.customer }
+      const update = { stripeCheckoutSessionId: session.id }
+      await Order.findOneAndUpdate(filter, update)
 
       // address
       await new Address({
@@ -243,11 +240,6 @@ export default async function handler(
         address2: address.line2,
         postalCode: address.postal_code,
       }).save();
-
-
-      const filter = { stripeCustomerId: session.customer }
-      const update = { stripeCheckoutSessionId: session.id }
-      await Order.findOneAndUpdate(filter, update)
 
       await db.disconnect();
     }

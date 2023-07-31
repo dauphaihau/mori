@@ -15,7 +15,7 @@ const VARIANT_MAPS = createMaps({
 const SIZE_MAPS = createMaps({
   sm: 'px-3 min-h-[36px] leading-7 text-sm',
   md: 'p-3 h-[42px]',
-  lg: 'p-4',
+  lg: 'p-4 h-[48px]',
   xl: 'p-6',
 })
 
