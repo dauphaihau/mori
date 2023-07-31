@@ -44,13 +44,14 @@ handler.post(async (req: MyCustomerRequest, res) => {
     const { isPrimary } = req.body
     const customerId = req.customer.id
 
+    // Check if the primary address is available -> set false
     if (isPrimary) {
       const filter = { customerId, isPrimary }
       const update = { isPrimary: false }
       await Address.findOneAndUpdate(filter, update)
     }
 
-    new Address({ ...req.body, customerId }).save().then((data) => {
+    await new Address({ ...req.body, customerId }).save().then((data) => {
       console.log("saved data ", data);
       return res.send({
         status: '200',

@@ -30,6 +30,7 @@ handler.post(async (req: MyCustomerRequest, res) => {
     console.log('dauphaihau debug: charge-id', chargeId)
 
     const order = await Order.findOne({ stripeChargeId: chargeId })
+    console.log('dauphaihau debug: order', order)
 
     let purchasedProducts = {
       list: [],
