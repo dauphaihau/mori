@@ -80,6 +80,8 @@ export default async function handler(
       const { address, name, email, phone } = charge.billing_details
       console.log('dauphaihau debug: charge', charge)
 
+      await db.connect();
+
       // 1. create or update order by stripeCustomerId ( handle case checkout session run before charge event or reverse)
       await handleCreateOrUpdateOrder(charge.customer, { stripeChargeId: charge.id }, 'charge')
 
@@ -96,6 +98,7 @@ export default async function handler(
         console.log('dauphaihau debug: customer', customer)
       }
 
+      await db.disconnect();
 
       // // address
       // await new Address({
@@ -240,6 +243,6 @@ export default async function handler(
   }
 
 // Return a 200 res to acknowledge receipt of the event
-  res.send(200);
-
+//   res.send(200);
+  res.status(200).send("");
 }
