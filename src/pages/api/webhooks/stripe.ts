@@ -58,6 +58,17 @@ export default async function handler(
     return customer
   }
 
+  const handleCreateOrUpdateOrder = async (stripeCustomerId, update, key) => {
+    const filter = { stripeCustomerId }
+    const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+    await Order.findOneAndUpdate(filter, update, options).then((result) => {
+       console.log(`dauphaihau debug: result execute on ${key}`, result)
+    }, (error) => {
+      console.log('dauphaihau debug: error', error)
+    })
+  }
+
+
   switch (event.type) {
     case 'payment_intent.succeeded':
       const paymentIntent: Stripe.PaymentIntent = event.data.object;
@@ -66,22 +77,16 @@ export default async function handler(
 
     case 'charge.succeeded': {
       const charge: Stripe.Charge = event.data.object;
+      const { address, name, email, phone } = charge.billing_details
       console.log('dauphaihau debug: charge', charge)
 
-      const { address, name, email, phone } = charge.billing_details
+      // 1. create or update order by stripeCustomerId ( handle case checkout session run before charge event or reverse)
+      await handleCreateOrUpdateOrder(charge.customer, { stripeChargeId: charge.id }, 'charge')
 
-      // 1a. check metadata ( case checkout session before charge event ) -> update
-      // if (!isFalsy(charge.metadata?.customerId)) {
-      //   const filter = { stripeCustomerId: charge.customer }
-      //   const update = { stripeChargeId: charge.id }
-      //   await Order.findOneAndUpdate(filter, update)
-      //   return
-      // }
 
-      // 1b. check metadata ( case charge before checkout session ) -> create
       // customer payment without login
 
-      // 2. case customer registered ( exists in db ),
+      // 2. case customer registered ( exists in db )
       let customer = await Customer.findOne({ email })
       console.log('dauphaihau debug: customer at charge success', customer)
 
@@ -91,15 +96,6 @@ export default async function handler(
         console.log('dauphaihau debug: customer', customer)
       }
 
-      console.log('dauphaihau debug: charge-metadata-customer-id-customer-id', charge.metadata?.customerId ?? customer.id)
-
-      // order
-      await new Order({
-        customerId: charge.metadata?.customerId ?? customer.id,
-        // customerId: charge.metadata?.customerId,
-        stripeChargeId: charge.id,
-        stripeCustomerId: charge.customer,
-      }).save()
 
       // // address
       // await new Address({
@@ -117,7 +113,7 @@ export default async function handler(
         charge.id,
         {
           metadata: {
-            customerId: charge.metadata?.customerId ?? customer.id,
+            customerId: customer.id,
           }
         }
       );
@@ -171,7 +167,6 @@ export default async function handler(
       const { address, name, email, phone } = session.customer_details
       console.log('dauphaihau debug: session', session)
 
-      //
       // // 1a. check metadata ( case charge before checkout session event ) -> update
       // // goal: save checkSessionId into db via stripeCustomerId
       // if (!isFalsy(session.metadata?.customerId)) {
@@ -198,7 +193,7 @@ export default async function handler(
       //   await Order.findOneAndUpdate(filter, update)
       //   return
       // }
-      //
+
       // console.log('dauphaihau debug: session checkout run case create')
 
       // 2. case customer registered ( exists in db ),
@@ -206,46 +201,44 @@ export default async function handler(
       let customer = await Customer.findOne({ email })
       console.log('dauphaihau debug: customer', customer)
 
-      if (isEmptyObject(customer)) {
-        console.log('dauphaihau debug: checkout session run case create customer')
-        customer = await handleCustomerNotExist(session.customer_details)
-        const updateCharge = await stripe.charges.update(
-          session.id,
-          { metadata: { customerId: customer.id } }
-        );
-        console.log('dauphaihau debug: update-charge', updateCharge)
+      // if (isEmptyObject(customer)) {
+      //   console.log('dauphaihau debug: checkout session run case create customer')
+      //   customer = await handleCustomerNotExist(session.customer_details)
+      //   const updateCharge = await stripe.charges.update(
+      //     session.id,
+      //     { metadata: { customerId: customer.id } }
+      //   );
+      //   console.log('dauphaihau debug: update-charge', updateCharge)
+      // }
+
+      await handleCreateOrUpdateOrder(session.customer, { stripeCheckoutSessionId: session.id }, 'checkout session')
+
+
+      // create new address if user haven't primary address
+      const filterAddress = { customerId: session.customer }
+      const isExistAddress = await Address.findOne({ filterAddress, isPrimary: true })
+      console.log('dauphaihau debug: is-exist-address', isExistAddress)
+      if (!isExistAddress) {
+        await new Address({
+          ...address,
+          name, phone,
+          customerId: session.metadata?.customerId ?? customer.id,
+          countryCode: address.country,
+          address1: address.line1,
+          address2: address.line2,
+          postalCode: address.postal_code,
+        }).save().then((savedAddress) => {
+          console.log('dauphaihau debug: saved-address', savedAddress)
+        }, (error) => {
+          console.log('dauphaihau debug: error-save-address', error)
+        })
       }
 
-      // const newOrder = {
-      //   // customerId: session.metadata?.customerId,
-      //   customerId: customer.id,
-      //   stripeCustomerId: session.customer,
-      //   // stripeChargeId: session.id,
-      // }
-      //
-      // console.log('dauphaihau debug: new-order', newOrder)
-      // await new Order(newOrder).save()
-
-      const filter = { stripeCustomerId: session.customer }
-      const update = { stripeCheckoutSessionId: session.id }
-      await Order.findOneAndUpdate(filter, update)
-
-      // address
-      await new Address({
-        ...address,
-        name, phone,
-        customerId: session.metadata?.customerId ?? customer.id,
-        countryCode: address.country,
-        address1: address.line1,
-        address2: address.line2,
-        postalCode: address.postal_code,
-      }).save();
 
       await db.disconnect();
     }
       break
 
-    case 'invoice.created':
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
