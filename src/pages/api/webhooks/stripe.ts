@@ -201,15 +201,10 @@ export default async function handler(
       let customer = await Customer.findOne({ email })
       console.log('dauphaihau debug: customer', customer)
 
-      // if (isEmptyObject(customer)) {
-      //   console.log('dauphaihau debug: checkout session run case create customer')
-      //   customer = await handleCustomerNotExist(session.customer_details)
-      //   const updateCharge = await stripe.charges.update(
-      //     session.id,
-      //     { metadata: { customerId: customer.id } }
-      //   );
-      //   console.log('dauphaihau debug: update-charge', updateCharge)
-      // }
+      if (isEmptyObject(customer)) {
+        console.log('dauphaihau debug: checkout session run case create customer')
+        customer = await handleCustomerNotExist(session.customer_details)
+      }
 
       await handleCreateOrUpdateOrder(session.customer, { stripeCheckoutSessionId: session.id }, 'checkout session')
 
@@ -222,7 +217,8 @@ export default async function handler(
         await new Address({
           ...address,
           name, phone,
-          customerId: session.metadata?.customerId ?? customer.id,
+          customerId: customer.id,
+          // customerId: session.metadata?.customerId ?? customer.id,
           countryCode: address.country,
           address1: address.line1,
           address2: address.line2,

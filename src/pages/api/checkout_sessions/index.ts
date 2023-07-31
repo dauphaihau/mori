@@ -35,7 +35,6 @@ handler.post(async (req, res) => {
       submit_type: "pay",
       mode: "payment",
       line_items: cart.map((product) => {
-        console.log('dauphaihau debug: product-quantity', product)
         return {
           price_data: {
             currency: "usd",
