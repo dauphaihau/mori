@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import { getCookie, removeCookie, setCookie } from 'lib/cookie';
 import { config } from 'config';
-import { IToken } from 'types/customer';
+import { IToken } from 'types/token';
 import { PATH } from "config/const";
 import { ICustomer } from "types/customer";
 import { AuthCustomer } from "types/auth";
@@ -36,9 +36,11 @@ export function AuthProvider({ children }: PropsWithChildren<{}>) {
   useEffect(() => {
     const now = new Date().getTime();
     const authData = getCookie<IToken>(config.cookies.auth)
+    const profile = getCookie<ICustomer>(config.cookies.profile)
 
     if (authData && authData.token && authData.refreshAt && now < authData.expiredAt) {
       setIsAuthenticated(true)
+      setCustomer(profile)
 
       if (now > authData.refreshAt) {
         logout()

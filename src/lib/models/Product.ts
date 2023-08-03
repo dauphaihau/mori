@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema<IProduct>(
     salePrice: { type: Number, required: true },
     sold: { type: Number, required: true },
     bestSelling: { type: Boolean, required: true },
-    rating: { type: Number, required: true, default: 0 },
+    rating: { type: Number,  default: 0 },
     quantity: { type: Number, required: true, default: 0 },
     description: { type: String, required: true },
     // countInStock: { type: Number, required: true, default: 0 },

@@ -14,6 +14,8 @@ import Token from "lib/models/Token";
 import { config as configJSON } from "config";
 import Address from "lib/models/Address";
 import db from "lib/db";
+import ProductPurchased from "lib/models/ProductPurchased";
+import Product from "lib/models/Product";
 
 export const config = {
   api: {
@@ -62,17 +64,46 @@ export default async function handler(
     const filter = { stripeCustomerId }
     const options = { upsert: true, new: true, setDefaultsOnInsert: true };
     await Order.findOneAndUpdate(filter, update, options).then((result) => {
-       console.log(`dauphaihau debug: result execute on ${key}`, result)
+      console.log(`dauphaihau debug: result execute on ${key}`, result)
     }, (error) => {
       console.log('dauphaihau debug: error', error)
     })
   }
 
+  const handleAddProductPurchased = async (sessionId, customer) => {
+
+    const session = await stripe.checkout.sessions.retrieve(sessionId, { expand: ['line_items'] });
+    console.log('dauphaihau debug: session', session)
+
+    const arrNameProduct = session.line_items.data.map(item => item.description)
+    console.log('dauphaihau debug: arr-name-product', arrNameProduct)
+
+    await Product.find({ 'name': { $in: arrNameProduct } }, ['_id'])
+    .then(async (products) => {
+      if (products.length !== arrNameProduct.length) {
+        console.log('dauphaihau debug: something wrong')
+        return
+      }
+
+      for (const p of products) {
+        const filter = { customerId: customer.id, productId: p.id }
+        const isExist = await ProductPurchased.exists(filter)
+        if (!isExist) {
+          await new ProductPurchased(filter).save().then((result) => {
+            console.log('dauphaihau debug: result', result)
+          }, (error) => {
+            console.log('dauphaihau debug: error', error)
+          })
+        }
+      }
+
+    });
+  }
 
   switch (event.type) {
     case 'payment_intent.succeeded':
       const paymentIntent: Stripe.PaymentIntent = event.data.object;
-      // console.log('dauphaihau debug: payment-intent', paymentIntent)
+      console.log('dauphaihau debug: payment-intent', paymentIntent)
       break;
 
     case 'charge.succeeded': {
@@ -85,7 +116,6 @@ export default async function handler(
       // 1. create or update order by stripeCustomerId ( handle case checkout session run before charge event or reverse)
       await handleCreateOrUpdateOrder(charge.customer, { stripeChargeId: charge.id }, 'charge')
 
-
       // customer payment without login
 
       // 2. case customer registered ( exists in db )
@@ -96,6 +126,10 @@ export default async function handler(
         console.log('dauphaihau debug: charge run case create customer')
         customer = await handleCustomerNotExist(charge.billing_details)
         console.log('dauphaihau debug: customer', customer)
+      }
+
+      if (customer) {
+        // const detail = await stripe.charges.search(params);
       }
 
       await db.disconnect();
@@ -211,6 +245,7 @@ export default async function handler(
 
       await handleCreateOrUpdateOrder(session.customer, { stripeCheckoutSessionId: session.id }, 'checkout session')
 
+      await handleAddProductPurchased(session.id, customer)
 
       // create new address if user haven't primary address
       const filterAddress = { customerId: session.customer }
@@ -232,7 +267,6 @@ export default async function handler(
           console.log('dauphaihau debug: error-save-address', error)
         })
       }
-
 
       await db.disconnect();
     }

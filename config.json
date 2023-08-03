@@ -20,7 +20,8 @@
       "search": "/api/product/search",
       "sale": "/api/product/sale",
       "color": "/api/product/color",
-      "filters": "/api/product/filters"
+      "filters": "/api/product/filters",
+      "review": "/api/product/review"
     },
     "checkout": {
       "_": "/api/checkout_sessions"

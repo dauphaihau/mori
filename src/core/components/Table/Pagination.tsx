@@ -9,9 +9,9 @@ interface Props {
   onPageChange: (page: number) => void,
   setRowsPerPage?: (value: number) => void | {},
   currentPage: number,
-  rowsChecked: number,
+  rowsChecked?: number,
   checkboxSelection?: boolean,
-  rowsPerPageFromProps: number,
+  rowsPerPageFromProps?: number,
   rowsPerPageOptions?: number[],
   showOnlyButton?: boolean
 }

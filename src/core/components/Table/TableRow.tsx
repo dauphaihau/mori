@@ -19,6 +19,7 @@ const TableRow = (props) => {
     rows, columns, rowsChecked,
     setRowsChecked, checkboxSelection,
     currentPage, quantityRows, rowsPerPage,
+    onClickRow,
     loading
   } = props;
 
@@ -43,20 +44,23 @@ const TableRow = (props) => {
       {
         loading ? (
             <tr>
-               <td
-                 colSpan={columns.length}
-                 className='text-center'
-               >
-                  {/*<div className='spinner-border spinner-border-lg align-center'/>*/}
-                 <Loading classes='fill-black h-4 w-4 inline-flex'/>
-               </td>
-        </tr>
+              <td
+                colSpan={columns.length}
+                className='text-center'
+              >
+                {/*<div className='spinner-border spinner-border-lg align-center'/>*/}
+                <Loading classes='fill-black h-4 w-4 inline-flex'/>
+              </td>
+            </tr>
           ) :
           // loading ? (<tr className='col-span-4'><td>{<Loading/>}</td></tr>) :
           rows && rows.length > 0 ? (
             rows?.map((row, index) => {
                 return (
-                  <tr key={index}>
+                  <tr key={index}
+
+                      onClick={onClickRow ? () => onClickRow(row) : () => {}}
+                  >
                     {/*{*/}
                     {/*  checkboxSelection && (*/}
                     {/*    <td onClick={() => setChecked(!checked)}>*/}
@@ -99,13 +103,13 @@ const TableRow = (props) => {
             )
           ) : (
             <tr>
-          <td
-            colSpan={columns.length}
-            className='text-center'
-          >
-              <div className='p-2'>Item/data not found or data not existing</div>
-          </td>
-        </tr>
+              <td
+                colSpan={columns.length}
+                className='text-center'
+              >
+                <div className='p-2'>Item/data not found or data not existing</div>
+              </td>
+            </tr>
           )
       }
 

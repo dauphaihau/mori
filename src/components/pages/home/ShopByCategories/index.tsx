@@ -46,7 +46,8 @@ export default function ShopByCategories() {
               key={index}
             >
               <Link
-                href={`${BASE_URL}/product?category=${name.replace(' ', '+')}`}
+                // href={`${BASE_URL}/product?category=${name.replace(' ', '+')}`}
+                href={`/product?category=${name.replace(' ', '+')}`}
                 openNewTab={false}
               >
                 <NextImage

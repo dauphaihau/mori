@@ -77,7 +77,7 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
               onClick={() => setErrorServer('')}
             />
             <Input
-              classes={'mb-4'}
+              classes={'mb-1'}
               name='password'
               type='password'
               label='Old Password'
@@ -85,7 +85,7 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
               helperText={errors?.password?.message}
             />
             <Input
-              classes={'mb-4'}
+              classes={'mb-1'}
               name='newPassword'
               type='password'
               label='New Password'
@@ -93,7 +93,6 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
               helperText={errors?.newPassword?.message}
             />
             <Input
-              classes={'mb-5'}
               name='confirmPassword'
               type='password'
               label='Confirm New Password'
@@ -101,6 +100,7 @@ export default function ChangePasswordDialog({ showDialog, setShowDialog }) {
               helperText={errors?.confirmPassword?.message}
             />
             <Button
+              classes={'mt-5'}
               type='submit'
               size='md'
               width='full'

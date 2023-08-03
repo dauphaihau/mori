@@ -15,15 +15,15 @@ export default function ProductInfo() {
     { name: product?.name },
   ];
 
-  const Left = () => (
-    <Box classes='w-full laptop:w-8/12 h-120 pt-2 pb-8'>
+  const LeftSide = () => (
+    <Box classes='w-full laptop:w-8/12 pt-2 pb-8'>
       <Breadcrumb data={dataBreadcrumb}/>
       <ProductImages/>
       <CustomerReview className='hidden laptop:block'/>
     </Box>
   )
 
-  const Right = () => (
+  const RightSide = () => (
     <Col classes='pt-2 pb-8 px-2 laptop:px-0 w-full laptop:w-4/12'>
       <ProductMainInfo/>
       <ProductLongInfo/>
@@ -32,10 +32,9 @@ export default function ProductInfo() {
   )
 
   return (
-    <Box classes='flex flex-col laptop:flex-row gap-x-8 pt-12 laptop:mb-[350px] desktop:w-10/12 mx-auto'>
-      {/*<Box classes='flex flex-col laptop:flex-row gap-x-8 pt-12 mb-48 desktop:w-10/12 mx-auto'>*/}
-      <Left/>
-      <Right/>
+    <Box classes='flex flex-col laptop:flex-row gap-x-8 pt-12  desktop:w-10/12 mx-auto'>
+      <LeftSide/>
+      <RightSide/>
     </Box>
   )
 }

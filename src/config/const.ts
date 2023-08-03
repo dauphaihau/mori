@@ -4,6 +4,8 @@ export const STORAGE_KEY = 'MORI_ECOMMERCE'
 
 export enum USER_STATUS {NOT_ACTIVATED = -1, LOCKED, ACTIVE}
 
+export enum SORT_BY_REVIEW {SUGGESTED , MOST_RECENT }
+
 export enum ROLE {GUEST, ACCOUNT}
 
 export const SORT_PRODUCT = {

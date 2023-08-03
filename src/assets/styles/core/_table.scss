@@ -16,6 +16,7 @@
 
   .table {
     @apply min-w-full ;
+    //min-height: 280px;
 
     thead {
       //@apply sticky top-0;
@@ -23,9 +24,11 @@
       th {
         //dark:border-gray-custom-901 dark:bg-gray-custom-901
         //dark:text-gray-custom-906;
+
+        //py-3 px-6 text-xs font-bold tracking-wider
         @apply
-        bg-gray-custom-50
-        py-3 px-6 text-xs font-bold tracking-wider
+        bg-gray-custom-50 h-10
+        px-6 text-xs font-bold tracking-wider
         hover:bg-gray-custom-52 animate cursor-pointer
         text-gray-700 uppercase
       }
@@ -45,13 +48,33 @@
 
       //dark:bg-gray-custom-901
       tr {
-        @apply bg-white  ;
-        //@apply bg-white dark:bg-black ;
-        //@apply bg-white dark:bg-black hover:bg-gray-custom-50 hover:rounded-2xl;
         td {
-          @apply py-4 px-6 text-sm text-gray-900
+          @apply py-1  px-6 text-gray-900
           whitespace-nowrap dark:text-white;
+          font-size: 0.875rem;
+          height: 38px;
         }
+
+      }
+
+      th,
+      td {
+        padding:5px 8px;
+      }
+      tr:hover th,
+      tr:hover td {
+        @apply bg-gray-custom-50 cursor-pointer;
+      }
+
+      tr:hover th {
+        border-radius:12px 0 0 12px;
+      }
+
+      tr:hover td:first-child {
+        border-radius:12px 0 0 12px;
+      }
+      tr:hover td:last-child {
+        border-radius:0 12px 12px 0;
       }
     }
   }
@@ -86,7 +109,7 @@
     }
 
     button.selected {
-      @apply bg-black text-white bg-primary-black dark:bg-white dark:text-black hidden md:inline-flex
+      @apply bg-black text-white bg-primary-black dark:bg-white dark:text-black  md:inline-flex
     }
   }
 

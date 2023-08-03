@@ -4,7 +4,8 @@ import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 
 import { isAuth } from 'lib/middlewares/auth';
-import { ICustomer, IToken } from "types/customer";
+import { ICustomer } from "types/customer";
+import { IToken } from "types/token";
 import { sendResetPasswordEmail } from "lib/mailer";
 import Customer from 'lib/models/Customer';
 import Token from 'lib/models/Token';

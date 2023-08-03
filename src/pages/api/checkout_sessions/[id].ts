@@ -7,8 +7,8 @@ const handler = nc<NextApiRequest, NextApiResponse>();
 handler.get(async (req, res) => {
   try {
     const { id } = req.query as any
-    console.log('dauphaihau debug: id', id)
-    console.log('dauphaihau debug: req-query', req.query)
+    // console.log('dauphaihau debug: id', id)
+    // console.log('dauphaihau debug: req-query', req.query)
     if (!id.startsWith('cs_')) {
       throw Error('Incorrect CheckoutSession ID.');
     }

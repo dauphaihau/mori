@@ -17,7 +17,7 @@ export default function AccountPage() {
   const router = useRouter();
 
   const InfoAddress = () => {
-    if (isLoading) return <Loading classes='fill-black'/>
+    if (isLoading) return <Loading classes='fill-black my-7 h-6 w-6'/>
     if (address === null) {
       return <Text classes='mb-4'>No addresses are currently saved</Text>
     }

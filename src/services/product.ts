@@ -5,6 +5,7 @@ import useSWRImmutable from "swr/immutable";
 import { config } from "config";
 import api from "lib/axios";
 import { PATH } from "config/const";
+import { encryptPassword } from "../lib/crypto";
 
 // get data ( color, price, material, ... ) depend on category
 export function useFilters(category) {
@@ -105,3 +106,37 @@ export function useCategories() {
     isError: !!error,
   };
 }
+
+export const postReview = async (values) => {
+  try {
+    // values.password = encryptPassword(values.password, config.cryptoKey)
+    const { data: { data }, status } = await api.post(config.api.product.review, values);
+    return { data, status, isLoading: !data };
+  } catch ({ response }) {
+    return {
+      isLoading: false,
+      status: response?.status,
+      message: response?.data?.message,
+    };
+  }
+}
+
+export function useReviews<T>(params) {
+  const fetcher = url => api.get(url, { params }).then(res => res.data)
+  const options = {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false
+  }
+  const { data, error, isValidating, mutate } = useSWR([config.api.product.review, params], fetcher, options)
+
+  return {
+    reviews: data?.reviews ?? [],
+    total: data?.total,
+    isValidating,
+    isLoading: !data,
+    isError: !!error,
+    mutate
+  };
+}
+

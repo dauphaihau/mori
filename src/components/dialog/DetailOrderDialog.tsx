@@ -1,17 +1,21 @@
 import dayjs from "dayjs";
 
-import { Dialog, Button, Text, Box, Grid, Row, Loading } from 'core/components';
+import { Dialog, Text, Box, Row, Loading } from 'core/components';
 import { formatDollarUSFromStripe, titleIfy } from 'core/helpers';
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { useDetailOrder } from "services/account";
+import Stripe from "stripe";
 
 dayjs.extend(localizedFormat)
 
-export default function DetailOrderDialog({ showDialog, setShowDialog, chargeId, order }) {
-  const { purchasedProducts, isLoading } = useDetailOrder(chargeId)
+interface DetailOrderDialogProps {
+  showDialog: boolean,
+  closeDialog: () => void
+  order: Stripe.Charge
+}
 
-  // console.log('dauphaihau debug: order', order)
-  // console.log('dauphaihau debug: purchased-products', purchasedProducts)
+export default function DetailOrderDialog({ showDialog, closeDialog, order }: DetailOrderDialogProps) {
+  const { purchasedProducts, isLoading } = useDetailOrder(order.id)
 
   const BodyTable = () => {
     if (isLoading) {
@@ -90,12 +94,12 @@ export default function DetailOrderDialog({ showDialog, setShowDialog, chargeId,
   return (
     <Dialog
       isOpen={showDialog}
-      closeDialog={setShowDialog}
+      closeDialog={closeDialog}
       classes='w-auto max-w-[800px] max-h-[80vh] overflow-scroll absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4'
       noPadding
     >
       <Dialog.Content
-        closeDialog={setShowDialog}
+        closeDialog={closeDialog}
         classes='px-6 py-4 lg:p-8'
       >
         <Box classes='w-[600px]'>
@@ -158,7 +162,7 @@ export default function DetailOrderDialog({ showDialog, setShowDialog, chargeId,
               </div>
               <div className='item border-b'>
                 <p className='title'>Address 1:</p>
-                <p className='value'>{order.billing_details?.address.address1 ?? '-'}</p>
+                <p className='value'>{order.billing_details?.address.line1 ?? '-'}</p>
               </div>
               <div className='item border-b'>
                 <p className='title'>City:</p>

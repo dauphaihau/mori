@@ -1,21 +1,23 @@
 .form-textarea-input {
-  @apply mb-3;
+  @apply mb-4;
   label {
-    @apply inline-block mb-2 text-gray-700 dark:text-white;
+    @apply font-bold block text-gray-700 dark:text-white;
+
+    span {
+      @apply text-red-500
+    }
   }
 
   //dark:bg-gray-custom-898
   textarea {
-    @apply resize-none block w-full px-3 py-1.5 pt-4 pl-4 text-base font-normal
-    border-gray-300 appearance-none animate
-    text-black bg-white bg-clip-padding
-    border border-solid rounded
-    placeholder-gray-500 text-sm font-light
-
+    @apply
+    theme-input
+    resize-none block w-full px-3 py-4
+    appearance-none animate
+    text-gray-900 text-xs lg:text-sm
+    bg-clip-padding
+    placeholder-gray-500
     dark:text-white
-    focus:border-black focus:outline-none
-    focus:ring-black dark:focus:border-0 dark:focus:right-0
-    hover:border-black;
   }
 }
 

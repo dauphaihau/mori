@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
 import { config } from 'config';
-import { parseJSON } from "core/helpers";
-import { ICustomer, IToken } from "types/customer";
+import { formatDollarUS, parseJSON } from "core/helpers";
+import { ICustomer } from "types/customer";
+import { IToken } from "types/token";
 import { verifyToken } from "lib/jwt";
 import { Stripe } from "stripe";
 import Address from "lib/models/Address";
@@ -30,20 +31,23 @@ handler.post(async (req, res) => {
     const cart = req.body
     let address;
 
-
     const params: Stripe.Checkout.SessionCreateParams = {
       submit_type: "pay",
       mode: "payment",
       line_items: cart.map((product) => {
+        console.log('dauphaihau debug: product', product)
         return {
           price_data: {
             currency: "usd",
             product_data: {
               name: product.name,
               images: [config.hostStaticSource + product.images[0]],
+              metadata: {
+                productId: product._id
+              },
             },
             // with USD, stripe use cents ( e.g: $1000 -> $10.00 )
-            unit_amount: product.price * 100,
+            unit_amount: product?.salePrice ? product.salePrice * 100 : product.price * 100,
           },
           adjustable_quantity: {
             enabled: true,

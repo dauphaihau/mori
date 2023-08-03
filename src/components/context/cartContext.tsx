@@ -17,7 +17,7 @@ const initialState = {
 const calculateTotal = (cart) => {
   return cart.reduce((acc, next) => {
     const quantity = next.quantity
-    acc = acc + JSON.parse(next.price) * quantity
+    acc = acc + JSON.parse(next.salePrice ?? next.price) * quantity
     return acc
   }, 0)
 }

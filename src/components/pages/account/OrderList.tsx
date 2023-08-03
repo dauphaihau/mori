@@ -3,18 +3,22 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import dayjs from 'dayjs';
 
 import { useOrders } from "services/account";
-import { Table, Button, Text } from 'core/components';
+import { Table, Text } from 'core/components';
 import DetailOrderDialog from "components/dialog/DetailOrderDialog";
 import { formatDollarUSFromStripe } from "core/helpers";
+import { EyeIcon } from '@heroicons/react/outline';
+import { CheckIcon } from "@heroicons/react/solid";
 
 const rowsPerPage = [5, 15, 25]
 dayjs.extend(localizedFormat)
 
 export default function OrderList() {
-  const [showDialog, setShowDialog] = useState(false)
-  const [chargeData, setChargeData] = useState({})
-  const [paginatedList, setPaginatedList] = useState([])
-  const [chargeId, setChargeId] = useState('')
+  const [state, setState] = useState({
+    showDialog: false,
+    chargeData: {},
+    paginatedList: [],
+    chargeId: '',
+  })
   const [params, setParams] = useState({
     page: '',
     limit: rowsPerPage[0]
@@ -24,13 +28,9 @@ export default function OrderList() {
 
   useEffect(() => {
     if (paginatedOrderList && paginatedOrderList.length > 0) {
-      setPaginatedList(paginatedOrderList)
+      setState({ ...state, paginatedList: paginatedOrderList })
     }
   }, [paginatedOrderList])
-
-  // if (isLoading) {
-  //   return <p>loading...</p>
-  // }
 
   if (orders && orders.length === 0) {
     return <Text>You haven&apos;t placed any orders yet</Text>
@@ -42,18 +42,22 @@ export default function OrderList() {
       id: 'created', title: 'Date',
       render: (row) => dayjs(row.created * 1000).format('LL')
     },
-    { id: 'status', title: 'Status', align: 'center', },
+    {
+      id: 'status', title: 'Status', align: 'center',
+
+      render: (row) => <div className={'bg-[#ddf6c7] text-[#2c671d] px-3 rounded-lg inline-flex items-center gap-2'}>
+        {row.status}
+        <CheckIcon className={'w-4 h-4'} aria-hidden='true'/>
+      </div>
+    },
     { id: 'amount', title: 'Total', render: (row) => formatDollarUSFromStripe(row.amount) },
     {
       id: 'actions', title: 'Actions', align: 'center',
       render: (row) => (
-        <Button
-          onClick={() => {
-            setShowDialog(true)
-            setChargeId(row.id)
-            setChargeData(row)
-          }}
-        >View</Button>
+        <EyeIcon
+          className={'h-5 w-5'}
+          onClick={() => setState({ ...state, showDialog: true, chargeData: row })}
+        />
       )
     },
   ];
@@ -62,7 +66,7 @@ export default function OrderList() {
     const indexPaginated = values.skip / rowsPerPage[0]
     let page = ''
     if (indexPaginated) {
-      page = paginatedList[indexPaginated - 1]
+      page = state.paginatedList[indexPaginated - 1]
     }
     setParams({ ...params, page })
   }
@@ -70,16 +74,17 @@ export default function OrderList() {
   return (
     <>
       {
-        showDialog &&
+        state.showDialog &&
         <DetailOrderDialog
-          showDialog={showDialog}
-          setShowDialog={setShowDialog}
-          order={chargeData}
-          chargeId={chargeId}
+          showDialog={state.showDialog}
+          closeDialog={() => setState({ ...state, showDialog: false })}
+          order={state.chargeData}
         />
       }
 
       <Table
+        onClickRow={(row) => setState({ ...state, showDialog: true, chargeData: row })}
+        hidePagination={total < params.limit}
         loading={isLoading}
         columns={columns}
         onChange={handleOnChangeTable}

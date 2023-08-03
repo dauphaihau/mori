@@ -80,9 +80,27 @@ export default function ProductList({ context }) {
                   <Link href={`${PATH.PRODUCT._}/${slugify(item.name)}`}>
                     <Text classes='text-gray-600 text-sm m-0 w-80'>{item.name}</Text>
                   </Link>
-                  <Text classes='text-gray-500 text-sm my-2'>
-                    Unit price: {formatDollarUS(item.price)}
-                  </Text>
+
+                  {
+                    item.salePrice ?
+                      <div className='mb-2 mt-1'>
+                        <Text span classes='text-gray-500 text-sm mr-2'>
+                          Unit price:
+                        </Text>
+                        <Text span classes='text-primary-red text-sm mr-2'>
+                          {formatDollarUS(item.salePrice)}
+                        </Text>
+                        <Text span classes='text-gray-500 text-sm line-through'>
+                          {formatDollarUS(item.price)}
+                        </Text>
+                      </div>
+                      :
+                      <Text classes='text-gray-500 text-sm mb-2 mt-1'>
+                        Unit price: {formatDollarUS(item.price)}
+                      </Text>
+                  }
+
+
                   <Row justify='between'>
                     <QuantityPicker
                       // size='sx'
@@ -92,7 +110,7 @@ export default function ProductList({ context }) {
                       decrement={() => decrement(item)}
                     />
                     <Text classes='text-gray-900 m-0 pt-3 tracking-wider'>
-                      {formatDollarUS(item.price * item.quantity)}
+                      {formatDollarUS(item.salePrice ?? item.price * item.quantity)}
                     </Text>
                   </Row>
                 </Box>

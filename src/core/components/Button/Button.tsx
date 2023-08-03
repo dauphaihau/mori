@@ -9,7 +9,7 @@ const VARIANT_MAPS = createMaps({
   info: 'bg-[#3177ce] text-white hover:opacity-80 animate',
   text: 'bg-transparent text-primary-black hover:text-primary-black hover:opacity-70',
   primary: 'bg-primary-black text-white dark:text-white dark:hover:text-white hover:text-white hover:opacity-80 ',
-  secondary: 'bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 font-semibold'
+  secondary: 'bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 font-medium'
 })
 
 const SIZE_MAPS = createMaps({

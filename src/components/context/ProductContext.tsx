@@ -22,7 +22,7 @@ export function useProductContext() {
 export const ProductProvider: FC = ({ children }) => {
   const router = useRouter()
   const name = titleIfy(router.query?.name as string)
-  const { product, isLoading } = useDetailProduct(name)
+  const { product, isLoading, mutate } = useDetailProduct(name)
   const { relatedProducts } = useRelatedProducts({
     category: product?.category,
     name
@@ -31,7 +31,7 @@ export const ProductProvider: FC = ({ children }) => {
   const providerValues: ProductContextProps = {
     isLoading,
     product,
-    relatedProducts
+    relatedProducts,
   };
 
   if (!isLoading && !product) return <NotFound/>

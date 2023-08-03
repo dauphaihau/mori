@@ -13,7 +13,6 @@ const orderSchema = new Schema<IOrder>({
     stripeCheckoutSessionId: { type: String },
     stripeChargeId: { type: String },
     // stripeChargeId: { type: String, required: true },
-
     // stripeInvoiceId: { type: String, required: true },
 
     // stripeInvoiceId: subscription.id,

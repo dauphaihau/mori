@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { ICustomer } from 'types/customer';
 import { encryptPassword } from 'lib/crypto';
 import { config } from 'config';
@@ -16,6 +16,7 @@ const customerSchema = new mongoose.Schema<ICustomer>(
     phone: { type: String },
     role: { type: Number, required: true },
     status: { type: Number, required: true },
+    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
   },
   {
     timestamps: true,
@@ -32,5 +33,5 @@ const customerSchema = new mongoose.Schema<ICustomer>(
 //   next();
 // });
 
-const Customer = ( mongoose.models.Customer as mongoose.Model<ICustomer> ) || mongoose.model('Customer', customerSchema);
+const Customer = (mongoose.models.Customer as mongoose.Model<ICustomer>) || mongoose.model('Customer', customerSchema);
 export default Customer;

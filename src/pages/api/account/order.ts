@@ -2,7 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
 import { isFalsy, parseJSON } from "core/helpers";
 import { config } from 'config';
-import { ICustomer, IToken } from "types/customer";
+import { ICustomer } from "types/customer";
+import { IToken } from "types/token";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 import Stripe from "stripe"

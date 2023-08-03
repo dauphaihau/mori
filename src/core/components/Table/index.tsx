@@ -25,6 +25,8 @@ interface ITable {
   loading?: ReactNode,
   align?: 'center' | 'left' | 'right',
   hidePagination?: boolean,
+  sortColumn?: boolean,
+  onClickRow?: (row) => void,
 }
 
 const isEmpty = (obj = {}) => {
@@ -36,13 +38,13 @@ const Table = (props: ITable) => {
     columns = [], rows = [],
     rowsPerPageOptions = [],
     totalRows,
+    onClickRow,
     resetSelectCheckbox = false,
+    sortColumn = false,
     rowsPerPage: rowsPerPageFromProps = 10,
     hidePagination,
-    onChange = () => {
-    },
-    onChangeCheckbox = () => {
-    },
+    onChange = () => {},
+    onChangeCheckbox = () => {},
     loading,
     searchInputSelection,
     checkboxSelection, ...res
@@ -109,49 +111,52 @@ const Table = (props: ITable) => {
   const TableColumn = () => {
     return (
       <thead>
-            <tr>
-              {checkboxSelection &&
-                <th>
-                  <Checkbox
-                    classes='checked:bg-none'
-                    name='idsRow'
-                    defaultChecked={rowsChecked.length > 0}
-                    // onChange={handleCheckAllBox}
-                    value=''
-                  />
-                </th>
-              }
-              {columns.map((column) => {
-                const sortIcon = () => {
-                  if (column.id === sort.orderBy) {
-                    if (sort.order === 'asc') {
-                      return <i className='fa-solid fa-chevron-up'/>
-                    }
-                    return <i className='fa-solid fa-chevron-down'/>
-                  }
+        <tr>
+          {checkboxSelection &&
+            <th>
+              <Checkbox
+                classes='checked:bg-none'
+                name='idsRow'
+                defaultChecked={rowsChecked.length > 0}
+                // onChange={handleCheckAllBox}
+                value=''
+              />
+            </th>
+          }
+
+          {columns.map((column) => {
+            const sortIcon = () => {
+              if (column.id === sort.orderBy) {
+                if (sort.order === 'asc') {
+                  return <i className='fa-solid fa-chevron-up'/>
                 }
-                return (
-                  <th
-                    key={column.id}
-                    onClick={() => handleSort(column.id)}
-                    className={`text-left text-${column.align}`}
-                  >
-                    {
-                      column.id === 'actions' ?
-                        rowsChecked.length > 0 ?
-                          <i
-                            className='fa-solid fa-trash-can text-xs'
-                            onClick={() => onChangeCheckbox(rowsChecked)}
-                          />
-                          : ''
-                        :
-                        <span className='mr-2 text-[#9fa3a8]'>{column.title}</span>
-                    }
-                    {column.id !== 'actions' && <span>{sortIcon()}</span>}
-                  </th>
-                )
-              })}
-            </tr>
+                return <i className='fa-solid fa-chevron-down'/>
+              }
+            }
+            return (
+              <th
+                key={column.id}
+                onClick={() => handleSort(column.id)}
+                className={`text-left text-${column.align}`}
+              >
+                {
+                  column.id === 'actions' ?
+                    rowsChecked.length > 0 ?
+                      <i
+                        className='fa-solid fa-trash-can text-xs'
+                        onClick={() => onChangeCheckbox(rowsChecked)}
+                      />
+                      : <span className='text-[#9fa3a8]'>{column.title}</span>
+                    :
+                    <span className='mr-2 text-[#9fa3a8]'>{column.title}</span>
+                }
+                {column.id !== 'actions' && sortColumn && <span>{sortIcon()}</span>}
+              </th>
+            )
+          })}
+
+        </tr>
+        <tr className='block h-[1px] w-[1px] my-1'/>
       </thead>
     )
   }
@@ -172,6 +177,7 @@ const Table = (props: ITable) => {
           <TableColumn/>
           <TableRow
             loading={loading}
+            onClickRow={onClickRow}
             rowsPerPage={rowsPerPage}
             currentPage={currentPage}
             quantityRows={rows.length}

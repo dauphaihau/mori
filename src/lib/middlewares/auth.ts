@@ -1,6 +1,6 @@
 import { verifyToken } from "lib/jwt";
 import { parseJSON } from "core/helpers";
-import { IToken } from "types/customer";
+import { IToken } from "types/token";
 
 const secret = process.env.NEXT_PUBLIC_JWT_SECRET
 const now = new Date().getTime();
