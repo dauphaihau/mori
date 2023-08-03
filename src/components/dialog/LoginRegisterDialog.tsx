@@ -39,8 +39,7 @@ const formOptions = { resolver: yupResolver(userAuthSchema) };
 const formRegisterOptions = { resolver: yupResolver(userRegisterSchema) };
 
 const LoginRegisterDialog = ({ showLoginDialog, setShowLoginDialog }) => {
-  const { isAuthenticated, loginRegisterSuccess } = useAuth();
-  if (isAuthenticated) return null
+  const { loginRegisterSuccess } = useAuth();
   const router = useRouter();
   const [currentForm, setCurrentForm] = useState<TypeCurrentForm>('login')
   const [isLoading, setIsLoading] = useState(false)

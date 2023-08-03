@@ -188,10 +188,12 @@ const WriteReviewDialog = ({ mutateReviews, setRatingParent, classesBtn }: Write
 
   return (
     <>
-      <LoginRegisterDialog
-        showLoginDialog={showLoginDialog}
-        setShowLoginDialog={setShowLoginDialog}
-      />
+      {
+        !isAuthenticated && <LoginRegisterDialog
+          showLoginDialog={showLoginDialog}
+          setShowLoginDialog={setShowLoginDialog}
+        />
+      }
 
       <Dialog
         isOpen={showDialog}

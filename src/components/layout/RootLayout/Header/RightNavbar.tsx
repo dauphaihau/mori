@@ -25,10 +25,12 @@ export default function RightNavbar({ pageHasBanner, setShowSearchBar, showSearc
         showSearchProductDialog={showSearchBar}
         setShowSearchProductDialog={setShowSearchBar}
       />
-      <LoginRegisterDialog
-        showLoginDialog={showLoginDialog}
-        setShowLoginDialog={setShowLoginDialog}
-      />
+      {
+        !isAuthenticated && <LoginRegisterDialog
+          showLoginDialog={showLoginDialog}
+          setShowLoginDialog={setShowLoginDialog}
+        />
+      }
       <CartDrawer
         showCartDrawer={showCartDrawer}
         setShowCartDrawer={setShowCartDrawer}
